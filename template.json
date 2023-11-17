@@ -13,21 +13,71 @@
     },
     "Item": {
         "types": [
-            "fish",
-            "food"
+            "material",
+            "resource",
+            "equipment",
+            "weapon",
+            "armour",
+            "cape"
         ],
-        "fish": {
-            "name": "fish",
-            "equipmentRequired": "net",
-            "location": "sea",
+        "material": {
+            "name": "name",
+            "type": "type",
+            "gatheringRequirements": {
+                "equipmentRequired": "equipment required",
+                "location": "location"
+            },
             "cost": 0
         },
-        "food": {
-            "name": "food",
-            "materialsNeeded": "raw fish",
-            "use": "heal",
-            "effect": 1,
+        "resource": {
+            "name": "name",
+            "type": "type",
+            "craftingRequirements": {
+                "materialsNeeded": "materials needed",
+                "equipmentNeeded": "equipment needed"
+            },
+            "uses": "uses",
+            "effects": "effects",
             "cost": 0
+        },
+        "equipment": {
+            "name": "name",
+            "craftingRequirements": {
+                "materialsNeeded": "materials needed"
+            },
+            "uses": "uses",
+            "effects": "effects",
+            "cost": 0
+        },
+        "weapon": {
+            "name": "name",
+            "type": "type",
+            "damageEntries": "damage entries",
+            "range": "range",
+            "specialEffects": "special effects",
+            "craftingRequirements": {
+                "testNumberModifier": 0,
+                "barsRequired": "bars required",
+                "woodNeeded": "wood needed",
+                "additionalResources": "additional resources"
+            },
+            "cost": 0
+        },
+        "armour": {
+            "name": "name",
+            "type": "type",
+            "values": "values",
+            "craftingRequirements": {
+                "testNumberModifier": 0,
+                "barsRequired": "bars required",
+                "additionalResources": "additional resources"
+            },
+            "cost": 0
+        },
+        "cape": {
+            "name": "name",
+            "effect": "effect",
+            "awardedFor": "awarded for"
         }
     }
 }
