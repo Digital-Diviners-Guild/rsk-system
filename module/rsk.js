@@ -1,5 +1,5 @@
 import RSKItemSheet from "./sheets/RSKItemSheet.js";
-import RSKActorSheet from "./sheets/RSKActorSheet.js";
+import RSKPlayerSheet from "./sheets/RSKPlayerSheet.js";
 
 async function preloadHandlebarsTemplates() {
     const templatePaths = [
@@ -16,7 +16,7 @@ Hooks.once("init", function () {
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
 
     Actors.unregisterSheet("core", ActorSheet)
-    Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })
+    Actors.registerSheet("rsk", RSKPlayerSheet, { makeDefault: true })
 
     preloadHandlebarsTemplates();
 
