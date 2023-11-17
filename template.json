@@ -1,0 +1,33 @@
+{
+    "Actor": {
+        "types": [
+            "player",
+            "npc"
+        ],
+        "player": {
+            "name": "Player"
+        },
+        "npc": {
+            "name": "Bob the cat"
+        }
+    },
+    "Item": {
+        "types": [
+            "fish",
+            "food"
+        ],
+        "fish": {
+            "name": "fish",
+            "equipmentRequired": "net",
+            "location": "sea",
+            "cost": 0
+        },
+        "food": {
+            "name": "food",
+            "materialsNeeded": "raw fish",
+            "use": "heal",
+            "effect": 1,
+            "cost": 0
+        }
+    }
+}
