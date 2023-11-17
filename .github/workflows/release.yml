@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup .NET Core SDK
+        uses: actions/setup-dotnet@v3.2.0
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0
         with:
@@ -23,6 +27,8 @@ jobs:
         run: |
           sed -E "s/\/(\d.\d.\d).zip/\1 /${{ steps.gitversion.outputs.semVer }}/g" system.json
 
+          git config user.name github-actions
+          git config user.email github-actions@github.com
           git commit -am "update manifest"
           git push
       - name: Create Release
