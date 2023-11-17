@@ -13,27 +13,21 @@
     },
     "Item": {
         "types": [
-            "material",
             "resource",
             "equipment",
             "weapon",
             "armour",
             "cape"
         ],
-        "material": {
+        "resource": {
             "name": "name",
-            "type": "type",
+            "tags": ["tags"],
             "gatheringRequirements": {
                 "equipmentRequired": "equipment required",
                 "location": "location"
             },
-            "cost": 0
-        },
-        "resource": {
-            "name": "name",
-            "type": "type",
             "craftingRequirements": {
-                "materialsNeeded": "materials needed",
+                "resourceNeeded": "resource needed",
                 "equipmentNeeded": "equipment needed"
             },
             "uses": "uses",
@@ -42,30 +36,20 @@
         },
         "equipment": {
             "name": "name",
-            "craftingRequirements": {
-                "materialsNeeded": "materials needed"
-            },
-            "uses": "uses",
-            "effects": "effects",
-            "cost": 0
-        },
-        "weapon": {
-            "name": "name",
-            "type": "type",
+            "tags": ["tags"],
             "damageEntries": "damage entries",
             "range": "range",
             "specialEffects": "special effects",
+            "skillRequirement": "skillz",
             "craftingRequirements": {
                 "testNumberModifier": 0,
-                "barsRequired": "bars required",
-                "woodNeeded": "wood needed",
-                "additionalResources": "additional resources"
+                "resourcesNeeded": "resources needed"
             },
             "cost": 0
         },
         "armour": {
             "name": "name",
-            "type": "type",
+            "tags": ["tags"],
             "values": "values",
             "craftingRequirements": {
                 "testNumberModifier": 0,
