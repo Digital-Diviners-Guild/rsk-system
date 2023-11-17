@@ -1,10 +1,10 @@
 {
     "Actor": {
         "types": [
-            "player",
+            "character",
             "npc"
         ],
-        "player": {
+        "character": {
             "name": "Player"
         },
         "npc": {
