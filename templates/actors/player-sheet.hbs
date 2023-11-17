@@ -1,0 +1,7 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.system.img}}" data-edit="img" title="{{item.system.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{item.system.name}}" placeholder="Name"></h1>
+    </header>
+    {{> "systems/rsk-system/templates/actors/parts/player-part.hbs"}}
+</form>
