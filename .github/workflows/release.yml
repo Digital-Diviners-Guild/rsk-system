@@ -40,19 +40,22 @@ jobs:
           git config user.email github-actions@github.com
           git commit -am "update manifest"
           git push
-  release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    needs: [version, manifest]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ needs.version.outputs.semVer }}
-          release_name: Release ${{ needs.version.outputs.semVer }}
-          draft: false
-          prerelease: false
+
+  # todo: release in pipeline. once we figure out
+  # how to have the released version include the manifest update
+  # release:
+  #   name: Create Release
+  #   runs-on: ubuntu-latest
+  #   needs: [version, manifest]
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
+  #     - name: Create Release
+  #       uses: actions/create-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         tag_name: ${{ needs.version.outputs.semVer }}
+  #         release_name: Release ${{ needs.version.outputs.semVer }}
+  #         draft: false
+  #         prerelease: false
