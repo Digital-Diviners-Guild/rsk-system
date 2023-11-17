@@ -22,6 +22,9 @@ jobs:
       - name: Update Manifest
         run: |
           sed -E "s/\/(\d.\d.\d).zip/\1 /${{ steps.gitversion.outputs.semVer }}/g" system.json
+
+          git commit -am "update manifest"
+          git push
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
