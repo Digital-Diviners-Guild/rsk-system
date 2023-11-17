@@ -1,0 +1,23 @@
+{
+    "id": "rsk-system",
+    "title": "RSK System",
+    "description": "a system for rsk",
+    "version": "0.8.2",
+    "url": "https://github.com/qmarsala/rsk-system/",
+    "esmodules": ["module/rsk.js"],
+    "styles": ["styles/rsk.css"],
+    "packs": [],
+    "languages": [
+      {
+        "lang": "en",
+        "name": "English",
+        "path": "lang/en.json"
+      }
+    ],
+    "compatibility": {
+      "minimum": "10",
+      "verified": "11"
+    },
+    "gridDistance": 5,
+    "gridUnits": "ft"
+  }
