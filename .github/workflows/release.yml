@@ -6,9 +6,11 @@ on:
 name: Create Release
 
 jobs:
-  release:
-    name: Create Release
+  version:
+    name: Version
     runs-on: ubuntu-latest
+    outputs:
+      semVer: ${{ steps.gitversion.outputs.semVer }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,21 +25,34 @@ jobs:
       - name: Determine Version
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0
+  manifest:
+    name: Update Manifest
+    runs-on: ubuntu-latest
+    needs: version
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Update Manifest
         run: |
-          sed -i 's/\b[0-9]\+\.[0-9]\+\.[0-9]\+\b/${{ steps.gitversion.outputs.semVer }}/g' system.json
+          sed -i 's/\b[0-9]\+\.[0-9]\+\.[0-9]\+\b/${{ needs.version.outputs.semVer }}/g' system.json
 
           git config user.name github-actions
           git config user.email github-actions@github.com
           git commit -am "update manifest"
           git push
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: [version, manifest]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Create Release
-        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.gitversion.outputs.semVer }}
-          release_name: Release ${{ steps.gitversion.outputs.semVer }}
+          tag_name: ${{ needs.version.outputs.semVer }}
+          release_name: Release ${{ needs.version.outputs.semVer }}
           draft: false
           prerelease: false
