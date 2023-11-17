@@ -25,7 +25,7 @@ jobs:
         uses: gittools/actions/gitversion/execute@v0
       - name: Update Manifest
         run: |
-          sed -E "s/\/(\d.\d.\d).zip/\1 /${{ steps.gitversion.outputs.semVer }}/g" system.json
+          sed -i 's/\b[0-9]\+\.[0-9]\+\.[0-9]\+\b/${{ steps.gitversion.outputs.semVer }}/g' system.json
 
           git config user.name github-actions
           git config user.email github-actions@github.com
