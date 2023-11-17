@@ -1,4 +1,4 @@
-import RSKItemSheet from "./sheets/RSKItemSheet";
+import RSKItemSheet from "./sheets/RSKItemSheet.js";
 
 Hooks.once("init", function () {
     console.log("initializing...");
