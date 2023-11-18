@@ -26,6 +26,24 @@
         "types": [
             "resource"
         ],
-        "resource": {}
+        "resource": {
+            "uses": "",
+            "effects": "",
+            "cost": 0,
+            "tags": [],
+            "gatheringRequirements": {
+                "equipmentRequired": "",
+                "location": ""
+            },
+            "craftingRequirements": {
+                "equipmentRequired": "",
+                "resourcesNeeded": [
+                    {
+                        "name": "",
+                        "quantity": 0
+                    }
+                ]
+            }
+        }
     }
 }
