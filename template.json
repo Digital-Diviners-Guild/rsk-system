@@ -1,42 +1,31 @@
 {
-    "Actor": { },
+    "Actor": {
+        "types": [
+            "character",
+            "npc"
+        ],
+        "templates": {
+            "stats": {
+                "lifePoints": 1
+            }
+        },
+        "character": {
+            "name": "",
+            "templates": [
+                "stats"
+            ]
+        },
+        "npc": {
+            "name": "",
+            "templates": [
+                "stats"
+            ]
+        }
+    },
     "Item": {
         "types": [
-            "resource",
-            "equipment",
-            "weapon",
-            "armour",
-            "cape"
+            "resource"
         ],
-        "resource": {},
-        "equipment": {
-            "name": "name",
-            "tags": ["tags"],
-            "damageEntries": "damage entries",
-            "range": "range",
-            "specialEffects": "special effects",
-            "skillRequirement": "skillz",
-            "craftingRequirements": {
-                "testNumberModifier": 0,
-                "resourcesNeeded": "resources needed"
-            },
-            "cost": 0
-        },
-        "armour": {
-            "name": "name",
-            "tags": ["tags"],
-            "values": "values",
-            "craftingRequirements": {
-                "testNumberModifier": 0,
-                "barsRequired": "bars required",
-                "additionalResources": "additional resources"
-            },
-            "cost": 0
-        },
-        "cape": {
-            "name": "name",
-            "effect": "effect",
-            "awardedFor": "awarded for"
-        }
+        "resource": {}
     }
 }
