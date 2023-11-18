@@ -1,15 +1,15 @@
 <form class="{{cssClass}}" autocomplete="off">
     <header class="sheet-header">
-        <img src="{{item.system.img}}" data-edit="img" title="{{item.system.name}}" height="64" width="64" />
-        <h1><input type="text" name="name" value="{{item.system.name}}" placeholder="Name"></h1>
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
 
     <label for="rsk-resource-uses">Uses</label>
-    <input id="rsk-resource-uses" type="text" value="{{item.system.uses}}">
+    <input id="rsk-resource-uses" type="text" value="{{system.uses}}">
 
     <label for="rsk-resource-effects">Effects</label>
-    <input id="rsk-resource-effects" type="text" value="{{item.system.effects}}">
+    <input id="rsk-resource-effects" type="text" value="{{system.effects}}">
 
     <label for="rsk-resource-cost">Cost</label>
-    <input id="rsk-resource-cost" type="number" value="{{item.system.cost}}">
+    <input id="rsk-resource-cost" type="number" value="{{system.cost}}">
 </form>
