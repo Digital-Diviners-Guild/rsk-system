@@ -1,5 +1,5 @@
-import RSKItemSheet from "./sheets/RSKItemSheet.js";
-import RSKActorSheet from "./sheets/RSKActorSheet.js";
+import RSKItemSheet from "./module/sheets/RSKItemSheet.js";
+import RSKActorSheet from "./module/sheets/RSKActorSheet.js";
 
 async function preloadHandlebarsTemplates() {
     const templatePaths = [];

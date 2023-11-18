@@ -24,7 +24,8 @@
     },
     "Item": {
         "types": [
-            "resource"
+            "resource",
+            "other"
         ],
         "resource": {
             "uses": "",
@@ -44,6 +45,7 @@
                     }
                 ]
             }
-        }
+        },
+        "other": {}
     }
 }
