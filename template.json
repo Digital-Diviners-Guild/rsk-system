@@ -1,16 +1,5 @@
 {
-    "Actor": {
-        "types": [
-            "character",
-            "npc"
-        ],
-        "character": {
-            "name": "Player"
-        },
-        "npc": {
-            "name": "Bob the cat"
-        }
-    },
+    "Actor": { },
     "Item": {
         "types": [
             "resource",
