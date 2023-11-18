@@ -2,7 +2,6 @@ export default class RSKResourceData extends foundry.abstract.DataModel {
     static defineSchema() {
         const fields = foundry.data.fields;
         return {
-            name: new fields.StringField({ required: true, blank: false, initial: "new resource" }),
             uses: new fields.StringField({}),
             effects: new fields.StringField({}),
             cost: new fields.NumberField({ required: true, nullable: false, integer: true, positive: true, initial: 1 }),
