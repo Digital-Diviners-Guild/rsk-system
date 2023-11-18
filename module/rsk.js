@@ -1,5 +1,5 @@
-import RSKItemSheet from "./sheets/RSKItemSheet.js";
-import RSKCharacterSheet from "./sheets/RSKCharacterSheet.js";
+import RSKResourceSheet from "./sheets/RSKResourceSheet.js";
+import RSKResourceData from "./data/RSKResourceData.js";
 
 async function preloadHandlebarsTemplates() {
     const templatePaths = [
@@ -11,11 +11,11 @@ async function preloadHandlebarsTemplates() {
 
 Hooks.once("init", function () {
     console.log("initializing...");
-    Items.unregisterSheet("core", ItemSheet)
-    Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
 
-    Actors.unregisterSheet("core", ActorSheet)
-    Actors.registerSheet("rsk", RSKCharacterSheet, { makeDefault: true })
+    Items.unregisterSheet("core", ItemSheet)
+    Items.registerSheet("rsk", RSKResourceSheet, { makeDefault: true })
+
+    CONFIG.Item.systemDataModels.resource = RSKResourceData;
 
     preloadHandlebarsTemplates();
 
