@@ -14,9 +14,9 @@ Hooks.once("init", function () {
     Items.unregisterSheet("core", ItemSheet)
     Items.registerSheet("rsk", RSKResourceSheet, { makeDefault: true })
     
-    Actors.unregisterActor("core", ActorSheet)
-    Actors.registerActor("rsk", RSKCharacterSheet, { makeDefault: true })
-    Actors.registerActor("rsk", RSKNpcSheet)
+    Actors.unregisterSheet("core", ActorSheet)
+    Actors.registerSheet("rsk", RSKCharacterSheet, { makeDefault: true })
+    Actors.registerSheet("rsk", RSKNpcSheet)
 
     CONFIG.Item.dataModels.resource = RSKResourceData;
 
