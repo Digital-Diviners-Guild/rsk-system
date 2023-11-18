@@ -5,32 +5,34 @@
     </header>
 
     <label for="rsk-resource-uses">Uses</label>
-    <input id="rsk-resource-uses" type="text">
+    <input id="rsk-resource-uses" type="text" value="{{item.uses}}">
 
     <label for="rsk-resource-effects">Effects</label>
-    <input id="rsk-resource-effects" type="text">
+    <input id="rsk-resource-effects" type="text" value="{{item.effects}}">
 
     <label for="rsk-resource-cost">Cost</label>
-    <input id="rsk-resource-cost" type="number">
+    <input id="rsk-resource-cost" type="number" value="{{item.cost}}">
 
     <hr />
 
     <h3>Gathering Requirements</h3>
     <label for="rsk-resource-gathering-equipment-needed">Equipment Needed</label>
-    <input id="rsk-resource-gathering-equipment-needed" type="text">
+    <input id="rsk-resource-gathering-equipment-needed" type="text"
+        value="{{item.gatheringRequirements.equipmentNeeded}}">
 
     <label for="rsk-resource-gathering-location">Location</label>
-    <input id="rsk-resource-gathering-location" type="text">
+    <input id="rsk-resource-gathering-location" type="text" value="{{item.gatheringRequirements.location}}">
 
     <h3>Crafting Requirements</h3>
     <label for="rsk-resource-crafting-resource-needed">Resource Needed</label>
-    <input id="rsk-resource-crafting-resource-needed" type="text">
+    <input id="rsk-resource-crafting-resource-needed" type="text" value="{{item.craftingRequirements.resourcesNeeded}}">
 
     <label for="rsk-resource-crafting-equipment-needed">Equipment Needed</label>
-    <input id="rsk-resource-crafting-equipment-needed" type="text">
+    <input id="rsk-resource-crafting-equipment-needed" type="text"
+        value="{{item.gatheringRequirements.equipmentNeeded}}">
 
     <hr />
 
     <label for="rsk-resource-cost">Tags</label>
-    <input id="rsk-resource-cost" type="text">
+    <input id="rsk-resource-cost" type="text" value="{{item.tags}}">
 </form>
