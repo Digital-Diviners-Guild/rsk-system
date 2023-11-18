@@ -8,21 +8,7 @@
             "armour",
             "cape"
         ],
-        "resource": {
-            "name": "name",
-            "tags": ["tags"],
-            "gatheringRequirements": {
-                "equipmentRequired": "equipment required",
-                "location": "location"
-            },
-            "craftingRequirements": {
-                "resourceNeeded": "resource needed",
-                "equipmentNeeded": "equipment needed"
-            },
-            "uses": "uses",
-            "effects": "effects",
-            "cost": 0
-        },
+        "resource": {},
         "equipment": {
             "name": "name",
             "tags": ["tags"],
