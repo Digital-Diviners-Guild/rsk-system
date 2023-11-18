@@ -4,15 +4,14 @@
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
 
-    <label for="rsk-resource-uses">Uses</label>
-    <input id="rsk-resource-uses" type="text" value="{{system.uses}}">
+    <label>Uses</label>
+    <input name="system.uses" type="text" value="{{system.uses}}">
 
-    <label for="rsk-resource-effects">Effects</label>
-    <input id="rsk-resource-effects" type="text" value="{{system.effects}}">
+    <label>Effects</label>
+    <input name="system.effects" type="text" value="{{system.effects}}">
 
-    <label for="rsk-resource-cost">Cost</label>
-    <input id="rsk-resource-cost" type="number" value="{{system.cost}}">
+    <label>Cost</label>
+    <input name="system.cost" type="number" value="{{system.cost}}">
 
     {{log item}}
-    {{log item.system}}
 </form>
