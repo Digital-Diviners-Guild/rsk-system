@@ -5,107 +5,72 @@
         ],
         "templates": {
             "stats": {
-                "lifepoints":1,
-                "strength":0,
-                "agility":0,
-                "intellect":0,
-                "summoningpoints":0,
-                "prayerpoints":0
+                "stats": {
+                    "lifepoints":1,
+                    "strength":0,
+                    "agility":0,
+                    "intellect":0,
+                    "summoningpoints":0,
+                    "prayerpoints":0
+                }
             },
-            "baseskills":{
-                "archaelogy":1,
-                "attack":1,
-                "cooking":1,
-                "crafting":1,
-                "defence":1,
-                "dungeoneering":1,
-                "farming":1,
-                "fishing":1,
-                "fletching":1,
-                "herblore":1,
-                "hunter":1,
-                "magic":1,
-                "mining":1,
-                "prayer":1,
-                "ranged":1,
-                "runecrafting":1,
-                "slayer":1,
-                "smithing":1,
-                "summoning":1,
-                "thieving":1,
-                "woodcutting":1
-            },
-            "background": {
-                "backgroundname":"",
-                "skillimprovements": {
-                    "archaelogy":0,
-                    "attack":0,
-                    "cooking":0,
-                    "crafting":0,
-                    "defence":0,
-                    "dungeoneering":0,
-                    "farming":0,
-                    "fishing":0,
-                    "fletching":0,
-                    "herblore":0,
-                    "hunter":0,
-                    "magic":0,
-                    "mining":0,
-                    "prayer":0,
-                    "ranged":0,
-                    "runecrafting":0,
-                    "slayer":0,
-                    "smithing":0,
-                    "summoning":0,
-                    "thieving":0,
-                    "woodcutting":0
+            "baseskills": {
+                "baseskills": {
+                    "archaelogy":1,
+                    "attack":1,
+                    "cooking":1,
+                    "crafting":1,
+                    "defence":1,
+                    "dungeoneering":1,
+                    "farming":1,
+                    "fishing":1,
+                    "fletching":1,
+                    "herblore":1,
+                    "hunter":1,
+                    "magic":1,
+                    "mining":1,
+                    "prayer":1,
+                    "ranged":1,
+                    "runecrafting":1,
+                    "slayer":1,
+                    "smithing":1,
+                    "summoning":1,
+                    "thieving":1,
+                    "woodcutting":1
                 }
             },
             "armour": {
-                "headarmour":{
-                    "materialtype":"",
-                    "armourvalue":0
-                },
-                "bodyarmour":{
-                    "materialtype":"",
-                    "armourvalue":0
-                },
-                "legarmour":{
-                    "materialtype":"",
-                    "armourvalue":0
-                },
-                "armarmour":{
-                    "materialtype":"",
-                    "armourvalue":0,
-                    "effect":"",
-                    "damagevalue":0
-                },
-                "weapon":{
-                    "effect":"",
-                    "damagevalue":0
-                },
-                "cape":{}
+                "armour": {
+                    "headarmour": {},
+                    "bodyarmour": {},
+                    "legarmour": {},
+                    "armarmour": {},
+                    "weapon": {},
+                    "cape": {}
+                }
             },
             "backpack": {
-                "inventoryslots":[
-                    {},{},{},{},
-                    {},{},{},{},
-                    {},{},{},{},
-                    {},{},{},{},
-                    {},{},{},{},
-                    {},{},{},{},
-                    {},{},{},{}
-                ]
+                "backpack": {
+                    "inventoryslots":[
+                        {},{},{},{},
+                        {},{},{},{},
+                        {},{},{},{},
+                        {},{},{},{},
+                        {},{},{},{},
+                        {},{},{},{},
+                        {},{},{},{}
+                    ]
+                }
             }
         },
         "character": {
             "charactername": "",
             "catalyst": "",
             "motivation": "",
+            "backgrounds":[],
             "templates": [
                 "stats",
                 "baseskills",
-                "background",
                 "armour",
                 "backpack"
             ]
@@ -135,6 +100,58 @@
                 ]
             }
         },
-        "other": {}
+        "background": {
+            "backgroundname":"",
+            "skillimprovements": {
+                "archaelogy":0,
+                "attack":0,
+                "cooking":0,
+                "crafting":0,
+                "defence":0,
+                "dungeoneering":0,
+                "farming":0,
+                "fishing":0,
+                "fletching":0,
+                "herblore":0,
+                "hunter":0,
+                "magic":0,
+                "mining":0,
+                "prayer":0,
+                "ranged":0,
+                "runecrafting":0,
+                "slayer":0,
+                "smithing":0,
+                "summoning":0,
+                "thieving":0,
+                "woodcutting":0
+            }
+        },
+        "equipment": {
+            "name": "",
+            "damageEntries": "",
+            "range": "",
+            "specialEffects": "",
+            "skillRequirement": "",
+            "craftingRequirements": {
+                "testNumberModifier": 0,
+                "resourcesNeeded": ""
+            },
+            "cost": 0
+        },
+        "armour": {
+            "name": "",
+            "values": "",
+            "craftingRequirements": {
+                "testNumberModifier": 0,
+                "barsRequired": "",
+                "additionalResources": ""
+            },
+            "cost": 0
+        },
+        "cape": {
+            "name": "",
+            "effect": "",
+            "awardedFor": ""
+        }
     }
 }

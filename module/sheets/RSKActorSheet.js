@@ -2,12 +2,11 @@
  * Extend the basic ActorSheet
  * @extends {ActorSheet}
  */
-export class RSKActorSheet extends ActorSheet {
-
+export default class RSKActorSheet extends ActorSheet {
 
   /** @override */
   get template() {
-    return `systems/rsk-system/templates/actors/${this.actor.type}-sheet.html`;
+    return `systems/rsk-system/templates/actors/${this.actor.type}-sheet.hbs`;
   }
 
   /** @override */
@@ -24,12 +23,6 @@ export class RSKActorSheet extends ActorSheet {
     // Add the actor's data to context.data for easier access, as well as flags.
     context.system = actorData.system;
     context.flags = actorData.flags;
-
-    // Prepare character data and items.
-    //we will implement this later
-
-    // Prepare active effects
-    context.effects = prepareActiveEffectCategories(this.actor.effects);
 
     return context;
   }

@@ -4,14 +4,13 @@
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
 
-    <label>Uses</label>
+    <label>{{localize "RSK.Uses"}}</label>
     <input name="system.uses" type="text" value="{{system.uses}}">
 
-    <label>Effects</label>
+    <label>{{localize "RSK.Effects"}}</label>
     <input name="system.effects" type="text" value="{{system.effects}}">
 
-    <label>Cost</label>
+    <label>{{localize "RSK.Cost"}}</label>
     <input name="system.cost" type="number" value="{{system.cost}}">
 
-    {{log item}}
 </form>

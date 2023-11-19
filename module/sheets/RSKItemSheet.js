@@ -6,11 +6,11 @@ export default class RSKItemSheet extends ItemSheet {
     getData() {
         const context = super.getData();
         const itemData = context.item;
-        context.rollData = {};
-        let actor = this.object?.parent ?? null;
-        if (actor) {
-            context.rollData = actor.getRollData();
-        }
+        // context.rollData = {};
+        // let actor = this.object?.parent ?? null;
+        // if (actor) {
+        //     context.rollData = actor.getRollData();
+        // }
         context.system = itemData.system;
         context.flags = itemData.flags;
         return context;
