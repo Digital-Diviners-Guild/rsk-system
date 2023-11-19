@@ -1,24 +1,87 @@
 {
     "Actor": {
         "types": [
-            "character",
-            "npc"
+            "character"
         ],
         "templates": {
             "stats": {
-                "lifePoints": 1
+                "lifepoints":1,
+                "strength":0,
+                "agility":0,
+                "intellect":0,
+                "summoningpoints":0,
+                "prayerpoints":0
+            },
+            "skills":{
+                "archaelogy":1,
+                "attack":1,
+                "cooking":1,
+                "crafting":1,
+                "defence":1,
+                "dungeoneering":1,
+                "farming":1,
+                "fishing":1,
+                "fletching":1,
+                "herblore":1,
+                "hunter":1,
+                "magic":1,
+                "mining":1,
+                "prayer":1,
+                "ranged":1,
+                "runecrafting":1,
+                "slayer":1,
+                "smithing":1,
+                "summoning":1,
+                "thieving":1,
+                "woodcutting":1
+            },
+            "armour": {
+                "headarmour":{
+                    "materialtype":"",
+                    "armourvalue":0
+                },
+                "bodyarmour":{
+                    "materialtype":"",
+                    "armourvalue":0
+                },
+                "legarmour":{
+                    "materialtype":"",
+                    "armourvalue":0
+                },
+                "armarmour":{
+                    "materialtype":"",
+                    "armourvalue":0,
+                    "effect":"",
+                    "damagevalue":0
+                },
+                "weapon":{
+                    "effect":"",
+                    "damagevalue":0
+                },
+                "cape":{}
+            },
+            "backpack": {
+                "inventoryslots":[
+                    {},{},{},{},
+                    {},{},{},{},
+                    {},{},{},{},
+                    {},{},{},{},
+                    {},{},{},{},
+                    {},{},{},{},
+                    {},{},{},{}
+                ]
             }
         },
         "character": {
-            "name": "",
+            "charactername": "",
+            "catalyst": "",
+            "motivation": "",
+            "background": "",
             "templates": [
-                "stats"
-            ]
-        },
-        "npc": {
-            "name": "",
-            "templates": [
-                "stats"
+                "stats",
+                "skills",
+                "armour",
+                "backpack"
             ]
         }
     },
