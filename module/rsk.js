@@ -5,7 +5,9 @@ import RSKItemSheet from "./sheets/RSKItemSheet.js";
 import RSKActorSheet from "./sheets/RSKActorSheet.js";
 
 async function preloadHandlebarsTemplates() {
-    const templatePaths = [];
+    const templatePaths = [
+        "/systems/rsk-system/templates/items/parts/edit-cape.hbs"
+    ];
     return loadTemplates(templatePaths);
 }
 
@@ -25,5 +27,6 @@ Hooks.once("init", function () {
     Actors.unregisterSheet("core", ActorSheet)
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })
 
+    preloadHandlebarsTemplates()
     console.log("rsk ready");
 });

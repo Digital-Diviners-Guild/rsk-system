@@ -3,14 +3,35 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">Description</a>
+        <a class="item" data-tab="edit">Edit</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab features" data-group="primary" data-tab="description">
+            <div>
+                <h3>{{localize "RSK.AwardedFor"}}:</h3>
+                <p>
+                    {{system.awardedForDescription}}
+                </p>
+            </div>
+            <div>
+                <h3>{{localize "RSK.Effects"}}:</h3>
+                <p>
+                    {{system.effectsDescription}}
+                </p>
+            </div>
+        </div>
 
-    <label>{{localize "RSK.AwardedFor"}}</label>
-    <input name="system.awardedForDescription" type="text" value="{{system.awardedForDescription}}">
+        <div class="tab features" data-group="primary" data-tab="edit">
+            {{!-- editable? --}}
+            {{> "/systems/rsk-system/templates/items/parts/edit-cape.hbs" }}
+        </div>
+    </section>
 
-    <label>{{localize "RSK.Effects"}}</label>
-    <input name="system.effectsDescription" type="text" value="{{system.effectsDescription}}">
-
-    {{!-- todo: sheet functionality to input the values for the effects described --}}
-    {{!-- these will be numerical values that augment you skills/damage when equipped --}}
-    {{!-- these values will need to be categorized by 'stat'/'damage type' and if they 'increase' or 'decrease' these values --}}
+    {{!--
+    todo: sheet functionality to input the values for the effects described
+    these will be numerical values that augment you skills/damage when equipped
+    these values will need to be categorized by 'stat' /'damage type' and if they 'increase' or 'decrease' these values
+    --}}
 </form>

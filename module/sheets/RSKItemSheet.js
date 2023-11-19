@@ -1,6 +1,15 @@
 export default class RSKItemSheet extends ItemSheet {
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            classes: ["rsk", "sheet", "item"],
+            width: 600,
+            height: 600,
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+        });
+    }
+
     get template() {
-        return `systems/rsk-system/templates/items/${this.item.type}-sheet.hbs`;
+        return `systems/rsk-system/templates/items/${this.item.type}-sheet.hbs`
     }
 
     getData() {
