@@ -12,7 +12,7 @@
                 "summoningpoints":0,
                 "prayerpoints":0
             },
-            "skills":{
+            "baseskills":{
                 "archaelogy":1,
                 "attack":1,
                 "cooking":1,
@@ -34,6 +34,32 @@
                 "summoning":1,
                 "thieving":1,
                 "woodcutting":1
+            },
+            "background": {
+                "backgroundname":"",
+                "skillimprovements": {
+                    "archaelogy":0,
+                    "attack":0,
+                    "cooking":0,
+                    "crafting":0,
+                    "defence":0,
+                    "dungeoneering":0,
+                    "farming":0,
+                    "fishing":0,
+                    "fletching":0,
+                    "herblore":0,
+                    "hunter":0,
+                    "magic":0,
+                    "mining":0,
+                    "prayer":0,
+                    "ranged":0,
+                    "runecrafting":0,
+                    "slayer":0,
+                    "smithing":0,
+                    "summoning":0,
+                    "thieving":0,
+                    "woodcutting":0
+                }
             },
             "armour": {
                 "headarmour":{
@@ -76,10 +102,10 @@
             "charactername": "",
             "catalyst": "",
             "motivation": "",
-            "background": "",
             "templates": [
                 "stats",
-                "skills",
+                "baseskills",
+                "background",
                 "armour",
                 "backpack"
             ]
