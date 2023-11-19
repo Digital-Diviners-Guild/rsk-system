@@ -10,9 +10,9 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
-                <h3>{{localize "RSK.AwardedFor"}}:</h3>
+                <h3>{{localize "RSK.Uses"}}:</h3>
                 <p>
-                    {{system.awardedForDescription}}
+                    {{system.usesDescription}}
                 </p>
             </div>
             <div>
@@ -21,10 +21,18 @@
                     {{system.effectsDescription}}
                 </p>
             </div>
+            <div>
+                <h3>{{localize "RSK.AwardedFor"}}:</h3>
+                <p>
+                    {{system.awardedForDescription}}
+                </p>
+            </div>
+
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
             {{!-- editable? --}}
+            {{> "/systems/rsk-system/templates/items/parts/edit-uses-effects.hbs" }}
             {{> "/systems/rsk-system/templates/items/parts/edit-cape.hbs" }}
         </div>
     </section>

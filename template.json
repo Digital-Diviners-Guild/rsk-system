@@ -168,10 +168,9 @@
             "cape"
         ],
         "templates": {
-            "baseFields": {
+            "usesEffects": {
                 "usesDescription": "",
-                "effectsDescription": "",
-                "cost": 0
+                "effectsDescription": ""
             },
             "hasCraftingRequirements": {
                 "craftingRequirements": {
@@ -188,9 +187,10 @@
         },
         "resource": {
             "templates": [
-                "baseFields",
+                "usesEffects",
                 "hasCraftingRequirements"
             ],
+            "cost": 0,
             "gatheringRequirements": {
                 "equipmentRequired": "",
                 "location": ""
@@ -224,23 +224,25 @@
         },
         "equipment": {
             "templates": [
-                "baseFields",
+                "usesEffects",
                 "hasCraftingRequirements"
             ],
+            "cost": 0,
             "damageEntries": "",
             "range": "",
             "skillRequirement": ""
         },
         "armour": {
             "templates": [
-                "baseFields",
+                "usesEffects",
                 "hasCraftingRequirements"
             ],
+            "cost": 0,
             "values": ""
         },
         "cape": {
             "templates": [
-                "baseFields"
+                "usesEffects"
             ],
             "awardedForDescription": ""
         }
