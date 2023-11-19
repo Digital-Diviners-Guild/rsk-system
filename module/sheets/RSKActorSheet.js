@@ -1,52 +1,42 @@
 /**
- * Extend the base Actor document by defining a custom roll data structure which is ideal for the rsk system.
- * @extends {Actor}
+ * Extend the basic ActorSheet
+ * @extends {ActorSheet}
  */
-export class rskActor extends Actor {
+export class RSKActorSheet extends ActorSheet {
 
-    /** @override */
-    prepareData() {
-      // Prepare data for the actor. Calling the super version of this executes
-      // the following, in order: data reset (to clear active effects),
-      // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
-      // prepareDerivedData().
-      super.prepareData();
-    }
-  
-    /** @override */
-    prepareBaseData() {
-      // Data modifications in this step occur before processing embedded
-      // documents or derived data.
-    }
 
-    /**
-     * @override
-     * Augment the basic actor data with additional dynamic data. Typically,
-     * you'll want to handle most of your calculated/derived data in this step.
-     * Data calculated in this step should generally not exist in template.json
-     * (such as ability modifiers rather than ability scores) and should be
-     * available both inside and outside of character sheets (such as if an actor
-     * is queried and has a roll executed directly from it).
-     */
-    prepareDerivedData() {
-      const actorData = this;
-      const systemData = actorData.system;
-      const flags = actorData.flags.boilerplate || {};
+  /** @override */
+  get template() {
+    return `systems/rsk-system/templates/actors/${this.actor.type}-sheet.html`;
+  }
 
-      // Make separate methods for each Actor type (character, npc, etc.) to keep
-      // things organized.
-      this._prepareCharacterData(actorData);
-    }
+  /** @override */
+  getData() {
+    // Retrieve the data structure from the base sheet. You can inspect or log
+    // the context variable to see the structure, but some key properties for
+    // sheets are the actor object, the data object, whether or not it's
+    // editable, the items array, and the effects array.
+    const context = super.getData();
 
-    /**
-     * Prepare Character type specific data
-     */
-    _prepareCharacterData(actorData) {
-      if (actorData.type !== 'character') return;
+    // Use a safe clone of the actor data for further operations.
+    const actorData = this.actor.toObject(false);
 
-      // Make modifications to data here. For example:
-      const systemData = actorData.system;
+    // Add the actor's data to context.data for easier access, as well as flags.
+    context.system = actorData.system;
+    context.flags = actorData.flags;
 
-      // Need to Loop through skills and calculate the totalskill based on backgrounds.
-    }
+    // Prepare character data and items.
+    //we will implement this later
+
+    // Prepare active effects
+    context.effects = prepareActiveEffectCategories(this.actor.effects);
+
+    return context;
+  }
+
+  /** @override */
+  activateListeners(html) {
+    super.activateListeners(html);
+    if (!this.isEditable) return;
+  }
 }

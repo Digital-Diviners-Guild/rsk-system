@@ -1,4 +1,5 @@
 import RSKItem from "./documents/RSKItem.js";
+import RSKActor from "./documents/RSKActor.js";
 
 import RSKItemSheet from "./sheets/RSKItemSheet.js";
 import RSKActorSheet from "./sheets/RSKActorSheet.js";
@@ -11,9 +12,11 @@ async function preloadHandlebarsTemplates() {
 Hooks.once("init", function () {
     console.log("initializing...");
     game.rsk = {
-        RSKItem
-    }
+        RSKItem,
+        RSKActor
+    };
 
+    CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Item.documentClass = RSKItem;
 
     Items.unregisterSheet("core", ItemSheet)
