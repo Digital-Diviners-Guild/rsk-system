@@ -3,4 +3,14 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
+
+    <label>{{localize "RSK.AwardedFor"}}</label>
+    <input name="system.awardedForDescription" type="text" value="{{system.awardedForDescription}}">
+
+    <label>{{localize "RSK.Effects"}}</label>
+    <input name="system.effectsDescription" type="text" value="{{system.effectsDescription}}">
+
+    {{!-- todo: sheet functionality to input the values for the effects described --}}
+    {{!-- these will be numerical values that augment you skills/damage when equipped --}}
+    {{!-- these values will need to be categorized by 'stat'/'damage type' and if they 'increase' or 'decrease' these values --}}
 </form>
