@@ -1,4 +1,4 @@
-export class RSKItem extends Item {
+export default class RSKItem extends Item {
     prepareData() {
         super.prepareData();
     }
