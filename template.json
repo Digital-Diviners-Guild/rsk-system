@@ -14,8 +14,8 @@
                     "prayerpoints":0
                 }
             },
-            "baseskills": {
-                "baseskills": {
+            "skills": {
+                "skills": {
                     "archaelogy":1,
                     "attack":1,
                     "cooking":1,
@@ -39,8 +39,8 @@
                     "woodcutting":1
                 }
             },
-            "armour": {
-                "armour": {
+            "worn": {
+                "worn": {
                     "headarmour": {},
                     "bodyarmour": {},
                     "legarmour": {},
@@ -64,13 +64,12 @@
             }
         },
         "character": {
-            "charactername": "",
             "catalyst": "",
             "motivation": "",
             "backgrounds":[],
             "templates": [
                 "stats",
-                "baseskills",
+                "skills",
                 "armour",
                 "backpack"
             ]
