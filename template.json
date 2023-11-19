@@ -141,7 +141,10 @@
     "Item": {
         "types": [
             "resource",
-            "other"
+            "background",
+            "equipment",
+            "armour",
+            "cape"
         ],
         "resource": {
             "uses": "",
