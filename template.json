@@ -6,99 +6,99 @@
         "templates": {
             "stats": {
                 "stats": {
-                    "lifepoints":1,
-                    "strength":0,
-                    "agility":0,
-                    "intellect":0,
-                    "summoningpoints":0,
-                    "prayerpoints":0
+                    "lifepoints": 1,
+                    "strength": 0,
+                    "agility": 0,
+                    "intellect": 0,
+                    "summoningpoints": 0,
+                    "prayerpoints": 0
                 }
             },
             "skills": {
                 "skills": {
-                    "archaelogy":{
-                        "level":1,
-                        "used":false
+                    "archaelogy": {
+                        "level": 1,
+                        "used": false
                     },
-                    "attack":{
-                        "level":1,
-                        "used":false
+                    "attack": {
+                        "level": 1,
+                        "used": false
                     },
-                    "cooking":{
-                        "level":1,
-                        "used":false
+                    "cooking": {
+                        "level": 1,
+                        "used": false
                     },
-                    "crafting":{
-                        "level":1,
-                        "used":false
+                    "crafting": {
+                        "level": 1,
+                        "used": false
                     },
-                    "defence":{
-                        "level":1,
-                        "used":false
+                    "defence": {
+                        "level": 1,
+                        "used": false
                     },
-                    "dungeoneering":{
-                        "level":1,
-                        "used":false
+                    "dungeoneering": {
+                        "level": 1,
+                        "used": false
                     },
-                    "farming":{
-                        "level":1,
-                        "used":false
+                    "farming": {
+                        "level": 1,
+                        "used": false
                     },
-                    "fishing":{
-                        "level":1,
-                        "used":false
+                    "fishing": {
+                        "level": 1,
+                        "used": false
                     },
-                    "fletching":{
-                        "level":1,
-                        "used":false
+                    "fletching": {
+                        "level": 1,
+                        "used": false
                     },
-                    "herblore":{
-                        "level":1,
-                        "used":false
+                    "herblore": {
+                        "level": 1,
+                        "used": false
                     },
-                    "hunter":{
-                        "level":1,
-                        "used":false
+                    "hunter": {
+                        "level": 1,
+                        "used": false
                     },
-                    "magic":{
-                        "level":1,
-                        "used":false
+                    "magic": {
+                        "level": 1,
+                        "used": false
                     },
-                    "mining":{
-                        "level":1,
-                        "used":false
+                    "mining": {
+                        "level": 1,
+                        "used": false
                     },
-                    "prayer":{
-                        "level":1,
-                        "used":false
+                    "prayer": {
+                        "level": 1,
+                        "used": false
                     },
-                    "ranged":{
-                        "level":1,
-                        "used":false
+                    "ranged": {
+                        "level": 1,
+                        "used": false
                     },
-                    "runecrafting":{
-                        "level":1,
-                        "used":false
+                    "runecrafting": {
+                        "level": 1,
+                        "used": false
                     },
-                    "slayer":{
-                        "level":1,
-                        "used":false
+                    "slayer": {
+                        "level": 1,
+                        "used": false
                     },
-                    "smithing":{
-                        "level":1,
-                        "used":false
+                    "smithing": {
+                        "level": 1,
+                        "used": false
                     },
-                    "summoning":{
-                        "level":1,
-                        "used":false
+                    "summoning": {
+                        "level": 1,
+                        "used": false
                     },
-                    "thieving":{
-                        "level":1,
-                        "used":false
+                    "thieving": {
+                        "level": 1,
+                        "used": false
                     },
-                    "woodcutting":{
-                        "level":1,
-                        "used":false
+                    "woodcutting": {
+                        "level": 1,
+                        "used": false
                     }
                 }
             },
@@ -114,14 +114,35 @@
             },
             "backpack": {
                 "backpack": {
-                    "inventoryslots":[
-                        {},{},{},{},
-                        {},{},{},{},
-                        {},{},{},{},
-                        {},{},{},{},
-                        {},{},{},{},
-                        {},{},{},{},
-                        {},{},{},{}
+                    "inventoryslots": [
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {},
+                        {}
                     ]
                 }
             }
@@ -129,7 +150,7 @@
         "character": {
             "catalyst": "",
             "motivation": "",
-            "backgrounds":[],
+            "backgrounds": [],
             "templates": [
                 "stats",
                 "skills",
@@ -146,77 +167,82 @@
             "armour",
             "cape"
         ],
+        "templates": {
+            "baseFields": {
+                "usesDescription": "",
+                "effectsDescription": "",
+                "cost": 0
+            },
+            "hasCraftingRequirements": {
+                "craftingRequirements": {
+                    "testNumberModifier": 0,
+                    "equipmentRequired": "",
+                    "resourcesNeeded": [
+                        {
+                            "name": "",
+                            "quantity": 0
+                        }
+                    ]
+                }
+            }
+        },
         "resource": {
-            "uses": "",
-            "effects": "",
-            "cost": 0,
-            "tags": [],
+            "templates": [
+                "baseFields",
+                "hasCraftingRequirements"
+            ],
             "gatheringRequirements": {
                 "equipmentRequired": "",
                 "location": ""
-            },
-            "craftingRequirements": {
-                "equipmentRequired": "",
-                "resourcesNeeded": [
-                    {
-                        "name": "",
-                        "quantity": 0
-                    }
-                ]
             }
         },
         "background": {
-            "backgroundname":"",
+            "backgroundname": "",
             "skillimprovements": {
-                "archaelogy":0,
-                "attack":0,
-                "cooking":0,
-                "crafting":0,
-                "defence":0,
-                "dungeoneering":0,
-                "farming":0,
-                "fishing":0,
-                "fletching":0,
-                "herblore":0,
-                "hunter":0,
-                "magic":0,
-                "mining":0,
-                "prayer":0,
-                "ranged":0,
-                "runecrafting":0,
-                "slayer":0,
-                "smithing":0,
-                "summoning":0,
-                "thieving":0,
-                "woodcutting":0
+                "archaelogy": 0,
+                "attack": 0,
+                "cooking": 0,
+                "crafting": 0,
+                "defence": 0,
+                "dungeoneering": 0,
+                "farming": 0,
+                "fishing": 0,
+                "fletching": 0,
+                "herblore": 0,
+                "hunter": 0,
+                "magic": 0,
+                "mining": 0,
+                "prayer": 0,
+                "ranged": 0,
+                "runecrafting": 0,
+                "slayer": 0,
+                "smithing": 0,
+                "summoning": 0,
+                "thieving": 0,
+                "woodcutting": 0
             }
         },
         "equipment": {
-            "name": "",
+            "templates": [
+                "baseFields",
+                "hasCraftingRequirements"
+            ],
             "damageEntries": "",
             "range": "",
-            "specialEffects": "",
-            "skillRequirement": "",
-            "craftingRequirements": {
-                "testNumberModifier": 0,
-                "resourcesNeeded": ""
-            },
-            "cost": 0
+            "skillRequirement": ""
         },
         "armour": {
-            "name": "",
-            "values": "",
-            "craftingRequirements": {
-                "testNumberModifier": 0,
-                "barsRequired": "",
-                "additionalResources": ""
-            },
-            "cost": 0
+            "templates": [
+                "baseFields",
+                "hasCraftingRequirements"
+            ],
+            "values": ""
         },
         "cape": {
-            "name": "",
-            "effect": "",
-            "awardedFor": ""
+            "templates": [
+                "baseFields"
+            ],
+            "awardedForDescription": ""
         }
     }
 }
