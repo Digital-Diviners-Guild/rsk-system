@@ -7,6 +7,7 @@ import RSKActorSheet from "./sheets/RSKActorSheet.js";
 async function preloadHandlebarsTemplates() {
     const templatePaths = [
         "/systems/rsk-system/templates/items/parts/edit-uses-effects.hbs",
+        "/systems/rsk-system/templates/items/parts/uses-effects.hbs",
         "/systems/rsk-system/templates/items/parts/edit-cape.hbs"
     ];
     return loadTemplates(templatePaths);
