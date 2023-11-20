@@ -165,7 +165,8 @@
             "background",
             "equipment",
             "armour",
-            "cape"
+            "cape",
+            "quest"
         ],
         "templates": {
             "usesEffects": {
@@ -245,6 +246,13 @@
                 "usesEffects"
             ],
             "awardedForDescription": ""
+        },
+        "quest": {
+            "questRequirements": [],
+            "skillRequirements": [],
+            "summary": "",
+            "rewards": "",
+            "steps": []
         }
     }
 }
