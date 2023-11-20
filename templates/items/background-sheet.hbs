@@ -3,4 +3,42 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
+
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">Description</a>
+        <a class="item" data-tab="edit">Edit</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab features" data-group="primary" data-tab="description">
+            <div>
+                <h3>{{localize "RSK.Description"}}:</h3>
+                <p>
+                    {{system.description}}
+                </p>
+
+                <h3>{{localize "RSK.SkillImprovements"}}:</h3>
+                <ul>
+                    {{#each system.skillImprovements as |level skill|}}
+                    {{#if level}}
+                    <li>{{skill}} +{{level}}</li>
+                    {{/if}}
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+
+        <div class="tab features" data-group="primary" data-tab="edit">
+            {{!-- editable? --}}
+            <h3>{{localize "RSK.Description"}}:</h3>
+            <input name="system.description" type="text" value="{{system.description}}">
+
+            <h3>{{localize "RSK.SkillImprovements"}}:</h3>
+            {{#each system.skillImprovements as |level skill|}}
+            {{!-- todo: how would we localize this? --}}
+            <label>{{skill}}</label>
+            <input name="system.skillImprovements.{{skill}}" type="number" value="{{level}}">
+            {{/each}}
+
+        </div>
+    </section>
 </form>

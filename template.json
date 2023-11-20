@@ -197,8 +197,8 @@
             }
         },
         "background": {
-            "backgroundname": "",
-            "skillimprovements": {
+            "description": "",
+            "skillImprovements": {
                 "archaelogy": 0,
                 "attack": 0,
                 "cooking": 0,
