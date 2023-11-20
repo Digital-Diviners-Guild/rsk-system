@@ -9,18 +9,8 @@
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
-            <div>
-                <h3>{{localize "RSK.Uses"}}:</h3>
-                <p>
-                    {{system.usesDescription}}
-                </p>
-            </div>
-            <div>
-                <h3>{{localize "RSK.Effects"}}:</h3>
-                <p>
-                    {{system.effectsDescription}}
-                </p>
-            </div>
+            {{> "/systems/rsk-system/templates/items/parts/uses-effects.hbs" }}
+
             <div>
                 <h3>{{localize "RSK.AwardedFor"}}:</h3>
                 <p>
@@ -33,7 +23,9 @@
         <div class="tab features" data-group="primary" data-tab="edit">
             {{!-- editable? --}}
             {{> "/systems/rsk-system/templates/items/parts/edit-uses-effects.hbs" }}
-            {{> "/systems/rsk-system/templates/items/parts/edit-cape.hbs" }}
+
+            <label>{{localize "RSK.AwardedFor"}}</label>
+            <input name="system.awardedForDescription" type="text" value="{{system.awardedForDescription}}">
         </div>
     </section>
 
