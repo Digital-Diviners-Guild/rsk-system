@@ -3,4 +3,30 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
+
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">Description</a>
+        <a class="item" data-tab="edit">Edit</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab features" data-group="primary" data-tab="description">
+            {{> "/systems/rsk-system/templates/items/parts/uses-effects.hbs" }}
+            <div>
+                <h3>{{localize "RSK.Cost"}}:</h3>
+                <p>
+                    {{system.cost}}
+                </p>
+            </div>
+
+            {{!-- todo: craftingRequirements, will want a part for it --}}
+        </div>
+
+        <div class="tab features" data-group="primary" data-tab="edit">
+            {{!-- editable? --}}
+            {{> "/systems/rsk-system/templates/items/parts/edit-uses-effects.hbs" }}
+
+            <label>{{localize "RSK.Cost"}}</label>
+            <input type="text" name="system.cost" value="{{system.cost}}">
+        </div>
+    </section>
 </form>
