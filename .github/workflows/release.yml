@@ -43,7 +43,7 @@ jobs:
           mkdir -p /home/runner/work/rsk-system/Data
           fvtt configure set dataPath "/home/runner/work/rsk-system/Data"
           fvtt package workon "rsk-system" --type "System"
-          fvtt package pack -n "rsk-capes" --in ./packs/src --out ./packs
+          fvtt package pack -n "rsk-capes" --in ./packs/src/rsk-capes --out ./packs/rsk-capes
 
       - name: Zip Files
         run: zip -r "./rsk-system.zip" ./*
