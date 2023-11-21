@@ -40,18 +40,22 @@ jobs:
       - name: Pack packs
         run: |
           npm install -g @foundryvtt/foundryvtt-cli
-          mkdir -p ${{github.workspace}}/Data/system
-          mkdir -p ${{github.workspace}}/Data/module
-          mkdir -p ${{github.workspace}}/Data/worlds
-          fvtt configure set dataPath "${{github.workspace}}/Data"
+          mkdir -p /home/runner/work/rsk-system
+          mkdir -p /home/runner/work/rsk-system/Data/module
+          mkdir -p /home/runner/work/rsk-system/Data/worlds
+          fvtt configure set dataPath "/home/runner/work/rsk-system/Data"
           fvtt package workon "rsk-system" --type "System"
           fvtt package pack -n "rsk-capes" --in ./packs/src --out ../packs
-      - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Zip Files
+        run: zip -r "./rsk-system-${{needs.version.outputs.semVer}}.zip" ./*
+      - name: Release
+        id: create_version_release
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ needs.version.outputs.semVer }}
-          release_name: Release ${{ needs.version.outputs.semVer }}
+          name: Release ${{needs.version.outputs.semVer}}
+          allowUpdates: false
           draft: false
           prerelease: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "./rsk-system-${{needs.version.outputs.semVer}}.zip"
+          tag: ${{needs.version.outputs.semVer}}
