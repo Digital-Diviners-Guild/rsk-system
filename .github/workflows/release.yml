@@ -46,7 +46,7 @@ jobs:
           fvtt package pack -n "rsk-capes" --in ./packs/src --out ./packs
 
       - name: Zip Files
-        run: zip -r "./rsk-system-${{needs.version.outputs.semVer}}.zip" ./*
+        run: zip -r "./rsk-system.zip" ./*
       - name: Release
         id: create_version_release
         uses: ncipollo/release-action@v1
@@ -56,5 +56,5 @@ jobs:
           draft: false
           prerelease: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "./rsk-system-${{needs.version.outputs.semVer}}.zip"
+          artifacts: "./rsk-system.zip"
           tag: ${{needs.version.outputs.semVer}}
