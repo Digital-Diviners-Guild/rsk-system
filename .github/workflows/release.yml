@@ -40,8 +40,11 @@ jobs:
       - name: Pack packs
         run: |
           npm install -g @foundryvtt/foundryvtt-cli
-          fvtt configure set dataPath "${{ github.workspace }}"
-          fvtt package workon "rsk-system"
+          mkdir -p ${{github.workspace}}/Data/system
+          mkdir -p ${{github.workspace}}/Data/module
+          mkdir -p ${{github.workspace}}/Data/worlds
+          fvtt configure set dataPath "${{github.workspace}}/Data"
+          fvtt package workon "rsk-system" --type "System"
           fvtt package pack -n "rsk-capes" --in ./packs/src --out ../packs
       - name: Create Release
         uses: actions/create-release@v1
