@@ -40,12 +40,11 @@ jobs:
       - name: Pack packs
         run: |
           npm install -g @foundryvtt/foundryvtt-cli
-          mkdir -p /home/runner/work/rsk-system
-          mkdir -p /home/runner/work/rsk-system/Data/module
-          mkdir -p /home/runner/work/rsk-system/Data/worlds
+          mkdir -p /home/runner/work/rsk-system/Data
           fvtt configure set dataPath "/home/runner/work/rsk-system/Data"
           fvtt package workon "rsk-system" --type "System"
-          fvtt package pack -n "rsk-capes" --in ./packs/src --out ../packs
+          fvtt package pack -n "rsk-capes" --in ./packs/src --out ./packs
+
       - name: Zip Files
         run: zip -r "./rsk-system-${{needs.version.outputs.semVer}}.zip" ./*
       - name: Release
