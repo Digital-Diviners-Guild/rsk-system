@@ -12,9 +12,9 @@
   ],
   "packs": [
     {
-      "name": "rsk-items",
+      "name": "rsk-capes",
       "label": "capes",
-      "path": "packs/rsk-items",
+      "path": "packs/rsk-capes",
       "type": "Item",
       "system": "rsk-system",
       "ownership": {
