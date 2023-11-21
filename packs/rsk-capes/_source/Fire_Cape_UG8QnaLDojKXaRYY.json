@@ -1,7 +1,6 @@
 {
   "name": "Fire Cape",
   "type": "cape",
-  "_id": "8JNvDDpeEQ3zYVwP",
   "img": "icons/svg/item-bag.svg",
   "system": {
     "usesDescription": "Wearing",
@@ -15,10 +14,17 @@
   },
   "_stats": {
     "systemId": "rsk-system",
-    "systemVersion": "0.1.56",
+    "systemVersion": "0.1.57",
     "coreVersion": "11.315",
     "createdTime": 1700528384399,
-    "modifiedTime": 1700602554027,
+    "modifiedTime": 1700603560584,
     "lastModifiedBy": "XogNE2pcyLHe3eLi"
-  }
+  },
+  "_id": "UG8QnaLDojKXaRYY",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "XogNE2pcyLHe3eLi": 3
+  },
+  "_key": "!items!UG8QnaLDojKXaRYY"
 }
