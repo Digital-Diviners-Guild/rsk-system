@@ -1,0 +1,32 @@
+{
+  "name": "Fire Cape",
+  "type": "cape",
+  "_id": "8JNvDDpeEQ3zYVwP",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "usesDescription": "Wearing",
+    "effectsDescription": "You gain +5 armour soak against fire damage",
+    "awardedForDescription": "defeating TzTok-Jad"
+  },
+  "effects": [],
+  "folder": "NjYB4juyQmubN8iI",
+  "sort": 100000,
+  "ownership": {
+    "default": 0,
+    "XogNE2pcyLHe3eLi": 3
+  },
+  "flags": {
+    "core": {
+      "sourceId": "Item.8JNvDDpeEQ3zYVwP"
+    }
+  },
+  "_stats": {
+    "systemId": "rsk-system",
+    "systemVersion": "0.1.48",
+    "coreVersion": "11.315",
+    "createdTime": 1700528384399,
+    "modifiedTime": 1700528569621,
+    "lastModifiedBy": "XogNE2pcyLHe3eLi"
+  },
+  "_key": "!items!8JNvDDpeEQ3zYVwP"
+}

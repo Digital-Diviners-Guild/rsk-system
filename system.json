@@ -10,7 +10,20 @@
   "styles": [
     "styles/rsk.css"
   ],
-  "packs": [],
+  "packs": [
+    {
+      "name": "rsk-items",
+      "label": "capes",
+      "path": "packs/rsk-items",
+      "type": "Item",
+      "system": "rsk-system",
+      "ownership": {
+        "PLAYER": "LIMITED",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    }
+  ],
   "languages": [
     {
       "lang": "en",
