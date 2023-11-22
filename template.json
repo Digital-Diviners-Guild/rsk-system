@@ -1,7 +1,8 @@
 {
     "Actor": {
         "types": [
-            "character"
+            "character",
+            "npc"
         ],
         "templates": {
             "stats": {
@@ -157,6 +158,16 @@
                 "worn",
                 "backpack"
             ]
+        },
+        "npc": {
+            "description": "",
+            "movement": 0,
+            "size": "",
+            "armourValue": 0,
+            "lifePoints": 0,
+            "actions": [],
+            "specials": [],
+            "drops": []
         }
     },
     "Item": {

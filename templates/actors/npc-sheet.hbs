@@ -1,1 +1,56 @@
-<p>NPC!</p>
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{actor.name}}" placeholder="Name"></h1>
+    </header>
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">Description</a>
+        <a class="item" data-tab="edit">Edit</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab features" data-group="primary" data-tab="description">
+            <div>
+                <h3>{{localize "RSK.Description"}}</h3>
+                <p>{{system.description}}</p>
+            </div>
+            <div>
+                <h3>{{localize "RSK.Movement"}}</h3>
+                <p>{{system.movement}}</p>
+            </div>
+            <div>
+                <h3>{{localize "RSK.Size"}}</h3>
+                <p>{{system.size}}</p>
+            </div>
+            <div>
+                <h3>{{localize "RSK.ArmourValue"}}</h3>
+                <p>{{system.armourValue}}</p>
+            </div>
+            <div>
+                <h3>{{localize "RSK.LifePoints"}}</h3>
+                <p>{{system.lifePoints}}</p>
+            </div>
+        </div>
+
+        <div class="tab features" data-group="primary" data-tab="edit">
+            <label>{{localize "RSK.Description"}}</label>
+            <input name="system.description" type="text" value="{{system.description}}">
+
+            <label>{{localize "RSK.Movement"}}</label>
+            <input name="system.movement" type="text" value="{{system.movement}}">
+
+            <label>{{localize "RSK.Size"}}</label>
+            <input name="system.size" type="text" value="{{system.size}}">
+
+            <label>{{localize "RSK.ArmourValue"}}</label>
+            <input name="system.armourValue" type="text" value="{{system.armourValue}}">
+
+            <label>{{localize "RSK.LifePoints"}}</label>
+            <input name="system.lifePoints" type="text" value="{{system.lifePoints}}">
+        </div>
+        {{!-- todo
+        "actions": [],
+        "specials": [],
+        "drops": []
+        --}}
+    </section>
+</form>
