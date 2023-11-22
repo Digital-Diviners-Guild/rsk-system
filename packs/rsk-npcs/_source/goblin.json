@@ -4,14 +4,19 @@
   "_id": "BSOIOR3oxAoW3jOV",
   "img": "icons/svg/mystery-man.svg",
   "system": {
-    "description": "A common sight throughout Gielinor, goblins can be both friend an foe, ally and deadly threat to an adventurer. It's usually best, as a result, to be wary around goblins.",
-    "movement": "2",
-    "size": "Medium",
-    "armourValue": "1",
-    "lifePoints": "9",
+    "description": "<p>A common sight throughout Gielinor, Goblins can be both friend and foe, ally and deadly threat to an adventurer. It's usually best, as a result, to be wary around goblins.</p>",
+    "movement": 2,
+    "size": "medium",
+    "armourValue": 10,
+    "lifePoints": 9,
+    "isQuestGiver": true,
     "actions": [],
     "specials": [],
-    "drops": []
+    "drops": [],
+    "htmlFields": [
+      "description"
+    ],
+    "newActionDescription": ""
   },
   "prototypeToken": {
     "name": "Goblin",
@@ -76,7 +81,68 @@
     "flags": {},
     "randomImg": false
   },
-  "items": [],
+  "items": [
+    {
+      "name": "Stab",
+      "type": "action",
+      "_id": "XVQ27Utm8PnEzxbR",
+      "img": "icons/svg/item-bag.svg",
+      "system": {
+        "description": "A melee attack against one target within Near range. This deals 8 stabbing damage on a failed Defence test"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "XogNE2pcyLHe3eLi": 3
+      },
+      "flags": {
+        "core": {
+          "sourceId": "Item.TCZkzFA8ZvWR599y"
+        }
+      },
+      "_stats": {
+        "systemId": "rsk-system",
+        "systemVersion": "0.1.66",
+        "coreVersion": "11.315",
+        "createdTime": 1700691259681,
+        "modifiedTime": 1700691388830,
+        "lastModifiedBy": "XogNE2pcyLHe3eLi"
+      },
+      "_key": "!actors.items!BSOIOR3oxAoW3jOV.XVQ27Utm8PnEzxbR"
+    },
+    {
+      "name": "Spear Jab",
+      "type": "action",
+      "_id": "h3uKOOz35TOl05TH",
+      "img": "icons/svg/item-bag.svg",
+      "system": {
+        "description": "A melee attack against one target within Near range. This deals 6 stabbing damage with the Spread 1 quality on a failed Defence test."
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "XogNE2pcyLHe3eLi": 3
+      },
+      "flags": {
+        "core": {
+          "sourceId": "Item.Oqew2g1Z6ChOElzc"
+        }
+      },
+      "_stats": {
+        "systemId": "rsk-system",
+        "systemVersion": "0.1.66",
+        "coreVersion": "11.315",
+        "createdTime": 1700691181362,
+        "modifiedTime": 1700691389902,
+        "lastModifiedBy": "XogNE2pcyLHe3eLi"
+      },
+      "_key": "!actors.items!BSOIOR3oxAoW3jOV.h3uKOOz35TOl05TH"
+    }
+  ],
   "effects": [],
   "folder": null,
   "sort": 0,
@@ -87,10 +153,10 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk-system",
-    "systemVersion": "0.1.62",
+    "systemVersion": "0.1.66",
     "coreVersion": "11.315",
     "createdTime": 1700630636391,
-    "modifiedTime": 1700630818043,
+    "modifiedTime": 1700691571472,
     "lastModifiedBy": "XogNE2pcyLHe3eLi"
   },
   "_key": "!actors!BSOIOR3oxAoW3jOV"
