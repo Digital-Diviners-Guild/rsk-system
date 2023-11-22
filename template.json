@@ -169,7 +169,9 @@
             "actions": [],
             "specials": [],
             "drops": [],
-            "htmlFields": ["description"]
+            "htmlFields": [
+                "description"
+            ]
         }
     },
     "Item": {
@@ -179,7 +181,8 @@
             "equipment",
             "armour",
             "cape",
-            "quest"
+            "quest",
+            "action"
         ],
         "templates": {
             "usesEffects": {
@@ -273,6 +276,9 @@
             "questGiver": "",
             "startingLocation": "",
             "steps": []
+        },
+        "action": {
+            "description": ""
         }
     }
 }

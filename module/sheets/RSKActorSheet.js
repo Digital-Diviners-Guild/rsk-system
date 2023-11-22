@@ -32,12 +32,87 @@ export default class RSKActorSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
     context.config = CONFIG.RSK;
+
+    // Prepare NPC data and items.
+    if (actorData.type == 'npc') {
+      this._prepareItems(context);
+    }
+
     return context;
   }
 
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+    // Render the item sheet for viewing/editing prior to the editable check.
+    html.find('.item-edit').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.items.get(li.data("itemId"));
+      item.sheet.render(true);
+    });
+
     if (!this.isEditable) return;
+
+    // Delete Inventory Item
+    html.find('.item-delete').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.items.get(li.data("itemId"));
+      item.delete();
+      li.slideUp(200, () => this.render(false));
+    });
+
+    html.find('.item-create').click(this._onItemCreate.bind(this));
   }
+
+  /**
+  * Organize and classify Items for Character sheets.
+  *
+  * @param {Object} actorData The actor to prepare.
+  *
+  * @return {undefined}
+  */
+  _prepareItems(context) {
+    // Initialize containers.
+    const actions = [];
+
+    // Iterate through items, allocating to containers
+    for (let i of context.items) {
+      i.img = i.img || DEFAULT_TOKEN;
+      if (i.type === 'action') {
+        actions.push(i)
+      }
+    }
+
+    // Assign and return
+    context.actions = actions;
+  }
+
+
+  /**
+  * Handle creating a new Owned Item for the actor using initial data defined in the HTML dataset
+  * @param {Event} event   The originating click event
+  * @private
+  */
+  async _onItemCreate(event) {
+    event.preventDefault();
+    const header = event.currentTarget;
+    // Get the type of item to create.
+    const type = header.dataset.type;
+    // Grab any data associated with this control.
+    const data = duplicate(header.dataset);
+    // Initialize a default name.
+    const name = `New ${type.capitalize()}`;
+    // Prepare the item object.
+    const itemData = {
+      name: name,
+      type: type,
+      system: data
+    };
+    // Remove the type from the dataset since it's in the itemData.type prop.
+    delete itemData.system["type"];
+
+    // Finally, create the item!
+    return await Item.create(itemData, { parent: this.actor });
+  }
+
 }
