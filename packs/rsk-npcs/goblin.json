@@ -1,0 +1,97 @@
+{
+  "name": "Goblin",
+  "type": "npc",
+  "_id": "BSOIOR3oxAoW3jOV",
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
+    "description": "A common sight throughout Gielinor, goblins can be both friend an foe, ally and deadly threat to an adventurer. It's usually best, as a result, to be wary around goblins.",
+    "movement": "2",
+    "size": "Medium",
+    "armourValue": "1",
+    "lifePoints": "9",
+    "actions": [],
+    "specials": [],
+    "drops": []
+  },
+  "prototypeToken": {
+    "name": "Goblin",
+    "displayName": 0,
+    "actorLink": false,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": null
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false
+  },
+  "items": [],
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "XogNE2pcyLHe3eLi": 3
+  },
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk-system",
+    "systemVersion": "0.1.62",
+    "coreVersion": "11.315",
+    "createdTime": 1700630636391,
+    "modifiedTime": 1700630818043,
+    "lastModifiedBy": "XogNE2pcyLHe3eLi"
+  },
+  "_key": "!actors!BSOIOR3oxAoW3jOV"
+}
