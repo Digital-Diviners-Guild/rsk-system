@@ -3,6 +3,14 @@
  * @extends {ActorSheet}
  */
 export default class RSKActorSheet extends ActorSheet {
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ["rsk", "actor", "item"],
+      width: 600,
+      height: 600,
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+    });
+  }
 
   /** @override */
   get template() {
