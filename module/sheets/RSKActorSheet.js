@@ -5,7 +5,7 @@
 export default class RSKActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["rsk", "actor", "item"],
+      classes: ["rsk", "actor", "sheet"],
       width: 600,
       height: 600,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
@@ -31,7 +31,7 @@ export default class RSKActorSheet extends ActorSheet {
     // Add the actor's data to context.data for easier access, as well as flags.
     context.system = actorData.system;
     context.flags = actorData.flags;
-
+    context.config = CONFIG.RSK;
     return context;
   }
 

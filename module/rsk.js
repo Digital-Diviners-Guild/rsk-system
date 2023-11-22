@@ -4,6 +4,12 @@ import RSKActor from "./documents/RSKActor.js";
 import RSKItemSheet from "./sheets/RSKItemSheet.js";
 import RSKActorSheet from "./sheets/RSKActorSheet.js";
 
+import RSK from "./config.js";
+
+globalThis.rsk = {
+    config: RSK,
+};
+
 async function preloadHandlebarsTemplates() {
     const templatePaths = [
         "/systems/rsk-system/templates/items/parts/edit-uses-effects.hbs",
@@ -19,6 +25,7 @@ Hooks.once("init", function () {
         RSKActor
     };
 
+    CONFIG.RSK = RSK;
     CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Item.documentClass = RSKItem;
 

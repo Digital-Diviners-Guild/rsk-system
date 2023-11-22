@@ -165,9 +165,11 @@
             "size": "",
             "armourValue": 0,
             "lifePoints": 0,
+            "isQuestGiver": false,
             "actions": [],
             "specials": [],
-            "drops": []
+            "drops": [],
+            "htmlFields": ["description"]
         }
     },
     "Item": {

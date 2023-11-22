@@ -4,14 +4,14 @@
         <h1><input type="text" name="name" value="{{actor.name}}" placeholder="Name"></h1>
     </header>
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">Description</a>
-        <a class="item" data-tab="edit">Edit</a>
+        <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
                 <h3>{{localize "RSK.Description"}}</h3>
-                <p>{{system.description}}</p>
+                {{editor system.description target="system.description" editable=false engine="prosemirror"}}
             </div>
             <hr />
             <div>
@@ -33,20 +33,37 @@
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
-            <label>{{localize "RSK.Description"}}</label>
-            <input name="system.description" type="text" value="{{system.description}}">
+            <div class="rsk-editor">
+                <label>{{localize "RSK.Description"}}</label>
+                {{editor system.description target="system.description" button=false engine="prosemirror"}}
+            </div>
+            <div class="form-group">
+                <label>{{localize "RSK.QuestGiver"}}</label>
+                <input type="checkbox" name="system.isQuestGiver" {{checked system.isQuestGiver}}>
+            </div>
 
-            <label>{{localize "RSK.Movement"}}</label>
-            <input name="system.movement" type="text" value="{{system.movement}}">
+            <div class="form-group">
+                <label>{{localize "RSK.Size"}}</label>
+                <select name="system.size">
+                    {{selectOptions config.sizes selected=system.size}}
+                </select>
+            </div>
 
-            <label>{{localize "RSK.Size"}}</label>
-            <input name="system.size" type="text" value="{{system.size}}">
+            <div class="form-group">
+                <label>{{localize "RSK.Movement"}}</label>
+                <input name="system.movement" type="number" value="{{system.movement}}">
+            </div>
 
-            <label>{{localize "RSK.ArmourValue"}}</label>
-            <input name="system.armourValue" type="text" value="{{system.armourValue}}">
+            <div class="form-group">
+                <label>{{localize "RSK.ArmourValue"}}</label>
+                <input name="system.armourValue" type="number" value="{{system.armourValue}}">
+            </div>
 
-            <label>{{localize "RSK.LifePoints"}}</label>
-            <input name="system.lifePoints" type="text" value="{{system.lifePoints}}">
+            <div class="form-group">
+
+                <label>{{localize "RSK.LifePoints"}}</label>
+                <input name="system.lifePoints" type="number" value="{{system.lifePoints}}">
+            </div>
         </div>
         {{!-- todo
         "actions": [],

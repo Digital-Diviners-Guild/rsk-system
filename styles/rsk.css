@@ -1,0 +1,10 @@
+.rsk {}
+
+.rsk.sheet .editor {
+    height: 100%;
+}
+
+.rsk.sheet.actor [data-tab="edit"] .editor {
+    padding: 0 8px;
+    min-height: 200px;
+}
