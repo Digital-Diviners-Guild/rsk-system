@@ -22,6 +22,18 @@
         "ASSISTANT": "OWNER"
       },
       "flags": {}
+    },
+    {
+      "name": "rsk-npcs",
+      "label": "npcs",
+      "path": "packs/rsk-npcs",
+      "type": "Actor",
+      "system": "rsk-system",
+      "ownership": {
+        "PLAYER": "LIMITED",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
     }
   ],
   "languages": [
