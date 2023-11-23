@@ -1,0 +1,14 @@
+<ol class="items-list">
+    {{#each items as |item|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item-name flexrow">
+            <strong>{{item.name}}</strong>
+        </div>
+        {{#if item.system.description}}
+        <div class="item-content">
+            {{item.system.description}}
+        </div>
+        {{/if}}
+    </li>
+    {{/each}}
+</ol>

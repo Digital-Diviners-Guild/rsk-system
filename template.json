@@ -182,7 +182,8 @@
             "armour",
             "cape",
             "quest",
-            "action"
+            "action",
+            "special"
         ],
         "templates": {
             "usesEffects": {
@@ -278,6 +279,9 @@
             "steps": []
         },
         "action": {
+            "description": ""
+        },
+        "special": {
             "description": ""
         }
     }

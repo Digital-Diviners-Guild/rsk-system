@@ -1,8 +1,8 @@
 <ol class="items-list">
-    {{#each actions as |action|}}
-    <li class="item flexrow" data-item-id="{{action._id}}">
+    {{#each items as |item|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
         <div class="item-name flexrow">
-            <h4>{{action.name}}</h4>
+            <h4>{{item.name}}</h4>
         </div>
         <div class="item-controls">
             <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
@@ -12,8 +12,8 @@
     {{/each}}
     <li class="item flexrow">
         <div class="item-controls">
-            <a class="item-control item-create" title="Create item" data-type="action">
-                <i class="fas fa-plus"></i> Add Action
+            <a class="item-control item-create" title="Create item" data-type="{{addType}}">
+                <i class="fas fa-plus"></i> {{addLabel}}
             </a>
         </div>
     </li>

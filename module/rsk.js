@@ -14,8 +14,8 @@ async function preloadHandlebarsTemplates() {
     const templatePaths = [
         "/systems/rsk-system/templates/items/parts/edit-uses-effects.hbs",
         "/systems/rsk-system/templates/items/parts/uses-effects.hbs",
-        "/systems/rsk-system/templates/actors/parts/view-actions.hbs",
-        "/systems/rsk-system/templates/actors/parts/edit-actions.hbs"
+        "/systems/rsk-system/templates/actors/parts/view-items.hbs",
+        "/systems/rsk-system/templates/actors/parts/edit-items.hbs"
     ];
     return loadTemplates(templatePaths);
 }
