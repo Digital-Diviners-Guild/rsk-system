@@ -33,18 +33,8 @@
 
             <div>
                 <strong>{{localize "RSK.Actions"}}: </strong>
-                <ol class="items-list">
-                    {{#each actions as |action|}}
-                    <li class="item flexrow" data-item-id="{{action._id}}">
-                        <div class="item-name flexrow">
-                            <strong>{{action.name}}</strong>
-                        </div>
-                        <div class="item-content">
-                            {{action.system.description}}
-                        </div>
-                    </li>
-                    {{/each}}
-                </ol>
+                {{> "/systems/rsk-system/templates/actors/parts/view-actions.hbs" actions=actions }}
+
             </div>
         </div>
 
@@ -81,26 +71,8 @@
             </div>
 
             <label>{{localize "RSK.Actions"}}</label>
-            <ol class="items-list">
-                {{#each actions as |item|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
-                    <div class="item-name flexrow">
-                        <h4>{{item.name}}</h4>
-                    </div>
-                    <div class="item-controls">
-                        <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                        <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                    </div>
-                </li>
-                {{/each}}
-                <li class="item flexrow">
-                    <div class="item-controls">
-                        <a class="item-control item-create" title="Create item" data-type="action">
-                            <i class="fas fa-plus"></i> Add Action
-                        </a>
-                    </div>
-                </li>
-            </ol>
+            {{> "/systems/rsk-system/templates/actors/parts/edit-actions.hbs" actions=actions }}
+
         </div>
     </section>
 </form>

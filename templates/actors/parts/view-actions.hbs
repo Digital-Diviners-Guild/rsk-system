@@ -1,0 +1,12 @@
+<ol class="items-list">
+    {{#each actions as |action|}}
+    <li class="item flexrow" data-item-id="{{action._id}}">
+        <div class="item-name flexrow">
+            <strong>{{action.name}}</strong>
+        </div>
+        <div class="item-content">
+            {{action.system.description}}
+        </div>
+    </li>
+    {{/each}}
+</ol>

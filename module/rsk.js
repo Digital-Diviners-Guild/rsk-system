@@ -13,7 +13,9 @@ globalThis.rsk = {
 async function preloadHandlebarsTemplates() {
     const templatePaths = [
         "/systems/rsk-system/templates/items/parts/edit-uses-effects.hbs",
-        "/systems/rsk-system/templates/items/parts/uses-effects.hbs"
+        "/systems/rsk-system/templates/items/parts/uses-effects.hbs",
+        "/systems/rsk-system/templates/actors/parts/view-actions.hbs",
+        "/systems/rsk-system/templates/actors/parts/edit-actions.hbs"
     ];
     return loadTemplates(templatePaths);
 }
@@ -24,7 +26,7 @@ Hooks.once("init", function () {
         RSKItem,
         RSKActor
     };
-
+    
     CONFIG.RSK = RSK;
     CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Item.documentClass = RSKItem;
