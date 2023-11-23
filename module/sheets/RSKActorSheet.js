@@ -74,17 +74,21 @@ export default class RSKActorSheet extends ActorSheet {
   _prepareItems(context) {
     // Initialize containers.
     const actions = [];
+    const specials = [];
 
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       if (i.type === 'action') {
         actions.push(i)
+      } else if (i.type === 'special') {
+        specials.push(i)
       }
     }
 
     // Assign and return
     context.actions = actions;
+    context.specials = specials;
   }
 
 

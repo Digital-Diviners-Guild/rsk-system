@@ -33,8 +33,11 @@
 
             <div>
                 <strong>{{localize "RSK.Actions"}}: </strong>
-                {{> "/systems/rsk-system/templates/actors/parts/view-items.hbs" actions=actions }}
-
+                {{> "/systems/rsk-system/templates/actors/parts/view-items.hbs" items=actions }}
+            </div>
+            <div>
+                <strong>{{localize "RSK.Specials"}}: </strong>
+                {{> "/systems/rsk-system/templates/actors/parts/view-items.hbs" items=specials }}
             </div>
         </div>
 
@@ -72,9 +75,15 @@
 
             <label>{{localize "RSK.Actions"}}</label>
             {{> "/systems/rsk-system/templates/actors/parts/edit-items.hbs"
-            actions=actions
+            items=actions
             addType="action"
             addLabel="Add Action"}}
+
+            <label>{{localize "RSK.Specials"}}</label>
+            {{> "/systems/rsk-system/templates/actors/parts/edit-items.hbs"
+            items=specials
+            addType="special"
+            addLabel="Add Special"}}
 
         </div>
     </section>
