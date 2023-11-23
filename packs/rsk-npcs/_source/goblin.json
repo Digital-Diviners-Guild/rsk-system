@@ -141,6 +141,36 @@
         "lastModifiedBy": "XogNE2pcyLHe3eLi"
       },
       "_key": "!actors.items!BSOIOR3oxAoW3jOV.h3uKOOz35TOl05TH"
+    },
+    {
+      "name": "Gob",
+      "type": "special",
+      "_id": "Z413q5jJEEEKwuLJ",
+      "img": "icons/svg/item-bag.svg",
+      "system": {
+        "description": "+1 additional damage for each goblin within Near range"
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "XogNE2pcyLHe3eLi": 3
+      },
+      "flags": {
+        "core": {
+          "sourceId": "Item.uEhV8t43LyBT07MV"
+        }
+      },
+      "_stats": {
+        "systemId": "rsk-system",
+        "systemVersion": "0.1.71",
+        "coreVersion": "11.315",
+        "createdTime": 1700700758122,
+        "modifiedTime": 1700701150414,
+        "lastModifiedBy": "XogNE2pcyLHe3eLi"
+      },
+      "_key": "!actors.items!BSOIOR3oxAoW3jOV.Z413q5jJEEEKwuLJ"
     }
   ],
   "effects": [],
@@ -153,10 +183,10 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk-system",
-    "systemVersion": "0.1.66",
+    "systemVersion": "0.1.71",
     "coreVersion": "11.315",
     "createdTime": 1700630636391,
-    "modifiedTime": 1700691571472,
+    "modifiedTime": 1700701150414,
     "lastModifiedBy": "XogNE2pcyLHe3eLi"
   },
   "_key": "!actors!BSOIOR3oxAoW3jOV"
