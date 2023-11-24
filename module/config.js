@@ -1,4 +1,3 @@
-// Namespace Configuration Values
 const RSK = {};
 
 RSK.sizes = {
