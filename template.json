@@ -167,7 +167,7 @@
             "lifePoints": 0,
             "isQuestGiver": false,
             "actions": [],
-            "specials": [],
+            "specialFeatures": [],
             "drops": [],
             "htmlFields": [
                 "description"
@@ -183,7 +183,8 @@
             "cape",
             "quest",
             "action",
-            "special"
+            "specialFeature",
+            "specialEffect"
         ],
         "templates": {
             "usesEffects": {
@@ -249,7 +250,7 @@
             "damageEntries": "",
             "range": "",
             "skillRequirement": "",
-            "specials": []
+            "specialEffects": []
         },
         "armour": {
             "templates": [
@@ -258,7 +259,7 @@
             ],
             "cost": 0,
             "values": "",
-            "specials": []
+            "specialEffects": []
         },
         "cape": {
             "templates": [
@@ -282,14 +283,17 @@
         },
         "action": {
             "description": "",
-            "specials": []
+            "specialEffects": []
         },
-        "special": {
+        "specialFeature": {
+            "description": ""
+        },
+        "specialEffect": {
             "templates": [
                 "usesEffects"
             ],
-            "duration": "",
-            "condition": ""
+            "condition": "",
+            "duration": ""
         }
     }
 }
