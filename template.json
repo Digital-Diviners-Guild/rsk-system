@@ -248,7 +248,8 @@
             "cost": 0,
             "damageEntries": "",
             "range": "",
-            "skillRequirement": ""
+            "skillRequirement": "",
+            "specials": []
         },
         "armour": {
             "templates": [
@@ -256,7 +257,8 @@
                 "hasCraftingRequirements"
             ],
             "cost": 0,
-            "values": ""
+            "values": "",
+            "specials": []
         },
         "cape": {
             "templates": [
@@ -279,10 +281,15 @@
             "steps": []
         },
         "action": {
-            "description": ""
+            "description": "",
+            "specials": []
         },
         "special": {
-            "description": ""
+            "templates": [
+                "usesEffects"
+            ],
+            "duration": "",
+            "condition": ""
         }
     }
 }
