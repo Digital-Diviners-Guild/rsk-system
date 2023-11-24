@@ -37,7 +37,7 @@
             </div>
             <div>
                 <strong>{{localize "RSK.Specials"}}: </strong>
-                {{> "/systems/rsk-system/templates/parts/view-items.hbs" items=specials }}
+                {{> "/systems/rsk-system/templates/parts/view-items.hbs" items=specialFeatures }}
             </div>
         </div>
 
@@ -81,8 +81,8 @@
 
             <label>{{localize "RSK.Specials"}}</label>
             {{> "/systems/rsk-system/templates/parts/edit-items.hbs"
-            items=specials
-            addType="special"
+            items=specialFeatures
+            addType="specialFeature"
             addLabel="Add Special"}}
 
         </div>
