@@ -58,7 +58,9 @@ export default class RSKActor extends Actor {
   static migrateData(source) {
     if ("specials" in source) {
       source.specialFeatures = source.specials.map(special => {
-        return special;
+        let specialFeature = {...special};
+        specialFeature.type = "specialFeature";
+        return specialFeature;
       });
     }
     return super.migrateData(source);
