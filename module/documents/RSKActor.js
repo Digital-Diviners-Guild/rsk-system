@@ -1,3 +1,5 @@
+import RSKItem from "./RSKItem";
+
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the rsk system.
  * @extends {Actor}
@@ -57,11 +59,7 @@ export default class RSKActor extends Actor {
  */
   static migrateData(source) {
     if ("specials" in source) {
-      source.specialFeatures = source.specials.map(special => {
-        let specialFeature = {...special};
-        specialFeature.type = "specialFeature";
-        return specialFeature;
-      });
+      source.specialFeatures = source.specials.map(special  => RSKItem.migrateData(special));
     }
     return super.migrateData(source);
   }
