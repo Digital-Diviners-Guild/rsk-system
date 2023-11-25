@@ -1,5 +1,3 @@
-import RSKItem from "./RSKItem";
-
 /**
  * Extend the base Actor document by defining a custom roll data structure which is ideal for the rsk system.
  * @extends {Actor}
