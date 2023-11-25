@@ -11,7 +11,7 @@
     "lifePoints": 9,
     "isQuestGiver": true,
     "actions": [],
-    "specials": [],
+    "specialFeatures": [],
     "drops": [],
     "htmlFields": [
       "description"
@@ -144,7 +144,7 @@
     },
     {
       "name": "Gob",
-      "type": "special",
+      "type": "specialFeature",
       "_id": "Z413q5jJEEEKwuLJ",
       "img": "icons/svg/item-bag.svg",
       "system": {
