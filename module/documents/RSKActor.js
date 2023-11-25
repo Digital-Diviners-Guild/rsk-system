@@ -51,16 +51,4 @@ export default class RSKActor extends Actor {
 
     // Need to Loop through skills and calculate the totalskill based on backgrounds.
   }
-
-  /**
- * Migrate source data from some prior format into a new specification.
- * The source parameter is either original data retrieved from disk or provided by an update operation.
- * @inheritDoc
- */
-  static migrateData(source) {
-    if ("specials" in source) {
-      source.specialFeatures = source.specials.map(special  => RSKItem.migrateData(special));
-    }
-    return super.migrateData(source);
-  }
 }
