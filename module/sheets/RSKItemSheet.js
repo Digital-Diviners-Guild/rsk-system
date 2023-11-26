@@ -48,10 +48,12 @@ export default class RSKItemSheet extends ItemSheet {
 
     _onDropSpecialEffect(event, itemId) {
         const droppedItem = Item.get(itemId);
+        //todo: only some items can accept special effects
         if (droppedItem.type !== "specialEffect") return;
-        console.log(droppedItem.toJSON());
-        // but now what? adding it to our items special effect array doesn't seem to work
-        // and we probably want to create a new item with the same data?
-        // or maybe it we do want to link to that document. 
+
+        const specialEffectData = { name: droppedItem.name, type: droppedItem.type, sourceId: droppedItem._id, ...droppedItem.system };
+        const itemSpecialEffects = [...this.item.system.specialEffects, specialEffectData];
+        this.item.update({ system: { specialEffects: itemSpecialEffects } });
+        this.render(true);
     }
 }
