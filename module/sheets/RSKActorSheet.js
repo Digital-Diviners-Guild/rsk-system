@@ -115,5 +115,4 @@ export default class RSKActorSheet extends ActorSheet {
     // Finally, create the item!
     return await Item.create(itemData, { parent: this.actor });
   }
-
 }

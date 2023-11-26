@@ -4,14 +4,14 @@ export default class RSKItemSheet extends ItemSheet {
             classes: ["rsk", "sheet", "item"],
             width: 600,
             height: 600,
-            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
+            dragDrop: [{ dropSelector: "[data-can-drop=true]" }],
         });
     }
 
     get template() {
         return `systems/rsk-system/templates/items/${this.item.type}-sheet.hbs`
     }
-
     getData() {
         const context = super.getData();
         const itemData = context.item;
@@ -30,5 +30,28 @@ export default class RSKItemSheet extends ItemSheet {
         if (!this.isEditable) return;
 
         // Roll handlers, click handlers, etc. would go here.
+    }
+
+    _onDrop(event) {
+        const transferString = event.dataTransfer.getData("text/plain");
+        const transferObj = JSON.parse(transferString);
+        if (!transferObj.uuid) return;
+
+        const itemId = transferObj.uuid.split(".")[1];
+        if (!itemId) return;
+
+        switch (transferObj.type) {
+            case "Item":
+                return this._onDropSpecialEffect(event, itemId);
+        }
+    }
+
+    _onDropSpecialEffect(event, itemId) {
+        const droppedItem = Item.get(itemId);
+        if (droppedItem.type !== "specialEffect") return;
+        console.log(droppedItem.toJSON());
+        // but now what? adding it to our items special effect array doesn't seem to work
+        // and we probably want to create a new item with the same data?
+        // or maybe it we do want to link to that document. 
     }
 }

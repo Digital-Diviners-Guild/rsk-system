@@ -14,7 +14,7 @@ async function preloadHandlebarsTemplates() {
     const templatePaths = [
         "/systems/rsk-system/templates/items/parts/edit-uses-effects.hbs",
         "/systems/rsk-system/templates/items/parts/uses-effects.hbs",
-        
+
         "/systems/rsk-system/templates/parts/view-items.hbs",
         "/systems/rsk-system/templates/parts/edit-items.hbs"
     ];
@@ -27,7 +27,7 @@ Hooks.once("init", function () {
         RSKItem,
         RSKActor
     };
-    
+
     CONFIG.RSK = RSK;
     CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Item.documentClass = RSKItem;

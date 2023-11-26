@@ -34,7 +34,12 @@
                     {{system.cost}}
                 </p>
             </div>
-
+            <div data-can-drop="true">
+                {{localize "RSK.SpecialEffects"}}:
+                {{#each system.specialEffects as |specials|}}
+                <li>{{specials.name}}</li>
+                {{/each}}
+            </div>
             {{!-- todo: craftingRequirements, will want a part for it --}}
         </div>
 
@@ -53,6 +58,13 @@
 
             <label>{{localize "RSK.Cost"}}</label>
             <input type="text" name="system.cost" value="{{system.cost}}">
+
+            <div data-can-drop="true">
+                {{localize "RSK.SpecialEffects"}}:
+                {{#each system.specialEffects as |specials|}}
+                <li>{{specials.name}}</li>
+                {{/each}}
+            </div>
         </div>
     </section>
 </form>
