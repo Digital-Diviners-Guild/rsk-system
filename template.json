@@ -266,7 +266,22 @@
         "spell": {
             "spellType": "",
             "description": "",
-            "cost": {},
+            "cost": {
+                "air": 0,
+                "water": 0,
+                "earth": 0,
+                "fire": 0,
+                "chaos": 0,
+                "mind": 0,
+                "body": 0,
+                "soul": 0,
+                "death": 0,
+                "blood": 0,
+                "cosmic": 0,
+                "nature": 0,
+                "law": 0,
+                "wrath": 0
+            },
             "range": "",
             "damageEntries": {
                 "stab": 0,
