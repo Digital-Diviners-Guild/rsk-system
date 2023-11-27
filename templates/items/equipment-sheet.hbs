@@ -22,15 +22,13 @@
             <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}}</p>
             {{/if}}
 
+            {{#if system.effectDescription}}
+            <strong>{{localize "RSK.Effects"}}:</strong>
+            <p> {{system.effectDescription}}</p>
+            {{/if}}
+
             {{> "/systems/rsk-system/templates/items/parts/view-damage-entries.hbs"}}
             {{> "/systems/rsk-system/templates/items/parts/view-range.hbs"}}
-
-            {{#if system.specialEffects}}
-            <h3>{{localize "RSK.SpecialEffects"}}</h3>
-            {{#each system.specialEffects as |specialEffect|}}
-            {{specialEffect}}
-            {{/each}}
-            {{/if}}
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
@@ -39,6 +37,11 @@
 
             <label>{{localize "RSK.Uses"}}:</label>
             <input type="text" name="system.uses" value="{{system.uses}}">
+
+            <div>
+                <label>{{localize "RSK.Effect"}}</label>
+                <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
+            </div>
 
             {{> "/systems/rsk-system/templates/items/parts/edit-range.hbs"}}
             {{> "/systems/rsk-system/templates/items/parts/edit-damage-entries.hbs"}}

@@ -228,6 +228,8 @@
             "cost": 0,
             "description": "",
             "uses": "",
+            "effectDescription": "",
+            "range": 0,
             "damageEntries": {
                 "stab": 0,
                 "slash": 0,
@@ -236,9 +238,7 @@
                 "water": 0,
                 "earth": 0,
                 "fire": 0
-            },
-            "range": 0,
-            "specialEffects": []
+            }
         },
         "armour": {
             "armourType": "",
