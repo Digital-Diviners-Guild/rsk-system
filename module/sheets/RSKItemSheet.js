@@ -24,7 +24,7 @@ export default class RSKItemSheet extends ItemSheet {
         context.system = itemData.system;
         context.flags = itemData.flags;
         context.config = CONFIG.RSK;
-        context.dealsDamage = itemData.type === "equipment"
+        context.dealsDamage = itemData.system.damageEntries
             && Object.values(itemData.system.damageEntries)
                 .filter(x => x > 0).length > 0;
         return context;

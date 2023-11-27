@@ -22,15 +22,7 @@
             <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}}</p>
             {{/if}}
 
-            {{#if dealsDamage}}
-            <h3>{{localize "RSK.Damage"}}</h3>
-            {{#each system.damageEntries as |damage type|}}
-            {{!-- todo: how to localize? --}}
-            {{#if damage}}
-            <p><strong>{{type}}: </strong>{{damage}}</p>
-            {{/if}}
-            {{/each}}
-            {{/if}}
+            {{> "/systems/rsk-system/templates/items/parts/view-damage-entries.hbs"}}
 
             {{#if system.range}}
             <h3>{{localize "RSK.Range"}}</h3>
@@ -52,36 +44,8 @@
 
             <label>{{localize "RSK.Uses"}}:</label>
             <input type="text" name="system.uses" value="{{system.uses}}">
-            {{!-- todo: can this also be looped? --}}
-            <label>{{localize "RSK.Damage"}}</label>
-            <div class="form-group">
-                <label>{{localize "RSK.Stab"}}</label>
-                <input type="number" name="system.damageEntries.stab" value="{{system.damageEntries.stab}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Slash"}}</label>
-                <input type="number" name="system.damageEntries.slash" value="{{system.damageEntries.slash}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Crush"}}</label>
-                <input type="number" name="system.damageEntries.crush" value="{{system.damageEntries.crush}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Air"}}</label>
-                <input type="number" name="system.damageEntries.air" value="{{system.damageEntries.air}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Water"}}</label>
-                <input type="number" name="system.damageEntries.water" value="{{system.damageEntries.water}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Earth"}}</label>
-                <input type="number" name="system.damageEntries.earth" value="{{system.damageEntries.earth}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Fire"}}</label>
-                <input type="number" name="system.damageEntries.fire" value="{{system.damageEntries.fire}}">
-            </div>
+
+            {{> "/systems/rsk-system/templates/items/parts/edit-damage-entries.hbs"}}
 
             <div class="form-group">
                 <label>{{localize "RSK.Range"}}</label>

@@ -1,0 +1,9 @@
+{{#if dealsDamage}}
+<h3>{{localize "RSK.Damage"}}</h3>
+{{#each system.damageEntries as |damage type|}}
+{{!-- todo: how to localize? --}}
+{{#if damage}}
+<p><strong>{{type}}: </strong>{{damage}}</p>
+{{/if}}
+{{/each}}
+{{/if}}
