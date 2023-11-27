@@ -34,31 +34,39 @@ export default class RSKItemSheet extends ItemSheet {
         super.activateListeners(html);
         if (!this.isEditable) return;
 
+        html.find('.quality-delete').click(ev => {
+            const li = $(ev.currentTarget).parents(".quality");
+            const qualities = 
+                this.item.system.values.qualities
+                    .filter(x => x.sourceUuId !== li.data("qualityId"))
+            this.item.update({ system: { values: { qualities: qualities } } });
+            li.slideUp(200, () => this.render(false));
+        });
+
         // Roll handlers, click handlers, etc. would go here.
     }
 
     _onDrop(event) {
         const transferString = event.dataTransfer.getData("text/plain");
         const transferObj = JSON.parse(transferString);
-        if (!transferObj.uuid) return;
-
-        const itemId = transferObj.uuid.split(".")[1];
-        if (!itemId) return;
-
+        if (!(transferObj.uuid && transferObj.type)) return;
         switch (transferObj.type) {
             case "Item":
-                return this._onDropSpecialEffect(event, itemId);
+                return this._onDropItem(event, transferObj);
         }
     }
 
-    _onDropSpecialEffect(event, itemId) {
-        const droppedItem = Item.get(itemId);
-        //todo: only some items can accept special effects
-        if (droppedItem.type !== "specialEffect") return;
+    _onDropItem(event, transferObj) {
+        const itemId = transferObj.uuid.split(".")[1];
+        if (!itemId) return;
 
-        const specialEffectData = { name: droppedItem.name, type: droppedItem.type, sourceId: droppedItem._id, ...droppedItem.system };
-        const itemSpecialEffects = [...this.item.system.specialEffects, specialEffectData];
-        this.item.update({ system: { specialEffects: itemSpecialEffects } });
+        const droppedItem = Item.get(itemId);
+        if (!(droppedItem.type === "quality" && this.item.type === "armour")) return;
+        if (this.item.system.values.qualities.filter(x => x.sourceUuId === transferObj.uuid).length > 0) return;
+
+        const qualityData = { sourceUuId: transferObj.uuid, name: droppedItem.name, description: droppedItem.system.description };
+        const qualities = [...this.item.system.values.qualities, qualityData];
+        this.item.update({ system: { values: { qualities: qualities } } });
         this.render(true);
     }
 }

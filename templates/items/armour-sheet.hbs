@@ -7,7 +7,7 @@
         <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
         <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
     </nav>
-    <section class="sheet-body">
+    <section class="sheet-body" data-can-drop="true">
         <div class="tab features" data-group="primary" data-tab="description">
             <h3>{{localize "RSK.Description"}}</h3>
             <p>{{system.description}}</p>
@@ -17,11 +17,15 @@
             <h3>{{localize "RSK.Values"}}</h3>
             <p><strong>{{localize "RSK.Soak"}}:</strong> {{system.values.soak}}</p>
             <p><strong>{{localize "RSK.Material"}}:</strong> {{system.values.material}}</p>
-            <p><strong>{{localize "RSK.Qualities"}}:</strong>
+            <div>
+                <strong>{{localize "RSK.Qualities"}}:</strong>
                 {{#each system.values.qualities as |quality|}}
-                {{quality}}
+                <p>
+                    <strong>{{quality.name}}</strong> {{quality.description}}
+                </p>
                 {{/each}}
-            </p>
+            </div>
+
         </div>
         <div class="tab features" data-group="primary" data-tab="edit">
             <label>{{localize "RSK.Description"}}:</label>
@@ -47,8 +51,19 @@
                     {{selectOptions config.materials selected=system.values.material}}
                 </select>
             </div>
-
-            {{!-- todo: qualities edit --}}
+            
+            <ol class="items-list">
+                {{#each system.values.qualities as |quality|}}
+                <li class="quality item flexrow" data-quality-id="{{quality.sourceUuId}}">
+                    <div class="item-name flexrow">
+                        <h4>{{quality.name}}</h4>
+                    </div>
+                    <div class="item-controls">
+                        <a class="item-control item-delete quality-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
         </div>
     </section>
 </form>
