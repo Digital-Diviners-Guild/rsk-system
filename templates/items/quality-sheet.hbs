@@ -9,30 +9,17 @@
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
-            {{> "/systems/rsk-system/templates/items/parts/uses-effects.hbs" }}
             <div>
-                <h3>{{localize "RSK.Duration"}}:</h3>
+                <h3>{{localize "RSK.Description"}}:</h3>
                 <p>
-                    {{system.duration}}
+                    {{system.description}}
                 </p>
             </div>
-            <div>
-                <h3>{{localize "RSK.Condition"}}:</h3>
-                <p>
-                    {{system.condition}}
-                </p>
-            </div>
-
         </div>
-
         <div class="tab features" data-group="primary" data-tab="edit">
-            {{!-- editable? --}}
-            {{> "/systems/rsk-system/templates/items/parts/edit-uses-effects.hbs" }}
-
-            <label>{{localize "RSK.Duration"}}</label>
-            <input type="text" name="system.duration" value="{{system.duration}}">
-            <label>{{localize "RSK.Condition"}}</label>
-            <input type="text" name="system.condition" value="{{system.condition}}">
-        </div>
+            <div class="form-group">
+                <label>{{localize "RSK.Description"}}:</label>
+                <input type="text" name="system.description" value="{{system.description}}">
+            </div>
     </section>
 </form>

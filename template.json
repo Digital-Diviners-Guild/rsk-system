@@ -184,7 +184,7 @@
             "quest",
             "action",
             "specialFeature",
-            "specialEffect"
+            "quality"
         ],
         "templates": {
             "usesEffects": {
@@ -249,8 +249,7 @@
             "cost": 0,
             "damageEntries": "",
             "range": "",
-            "skillRequirement": "",
-            "specialEffects": []
+            "skillRequirement": ""
         },
         "armour": {
             "templates": [
@@ -258,8 +257,7 @@
                 "hasCraftingRequirements"
             ],
             "cost": 0,
-            "values": "",
-            "specialEffects": []
+            "values": ""
         },
         "cape": {
             "templates": [
@@ -282,18 +280,13 @@
             "steps": []
         },
         "action": {
-            "description": "",
-            "specialEffects": []
+            "description": ""
         },
         "specialFeature": {
             "description": ""
         },
-        "specialEffect": {
-            "templates": [
-                "usesEffects"
-            ],
-            "condition": "",
-            "duration": ""
+        "quality": {
+            "description": ""
         }
     }
 }
