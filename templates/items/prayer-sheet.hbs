@@ -9,15 +9,31 @@
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
-            <div>{{localize "RSK.Description"}}</div>
-            <div>{{localize "RSK.Cost"}}</div>
-            <div>{{localize "RSK.Range"}}</div>
+            <h3>{{localize "RSK.Description"}}</h3>
+            <p>{{system.description}}</p>
+            {{> "/systems/rsk-system/templates/items/parts/view-range.hbs"}}
+            <div><strong>{{localize "RSK.Cost"}}:</strong>
+                {{system.cost}} {{localize "RSK.PrayerPoints"}}
+            </div>
+
+            <h3>{{localize "RSK.Effect"}}:</h3>
+            <p>{{system.effectDescription}}</p>
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
-            <div>{{localize "RSK.Description"}}</div>
-            <div>{{localize "RSK.Cost"}}</div>
-            <div>{{localize "RSK.Range"}}</div>
+            <h3>{{localize "RSK.Description"}}</h3>
+            <input type="text" name="system.description" value="{{system.description}}">
+            {{> "/systems/rsk-system/templates/items/parts/edit-range.hbs"}}
+            <div>
+                <label>{{localize "RSK.Effect"}}</label>
+                <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
+            </div>
+
+            <h3>{{localize "RSK.Cost"}}</h3>
+            <div class="form-group">
+                <label>{{localize "RSK.PrayerPoints"}}</label>
+                <input type="number" name="system.cost" value="{{system.cost}}">
+            </div>
         </div>
     </section>
 </form>
