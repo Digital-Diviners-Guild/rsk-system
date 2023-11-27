@@ -304,8 +304,7 @@
         "prayer": {
             "description": "",
             "cost": "",
-            "range": "",
-            "specialEffectDescription": ""
+            "range": ""
         }
     }
 }
