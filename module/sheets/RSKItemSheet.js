@@ -23,6 +23,8 @@ export default class RSKItemSheet extends ItemSheet {
         // }
         context.system = itemData.system;
         context.flags = itemData.flags;
+        context.config = CONFIG.RSK;
+
         return context;
     }
 

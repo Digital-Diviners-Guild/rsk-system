@@ -236,7 +236,11 @@
             "description": "",
             "upgrades": [],
             "cost": 0,
-            "values": {}
+            "values": {
+                "soak": 0,
+                "material": "",
+                "qualities": []
+            }
         },
         "cape": {
             "awardedFor": ""

@@ -9,11 +9,46 @@
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
+            <h3>{{localize "RSK.Description"}}</h3>
+            <p>{{system.description}}</p>
+            <p><strong>{{localize "RSK.ArmourType"}}:</strong> {{system.armourType}}</p>
+            <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}}</p>
 
+            <h3>{{localize "RSK.Values"}}</h3>
+            <p><strong>{{localize "RSK.Soak"}}:</strong> {{system.values.soak}}</p>
+            <p><strong>{{localize "RSK.Material"}}:</strong> {{system.values.material}}</p>
+            <p><strong>{{localize "RSK.Qualities"}}:</strong>
+                {{#each system.values.qualities as |quality|}}
+                {{quality}}
+                {{/each}}
+            </p>
         </div>
-
         <div class="tab features" data-group="primary" data-tab="edit">
+            <label>{{localize "RSK.Description"}}:</label>
+            <input type="text" name="system.description" value="{{system.description}}">
 
+            <label>{{localize "RSK.ArmourType"}}:</label>
+            <div class="form-group">
+                <label>{{localize "RSK.Material"}}</label>
+                <select name="system.armourType">
+                    {{selectOptions config.armourTypes selected=system.armourType}}
+                </select>
+            </div>
+
+            <label>{{localize "RSK.Cost"}}:</label>
+            <input type="number" name="system.cost" value="{{system.cost}}">
+
+            <label>{{localize "RSK.Soak"}}:</label>
+            <input type="number" name="system.values.soak" value="{{system.values.soak}}">
+
+            <div class="form-group">
+                <label>{{localize "RSK.Material"}}</label>
+                <select name="system.values.material">
+                    {{selectOptions config.materials selected=system.values.material}}
+                </select>
+            </div>
+
+            {{!-- todo: qualities edit --}}
         </div>
     </section>
 </form>
