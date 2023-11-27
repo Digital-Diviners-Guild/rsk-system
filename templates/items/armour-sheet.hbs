@@ -11,12 +11,12 @@
         <div class="tab features" data-group="primary" data-tab="description">
             <h3>{{localize "RSK.Description"}}</h3>
             <p>{{system.description}}</p>
-            <p><strong>{{localize "RSK.ArmourType"}}:</strong> {{system.armourType}}</p>
             <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}}</p>
+            <p><strong>{{localize "RSK.ArmourType"}}:</strong> {{system.armourType}}</p>
 
             <h3>{{localize "RSK.Values"}}</h3>
-            <p><strong>{{localize "RSK.Soak"}}:</strong> {{system.values.soak}}</p>
             <p><strong>{{localize "RSK.Material"}}:</strong> {{system.values.material}}</p>
+            <p><strong>{{localize "RSK.Soak"}}:</strong> {{system.values.soak}}</p>
             <div>
                 <strong>{{localize "RSK.Qualities"}}:</strong>
                 {{#each system.values.qualities as |quality|}}
@@ -31,19 +31,15 @@
             <label>{{localize "RSK.Description"}}:</label>
             <input type="text" name="system.description" value="{{system.description}}">
 
-            <label>{{localize "RSK.ArmourType"}}:</label>
+            <label>{{localize "RSK.Cost"}}:</label>
+            <input type="number" name="system.cost" value="{{system.cost}}">
+
             <div class="form-group">
-                <label>{{localize "RSK.Material"}}</label>
+                <label>{{localize "RSK.ArmourType"}}:</label>
                 <select name="system.armourType">
                     {{selectOptions config.armourTypes selected=system.armourType}}
                 </select>
             </div>
-
-            <label>{{localize "RSK.Cost"}}:</label>
-            <input type="number" name="system.cost" value="{{system.cost}}">
-
-            <label>{{localize "RSK.Soak"}}:</label>
-            <input type="number" name="system.values.soak" value="{{system.values.soak}}">
 
             <div class="form-group">
                 <label>{{localize "RSK.Material"}}</label>
@@ -51,7 +47,11 @@
                     {{selectOptions config.materials selected=system.values.material}}
                 </select>
             </div>
-            
+
+            <label>{{localize "RSK.Soak"}}:</label>
+            <input type="number" name="system.values.soak" value="{{system.values.soak}}">
+
+            <label>{{localize "RSK.Qualities"}}:</label>
             <ol class="items-list">
                 {{#each system.values.qualities as |quality|}}
                 <li class="quality item flexrow" data-quality-id="{{quality.sourceUuId}}">
@@ -59,7 +59,8 @@
                         <h4>{{quality.name}}</h4>
                     </div>
                     <div class="item-controls">
-                        <a class="item-control item-delete quality-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                        <a class="item-control item-delete quality-delete" title="Delete Item"><i
+                                class="fas fa-trash"></i></a>
                     </div>
                 </li>
                 {{/each}}

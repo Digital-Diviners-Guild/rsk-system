@@ -36,6 +36,8 @@ RSK.armourTypes = {
 };
 
 RSK.materials = {
+    cloth: "cloth",
+    leather: "leather",
     bronze: "bronze",
     iron: "iron",
     steel: "steel",
