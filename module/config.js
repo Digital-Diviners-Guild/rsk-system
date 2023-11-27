@@ -7,6 +7,12 @@ RSK.sizes = {
     large: "large",
 };
 
+RSK.spellTypes = {
+    combat: "combat",
+    utility: "utility",
+    teleport: "teleport"
+};
+
 RSK.ranges = {
     near: "near",
     far: "far",

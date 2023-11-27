@@ -10,7 +10,7 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>{{localize "RSK.Description"}}</div>
-            <div>{{localize "RSK.Type"}}</div>
+            <div><strong>{{localize "RSK.Type"}}:</strong> {{system.spellType}}</div>
             <div>{{localize "RSK.Cost"}}</div>
 
             {{> "/systems/rsk-system/templates/items/parts/view-damage-entries.hbs"}}
@@ -21,7 +21,12 @@
 
         <div class="tab features" data-group="primary" data-tab="edit">
             <div>{{localize "RSK.Description"}}</div>
-            <div>{{localize "RSK.Type"}}</div>
+            <div class="form-group">
+                <label>{{localize "RSK.Spell" "RSK.Type"}}</label>
+                <select name="system.spellType">
+                    {{selectOptions config.spellTypes selected=system.spellType}}
+                </select>
+            </div>
             <div>{{localize "RSK.Cost"}}</div>
             <div>{{localize "RSK.Range"}}</div>
 
