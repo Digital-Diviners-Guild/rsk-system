@@ -184,44 +184,18 @@
             "equipment",
             "armour",
             "cape",
-            "quest",
             "action",
             "specialFeature",
             "quality",
             "spell",
             "prayer"
         ],
-        "templates": {
-            "usesEffects": {
-                "usesDescription": "",
-                "effectsDescription": ""
-            },
-            "hasCraftingRequirements": {
-                "craftingRequirements": {
-                    "testNumberModifier": 0,
-                    "equipmentRequired": "",
-                    "resourcesNeeded": [
-                        {
-                            "name": "",
-                            "quantity": 0
-                        }
-                    ]
-                }
-            }
-        },
         "material": {
-            "cost": 0,
             "description": "",
-            "gatheringRequirements": {
-                "equipmentRequired": "",
-                "location": ""
-            }
+            "cost": 0
         },
         "resource": {
-            "templates": [
-                "usesEffects",
-                "hasCraftingRequirements"
-            ],
+            "description": "",
             "cost": 0
         },
         "background": {
@@ -251,45 +225,21 @@
             }
         },
         "equipment": {
-            "templates": [
-                "usesEffects",
-                "hasCraftingRequirements"
-            ],
             "cost": 0,
-            "damageEntries": "",
-            "range": "",
-            "skillRequirement": "",
-            "specialEffectDescription": ""
+            "description": "",
+            "damageEntries": {},
+            "range": 0,
+            "specialEffects": []
         },
         "armour": {
-            "templates": [
-                "hasCraftingRequirements"
-            ],
             "armourType": "",
             "description": "",
             "upgrades": [],
             "cost": 0,
-            "values": ""
+            "values": {}
         },
         "cape": {
-            "templates": [
-                "usesEffects"
-            ],
-            "awardedForDescription": ""
-        },
-        "quest": {
-            "questRequirements": [],
-            "skillRequirements": [
-                {
-                    "skill": "",
-                    "minimumLevel": 1
-                }
-            ],
-            "summary": "",
-            "rewards": [],
-            "questGiver": "",
-            "startingLocation": "",
-            "steps": []
+            "awardedFor": ""
         },
         "action": {
             "description": ""
@@ -303,14 +253,14 @@
         "spell": {
             "spellType": "",
             "description": "",
-            "cost": "",
+            "cost": {},
             "range": "",
             "damage": "",
             "specialEffectDescription": ""
         },
         "prayer": {
             "description": "",
-            "cost": "",
+            "cost": 0,
             "range": ""
         }
     }

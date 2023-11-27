@@ -12,6 +12,7 @@ export default class RSKItemSheet extends ItemSheet {
     get template() {
         return `systems/rsk-system/templates/items/${this.item.type}-sheet.hbs`
     }
+
     getData() {
         const context = super.getData();
         const itemData = context.item;

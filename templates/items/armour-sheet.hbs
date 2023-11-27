@@ -9,38 +9,11 @@
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
-            <div>
-                <h3>{{localize "RSK.Description"}}:</h3>
-                <p>
-                    {{system.description}}
-                </p>
-            </div>
-            <div>
-                <h3>{{localize "RSK.Armour"}} {{localize "RSK.Type"}}:</h3>
-                <p>
-                    {{system.armourType}}
-                </p>
-            </div>
-            <div>
-                <h3>{{localize "RSK.Cost"}}:</h3>
-                <p>
-                    {{system.cost}}
-                </p>
-            </div>
-            {{!-- todo: values --}}
 
-            {{!-- todo: craftingRequirements, will want a part for it --}}
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
-            {{!-- editable? --}}
-            <label>{{localize "RSK.Description"}}</label>
-            <input type="text" name="system.description" value="{{system.description}}">
-            <label>{{localize "RSK.Armour"}} {{localize "RSK.Type"}}</label>
-            <input type="text" name="system.armourType" value="{{system.armourType}}">
-            <label>{{localize "RSK.Cost"}}</label>
-            <input type="text" name="system.cost" value="{{system.cost}}">
-            {{!-- todo: values --}}
+
         </div>
     </section>
 </form>
