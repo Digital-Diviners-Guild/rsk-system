@@ -268,7 +268,15 @@
             "description": "",
             "cost": {},
             "range": "",
-            "damageEntries": {},
+            "damageEntries": {
+                "stab": 0,
+                "slash": 0,
+                "crush": 0,
+                "air": 0,
+                "water": 0,
+                "earth": 0,
+                "fire": 0
+            },
             "specialEffectDescription": ""
         },
         "prayer": {
