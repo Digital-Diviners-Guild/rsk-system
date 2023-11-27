@@ -211,6 +211,7 @@
         },
         "material": {
             "cost": 0,
+            "description": "",
             "gatheringRequirements": {
                 "equipmentRequired": "",
                 "location": ""

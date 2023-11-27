@@ -3,6 +3,7 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
+
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
         <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
@@ -16,9 +17,12 @@
                 </p>
             </div>
             <div>
-                <h3>{{localize "RSK.Armour"}} {{localize "RSK.Type"}}:</h3>
+                <h3>{{localize "RSK.GatheringRequirements"}}:</h3>
                 <p>
-                    {{system.armourType}}
+                    {{localize "RSK.EquipmentNeeded"}}: {{system.gatheringRequirements.equipmentNeeded}}
+                </p>
+                <p>
+                    {{localize "RSK.Location"}}:{{system.gatheringRequirements.location}}
                 </p>
             </div>
             <div>
@@ -27,20 +31,20 @@
                     {{system.cost}}
                 </p>
             </div>
-            {{!-- todo: values --}}
-
-            {{!-- todo: craftingRequirements, will want a part for it --}}
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
             {{!-- editable? --}}
-            <label>{{localize "RSK.Description"}}</label>
-            <input type="text" name="system.description" value="{{system.description}}">
-            <label>{{localize "RSK.Armour"}} {{localize "RSK.Type"}}</label>
-            <input type="text" name="system.armourType" value="{{system.armourType}}">
             <label>{{localize "RSK.Cost"}}</label>
-            <input type="text" name="system.cost" value="{{system.cost}}">
-            {{!-- todo: values --}}
+            <input name="system.cost" type="text" value="{{system.cost}}">
+            <label>{{localize "RSK.Description"}}</label>
+            <input name="system.description" type="text" value="{{system.description}}">
+            <label>{{localize "RSK.EquipmentNeeded"}}</label>
+            <input name="system.gatheringRequirements.equipmentNeeded" type="text"
+                value="{{system.gatheringRequirements.equipmentNeeded}}">
+            <label>{{localize "RSK.Location"}}</label>
+            <input name="system.gatheringRequirements.location" type="text"
+                value="{{system.gatheringRequirements.location}}">
         </div>
     </section>
 </form>
