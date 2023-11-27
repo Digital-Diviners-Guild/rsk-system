@@ -4,14 +4,14 @@
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
     <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">Description</a>
-        <a class="item" data-tab="edit">Edit</a>
+        <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             {{> "/systems/rsk-system/templates/items/parts/uses-effects.hbs" }}
             <div>
-                <h3>{{localize "RSK.DamageEntires"}}:</h3>
+                <h3>{{localize "RSK.Damage"}}:</h3>
                 <p>
                     {{system.damageEntries}}
                 </p>
@@ -23,22 +23,10 @@
                 </p>
             </div>
             <div>
-                <h3>{{localize "RSK.SkillRequirement"}}:</h3>
-                <p>
-                    {{system.skillRequirement}}
-                </p>
-            </div>
-            <div>
                 <h3>{{localize "RSK.Cost"}}:</h3>
                 <p>
                     {{system.cost}}
                 </p>
-            </div>
-            <div data-can-drop="true">
-                {{localize "RSK.SpecialEffects"}}:
-                {{#each system.specialEffects as |specials|}}
-                <li>{{specials.name}}</li>
-                {{/each}}
             </div>
             {{!-- todo: craftingRequirements, will want a part for it --}}
         </div>
@@ -47,24 +35,14 @@
             {{!-- editable? --}}
             {{> "/systems/rsk-system/templates/items/parts/edit-uses-effects.hbs" }}
 
-            <label>{{localize "RSK.DamageEntires"}}</label>
+            <label>{{localize "RSK.Damage"}}</label>
             <input type="text" name="system.damageEntries" value="{{system.damageEntries}}">
 
             <label>{{localize "RSK.Range"}}</label>
             <input type="text" name="system.range" value="{{system.range}}">
 
-            <label>{{localize "RSK.SkillRequirement"}}</label>
-            <input type="text" name="system.skillRequirement" value="{{system.skillRequirement}}">
-
             <label>{{localize "RSK.Cost"}}</label>
             <input type="text" name="system.cost" value="{{system.cost}}">
-
-            <div data-can-drop="true">
-                {{localize "RSK.SpecialEffects"}}:
-                {{#each system.specialEffects as |specials|}}
-                <li>{{specials.name}}</li>
-                {{/each}}
-            </div>
         </div>
     </section>
 </form>
