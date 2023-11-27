@@ -184,7 +184,9 @@
             "quest",
             "action",
             "specialFeature",
-            "quality"
+            "quality",
+            "spell",
+            "prayer"
         ],
         "templates": {
             "usesEffects": {
@@ -249,13 +251,16 @@
             "cost": 0,
             "damageEntries": "",
             "range": "",
-            "skillRequirement": ""
+            "skillRequirement": "",
+            "specialEffectDescription": ""
         },
         "armour": {
             "templates": [
-                "usesEffects",
                 "hasCraftingRequirements"
             ],
+            "armourType": "",
+            "description": "",
+            "upgrades": [],
             "cost": 0,
             "values": ""
         },
@@ -280,13 +285,28 @@
             "steps": []
         },
         "action": {
-            "description": ""
+            "description": "",
+            "specialEffectDescription": ""
         },
         "specialFeature": {
-            "description": ""
+            "specialEffectDescription": ""
         },
         "quality": {
-            "description": ""
+            "specialEffectDescription": ""
+        },
+        "spell": {
+            "spellType": "",
+            "description": "",
+            "cost": "",
+            "range": "",
+            "damage": "",
+            "specialEffectDescription": ""
+        },
+        "prayer": {
+            "description": "",
+            "cost": "",
+            "range": "",
+            "specialEffectDescription": ""
         }
     }
 }
