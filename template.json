@@ -178,6 +178,7 @@
     },
     "Item": {
         "types": [
+            "material",
             "resource",
             "background",
             "equipment",
@@ -208,16 +209,19 @@
                 }
             }
         },
-        "resource": {
-            "templates": [
-                "usesEffects",
-                "hasCraftingRequirements"
-            ],
+        "material": {
             "cost": 0,
             "gatheringRequirements": {
                 "equipmentRequired": "",
                 "location": ""
             }
+        },
+        "resource": {
+            "templates": [
+                "usesEffects",
+                "hasCraftingRequirements"
+            ],
+            "cost": 0
         },
         "background": {
             "description": "",
