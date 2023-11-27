@@ -9,31 +9,43 @@
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
-            <div>{{localize "RSK.Description"}}</div>
-            <div><strong>{{localize "RSK.Type"}}:</strong> {{system.spellType}}</div>
+            <h3>{{localize "RSK.Description"}}</h3>
+            <p>{{system.description}}</p>
+            <div><strong>{{localize "RSK.SpellType"}}:</strong> {{system.spellType}}</div>
+            {{> "/systems/rsk-system/templates/items/parts/view-range.hbs"}}
 
-            <h3>{{localize "RSK.Cost"}}</h3>
-            {{#each system.cost as |cost type|}}
-            {{!-- todo: how to localize? --}}
-            {{#if cost}}
-            <p>{{cost}} <strong>{{type}}</strong> runes</p>
-            {{/if}}
-            {{/each}}
+            <div><strong>{{localize "RSK.Cost"}}:</strong>
+                {{#each system.cost as |cost type|}}
+                {{!-- todo: how to localize? --}}
+                {{#if cost}}
+                <span>{{cost}} <strong>{{type}}</strong> runes</span>
+                {{/if}}
+                {{/each}}
+            </div>
 
+            <h3>{{localize "RSK.Effect"}}:</h3>
+            <p>{{system.effectDescription}}</p>
             {{> "/systems/rsk-system/templates/items/parts/view-damage-entries.hbs"}}
-
-            <div>{{localize "RSK.Range"}}</div>
-            <div>{{localize "RSK.Effect"}}</div>
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
-            <div>{{localize "RSK.Description"}}</div>
+            <h3>{{localize "RSK.Description"}}</h3>
+            <input type="text" name="system.description" value="{{system.description}}">
+
             <div class="form-group">
-                <label>{{localize "RSK.Spell" "RSK.Type"}}</label>
+                <label>{{localize "RSK.SpellType"}}</label>
                 <select name="system.spellType">
                     {{selectOptions config.spellTypes selected=system.spellType}}
                 </select>
             </div>
+            {{> "/systems/rsk-system/templates/items/parts/edit-range.hbs"}}
+
+            <div>
+                <label>{{localize "RSK.Effect"}}</label>
+                <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
+            </div>
+
+            <h3>{{localize "RSK.Cost"}}</h3>
             {{!-- todo: can this also be looped? --}}
             <div class="form-group">
                 <label>{{localize "RSK.Air"}}</label>
@@ -92,11 +104,7 @@
                 <input type="number" name="system.cost.wrath" value="{{system.cost.wrath}}">
             </div>
 
-            <div>{{localize "RSK.Range"}}</div>
-
             {{> "/systems/rsk-system/templates/items/parts/edit-damage-entries.hbs"}}
-
-            <div>{{localize "RSK.Effect"}}</div>
         </div>
     </section>
 </form>

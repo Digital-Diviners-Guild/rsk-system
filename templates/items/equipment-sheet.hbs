@@ -23,12 +23,7 @@
             {{/if}}
 
             {{> "/systems/rsk-system/templates/items/parts/view-damage-entries.hbs"}}
-
-            {{#if system.range}}
-            <h3>{{localize "RSK.Range"}}</h3>
-            {{system.range}}
-            {{/if}}
-
+            {{> "/systems/rsk-system/templates/items/parts/view-range.hbs"}}
 
             {{#if system.specialEffects}}
             <h3>{{localize "RSK.SpecialEffects"}}</h3>
@@ -45,15 +40,8 @@
             <label>{{localize "RSK.Uses"}}:</label>
             <input type="text" name="system.uses" value="{{system.uses}}">
 
+            {{> "/systems/rsk-system/templates/items/parts/edit-range.hbs"}}
             {{> "/systems/rsk-system/templates/items/parts/edit-damage-entries.hbs"}}
-
-            <div class="form-group">
-                <label>{{localize "RSK.Range"}}</label>
-                <select name="system.range">
-                    {{selectOptions config.ranges selected=system.range}}
-                </select>
-            </div>
-
         </div>
     </section>
 </form>

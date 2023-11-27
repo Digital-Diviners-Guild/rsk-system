@@ -292,7 +292,7 @@
                 "earth": 0,
                 "fire": 0
             },
-            "specialEffectDescription": ""
+            "effectDescription": ""
         },
         "prayer": {
             "description": "",
