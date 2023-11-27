@@ -227,7 +227,16 @@
         "equipment": {
             "cost": 0,
             "description": "",
-            "damageEntries": {},
+            "uses": "",
+            "damageEntries": {
+                "stab": 0,
+                "slash": 0,
+                "crush": 0,
+                "air": 0,
+                "water": 0,
+                "earth": 0,
+                "fire": 0
+            },
             "range": 0,
             "specialEffects": []
         },
@@ -259,7 +268,7 @@
             "description": "",
             "cost": {},
             "range": "",
-            "damage": "",
+            "damage": {},
             "specialEffectDescription": ""
         },
         "prayer": {

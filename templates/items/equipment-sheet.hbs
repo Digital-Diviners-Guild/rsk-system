@@ -9,9 +9,89 @@
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
+            {{#if system.description}}
+            <h3>{{localize "RSK.Description"}}</h3>
+            <p>{{system.description}}</p>
+            {{/if}}
+
+            {{#if system.uses}}
+            <p><strong>{{localize "RSK.Uses"}}: </strong> {{system.uses}}</p>
+            {{/if}}
+
+            {{#if system.cost}}
+            <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}}</p>
+            {{/if}}
+
+            {{#if dealsDamage}}
+            <h3>{{localize "RSK.Damage"}}</h3>
+            {{!-- todo: only show values > 0 --}}
+            <p><strong>{{localize "RSK.Stab"}}: </strong>{{system.damageEntries.stab}}</p>
+            <p><strong>{{localize "RSK.Slash"}}: </strong>{{system.damageEntries.slash}}</p>
+            <p><strong>{{localize "RSK.Crush"}}: </strong>{{system.damageEntries.crush}}</p>
+            <p><strong>{{localize "RSK.Air"}}: </strong>{{system.damageEntries.air}}</p>
+            <p><strong>{{localize "RSK.Water"}}: </strong>{{system.damageEntries.water}}</p>
+            <p><strong>{{localize "RSK.Earth"}}: </strong>{{system.damageEntries.earth}}</p>
+            <p><strong>{{localize "RSK.Fire"}}: </strong>{{system.damageEntries.fire}}</p>
+            {{/if}}
+
+            {{#if system.range}}
+            <h3>{{localize "RSK.Range"}}</h3>
+            {{system.range}}
+            {{/if}}
+
+
+            {{#if system.specialEffects}}
+            <h3>{{localize "RSK.SpecialEffects"}}</h3>
+            {{#each system.specialEffects as |specialEffect|}}
+            {{specialEffect}}
+            {{/each}}
+            {{/if}}
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
+            <label>{{localize "RSK.Description"}}:</label>
+            <input type="text" name="system.description" value="{{system.description}}">
+
+            <label>{{localize "RSK.Uses"}}:</label>
+            <input type="text" name="system.uses" value="{{system.uses}}">
+
+            <label>{{localize "RSK.Damage"}}</label>
+            <div class="form-group">
+                <label>{{localize "RSK.Stab"}}</label>
+                <input type="number" name="system.damageEntries.stab" value="{{system.damageEntries.stab}}">
+            </div>
+            <div class="form-group">
+                <label>{{localize "RSK.Slash"}}</label>
+                <input type="number" name="system.damageEntries.slash" value="{{system.damageEntries.slash}}">
+            </div>
+            <div class="form-group">
+                <label>{{localize "RSK.Crush"}}</label>
+                <input type="number" name="system.damageEntries.crush" value="{{system.damageEntries.crush}}">
+            </div>
+            <div class="form-group">
+                <label>{{localize "RSK.Air"}}</label>
+                <input type="number" name="system.damageEntries.air" value="{{system.damageEntries.air}}">
+            </div>
+            <div class="form-group">
+                <label>{{localize "RSK.Water"}}</label>
+                <input type="number" name="system.damageEntries.water" value="{{system.damageEntries.water}}">
+            </div>
+            <div class="form-group">
+                <label>{{localize "RSK.Earth"}}</label>
+                <input type="number" name="system.damageEntries.earth" value="{{system.damageEntries.earth}}">
+            </div>
+            <div class="form-group">
+                <label>{{localize "RSK.Fire"}}</label>
+                <input type="number" name="system.damageEntries.fire" value="{{system.damageEntries.fire}}">
+            </div>
+
+            <div class="form-group">
+                <label>{{localize "RSK.Range"}}</label>
+                <select name="system.range">
+                    {{selectOptions config.ranges selected=system.range}}
+                </select>
+            </div>
+
         </div>
     </section>
 </form>

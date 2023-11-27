@@ -6,6 +6,13 @@ RSK.sizes = {
     medium: "medium",
     large: "large",
 };
+
+RSK.ranges = {
+    near: "near",
+    far: "far",
+    distant: "distant",
+};
+
 RSK.armourTypes = {
     armoured_shirt: "armoured shirt",
     boots: "boots",
@@ -21,6 +28,7 @@ RSK.armourTypes = {
     square_shield: "square shield",
     vambraces: "vambraces"
 };
+
 RSK.materials = {
     bronze: "bronze",
     iron: "iron",
