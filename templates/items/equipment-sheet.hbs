@@ -24,14 +24,12 @@
 
             {{#if dealsDamage}}
             <h3>{{localize "RSK.Damage"}}</h3>
-            {{!-- todo: only show values > 0 --}}
-            <p><strong>{{localize "RSK.Stab"}}: </strong>{{system.damageEntries.stab}}</p>
-            <p><strong>{{localize "RSK.Slash"}}: </strong>{{system.damageEntries.slash}}</p>
-            <p><strong>{{localize "RSK.Crush"}}: </strong>{{system.damageEntries.crush}}</p>
-            <p><strong>{{localize "RSK.Air"}}: </strong>{{system.damageEntries.air}}</p>
-            <p><strong>{{localize "RSK.Water"}}: </strong>{{system.damageEntries.water}}</p>
-            <p><strong>{{localize "RSK.Earth"}}: </strong>{{system.damageEntries.earth}}</p>
-            <p><strong>{{localize "RSK.Fire"}}: </strong>{{system.damageEntries.fire}}</p>
+            {{#each system.damageEntries as |damage type|}}
+            {{!-- todo: how to localize? --}}
+            {{#if damage}}
+            <p><strong>{{type}}: </strong>{{damage}}</p>
+            {{/if}}
+            {{/each}}
             {{/if}}
 
             {{#if system.range}}
@@ -54,7 +52,7 @@
 
             <label>{{localize "RSK.Uses"}}:</label>
             <input type="text" name="system.uses" value="{{system.uses}}">
-
+            {{!-- todo: can this also be looped? --}}
             <label>{{localize "RSK.Damage"}}</label>
             <div class="form-group">
                 <label>{{localize "RSK.Stab"}}</label>
