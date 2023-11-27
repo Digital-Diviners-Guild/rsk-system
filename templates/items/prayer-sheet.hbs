@@ -1,0 +1,25 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
+    </header>
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab features" data-group="primary" data-tab="description">
+            {{localize "RSK.Description"}}
+            {{localize "RSK.Cost"}}
+            {{localize "RSK.Range"}}
+            {{localize "RSK.Effect"}}
+        </div>
+
+        <div class="tab features" data-group="primary" data-tab="edit">
+            {{localize "RSK.Description"}}
+            {{localize "RSK.Cost"}}
+            {{localize "RSK.Range"}}
+            {{localize "RSK.Effect"}}
+        </div>
+    </section>
+</form>
