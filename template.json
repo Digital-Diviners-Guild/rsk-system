@@ -196,6 +196,7 @@
         },
         "resource": {
             "description": "",
+            "uses": "",
             "cost": 0
         },
         "background": {
