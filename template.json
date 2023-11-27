@@ -288,10 +288,10 @@
             "description": ""
         },
         "specialFeature": {
-            "specialEffectDescription": ""
+            "description": ""
         },
         "quality": {
-            "specialEffectDescription": ""
+            "description": ""
         },
         "spell": {
             "spellType": "",
