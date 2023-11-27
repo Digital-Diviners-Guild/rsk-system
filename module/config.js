@@ -20,19 +20,10 @@ RSK.ranges = {
 };
 
 RSK.armourTypes = {
-    armoured_shirt: "armoured shirt",
-    boots: "boots",
-    buckler: "buckler",
-    chainbody: "chainbody",
-    platelegs_chaps: "platelegs/chaps",
-    cowl_hood_coif: "cowl/hood/coif",
-    gloves: "gloves",
-    helm: "helm",
-    kite_shield: "kiteshield",
-    platebody: "platebody",
-    shield: "shield",
-    square_shield: "square shield",
-    vambraces: "vambraces"
+   head: "head",
+   body: "body",
+   legs: "legs",
+   arm: "arm"
 };
 
 RSK.materials = {
