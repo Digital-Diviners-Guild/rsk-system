@@ -5,6 +5,7 @@ import RSKItemSheet from "./sheets/RSKItemSheet.js";
 import RSKActorSheet from "./sheets/RSKActorSheet.js";
 
 import RSK from "./config.js";
+import RSKDice from "./rsk-dice.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -42,4 +43,9 @@ Hooks.once("init", function () {
 
     preloadHandlebarsTemplates()
     console.log("rsk ready");
+});
+
+Hooks.once("ready", function () {
+    //todo: open dialog to get TN
+    RSKDice.addClickListener($("i.fa-dice-d20"), RSKDice.handleBasicRoll());
 });

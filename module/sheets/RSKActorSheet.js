@@ -33,12 +33,11 @@ export default class RSKActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    //todo: would be nice to hook into the chat d20 icon somehow too
     RSKDice.addButtonListener(html,
       this.actor.type === "npc"
-        ? RSKDice.npcRoll()
+        ? RSKDice.handleBasicRoll()
         //todo: calculate test number, probably need to open a dialog to get some input?
-        : RSKDice.playerRoll(10));
+        : RSKDice.handlePlayerRoll(10));
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.find('.item-edit').click(ev => {

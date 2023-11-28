@@ -7,16 +7,25 @@ export default class RSKDice {
         });
     }
 
-    static playerRoll = (tn) => async (rollResult, rollMode) => {
+    static addClickListener = (selector, handler) => {
+        selector.click(async (ev) => {
+            const rollResult = await RSKDice.basicRoll();
+            handler(rollResult);
+        });
+    }
+
+    static handlePlayerRoll = (tn) => async (rollResult, rollMode) => {
         const success = rollResult.total <= tn;
         const margin = tn - rollResult.total;
         const flavor = `${rollResult.isCritical ? "critical" : ""} ${success ? "success" : "fail"} (${margin})`
-        await rollResult.toMessage({ flavor }, { rollMode });
+        const cfg = rollMode ? { rollMode } : {};
+        await rollResult.toMessage({ flavor }, cfg);
     }
 
-    static npcRoll = () => async (rollResult, rollMode) => {
+    static handleBasicRoll = () => async (rollResult, rollMode) => {
         const flavor = `${rollResult.isCritical ? "critical" : ""}`
-        await rollResult.toMessage({ flavor }, { rollMode });
+        const cfg = rollMode ? { rollMode } : {};
+        await rollResult.toMessage({ flavor }, cfg);
     }
 
     static basicRoll = async () => {
