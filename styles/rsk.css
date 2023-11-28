@@ -8,3 +8,13 @@
     padding: 0 8px;
     min-height: 200px;
 }
+
+.dice-tooltip .dice-rolls .roll.min {
+    color: #18520b !important;
+    filter: sepia(0.5) hue-rotate(60deg);
+}
+
+.dice-tooltip .dice-rolls .roll.max {
+    color: #aa0200 !important;
+    filter: sepia(0.5) hue-rotate(-60deg);
+}
