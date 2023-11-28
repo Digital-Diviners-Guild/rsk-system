@@ -33,6 +33,7 @@ export default class RSKActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
+    //todo: would be nice to hook into the chat d20 icon somehow too
     RSKDice.addButtonListener(html,
       this.actor.type === "npc"
         ? RSKDice.npcRoll()

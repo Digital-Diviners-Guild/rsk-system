@@ -1,12 +1,3 @@
-//todo:
-//check for triples
-//check for success (need to know the TN)
-
-
-// need basic dice for npc that just rolls a 3d6 with no TN success or fail.
-// need a dice for players that uses a TN and reports success or fail.
-//  > button should open a dialog to confirm the attr+skill=tn formula for the test
-
 export default class RSKDice {
     static addButtonListener = (html, handler) => {
         html.find('.roll-dice').click(async (ev) => {
