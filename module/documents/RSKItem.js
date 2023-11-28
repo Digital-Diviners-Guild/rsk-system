@@ -4,21 +4,29 @@ export default class RSKItem extends Item {
     }
 
     addQuality(qualityData) {
-        if (this.system.hasOwnProperty("values") && this.system.values.hasOwnProperty("qualities")) {
+        this.executeQualitiesOperation(() => {
             const qualities = [...this.system.values.qualities, qualityData];
             this.update({ system: { values: { qualities: qualities } } });
-        }
+        });
     }
 
     removeQuality(qualitySourceUuid) {
-        if (this.system.hasOwnProperty("values") && this.system.values.hasOwnProperty("qualities")) {
+        this.executeQualitiesOperation(() => {
             const qualities = this.system.values.qualities
                 .filter(x => x.sourceUuId !== qualitySourceUuid)
             this.update({ system: { values: { qualities: qualities } } });
-        }
+        });
     }
 
     hasQuality(uuid) {
-        return this.system.values?.qualities?.filter(q => q.sourceUuId === uuid)?.length ?? 0 > 0;
+        return this.executeQualitiesOperation(() =>
+            this.system.values.qualities.filter(q => q.sourceUuId === uuid).length > 0, false)
+    }
+
+    executeQualitiesOperation(op, defaultValue = {}) {
+        if (this.system.hasOwnProperty("values") && this.system.values.hasOwnProperty("qualities")) {
+            return op();
+        }
+        return defaultValue;
     }
 }
