@@ -2,151 +2,131 @@
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
     <div class="header-fields">
-      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-    <div>
-      <label>{{localize "RSK.Lifepoints"}}</label>
-      <div type="number">{{system.stats.lifepoints}}</div>
-      <label>{{localize "RSK.Strength"}}</label>
-      <div type="number">{{system.stats.strength}}</div>
-      <label>{{localize "RSK.Agility"}}</label>
-      <div type="number">{{system.stats.agility}}</div>
-      <label>{{localize "RSK.Intellect"}}</label>
-      <div type="number">{{system.stats.intellect}}</div>
-      <label>{{localize "RSK.Summoningpoints"}}</label>
-      <div type="number">{{system.stats.summoningpoints}}</div>
-      <label>{{localize "RSK.Prayerpoints"}}</label>
-      <div type="number">{{system.stats.prayerpoints}}</div>
-      <label>{{localize "RSK.Prayerpoints"}}</label>
-      <div>{{system.skills.prayerpoints.level}}</div>
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+      <div>
+        <a class="roll-dice">Roll</a>
+        <label>{{localize "RSK.Lifepoints"}}</label>
+        <div type="number">{{system.stats.lifepoints}}</div>
+        <label>{{localize "RSK.Strength"}}</label>
+        <div type="number">{{system.stats.strength}}</div>
+        <label>{{localize "RSK.Agility"}}</label>
+        <div type="number">{{system.stats.agility}}</div>
+        <label>{{localize "RSK.Intellect"}}</label>
+        <div type="number">{{system.stats.intellect}}</div>
+        <label>{{localize "RSK.Summoningpoints"}}</label>
+        <div type="number">{{system.stats.summoningpoints}}</div>
+        <label>{{localize "RSK.Prayerpoints"}}</label>
+        <div type="number">{{system.stats.prayerpoints}}</div>
+        <label>{{localize "RSK.Prayerpoints"}}</label>
+        <div>{{system.skills.prayerpoints.level}}</div>
 
-      <label>{{localize "RSK.Archaelogy"}}</label>
-      <div>{{system.skills.archaelogy.level}}</div>
-      <input type="checkbox" name=""
-      value="{{system.skills.archaelogy.used}}"
-      {{checked system.skills.archaelogy.used}}>
-      <label>{{localize "RSK.Attack"}}</label>
-      <div>{{system.skills.attack.level}}</div>
-      <input type="checkbox" name="system.skills.attack.used" 
-      value="{{system.skills.attack.used}}" data-dtype="Boolean" 
-      {{checked system.skills.attack.used}}>
-      <label>{{localize "RSK.Cooking"}}</label>
-      <div>{{system.skills.cooking.level}}</div>
-      <input type="checkbox" name="system.skills.cooking.used" 
-      value="{{system.skills.cooking.used}}" data-dtype="Boolean" 
-      {{checked system.skills.cooking.used}}>
-      <label>{{localize "RSK.Crafting"}}</label>
-      <div>{{system.skills.crafting.level}}</div>
-      <input type="checkbox" name="system.skills.crafting.used" 
-      value="{{system.skills.crafting.used}}" data-dtype="Boolean" 
-      {{checked system.skills.crafting.used}}>
-      <label>{{localize "RSK.Defence"}}</label>
-      <div>{{system.skills.defence.level}}</div>
-      <input type="checkbox" name="system.skills.defence.used" 
-      value="{{system.skills.defence.used}}" data-dtype="Boolean" 
-      {{checked system.skills.defence.used}}>
-      <label>{{localize "RSK.Dungeoneering"}}</label>
-      <div>{{system.skills.dungeoneering.level}}</div>
-      <input type="checkbox" name="system.skills.dungeoneering.used" 
-      value="{{system.skills.dungeoneering.used}}" data-dtype="Boolean" 
-      {{checked system.skills.dungeoneering.used}}>
-      <label>{{localize "RSK.Farming"}}</label>
-      <div>{{system.skills.farming.level}}</div>
-      <input type="checkbox" name="system.skills.farming.used" 
-      value="{{system.skills.farming.used}}" data-dtype="Boolean" 
-      {{checked system.skills.farming.used}}>
-      <label>{{localize "RSK.Fishing"}}</label>
-      <div>{{system.skills.fishing.level}}</div>
-      <input type="checkbox" name="system.skills.fishing.used" 
-      value="{{system.skills.fishing.used}}" data-dtype="Boolean" 
-      {{checked system.skills.fishing.used}}>
-      <label>{{localize "RSK.Fletching"}}</label>
-      <div>{{system.skills.fletching.level}}</div>
-      <input type="checkbox" name="system.skills.fletching.used" 
-      value="{{system.skills.fletching.used}}" data-dtype="Boolean" 
-      {{checked system.skills.fletching.used}}>
-      <label>{{localize "RSK.Herblore"}}</label>
-      <div>{{system.skills.herblore.level}}</div>
-      <input type="checkbox" name="system.skills.herblore.used" 
-      value="{{system.skills.herblore.used}}" data-dtype="Boolean" 
-      {{checked system.skills.herblore.used}}>
-      <label>{{localize "RSK.Hunter"}}</label>
-      <div>{{system.skills.hunter.level}}</div>
-      <input type="checkbox" name="system.skills.hunter.used" 
-      value="{{system.skills.hunter.used}}" data-dtype="Boolean" 
-      {{checked system.skills.hunter.used}}>
-      <label>{{localize "RSK.Magic"}}</label>
-      <div>{{system.skills.magic.level}}</div>
-      <input type="checkbox" name="system.skills.magic.used" 
-      value="{{system.skills.magic.used}}" data-dtype="Boolean" 
-      {{checked system.skills.magic.used}}>
-      <label>{{localize "RSK.Mining"}}</label>
-      <div>{{system.skills.mining.level}}</div>
-      <input type="checkbox" name="system.skills.mining.used" 
-      value="{{system.skills.mining.used}}" data-dtype="Boolean" 
-      {{checked system.skills.mining.used}}>
-      <label>{{localize "RSK.Prayer"}}</label>
-      <div>{{system.skills.prayer.level}}</div>
-      <input type="checkbox" name="system.skills.prayer.used" 
-      value="{{system.skills.prayer.used}}" data-dtype="Boolean" 
-      {{checked system.skills.prayer.used}}>
-      <label>{{localize "RSK.Ranged"}}</label>
-      <div>{{system.skills.ranged.level}}</div>
-      <input type="checkbox" name="system.skills.ranged.used" 
-      value="{{system.skills.ranged.used}}" data-dtype="Boolean" 
-      {{checked system.skills.ranged.used}}>
-      <label>{{localize "RSK.Runecrafting"}}</label>
-      <div>{{system.skills.runecrafting.level}}</div>
-      <input type="checkbox" name="system.skills.runecrafting.used" 
-      value="{{system.skills.runecrafting.used}}" data-dtype="Boolean" 
-      {{checked system.skills.runecrafting.used}}>
-      <label>{{localize "RSK.Slayer"}}</label>
-      <div>{{system.skills.slayer.level}}</div>
-      <input type="checkbox" name="system.skills.slayer.used" 
-      value="{{system.skills.slayer.used}}" data-dtype="Boolean" 
-      {{checked system.skills.slayer.used}}>
-      <label>{{localize "RSK.Smithing"}}</label>
-      <div>{{system.skills.smithing.level}}</div>
-      <input type="checkbox" name="system.skills.smithing.used" 
-      value="{{system.skills.smithing.used}}" data-dtype="Boolean" 
-      {{checked system.skills.smithing.used}}>
-      <label>{{localize "RSK.Summoning"}}</label>
-      <div>{{system.skills.summoning.level}}</div>
-      <input type="checkbox" name="system.skills.summoning.used" 
-      value="{{system.skills.summoning.used}}" data-dtype="Boolean" 
-      {{checked system.skills.summoning.used}}>
-      <label>{{localize "RSK.Thieving"}}</label>
-      <div>{{system.skills.thieving.level}}</div>
-      <input type="checkbox" name="system.skills.thieving.used" 
-      value="{{system.skills.thieving.used}}" data-dtype="Boolean" 
-      {{checked system.skills.thieving.used}}>
-      <label>{{localize "RSK.Woodcutting"}}</label>
-      <div>{{system.skills.woodcutting.level}}</div>
-      <input type="checkbox" name="system.skills.woodcutting.used" 
-      value="{{system.skills.woodcutting.used}}" data-dtype="Boolean" 
-      {{checked system.skills.woodcutting.used}}>
+        <label>{{localize "RSK.Archaelogy"}}</label>
+        <div>{{system.skills.archaelogy.level}}</div>
+        <input type="checkbox" name="" value="{{system.skills.archaelogy.used}}" {{checked
+          system.skills.archaelogy.used}}>
+        <label>{{localize "RSK.Attack"}}</label>
+        <div>{{system.skills.attack.level}}</div>
+        <input type="checkbox" name="system.skills.attack.used" value="{{system.skills.attack.used}}"
+          data-dtype="Boolean" {{checked system.skills.attack.used}}>
+        <label>{{localize "RSK.Cooking"}}</label>
+        <div>{{system.skills.cooking.level}}</div>
+        <input type="checkbox" name="system.skills.cooking.used" value="{{system.skills.cooking.used}}"
+          data-dtype="Boolean" {{checked system.skills.cooking.used}}>
+        <label>{{localize "RSK.Crafting"}}</label>
+        <div>{{system.skills.crafting.level}}</div>
+        <input type="checkbox" name="system.skills.crafting.used" value="{{system.skills.crafting.used}}"
+          data-dtype="Boolean" {{checked system.skills.crafting.used}}>
+        <label>{{localize "RSK.Defence"}}</label>
+        <div>{{system.skills.defence.level}}</div>
+        <input type="checkbox" name="system.skills.defence.used" value="{{system.skills.defence.used}}"
+          data-dtype="Boolean" {{checked system.skills.defence.used}}>
+        <label>{{localize "RSK.Dungeoneering"}}</label>
+        <div>{{system.skills.dungeoneering.level}}</div>
+        <input type="checkbox" name="system.skills.dungeoneering.used" value="{{system.skills.dungeoneering.used}}"
+          data-dtype="Boolean" {{checked system.skills.dungeoneering.used}}>
+        <label>{{localize "RSK.Farming"}}</label>
+        <div>{{system.skills.farming.level}}</div>
+        <input type="checkbox" name="system.skills.farming.used" value="{{system.skills.farming.used}}"
+          data-dtype="Boolean" {{checked system.skills.farming.used}}>
+        <label>{{localize "RSK.Fishing"}}</label>
+        <div>{{system.skills.fishing.level}}</div>
+        <input type="checkbox" name="system.skills.fishing.used" value="{{system.skills.fishing.used}}"
+          data-dtype="Boolean" {{checked system.skills.fishing.used}}>
+        <label>{{localize "RSK.Fletching"}}</label>
+        <div>{{system.skills.fletching.level}}</div>
+        <input type="checkbox" name="system.skills.fletching.used" value="{{system.skills.fletching.used}}"
+          data-dtype="Boolean" {{checked system.skills.fletching.used}}>
+        <label>{{localize "RSK.Herblore"}}</label>
+        <div>{{system.skills.herblore.level}}</div>
+        <input type="checkbox" name="system.skills.herblore.used" value="{{system.skills.herblore.used}}"
+          data-dtype="Boolean" {{checked system.skills.herblore.used}}>
+        <label>{{localize "RSK.Hunter"}}</label>
+        <div>{{system.skills.hunter.level}}</div>
+        <input type="checkbox" name="system.skills.hunter.used" value="{{system.skills.hunter.used}}"
+          data-dtype="Boolean" {{checked system.skills.hunter.used}}>
+        <label>{{localize "RSK.Magic"}}</label>
+        <div>{{system.skills.magic.level}}</div>
+        <input type="checkbox" name="system.skills.magic.used" value="{{system.skills.magic.used}}" data-dtype="Boolean"
+          {{checked system.skills.magic.used}}>
+        <label>{{localize "RSK.Mining"}}</label>
+        <div>{{system.skills.mining.level}}</div>
+        <input type="checkbox" name="system.skills.mining.used" value="{{system.skills.mining.used}}"
+          data-dtype="Boolean" {{checked system.skills.mining.used}}>
+        <label>{{localize "RSK.Prayer"}}</label>
+        <div>{{system.skills.prayer.level}}</div>
+        <input type="checkbox" name="system.skills.prayer.used" value="{{system.skills.prayer.used}}"
+          data-dtype="Boolean" {{checked system.skills.prayer.used}}>
+        <label>{{localize "RSK.Ranged"}}</label>
+        <div>{{system.skills.ranged.level}}</div>
+        <input type="checkbox" name="system.skills.ranged.used" value="{{system.skills.ranged.used}}"
+          data-dtype="Boolean" {{checked system.skills.ranged.used}}>
+        <label>{{localize "RSK.Runecrafting"}}</label>
+        <div>{{system.skills.runecrafting.level}}</div>
+        <input type="checkbox" name="system.skills.runecrafting.used" value="{{system.skills.runecrafting.used}}"
+          data-dtype="Boolean" {{checked system.skills.runecrafting.used}}>
+        <label>{{localize "RSK.Slayer"}}</label>
+        <div>{{system.skills.slayer.level}}</div>
+        <input type="checkbox" name="system.skills.slayer.used" value="{{system.skills.slayer.used}}"
+          data-dtype="Boolean" {{checked system.skills.slayer.used}}>
+        <label>{{localize "RSK.Smithing"}}</label>
+        <div>{{system.skills.smithing.level}}</div>
+        <input type="checkbox" name="system.skills.smithing.used" value="{{system.skills.smithing.used}}"
+          data-dtype="Boolean" {{checked system.skills.smithing.used}}>
+        <label>{{localize "RSK.Summoning"}}</label>
+        <div>{{system.skills.summoning.level}}</div>
+        <input type="checkbox" name="system.skills.summoning.used" value="{{system.skills.summoning.used}}"
+          data-dtype="Boolean" {{checked system.skills.summoning.used}}>
+        <label>{{localize "RSK.Thieving"}}</label>
+        <div>{{system.skills.thieving.level}}</div>
+        <input type="checkbox" name="system.skills.thieving.used" value="{{system.skills.thieving.used}}"
+          data-dtype="Boolean" {{checked system.skills.thieving.used}}>
+        <label>{{localize "RSK.Woodcutting"}}</label>
+        <div>{{system.skills.woodcutting.level}}</div>
+        <input type="checkbox" name="system.skills.woodcutting.used" value="{{system.skills.woodcutting.used}}"
+          data-dtype="Boolean" {{checked system.skills.woodcutting.used}}>
 
-      <label>{{localize "RSK.Headarmour"}}</label>
-      <div>{{system.worn.headarmour}}</div>
-      <label>{{localize "RSK.Bodyarmour"}}</label>
-      <div>{{system.worn.bodyarmour}}</div>
-      <label>{{localize "RSK.Legarmour"}}</label>
-      <div>{{system.worn.legarmour}}</div>
-      <label>{{localize "RSK.Armarmour"}}</label>
-      <div>{{system.worn.armarmour}}</div>
-      <label>{{localize "RSK.Weapon"}}</label>
-      <div>{{system.worn.weapon}}</div>
-      <label>{{localize "RSK.Cape"}}</label>
-      <div>{{system.worn.cape}}</div>
-      <label>{{localize "RSK.Catalyst"}}</label>
-      <div>{{system.catalyst}}</div>
-      <label>{{localize "RSK.Motivation"}}</label>
-      <div>{{system.motivation}}</div>
-      <label>{{localize "RSK.Backgrounds"}}</label>
-      <div>{{system.backgrounds}}</div>
-      {{#each system.backpack.inventoryslots as |slot key|}}
-      <span>.</span>
-      {{/each}}
-    </div>
+        <label>{{localize "RSK.Headarmour"}}</label>
+        <div>{{system.worn.headarmour}}</div>
+        <label>{{localize "RSK.Bodyarmour"}}</label>
+        <div>{{system.worn.bodyarmour}}</div>
+        <label>{{localize "RSK.Legarmour"}}</label>
+        <div>{{system.worn.legarmour}}</div>
+        <label>{{localize "RSK.Armarmour"}}</label>
+        <div>{{system.worn.armarmour}}</div>
+        <label>{{localize "RSK.Weapon"}}</label>
+        <div>{{system.worn.weapon}}</div>
+        <label>{{localize "RSK.Cape"}}</label>
+        <div>{{system.worn.cape}}</div>
+        <label>{{localize "RSK.Catalyst"}}</label>
+        <div>{{system.catalyst}}</div>
+        <label>{{localize "RSK.Motivation"}}</label>
+        <div>{{system.motivation}}</div>
+        <label>{{localize "RSK.Backgrounds"}}</label>
+        <div>{{system.backgrounds}}</div>
+        {{#each system.backpack.inventoryslots as |slot key|}}
+        <span>.</span>
+        {{/each}}
+      </div>
 </form>
