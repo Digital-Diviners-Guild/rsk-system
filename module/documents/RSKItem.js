@@ -4,7 +4,10 @@ export default class RSKItem extends Item {
     }
 
     addQuality(qualityData) {
+        if (qualityData.type !== "quality") return;
+
         this.executeQualitiesOperation(() => {
+            if (this.hasQuality(qualityData.sourceUuid)) return;
             const qualities = [...this.system.values.qualities, qualityData];
             this.update({ system: { values: { qualities: qualities } } });
         });
