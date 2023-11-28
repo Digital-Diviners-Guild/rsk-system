@@ -36,10 +36,7 @@ export default class RSKItemSheet extends ItemSheet {
 
         html.find('.quality-delete').click(ev => {
             const li = $(ev.currentTarget).parents(".quality");
-            const qualities = 
-                this.item.system.values.qualities
-                    .filter(x => x.sourceUuId !== li.data("qualityId"))
-            this.item.update({ system: { values: { qualities: qualities } } });
+            this.item.removeQuality(li.data("qualityId"));
             li.slideUp(200, () => this.render(false));
         });
 
@@ -62,11 +59,9 @@ export default class RSKItemSheet extends ItemSheet {
 
         const droppedItem = Item.get(itemId);
         if (!(droppedItem.type === "quality" && this.item.type === "armour")) return;
-        if (this.item.system.values.qualities.filter(x => x.sourceUuId === transferObj.uuid).length > 0) return;
-
+        if (this.item.hasQuality(transferObj.uuid)) return;
         const qualityData = { sourceUuId: transferObj.uuid, name: droppedItem.name, description: droppedItem.system.description };
-        const qualities = [...this.item.system.values.qualities, qualityData];
-        this.item.update({ system: { values: { qualities: qualities } } });
+        this.item.addQuality(qualityData);
         this.render(true);
     }
 }
