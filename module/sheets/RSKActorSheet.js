@@ -1,5 +1,4 @@
-import RSKDice from "../rsk-dice";
-
+import RSKDice from "../rsk-dice.js";
 
 export default class RSKActorSheet extends ActorSheet {
   static get defaultOptions() {
