@@ -7,8 +7,10 @@
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
       <div>
         <div class="form-group">
-          <button class="roll-dice" data-roll-mode="{{CONST.DICE_ROLL_MODES.PUBLIC}}"><i class="fas fa-dice"></i> {{localize "RSK.Roll"}}</button>
-          <button class="roll-dice" data-roll-mode="{{CONST.DICE_ROLL_MODES.PRIVATE}}"><i class="fas fa-dice"></i> {{localize "RSK.PrivateRoll"}}</button>
+          <button class="roll-dice" data-roll-mode="{{publicRoll}}"><i class="fas fa-dice"></i>
+            {{localize "RSK.Roll"}}</button>
+          <button class="roll-dice" data-roll-mode="{{privateRoll}}"><i class="fas fa-dice"></i>
+            {{localize "RSK.PrivateRoll"}}</button>
         </div>
         <label>{{localize "RSK.Lifepoints"}}</label>
         <div type="number">{{system.stats.lifepoints}}</div>
