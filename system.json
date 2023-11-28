@@ -2,7 +2,7 @@
   "id": "rsk-system",
   "title": "RSK System",
   "description": "a system for rsk",
-  "version": "0.1.112",
+  "version": "0.1.113",
   "url": "https://github.com/qmarsala/rsk-system/",
   "esmodules": [
     "module/rsk.js"
@@ -50,5 +50,5 @@
   "gridDistance": 5,
   "gridUnits": "ft",
   "manifest": "https://raw.githubusercontent.com/qmarsala/rsk-system/main/system.json",
-  "download": "https://github.com/qmarsala/rsk-system/releases/download/0.1.112/rsk-system.zip" 
+  "download": "https://github.com/qmarsala/rsk-system/releases/download/0.1.113/rsk-system.zip" 
 }
