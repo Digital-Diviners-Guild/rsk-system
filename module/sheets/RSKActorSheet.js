@@ -20,6 +20,8 @@ export default class RSKActorSheet extends ActorSheet {
     context.system = actorData.system;
     context.flags = actorData.flags;
     context.config = CONFIG.RSK;
+    context.publicRoll = CONST.DICE_ROLL_MODES.PUBLIC;
+    context.privateRoll = CONST.DICE_ROLL_MODES.PRIVATE;
 
     if (actorData.type == 'npc') {
       this._prepareItems(context);
@@ -31,7 +33,7 @@ export default class RSKActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    RSKDice.addButtonListener(html);
+    RSKDice.addButtonListener(html, (ev) => $(ev.currentTarget).data("rollMode"));
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.find('.item-edit').click(ev => {
