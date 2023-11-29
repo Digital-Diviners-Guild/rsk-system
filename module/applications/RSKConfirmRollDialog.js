@@ -4,7 +4,7 @@ export default class RSKConfirmRollDialog extends Application {
             template: 'systems/rsk-system/templates/items/roll-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
-            height: 300
+            height: 250
         });
     }
 
@@ -29,7 +29,8 @@ export default class RSKConfirmRollDialog extends Application {
         this.isAdvantage = false;
         this.isDisadvantage = false;
         this.isNormal = true;
-        this.advantageDisadvantage = "";
+        this.advantageDisadvantageOptions = { normal: "RSK.Normal", advantage: "RSK.Advantage", disadvantage: "RSK.Disadvantage" };
+        this.advantageDisadvantage = "normal";
     }
 
     getData() {
@@ -38,9 +39,7 @@ export default class RSKConfirmRollDialog extends Application {
             rollMode: this.rollMode,
             context: this.context,
             testNumber: this.testNumber,
-            isAdvantage: this.isAdvantage,
-            isDisadvantage: this.isDisadvantage,
-            isNormal: this.isNormal,
+            advantageDisadvantageOptions: this.advantageDisadvantageOptions,
             advantageDisadvantage: this.advantageDisadvantage
         }
     }
@@ -55,7 +54,7 @@ export default class RSKConfirmRollDialog extends Application {
             this.abilityLevel = Number($("#ability-select").val());
             this.skillLevel = Number($("#skill-select").val());
             this.rollMode = $("#roll-mode-select").val();
-            this.advantageDisadvantage = $('input[name="advDadv"]:checked').val();
+            this.advantageDisadvantage = $("#adv-dadv-select").val();
             this.testNumber = this.abilityLevel + this.skillLevel;
             this.resolve({
                 rolled: true,
