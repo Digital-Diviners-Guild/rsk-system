@@ -26,8 +26,6 @@ jobs:
       - name: Determine Version
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0
-  # todo: auto release in pipeline. once we figure out
-  # how to have the released version include the manifest update
   release:
     name: Create Release
     runs-on: ubuntu-latest
