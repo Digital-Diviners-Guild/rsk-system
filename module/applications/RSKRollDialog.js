@@ -22,23 +22,29 @@ export default class RSKRollDialog extends Application {
         super();
         this.resolve = resolve;
         this.context = context;
-        this.testNumber = 3;
+
+        this.abilityLevel = 1;
+        this.skillLevel = 1;
+        this.rollMode = CONFIG.Dice.rollModes.publicroll;
+        this.testNumber = this.abilityLevel + this.skillLevel;
     }
 
     getData() {
         return {
             rollModes: CONFIG.Dice.rollModes,
-            testNumber: this.testNumber
+            rollMode: this.rollMode,
+            context: this.context,
+            testNumber: this.testNumber,
         }
     }
 
     activateListeners(html) {
-        html.find("input.test-number").on("change", (ev) => {
-            this.testNumber = ev.target.value;
-        });
-
         html.find("button.roll").click((ev) => {
-            this.resolve({ rolled: true, testNumber: this.testNumber });
+            this.abilityLevel = Number($("#ability-select").val());
+            this.skillLevel = Number($("#skill-select").val());
+            this.rollMode = $("#roll-mode-select").val();
+            this.testNumber = this.abilityLevel + this.skillLevel;
+            this.resolve({ rolled: true, rollMode: this.rollMode, testNumber: this.testNumber });
             this.isResolved = true;
             this.close();
         });

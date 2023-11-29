@@ -6,13 +6,13 @@
         ],
         "templates": {
             "stats": {
-                "stats": {
-                    "lifepoints": 1,
-                    "strength": 0,
-                    "agility": 0,
-                    "intellect": 0,
-                    "summoningpoints": 0,
-                    "prayerpoints": 0
+                "lifepoints": 1,
+                "summoningpoints": 1,
+                "prayerpoints": 1,
+                "abilities": {
+                    "strength": 1,
+                    "agility": 1,
+                    "intellect": 1
                 }
             },
             "skills": {

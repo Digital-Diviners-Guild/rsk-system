@@ -37,7 +37,7 @@ export default class RSKActorSheet extends ActorSheet {
       this.actor.type === "npc"
         ? RSKDice.handleBasicRoll()
         //todo: calculate test number, probably need to open a dialog to get some input?
-        : RSKDice.handlePlayerRoll());
+        : RSKDice.handlePlayerRoll(this.actor));
 
 
     // Render the item sheet for viewing/editing prior to the editable check.

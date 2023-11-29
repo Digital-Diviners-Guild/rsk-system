@@ -1,12 +1,27 @@
 <form autocomplete="off" spellcheck="off">
     <div class="form-group">
-        <label>{{localize "RSK.TestNumber"}}</label>
-        <input class="test-number" type="number" name="testNumber" value="{{testNumber}}" placeholder="{{localize "
-            RSK.TestNumber"}}" />
+        <label>{{localize "RSK.Skill"}}</label>
+        <select id="skill-select" name="skillLevel">
+            {{#select skillLevel}}
+            {{#each context.skills as |skill label|}}
+            <option value="{{skill.level}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label>{{localize "RSK.Ability"}}</label>
+        <select id="ability-select" name="abilityLevel">
+            {{#select abilityLevel}}
+            {{#each context.abilities as |abilityLevel label|}}
+            <option value="{{abilityLevel}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
     </div>
     <div class="form-group">
         <label>{{localize "RSK.RollModeLabel"}}</label>
-        <select name="rollMode">
+        <select id="roll-mode-select" name="rollMode">
             {{#select rollMode}}
             {{#each rollModes as |label mode|}}
             <option value="{{mode}}">{{localize label}}</option>

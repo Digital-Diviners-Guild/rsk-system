@@ -4,9 +4,8 @@ export default class RSKDice {
     // not sure how I feel about this part
     static addButtonListener = (html, handler) => {
         html.find('.roll-dice').click(async (ev) => {
-            const rollMode = $(ev.currentTarget).data("rollMode");
             const rollResult = await RSKDice.basicRoll();
-            await handler(rollResult, rollMode);
+            await handler(rollResult);
         });
     }
 
@@ -17,12 +16,10 @@ export default class RSKDice {
         });
     }
 
-    static handlePlayerRoll = () => async (rollResult, rollMode) => {
+    static handlePlayerRoll = (actor) => async (rollResult) => {
         // is this even the right spot to set up the dialog?
-        const rollDialogClosed = new Promise((resolve) => {
-            new RSKRollDialog(resolve, {}).render(true);
-        });
-        const result = await rollDialogClosed;
+        const rollData = actor.getRollData();
+        const result = await RSKDice.confirmRollDataDialog(rollData)
 
         if (result.rolled) {
             const rollTotal = Number(rollResult.total);
@@ -30,12 +27,17 @@ export default class RSKDice {
             const isSuccess = rollTotal <= testNumber;
             const margin = testNumber - rollTotal;
             const flavor = `${rollResult.isCritical ? "critical" : ""} ${isSuccess ? "success" : "fail"} (${margin})`
-            const cfg = rollMode ? { rollMode } : {};
-            await rollResult.toMessage({ flavor }, cfg);
+            await rollResult.toMessage({ flavor }, { rollMode: result.rollMode });
         }
     }
 
-    static handleBasicRoll = () => async (rollResult, rollMode) => {
+    static confirmRollDataDialog = (context) =>
+        new Promise((resolve) => {
+            new RSKRollDialog(resolve, context).render(true);
+        });
+
+
+    static handleBasicRoll = (rollMode) => async (rollResult) => {
         const flavor = `${rollResult.isCritical ? "critical" : ""}`
         const cfg = rollMode ? { rollMode } : {};
         await rollResult.toMessage({ flavor }, cfg);

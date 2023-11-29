@@ -38,6 +38,17 @@ export default class RSKActor extends Actor {
     this._prepareCharacterData(actorData);
   }
 
+  getRollData() {
+    const actorData = this;
+    const systemData = actorData.system;
+    return actorData.type === 'character'
+      ? {
+        skills: { ...systemData.skills },
+        abilities: { ...systemData.abilities }
+      }
+      : {}
+  }
+
   /**
    * Prepare Character type specific data
    */
