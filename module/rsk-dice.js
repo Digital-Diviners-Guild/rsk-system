@@ -21,7 +21,7 @@ export default class RSKDice {
         const rollData = actor.getRollData();
         const dialog = RSKConfirmRollDialog.create(rollData)
         const result = await dialog();
-debugger
+        
         if (result.rolled) {
             const rollTotal = Number(rollResult.total);
             const testNumber = Number(result.testNumber);
