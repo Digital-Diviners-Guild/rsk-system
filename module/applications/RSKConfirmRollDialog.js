@@ -8,13 +8,6 @@ export default class RSKConfirmRollDialog extends Application {
         });
     }
 
-    static defineSchema() {
-        const fields = foundry.data.fields;
-        return {
-            testNumber: new fields.NumberField()
-        }
-    }
-
     static create = (context, options) =>
         () => new Promise((resolve) => {
             const dialog = new RSKConfirmRollDialog(resolve, context);
