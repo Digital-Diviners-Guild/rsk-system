@@ -1,4 +1,4 @@
-import RSKRollDialog from "./applications/RSKRollDialog.js";
+import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 
 export default class RSKDice {
     // not sure how I feel about this part
@@ -19,8 +19,9 @@ export default class RSKDice {
     static handlePlayerRoll = (actor) => async (rollResult) => {
         // is this even the right spot to set up the dialog?
         const rollData = actor.getRollData();
-        const result = await RSKDice.confirmRollDataDialog(rollData)
-
+        const dialog = RSKConfirmRollDialog.create(rollData)
+        const result = await dialog();
+debugger
         if (result.rolled) {
             const rollTotal = Number(rollResult.total);
             const testNumber = Number(result.testNumber);
@@ -30,12 +31,6 @@ export default class RSKDice {
             await rollResult.toMessage({ flavor }, { rollMode: result.rollMode });
         }
     }
-
-    static confirmRollDataDialog = (context) =>
-        new Promise((resolve) => {
-            new RSKRollDialog(resolve, context).render(true);
-        });
-
 
     static handleBasicRoll = (rollMode) => async (rollResult) => {
         const flavor = `${rollResult.isCritical ? "critical" : ""}`

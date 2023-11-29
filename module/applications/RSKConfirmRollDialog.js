@@ -1,4 +1,4 @@
-export default class RSKRollDialog extends Application {
+export default class RSKConfirmRollDialog extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             template: 'systems/rsk-system/templates/items/roll-dialog.hbs',
@@ -14,6 +14,12 @@ export default class RSKRollDialog extends Application {
             testNumber: new fields.NumberField()
         }
     }
+
+    static create = (context, options) =>
+        () => new Promise((resolve) => {
+            const dialog = new RSKConfirmRollDialog(resolve, context);
+            dialog.render(true);
+        });
 
     constructor(
         resolve,
@@ -36,6 +42,11 @@ export default class RSKRollDialog extends Application {
             context: this.context,
             testNumber: this.testNumber,
         }
+    }
+
+    async close(options) {
+        if (!this.isResolved) this.resolve({ rolled: false });
+        super.close(options);
     }
 
     activateListeners(html) {
