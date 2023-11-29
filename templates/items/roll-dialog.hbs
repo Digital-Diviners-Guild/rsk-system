@@ -29,6 +29,20 @@
             {{/select}}
         </select>
     </div>
+    <div class="form-group">
+        <label>
+            <input type="radio" name="advDadv" value="advantage" {{checked isAdvantage}} />
+            {{localize "RSK.AdvantageLabel"}}
+        </label>
+        <label>
+            <input type="radio" name="advDadv" value="disadvantage" {{checked isDisadvantage}} />
+            {{localize "RSK.DisadvantageLabel"}}
+        </label>
+        <label>
+            <input type="radio" name="advDadv" value="" {{checked isNormal}} />
+            {{localize "RSK.NoneLabel"}}
+        </label>
+    </div>
     <hr />
     <button class="roll" type="button"><i class="fas fa-dice">{{localize "RSK.Roll"}}</i></button>
 </form>

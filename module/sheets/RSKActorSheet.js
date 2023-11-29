@@ -33,7 +33,7 @@ export default class RSKActorSheet extends ActorSheet {
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
-    RSKDice.addButtonListener(html,
+    RSKDice.addClickListener(html.find(".roll-dice"),
       this.actor.type === "npc"
         ? RSKDice.handleBasicRoll()
         //todo: calculate test number, probably need to open a dialog to get some input?
