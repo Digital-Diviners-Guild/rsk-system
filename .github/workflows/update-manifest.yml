@@ -1,7 +1,8 @@
 name: Update Manifest
 
 on:
-  workflow_run:
+  workflow_dispatch:
+
 
 jobs:
   version:
