@@ -38,7 +38,7 @@ export default class RSKConfirmRollDialog extends Application {
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.rollMode,
             context: this.context,
-            skills: this._localizeList(this.context.skills, CONFIG.RSK.skills),
+            skills: this._localizeList(this.context.skills, CONFIG.RSK.skills, (obj, index) => obj[index].level),
             abilities: this._localizeList(this.context.abilities, CONFIG.RSK.abilities),
             testNumber: this.testNumber,
             advantageDisadvantageOptions: this.advantageDisadvantageOptions,
@@ -53,13 +53,16 @@ export default class RSKConfirmRollDialog extends Application {
 
     activateListeners(html) {
         html.find("button.roll").click((ev) => {
-            this.abilityLevel = Number($("#ability-select").val());
-            this.skillLevel = Number($("#skill-select").val());
             this.rollMode = $("#roll-mode-select").val();
+            const skillName = $("#skill-select :selected").text();
+            this.skillLevel = Number($("#skill-select").val());
+            const abilityName = $("#ability-select :selected").text();
+            this.abilityLevel = Number($("#ability-select").val());
             this.advantageDisadvantage = $("#adv-dadv-select").val();
             this.testNumber = this.abilityLevel + this.skillLevel;
             this.resolve({
                 rolled: true,
+                testName: `${skillName} | ${abilityName}`,
                 rollMode: this.rollMode,
                 testNumber: this.testNumber,
                 isAdvantage: this.advantageDisadvantage === "advantage",
@@ -70,13 +73,13 @@ export default class RSKConfirmRollDialog extends Application {
         });
     }
 
-    _localizeList(obj, lang) {
+    _localizeList(obj, lang, valueSelector = undefined) {
         return Object.keys(obj)
             .map(function (index) {
                 return {
                     index: index,
                     label: game.i18n.format(lang[index]),
-                    value: obj[index]
+                    value: valueSelector ? valueSelector(obj, index) : obj[index]
                 }
             });
     }
