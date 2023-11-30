@@ -21,8 +21,8 @@ export default class RSKDice {
             const testNumber = Number(result.testNumber);
             const isSuccess = rollTotal <= testNumber;
             const margin = testNumber - rollTotal;
-            const flavor = `${result.testName} TN: ${result.testNumber}
-            ${rollResult.isCritical ? "critical" : ""} ${isSuccess ? "success" : "fail"} (${margin})`
+            const flavor = `<strong>${result.testName}</strong> TN: ${result.testNumber}
+            <p>${rollResult.isCritical ? "<em>critical</em>" : ""} ${isSuccess ? "success" : "fail"} (${margin})</p>`
             await rollResult.toMessage({ flavor }, { rollMode: result.rollMode });
         }
     }
