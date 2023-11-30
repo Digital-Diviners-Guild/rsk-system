@@ -23,7 +23,10 @@ export default class RSKActorSheet extends ActorSheet {
     context.publicRoll = CONST.DICE_ROLL_MODES.PUBLIC;
     context.privateRoll = CONST.DICE_ROLL_MODES.PRIVATE;
 
-    if (actorData.type == 'npc') {
+    if (actorData.type === 'character') {
+      this._prepareSkills(context);
+    }
+    else if (actorData.type === 'npc') {
       this._prepareItems(context);
     }
 
@@ -58,6 +61,18 @@ export default class RSKActorSheet extends ActorSheet {
     });
 
     html.find('.item-create').click(this._onItemCreate.bind(this));
+  }
+
+  _prepareSkills(context) {
+    context.skills = Object.keys(context.system.skills)
+      .map(function (index) {
+        return {
+          index: index,
+          label: game.i18n.format(CONFIG.RSK.skills[index]),
+          level: context.system.skills[index].level,
+          used: context.system.skills[index].used
+        }
+      });
   }
 
   _prepareItems(context) {

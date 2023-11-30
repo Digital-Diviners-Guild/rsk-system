@@ -53,12 +53,11 @@
         </div>
       </div>
       <div>
-        {{!-- todo: how would we localize with this approach? --}}
-        {{#each system.skills as |skill skillName|}}
+        {{#each skills as |skill|}}
         <div class="form-group">
-          <strong>{{skillName}}</strong>
+          <strong>{{skill.label}}</strong>
           <div>{{skill.level}}</div>
-          <input type="checkbox" data-dtype="Boolean" name="system.skills.{{skillName}}.used" value="{{skill.used}}"
+          <input type="checkbox" data-dtype="Boolean" name="system.skills.{{skill.index}}.used" value="{{skill.used}}"
             {{checked skill.used}}>
         </div>
         {{/each}}
