@@ -1,3 +1,4 @@
+import RSKConfirmRollDialog from "../applications/RSKConfirmRollDialog.js";
 import RSKDice from "../rsk-dice.js";
 
 export default class RSKActorSheet extends ActorSheet {
@@ -25,6 +26,7 @@ export default class RSKActorSheet extends ActorSheet {
 
     if (actorData.type === 'character') {
       this._prepareSkills(context);
+      this._prepareAbilities(context);
     }
     else if (actorData.type === 'npc') {
       this._prepareItems(context);
@@ -38,10 +40,17 @@ export default class RSKActorSheet extends ActorSheet {
     super.activateListeners(html);
     RSKDice.addClickListener(html.find(".roll-dice"),
       this.actor.type === "npc"
-        ? RSKDice.handleBasicRoll()
-        //todo: calculate test number, probably need to open a dialog to get some input?
-        : RSKDice.handlePlayerRoll(this.actor));
+        ? (ev) => RSKDice.handleBasicRoll()
+        : (ev) => RSKDice.handlePlayerRoll(this.actor));
 
+    RSKDice.addClickListener(html.find(".roll-check"),
+      async (ev) => {
+        const target = $(ev.currentTarget);
+        const type = target.data("type");
+        const value = target.data("value");
+        const options = type === "skill" ? { defaultSkill: value } : { defaultAbility: value };
+        await RSKDice.handlePlayerRoll(this.actor, options)
+      });
 
     // Render the item sheet for viewing/editing prior to the editable check.
     html.find('.item-edit').click(ev => {
@@ -71,6 +80,18 @@ export default class RSKActorSheet extends ActorSheet {
           label: game.i18n.format(CONFIG.RSK.skills[index]),
           level: context.system.skills[index].level,
           used: context.system.skills[index].used
+        }
+      });
+  }
+
+  //todo: this pattern is appearing a few times, probably something we can abstract
+  _prepareAbilities(context) {
+    context.abilities = Object.keys(context.system.abilities)
+      .map(function (index) {
+        return {
+          index: index,
+          label: game.i18n.format(CONFIG.RSK.abilities[index]),
+          level: context.system.abilities[index]
         }
       });
   }

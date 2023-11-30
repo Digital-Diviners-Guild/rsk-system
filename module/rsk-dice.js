@@ -7,12 +7,12 @@ export default class RSKDice {
         });
     }
 
-    static handlePlayerRoll = (actor) => async (ev) => {
+    static handlePlayerRoll = async (actor, options = {}) => {
         // is this even the right spot to set up the dialog?
         // I feel like we should pass the result of the dialog to the roll system,
         // not prompt the dialog from the roll system?
         const rollData = actor.getRollData();
-        const dialog = RSKConfirmRollDialog.create(rollData)
+        const dialog = RSKConfirmRollDialog.create(rollData, options)
         const result = await dialog();
 
         if (result.rolled) {
@@ -27,7 +27,7 @@ export default class RSKDice {
         }
     }
 
-    static handleBasicRoll = (rollMode, isAdvantage, isDisadvantage) => async (ev) => {
+    static handleBasicRoll = async (rollMode, isAdvantage, isDisadvantage) => {
         const rollResult = await RSKDice.roll(isAdvantage, isDisadvantage);
         const flavor = `${rollResult.isCritical ? "critical" : ""}`
         const cfg = rollMode ? { rollMode } : {};

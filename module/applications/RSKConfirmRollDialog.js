@@ -10,22 +10,23 @@ export default class RSKConfirmRollDialog extends Application {
 
     static create = (context, options) =>
         () => new Promise((resolve) => {
-            const dialog = new RSKConfirmRollDialog(resolve, context);
+            const dialog = new RSKConfirmRollDialog(resolve, context, options);
             dialog.render(true);
         });
 
     constructor(
         resolve,
         context,
+        options = {}
     ) {
         super();
         this.resolve = resolve;
         this.context = context;
 
-        this.abilityLevel = 1;
-        this.skillLevel = 1;
+        this.selectedAbility = options.hasOwnProperty("defaultAbility") ? options.defaultAbility : "strength";
+        this.selectedSkill = options.hasOwnProperty("defaultSkill") ? options.defaultSkill : "attack";
+        this.testNumber = 3;
         this.rollMode = CONFIG.Dice.rollModes.publicroll;
-        this.testNumber = this.abilityLevel + this.skillLevel;
         this.isAdvantage = false;
         this.isDisadvantage = false;
         this.isNormal = true;
@@ -40,6 +41,8 @@ export default class RSKConfirmRollDialog extends Application {
             context: this.context,
             skills: this._localizeList(this.context.skills, CONFIG.RSK.skills, (obj, index) => obj[index].level),
             abilities: this._localizeList(this.context.abilities, CONFIG.RSK.abilities),
+            selectedAbility: this.selectedAbility,
+            selectedSkill: this.selectedSkill,
             testNumber: this.testNumber,
             advantageDisadvantageOptions: this.advantageDisadvantageOptions,
             advantageDisadvantage: this.advantageDisadvantage
@@ -54,15 +57,13 @@ export default class RSKConfirmRollDialog extends Application {
     activateListeners(html) {
         html.find("button.roll").click((ev) => {
             this.rollMode = $("#roll-mode-select").val();
-            const skillName = $("#skill-select :selected").text();
-            this.skillLevel = Number($("#skill-select").val());
-            const abilityName = $("#ability-select :selected").text();
-            this.abilityLevel = Number($("#ability-select").val());
+            this.selectedSkill = $("#skill-select").val();
+            this.selectedAbility = $("#ability-select").val();
             this.advantageDisadvantage = $("#adv-dadv-select").val();
-            this.testNumber = this.abilityLevel + this.skillLevel;
+            this.testNumber = this.context.skills[this.selectedSkill].level + this.context.abilities[this.selectedAbility];
             this.resolve({
                 rolled: true,
-                testName: `${skillName} | ${abilityName}`,
+                testName: `${this._localizeText(CONFIG.RSK.skills[this.selectedSkill])} |  ${this._localizeText(CONFIG.RSK.abilities[this.selectedAbility])}`,
                 rollMode: this.rollMode,
                 testNumber: this.testNumber,
                 isAdvantage: this.advantageDisadvantage === "advantage",
@@ -73,14 +74,16 @@ export default class RSKConfirmRollDialog extends Application {
         });
     }
 
-    _localizeList(obj, lang, valueSelector = undefined) {
-        return Object.keys(obj)
-            .map(function (index) {
+    _localizeList = (obj, lang, valueSelector = undefined) =>
+        Object.keys(obj)
+            .map((index) => {
                 return {
                     index: index,
-                    label: game.i18n.format(lang[index]),
+                    label: this._localizeText(lang[index]),
                     value: valueSelector ? valueSelector(obj, index) : obj[index]
                 }
             });
-    }
+
+
+    _localizeText = (text) => game.i18n.format(text);
 }

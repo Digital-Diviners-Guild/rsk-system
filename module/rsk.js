@@ -47,5 +47,5 @@ Hooks.once("init", function () {
 
 Hooks.once("ready", function () {
     //todo: open dialog to get TN
-    RSKDice.addClickListener($("i.fa-dice-d20"), RSKDice.handleBasicRoll());
+    RSKDice.addClickListener($("i.fa-dice-d20"), RSKDice.handleBasicRoll);
 });
