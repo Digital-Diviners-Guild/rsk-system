@@ -1,45 +1,67 @@
 const RSK = {};
 
-//how would we localize these things?
 RSK.sizes = {
-    small: "small",
-    medium: "medium",
-    large: "large",
+    small: "RSK.Small",
+    medium: "RSK.Medium",
+    large: "RSK.Large",
 };
 
 RSK.spellTypes = {
-    combat: "combat",
-    utility: "utility",
-    teleport: "teleport"
+    combat: "RSK.Combat",
+    utility: "RSK.Utility",
+    teleport: "RSK.Teleport"
 };
 
 RSK.ranges = {
-    near: "near",
-    far: "far",
-    distant: "distant",
+    near: "RSK.Near",
+    far: "RSK.Far",
+    distant: "RSK.Distant",
 };
 
 RSK.armourTypes = {
-   head: "head",
-   body: "body",
-   legs: "legs",
-   arm: "arm"
+    head: "RSK.Head",
+    body: "RSK.Body",
+    legs: "RSK.Legs",
+    arm: "RSK.Arm"
 };
 
 RSK.materials = {
-    cloth: "cloth",
-    leather: "leather",
-    bronze: "bronze",
-    iron: "iron",
-    steel: "steel",
-    mithril: "mithril",
-    adamant: "adamant",
-    rune: "rune",
-    green_dragonhide: "green dragonhide",
-    blue_dragonhide: "blue dragonhide",
-    red_dragonhide: "red dragonhide",
-    black_dragonhide: "black dragonhide"
+    cloth: "RSK.Cloth",
+    leather: "RSK.Leather",
+    bronze: "RSK.Bronze",
+    iron: "RSK.Iron",
+    steel: "RSK.Steel",
+    mithril: "RSK.Mithril",
+    adamant: "RSK.Adamant",
+    rune: "RSK.Rune",
+    green_dragonhide: "RSK.Green_Dragonhide",
+    blue_dragonhide: "RSK.Blue_Dragonhide",
+    red_dragonhide: "RSK.Red_Dragonhide",
+    black_dragonhide: "RSK.Black_Dragonhide"
 }
 
+RSK.skills = {
+    archaelogy: "RSK.Archaelogy",
+    attack: "RSK.Attack",
+    cooking: "RSK.Cooking",
+    crafting: "RSK.Crafting",
+    defence: "RSK.Defence",
+    dungeoneering: "RSK.Dungeoneering",
+    farming: "RSK.Farming",
+    fishing: "RSK.Fishing",
+    fletching: "RSK.Fletching",
+    herblore: "RSK.Herblore",
+    hunter: "RSK.Hunter",
+    magic: "RSK.Magic",
+    mining: "RSK.Mining",
+    prayer: "RSK.Prayer",
+    ranged: "RSK.Ranged",
+    runecrafting: "RSK.Runecrafting",
+    slayer: "RSK.Slayer",
+    smithing: "RSK.Smithing",
+    summoning: "RSK.Summoning",
+    thieving: "RSK.Thieving",
+    woodcutting: "RSK.Woodcutting"
+};
 
 export default RSK;
