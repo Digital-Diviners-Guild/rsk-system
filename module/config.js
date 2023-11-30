@@ -6,6 +6,23 @@ RSK.sizes = {
     large: "RSK.Large",
 };
 
+RSK.runeType = {
+    air: "RSK.AirRune",
+    water: "RSK.WaterRune",
+    earth: "RSK.EarthRune",
+    fire: "RSK.FireRune",
+    chaos: "RSK.ChaosRune",
+    mind: "RSK.MindRune",
+    body: "RSK.BodyRune",
+    soul: "RSK.SoulRune",
+    death: "RSK.DeathRune",
+    blood: "RSK.BloodRune",
+    cosmic: "RSK.CosmicRune",
+    nature: "RSK.NatureRune",
+    law: "RSK.LawRune",
+    wrath: "RSK.WrathRune",
+}
+
 RSK.spellTypes = {
     combat: "RSK.Combat",
     utility: "RSK.Utility",

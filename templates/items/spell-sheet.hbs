@@ -15,10 +15,9 @@
             {{> "/systems/rsk-system/templates/items/parts/view-range.hbs"}}
 
             <div><strong>{{localize "RSK.Cost"}}:</strong>
-                {{#each system.cost as |cost type|}}
-                {{!-- todo: how to localize? --}}
-                {{#if cost}}
-                <span>{{cost}} <strong>{{type}}</strong> runes</span>
+                {{#each spellCost as |sc|}}
+                {{#if sc.cost}}
+                <span>{{sc.cost}} {{sc.type}}</span>
                 {{/if}}
                 {{/each}}
             </div>
@@ -46,63 +45,12 @@
             </div>
 
             <h3>{{localize "RSK.Cost"}}</h3>
-            {{!-- todo: can this also be looped? --}}
+            {{#each spellCost as |sc|}}
             <div class="form-group">
-                <label>{{localize "RSK.Air"}}</label>
-                <input type="number" name="system.cost.air" value="{{system.cost.air}}">
+                <label>{{sc.type}}</label>
+                <input type="number" name="system.cost.{{sc.index}}" value="{{sc.cost}}">
             </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Water"}}</label>
-                <input type="number" name="system.cost.water" value="{{system.cost.water}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Earth"}}</label>
-                <input type="number" name="system.cost.earth" value="{{system.cost.earth}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Fire"}}</label>
-                <input type="number" name="system.cost.fire" value="{{system.cost.fire}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Chaos"}}</label>
-                <input type="number" name="system.cost.chaos" value="{{system.cost.chaos}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Mind"}}</label>
-                <input type="number" name="system.cost.mind" value="{{system.cost.mind}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Body"}}</label>
-                <input type="number" name="system.cost.body" value="{{system.cost.body}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Soul"}}</label>
-                <input type="number" name="system.cost.soul" value="{{system.cost.soul}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Death"}}</label>
-                <input type="number" name="system.cost.death" value="{{system.cost.death}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Blood"}}</label>
-                <input type="number" name="system.cost.blood" value="{{system.cost.blood}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Cosmic"}}</label>
-                <input type="number" name="system.cost.cosmic" value="{{system.cost.cosmic}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Nature"}}</label>
-                <input type="number" name="system.cost.nature" value="{{system.cost.nature}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Law"}}</label>
-                <input type="number" name="system.cost.law" value="{{system.cost.law}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Wrath"}}</label>
-                <input type="number" name="system.cost.wrath" value="{{system.cost.wrath}}">
-            </div>
+            {{/each}}
 
             {{> "/systems/rsk-system/templates/items/parts/edit-damage-entries.hbs"}}
         </div>

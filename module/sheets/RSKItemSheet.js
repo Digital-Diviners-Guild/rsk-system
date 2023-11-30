@@ -27,6 +27,10 @@ export default class RSKItemSheet extends ItemSheet {
         context.dealsDamage = itemData.system.damageEntries
             && Object.values(itemData.system.damageEntries)
                 .filter(x => x > 0).length > 0;
+
+        if (itemData.type === "spell") {
+            this._prepareSpellCost(context);
+        }
         return context;
     }
 
@@ -41,6 +45,17 @@ export default class RSKItemSheet extends ItemSheet {
         });
 
         // Roll handlers, click handlers, etc. would go here.
+    }
+
+    _prepareSpellCost(context) {
+        context.spellCost = Object.keys(context.system.cost)
+            .map(function (index) {
+                return {
+                    index: index,
+                    cost: context.system.cost[index],
+                    type: game.i18n.format(CONFIG.RSK.runeType[index]),
+                }
+            });
     }
 
     _onDrop(event) {
