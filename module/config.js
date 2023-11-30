@@ -81,4 +81,10 @@ RSK.skills = {
     woodcutting: "RSK.Woodcutting"
 };
 
+RSK.abilities = {
+    strength: "RSK.Strength",
+    agility: "RSK.Agility",
+    intellect: "RSK.Intellect"
+}
+
 export default RSK;

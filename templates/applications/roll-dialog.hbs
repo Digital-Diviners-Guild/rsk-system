@@ -3,8 +3,8 @@
         <label>{{localize "RSK.Skill"}}</label>
         <select id="skill-select" name="skillLevel">
             {{#select skillLevel}}
-            {{#each context.skills as |skill label|}}
-            <option value="{{skill.level}}">{{label}}</option>
+            {{#each skills as |skill|}}
+            <option value="{{skill.value}}">{{skill.label}}</option>
             {{/each}}
             {{/select}}
         </select>
@@ -13,8 +13,8 @@
         <label>{{localize "RSK.Ability"}}</label>
         <select id="ability-select" name="abilityLevel">
             {{#select abilityLevel}}
-            {{#each context.abilities as |abilityLevel label|}}
-            <option value="{{abilityLevel}}">{{label}}</option>
+            {{#each abilities as |ability|}}
+            <option value="{{ability.value}}">{{ability.label}}</option>
             {{/each}}
             {{/select}}
         </select>

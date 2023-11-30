@@ -38,6 +38,8 @@ export default class RSKConfirmRollDialog extends Application {
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.rollMode,
             context: this.context,
+            skills: this._localizeList(this.context.skills, CONFIG.RSK.skills),
+            abilities: this._localizeList(this.context.abilities, CONFIG.RSK.abilities),
             testNumber: this.testNumber,
             advantageDisadvantageOptions: this.advantageDisadvantageOptions,
             advantageDisadvantage: this.advantageDisadvantage
@@ -66,5 +68,16 @@ export default class RSKConfirmRollDialog extends Application {
             this.isResolved = true;
             this.close();
         });
+    }
+
+    _localizeList(obj, lang) {
+        return Object.keys(obj)
+            .map(function (index) {
+                return {
+                    index: index,
+                    label: game.i18n.format(lang[index]),
+                    value: obj[index]
+                }
+            });
     }
 }
