@@ -59,8 +59,14 @@ export default class RSKActor extends Actor {
   }
 
   _applyArmourSoak(damage) {
-    let armourValue = this.type === "npc" ? this.system.armourValue : 0;
+    let armourValue = this._getArmourSoakValue();
     return armourValue >= damage ? 0 : damage - armourValue;
+  }
+
+  _getArmourSoakValue() {
+    return this.type === "npc"
+      ? this.system.armourValue
+      : 0; //todo: calculate armour value from equipped items
   }
 
   /**
