@@ -6,36 +6,32 @@ export default class RSKItem extends Item {
     addQuality(qualityData) {
         if (qualityData.type !== "quality") return;
 
-        this.executeQualitiesOperation(() => {
+        this.executeQualitiesOperation((qualities) => {
             if (this.hasQuality(qualityData.sourceUuid)) return;
-            const qualities = [...this.system.values.qualities, qualityData];
-            this.update({ system: { values: { qualities: qualities } } });
+            const updatedQualities = [...qualities, qualityData];
+            this.update({ system: { values: { qualities: updatedQualities } } });
         });
     }
 
     removeQuality(qualitySourceUuid) {
-        this.executeQualitiesOperation(() => {
-            const qualities = this.system.values.qualities
-                .filter(x => x.sourceUuId !== qualitySourceUuid)
-            this.update({ system: { values: { qualities: qualities } } });
+        this.executeQualitiesOperation((qualities) => {
+            const updatedQualities = qualities.filter(x => x.sourceUuId !== qualitySourceUuid)
+            this.update({ system: { values: { qualities: updatedQualities } } });
         });
     }
 
     hasQuality(uuid) {
-        return this.executeQualitiesOperation(() =>
-            this.system.values.qualities.filter(q => q.sourceUuId === uuid).length > 0, false)
+        return this.executeQualitiesOperation((qualities) =>
+            qualities.filter(q => q.sourceUuId === uuid).length > 0, false)
     }
 
-    executeQualitiesOperation(op, defaultValue = {}) {
-        if (this.system.hasOwnProperty("values") && this.system.values.hasOwnProperty("qualities")) {
-            return op();
-        }
-        return defaultValue;
-    }
+    executeQualitiesOperation = (op, defaultValue = {}) =>
+        typeof this.system.values?.qualities !== "undefined"
+            ? op(this.system.values.qualities)
+            : defaultValue;
 
-    getArmourValue() {
-        return this.system.hasOwnProperty("values") && this.system.values.hasOwnProperty("soak")
+    getArmourValue = () =>
+        typeof this.system.values?.soak !== "undefined"
             ? this.system.values.soak
             : 0;
-    }
 }
