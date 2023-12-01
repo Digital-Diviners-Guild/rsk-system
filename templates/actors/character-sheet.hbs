@@ -13,19 +13,20 @@
     <div class="form-group">
       <button class="roll-dice"><i class="fas fa-dice"></i>
         {{localize "RSK.Roll"}}</button>
+      <button class="apply-damage">{{localize "RSK.ApplyDamage"}}</button>
     </div>
     <div class="form-group">
-      <div>
+      <div class="apply-damage">
         <strong>{{localize "RSK.Lifepoints"}}: </strong>
-        {{system.lifepoints}}
+        {{system.lifePoints}}
       </div>
       <div>
         <strong>{{localize "RSK.Prayerpoints"}}: </strong>
-        {{system.prayerpoints}}
+        {{system.prayerPoints}}
       </div>
       <div>
         <strong>{{localize "RSK.Summoningpoints"}}</strong>
-        <div>{{system.summoningpoints}}</div>
+        <div>{{system.summoningPoints}}</div>
       </div>
     </div>
     <div class="tab features" data-group="primary" data-tab="description">
@@ -83,7 +84,10 @@
     </div>
 
     <div class="tab features" data-group="primary" data-tab="edit">
-
+      <div class="form-group">
+        <label>{{localize "RSK.LifePoints"}}</label>
+        <input name="system.lifePoints" type="number" value="{{system.lifePoints}}">
+      </div>
     </div>
   </section>
 </form>

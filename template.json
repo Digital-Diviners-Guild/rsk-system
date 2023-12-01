@@ -6,9 +6,9 @@
         ],
         "templates": {
             "stats": {
-                "lifepoints": 1,
-                "summoningpoints": 1,
-                "prayerpoints": 1,
+                "lifePoints": 1,
+                "summoningPoints": 1,
+                "prayerPoints": 1,
                 "abilities": {
                     "strength": 1,
                     "agility": 1,
