@@ -51,9 +51,16 @@ export default class RSKActor extends Actor {
 
   receiveDamage(amount) {
     //todo: calculate actual damage after soak and modifiers
-    let remainingLifepoints = this.system.lifepoints - amount
-    remainingLifepoints = remainingLifepoints < 0 ? 0 : remainingLifepoints;
-    this.update({ system: { lifepoints: remainingLifepoints } });
+    let appliedDamage = this._applyArmourSoak(amount);
+    //todo: apply modifiers
+    let remainingLifePoints = this.system.lifePoints - appliedDamage
+    remainingLifePoints = remainingLifePoints < 0 ? 0 : remainingLifePoints;
+    this.update({ system: { lifePoints: remainingLifePoints } });
+  }
+
+  _applyArmourSoak(damage) {
+    let armourValue = this.type === "npc" ? this.system.armourValue : 0;
+    return armourValue >= damage ? 0 : damage - armourValue;
   }
 
   /**

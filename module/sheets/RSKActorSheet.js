@@ -1,3 +1,4 @@
+import RSKApplyDamageDialog from "../applications/RSKApplyDamageDialog.js";
 import RSKConfirmRollDialog from "../applications/RSKConfirmRollDialog.js";
 import RSKDice from "../rsk-dice.js";
 
@@ -49,10 +50,18 @@ export default class RSKActorSheet extends ActorSheet {
         const type = target.data("type");
         const value = target.data("value");
         const options = type === "skill" ? { defaultSkill: value } : { defaultAbility: value };
-        await RSKDice.handlePlayerRoll(this.actor, options)
+        await RSKDice.handlePlayerRoll(this.actor, options);
       });
 
-    // Render the item sheet for viewing/editing prior to the editable check.
+    html.find('.apply-damage').click(
+      async ev => {
+        const dialog = RSKApplyDamageDialog.create({}, {});
+        let damage = await dialog();
+        if (damage.confirmed) {
+          this.actor.receiveDamage(damage.damage);
+        }
+      });
+
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
