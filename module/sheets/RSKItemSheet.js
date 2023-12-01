@@ -73,7 +73,7 @@ export default class RSKItemSheet extends ItemSheet {
         if (!itemId) return;
 
         const droppedItem = Item.get(itemId);
-        const qualityData = { sourceUuId: transferObj.uuid, name: droppedItem.name, type: droppedItem.type, description: droppedItem.system.description };
+        const qualityData = { sourceUuid: transferObj.uuid, name: droppedItem.name, type: droppedItem.type, description: droppedItem.system.description };
         this.item.addQuality(qualityData);
         this.render(true);
     }
