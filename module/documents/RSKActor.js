@@ -66,11 +66,23 @@ export default class RSKActor extends Actor {
     return armourValue >= damage ? 0 : damage - armourValue;
   }
 
+  // todo: these two methods for calculating armour soak may be good to put in 
+  // one of the prepare data methods and displayed somewhere on the char
+  // sheet, to give feedback about the current soak values based on 
+  // the current character/equipment.
   _getArmourSoakValue() {
-    //todo: calculate armour value from equipped items
     return this.type === "npc"
       ? this.system.armourValue
-      : 0;
+      : this._calculateEquippedArmourSoakValue();
+  }
+
+  _calculateEquippedArmourSoakValue() {
+    return this.type === "character"
+      ? Object.keys(this.system.worn)
+        .map((x) => this.system.worn[x])
+        .reduce((acc, w, i) => acc +=
+          typeof w.getArmourValue === "function" ? w.getArmourValue() : 0, 0)
+      : this._getArmourSoakValue();
   }
 
   /**

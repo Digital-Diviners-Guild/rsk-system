@@ -32,4 +32,10 @@ export default class RSKItem extends Item {
         }
         return defaultValue;
     }
+
+    getArmourValue() {
+        return this.system.hasOwnProperty("values") && this.system.values.hasOwnProperty("soak")
+            ? this.system.values.soak
+            : 0;
+    }
 }
