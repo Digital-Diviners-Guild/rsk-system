@@ -95,9 +95,41 @@
     </div>
 
     <div class="tab features" data-group="primary" data-tab="edit">
+      <div class="rsk-editor">
+        <label>{{localize "RSK.Description"}}</label>
+        {{editor system.description target="system.description" button=false engine="prosemirror"}}
+      </div>
       <div class="form-group">
         <label>{{localize "RSK.LifePoints"}}</label>
         <input name="system.lifePoints.value" type="number" value="{{system.lifePoints.value}}">
+      </div>
+      <div class="form-group">
+        <label>{{localize "RSK.SummoningPoints"}}</label>
+        <input name="system.summoningPoints.value" type="number" value="{{system.summoningPoints.value}}">
+      </div>
+      <div class="form-group">
+        <label>{{localize "RSK.PrayerPoints"}}</label>
+        <input name="system.prayerPoints.value" type="number" value="{{system.prayerPoints.value}}">
+      </div>
+
+      <div class="form-group">
+        {{#each abilities as |ability|}}
+        <span data-type="ability" data-value="{{ability.index}}">
+          <strong>{{ability.label}}</strong>
+          <input name="system.abilities.{{ability.index}}" type="number" data-dtype="Number"
+            value="{{ability.level}}">
+        </span>
+        {{/each}}
+      </div>
+      <div>
+        {{#each skills as |skill|}}
+        <div class="form-group">
+          <span data-type="skill" data-value="{{skill.index}}">
+            <strong>{{skill.label}}</strong>
+            <input name="system.skills.{{skill.index}}.level" type="number" data-dtype="Number" value="{{skill.level}}">
+          </span>
+        </div>
+        {{/each}}
       </div>
     </div>
   </section>
