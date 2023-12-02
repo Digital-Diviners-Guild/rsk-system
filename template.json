@@ -11,11 +11,15 @@
                     "value": 10,
                     "max": 10
                 },
-                "summoningPoints": 1,
+                "summoningPoints": {
+                    "min": 0,
+                    "value": 5,
+                    "max": 5
+                },
                 "prayerPoints": {
                     "min": 0,
-                    "value": 6,
-                    "max": 6
+                    "value": 3,
+                    "max": 3
                 },
                 "abilities": {
                     "strength": 1,
