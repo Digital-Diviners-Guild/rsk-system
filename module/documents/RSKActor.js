@@ -1,3 +1,5 @@
+import RSKMath from "../rsk-math.js";
+
 export default class RSKActor extends Actor {
   /** @override */
   prepareData() {
