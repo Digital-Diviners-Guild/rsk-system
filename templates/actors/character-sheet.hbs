@@ -34,7 +34,7 @@
     </div>
     <div class="tab features" data-group="primary" data-tab="description">
       <label>{{localize "RSK.Backgrounds"}}</label>
-      <div>{{system.backgrounds}}</div>
+      {{> "/systems/rsk-system/templates/actors/parts/view-items.hbs" items=backgrounds }}
       <label>{{localize "RSK.Catalyst"}}</label>
       <div>{{system.catalyst}}</div>
       <label>{{localize "RSK.Motivation"}}</label>
@@ -99,6 +99,12 @@
         <label>{{localize "RSK.Description"}}</label>
         {{editor system.description target="system.description" button=false engine="prosemirror"}}
       </div>
+      <label>{{localize "RSK.Backgrounds"}}</label>
+      {{> "/systems/rsk-system/templates/actors/parts/edit-items.hbs"
+      items=backgrounds
+      addType="background"
+      addLabel="Add Background"}}
+
       <div class="form-group">
         <label>{{localize "RSK.LifePoints"}}</label>
         <input name="system.lifePoints.value" type="number" value="{{system.lifePoints.value}}">
@@ -116,8 +122,7 @@
         {{#each abilities as |ability|}}
         <span data-type="ability" data-value="{{ability.index}}">
           <strong>{{ability.label}}</strong>
-          <input name="system.abilities.{{ability.index}}" type="number" data-dtype="Number"
-            value="{{ability.level}}">
+          <input name="system.abilities.{{ability.index}}" type="number" data-dtype="Number" value="{{ability.level}}">
         </span>
         {{/each}}
       </div>

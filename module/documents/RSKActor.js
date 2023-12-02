@@ -56,6 +56,21 @@ export default class RSKActor extends Actor {
     this.update({ system: { lifePoints: remainingLifePoints } });
   }
 
+  increaseSkillLevel(skill, amount) {
+    if (this.type !== "character") return;
+    const skills = { ...this.system.skills };
+    //todo: if this is now >= 5 award ability level
+    skills[skill].level += amount;
+    this.update({ system: { skills: { ...skills } } })
+  }
+
+  decreaseSkillLevel(skill, amount) {
+    if (this.type !== "character") return;
+    const skills = { ...this.system.skills };
+    skills[skill].level -= amount;
+    this.update({ system: { skills: { ...skills } } })
+  }
+
   _applyIncomingDamageModifiers(damage) {
     //todo: apply modifiers
     return damage;
@@ -87,23 +102,21 @@ export default class RSKActor extends Actor {
 
   _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
-
-    const systemData = actorData.system;
+    this.items.filter(i => i.type === "background")
+      .map(b => b.applyBackgroundSkillImprovements(this))
   }
 
   _prepareCharacterBaseData(actorData) {
     if (actorData.type !== 'character') return;
 
     const systemData = actorData.system;
-    if (this.type === "character") {
-      systemData.lifePoints.max =
-        Object.keys(systemData.abilities).map(i => systemData.abilities[i]).reduce((acc, a, i) => acc += Number(a), 0)
-        + Object.keys(systemData.skills).map(i => systemData.skills[i]).reduce((acc, s, i) => acc += Number(s.level), 0);
+    systemData.lifePoints.max =
+      Object.keys(systemData.abilities).map(i => systemData.abilities[i]).reduce((acc, a, i) => acc += Number(a), 0)
+      + Object.keys(systemData.skills).map(i => systemData.skills[i]).reduce((acc, s, i) => acc += Number(s.level), 0);
 
-      systemData.prayerPoints.max = systemData.skills.prayer.level * 3;
-      systemData.prayerPoints.value = RSKMath.clamp_value(systemData.prayerPoints.value, systemData.prayerPoints)
-      systemData.summoningPoints.max = systemData.skills.summoning.level * 5;
-      systemData.summoningPoints.value = RSKMath.clamp_value(systemData.summoningPoints.value, systemData.summoningPoints)
-    }
+    systemData.prayerPoints.max = systemData.skills.prayer.level * 3;
+    systemData.prayerPoints.value = RSKMath.clamp_value(systemData.prayerPoints.value, systemData.prayerPoints)
+    systemData.summoningPoints.max = systemData.skills.summoning.level * 5;
+    systemData.summoningPoints.value = RSKMath.clamp_value(systemData.summoningPoints.value, systemData.summoningPoints)
   }
 }

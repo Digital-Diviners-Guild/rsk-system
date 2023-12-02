@@ -28,9 +28,7 @@ export default class RSKActorSheet extends ActorSheet {
       this._prepareSkills(context);
       this._prepareAbilities(context);
     }
-    else if (actorData.type === 'npc') {
-      this._prepareItems(context);
-    }
+    this._prepareItems(context);
 
     return context;
   }
@@ -105,18 +103,22 @@ export default class RSKActorSheet extends ActorSheet {
   _prepareItems(context) {
     const actions = [];
     const specialFeatures = [];
+    const backgrounds = [];
 
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       if (i.type === 'action') {
-        actions.push(i)
+        actions.push(i);
       } else if (i.type === 'specialFeature') {
-        specialFeatures.push(i)
+        specialFeatures.push(i);
+      } else if (i.type === 'background') {
+        backgrounds.push(i);
       }
     }
 
     context.actions = actions;
     context.specialFeatures = specialFeatures;
+    context.backgrounds = backgrounds;
   }
 
 
