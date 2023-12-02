@@ -5,158 +5,13 @@
             "npc"
         ],
         "templates": {
-            "stats": {
+            "creature": {
+                "movement": 0,
+                "size": "",
                 "lifePoints": {
                     "min": 0,
                     "value": 10,
                     "max": 10
-                },
-                "summoningPoints": {
-                    "min": 0,
-                    "value": 5,
-                    "max": 5
-                },
-                "prayerPoints": {
-                    "min": 0,
-                    "value": 3,
-                    "max": 3
-                },
-                "abilities": {
-                    "strength": 1,
-                    "agility": 1,
-                    "intellect": 1
-                }
-            },
-            "skills": {
-                "skills": {
-                    "archaelogy": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "attack": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "cooking": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "crafting": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "defence": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "dungeoneering": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "farming": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "fishing": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "fletching": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "herblore": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "hunter": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "magic": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "mining": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "prayer": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "ranged": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "runecrafting": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "slayer": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "smithing": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "summoning": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "thieving": {
-                        "level": 1,
-                        "used": false
-                    },
-                    "woodcutting": {
-                        "level": 1,
-                        "used": false
-                    }
-                }
-            },
-            "worn": {
-                "worn": {
-                    "headarmour": {},
-                    "bodyarmour": {},
-                    "legarmour": {},
-                    "armarmour": {},
-                    "weapon": {},
-                    "cape": {}
-                }
-            },
-            "backpack": {
-                "backpack": {
-                    "inventoryslots": [
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {},
-                        {}
-                    ]
                 }
             }
         },
@@ -165,20 +20,129 @@
             "motivation": "",
             "backgrounds": [],
             "templates": [
-                "stats",
-                "skills",
-                "worn",
-                "backpack"
+                "creature"
             ],
+            "summoningPoints": {
+                "min": 0,
+                "value": 5,
+                "max": 5
+            },
+            "prayerPoints": {
+                "min": 0,
+                "value": 3,
+                "max": 3
+            },
+            "abilities": {
+                "strength": 1,
+                "agility": 1,
+                "intellect": 1
+            },
             "prayers": [],
-            "spells": []
+            "spells": [],
+            "skills": {
+                "archaelogy": {
+                    "level": 1,
+                    "used": false
+                },
+                "attack": {
+                    "level": 1,
+                    "used": false
+                },
+                "cooking": {
+                    "level": 1,
+                    "used": false
+                },
+                "crafting": {
+                    "level": 1,
+                    "used": false
+                },
+                "defence": {
+                    "level": 1,
+                    "used": false
+                },
+                "dungeoneering": {
+                    "level": 1,
+                    "used": false
+                },
+                "farming": {
+                    "level": 1,
+                    "used": false
+                },
+                "fishing": {
+                    "level": 1,
+                    "used": false
+                },
+                "fletching": {
+                    "level": 1,
+                    "used": false
+                },
+                "herblore": {
+                    "level": 1,
+                    "used": false
+                },
+                "hunter": {
+                    "level": 1,
+                    "used": false
+                },
+                "magic": {
+                    "level": 1,
+                    "used": false
+                },
+                "mining": {
+                    "level": 1,
+                    "used": false
+                },
+                "prayer": {
+                    "level": 1,
+                    "used": false
+                },
+                "ranged": {
+                    "level": 1,
+                    "used": false
+                },
+                "runecrafting": {
+                    "level": 1,
+                    "used": false
+                },
+                "slayer": {
+                    "level": 1,
+                    "used": false
+                },
+                "smithing": {
+                    "level": 1,
+                    "used": false
+                },
+                "summoning": {
+                    "level": 1,
+                    "used": false
+                },
+                "thieving": {
+                    "level": 1,
+                    "used": false
+                },
+                "woodcutting": {
+                    "level": 1,
+                    "used": false
+                }
+            },
+            "backpack": {
+                "inventoryslots": []
+            },
+            "worn": {
+                "headarmour": {},
+                "bodyarmour": {},
+                "legarmour": {},
+                "armarmour": {},
+                "weapon": {},
+                "cape": {}
+            }
         },
         "npc": {
+            "templates": [
+                "creature"
+            ],
             "description": "",
-            "movement": 0,
-            "size": "",
             "armourValue": 0,
-            "lifePoints": 0,
             "isQuestGiver": false,
             "actions": [],
             "specialFeatures": [],
