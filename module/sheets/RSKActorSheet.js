@@ -1,5 +1,4 @@
 import RSKApplyDamageDialog from "../applications/RSKApplyDamageDialog.js";
-import RSKConfirmRollDialog from "../applications/RSKConfirmRollDialog.js";
 import RSKDice from "../rsk-dice.js";
 
 export default class RSKActorSheet extends ActorSheet {
@@ -36,7 +35,6 @@ export default class RSKActorSheet extends ActorSheet {
     return context;
   }
 
-  /** @override */
   activateListeners(html) {
     super.activateListeners(html);
     RSKDice.addClickListener(html.find(".roll-dice"),
@@ -70,7 +68,6 @@ export default class RSKActorSheet extends ActorSheet {
 
     if (!this.isEditable) return;
 
-    // Delete Inventory Item
     html.find('.item-delete').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));

@@ -1,7 +1,3 @@
-/**
- * Extend the base Actor document by defining a custom roll data structure which is ideal for the rsk system.
- * @extends {Actor}
- */
 export default class RSKActor extends Actor {
 
   /** @override */
@@ -33,8 +29,6 @@ export default class RSKActor extends Actor {
     const systemData = actorData.system;
     const flags = actorData.flags.boilerplate || {};
 
-    // Make separate methods for each Actor type (character, npc, etc.) to keep
-    // things organized.
     this._prepareCharacterData(actorData);
   }
 
@@ -86,15 +80,9 @@ export default class RSKActor extends Actor {
       : this._getArmourSoakValue();
   }
 
-  /**
-   * Prepare Character type specific data
-   */
   _prepareCharacterData(actorData) {
     if (actorData.type !== 'character') return;
 
-    // Make modifications to data here. For example:
     const systemData = actorData.system;
-
-    // Need to Loop through skills and calculate the totalskill based on backgrounds.
   }
 }

@@ -43,8 +43,6 @@ export default class RSKItemSheet extends ItemSheet {
             this.item.removeQuality(li.data("qualityId"));
             li.slideUp(200, () => this.render(false));
         });
-
-        // Roll handlers, click handlers, etc. would go here.
     }
 
     _prepareSpellCost(context) {
