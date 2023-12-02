@@ -1,5 +1,4 @@
 export default class RSKActor extends Actor {
-
   /** @override */
   prepareData() {
     // Prepare data for the actor. Calling the super version of this executes
@@ -13,6 +12,15 @@ export default class RSKActor extends Actor {
   prepareBaseData() {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
+
+    if (this.type === "character") {
+      this.system.maxLifePoints =
+        Object.keys(this.system.abilities).map(i => this.system.abilities[i]).reduce((acc, a, i) => acc += Number(a), 0)
+        + Object.keys(this.system.skills).map(i => this.system.skills[i]).reduce((acc, s, i) => acc += Number(s.level), 0);
+      if (this.system.lifePoints > this.system.maxLifePoints) {
+        this.system.lifePoints = this.system.maxLifePoints;
+      }
+    }
   }
 
   /**
