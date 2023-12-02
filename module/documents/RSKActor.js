@@ -14,12 +14,12 @@ export default class RSKActor extends Actor {
     // documents or derived data.
 
     if (this.type === "character") {
-      this.system.maxLifePoints =
+      this.system.lifePoints.max =
         Object.keys(this.system.abilities).map(i => this.system.abilities[i]).reduce((acc, a, i) => acc += Number(a), 0)
         + Object.keys(this.system.skills).map(i => this.system.skills[i]).reduce((acc, s, i) => acc += Number(s.level), 0);
-      if (this.system.lifePoints > this.system.maxLifePoints) {
-        this.system.lifePoints = this.system.maxLifePoints;
-      }
+    }
+    if (this.system.lifePoints.value > this.system.lifePoints.max) {
+      this.system.lifePoints.value = this.system.lifePoints.max;
     }
   }
 
@@ -54,8 +54,11 @@ export default class RSKActor extends Actor {
   receiveDamage(amount) {
     const damageAfterSoak = this._applyArmourSoak(amount);
     const damageAfterSoakAndModifiers = this._applyIncomingDamageModifiers(damageAfterSoak);
-    let remainingLifePoints = this.system.lifePoints - damageAfterSoakAndModifiers
-    remainingLifePoints = remainingLifePoints < 0 ? 0 : remainingLifePoints;
+    let remainingLifePoints = { ...this.system.lifePoints };
+    remainingLifePoints.value = this.system.lifePoints.value - damageAfterSoakAndModifiers
+    remainingLifePoints.value = remainingLifePoints.value < 0
+      ? 0
+      : remainingLifePoints.value;
     this.update({ system: { lifePoints: remainingLifePoints } });
   }
 

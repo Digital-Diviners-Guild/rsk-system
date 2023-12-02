@@ -35,7 +35,7 @@
             </div>
             <div>
                 <strong>{{localize "RSK.LifePoints"}}: </strong>
-                {{system.lifePoints}}
+                {{system.lifePoints.value}} / {{system.lifePoints.max}}
             </div>
 
             <div>
@@ -77,7 +77,8 @@
 
             <div class="form-group">
                 <label>{{localize "RSK.LifePoints"}}</label>
-                <input name="system.lifePoints" type="number" value="{{system.lifePoints}}">
+                <input name="system.lifePoints.value" type="number" value="{{system.lifePoints.value}}"> /
+                <input name="system.lifePoints.max" type="number" value="{{system.lifePoints.max}}">
             </div>
 
             <label>{{localize "RSK.Actions"}}</label>

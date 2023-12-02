@@ -6,7 +6,11 @@
         ],
         "templates": {
             "stats": {
-                "lifePoints": 1,
+                "lifePoints": {
+                    "min": 0,
+                    "value": 10,
+                    "max": 10
+                },
                 "summoningPoints": 1,
                 "prayerPoints": 1,
                 "abilities": {

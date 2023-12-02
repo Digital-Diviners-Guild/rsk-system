@@ -20,7 +20,7 @@
     <div class="form-group">
       <div class="apply-damage">
         <strong>{{localize "RSK.Lifepoints"}}: </strong>
-        {{system.lifePoints}} / {{system.maxLifePoints}}
+        {{system.lifePoints.value}} / {{system.lifePoints.max}}
       </div>
       <div>
         {{!-- idea: click on prayer points to go to prayer tab? --}}
@@ -97,7 +97,7 @@
     <div class="tab features" data-group="primary" data-tab="edit">
       <div class="form-group">
         <label>{{localize "RSK.LifePoints"}}</label>
-        <input name="system.lifePoints" type="number" value="{{system.lifePoints}}">
+        <input name="system.lifePoints.value" type="number" value="{{system.lifePoints.value}}">
       </div>
     </div>
   </section>
