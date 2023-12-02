@@ -12,7 +12,11 @@
                     "max": 10
                 },
                 "summoningPoints": 1,
-                "prayerPoints": 1,
+                "prayerPoints": {
+                    "min": 0,
+                    "value": 6,
+                    "max": 6
+                },
                 "abilities": {
                     "strength": 1,
                     "agility": 1,

@@ -17,6 +17,11 @@ export default class RSKActor extends Actor {
       this.system.lifePoints.max =
         Object.keys(this.system.abilities).map(i => this.system.abilities[i]).reduce((acc, a, i) => acc += Number(a), 0)
         + Object.keys(this.system.skills).map(i => this.system.skills[i]).reduce((acc, s, i) => acc += Number(s.level), 0);
+
+      this.system.prayerPoints.max = this.system.skills.prayer.level * 3;
+      if (this.system.prayerPoints.value > this.system.prayerPoints.max) {
+        this.system.prayerPoints.value = this.system.prayerPoints.max;
+      }
     }
     if (this.system.lifePoints.value > this.system.lifePoints.max) {
       this.system.lifePoints.value = this.system.lifePoints.max;
