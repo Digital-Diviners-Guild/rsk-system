@@ -1,7 +1,9 @@
 export default class RSKMath {
     static clamp_value(val, opts) {
-        if (val > opts.max ?? val) return max;
-        if (val < opts.min ?? val) return min;
+        const max = opts.max ?? val;
+        const min = opts.min ?? val;
+        if (val > max) return max;
+        if (val < min) return min;
         return val;
     }
 }
