@@ -49,17 +49,15 @@ export default class RSKItem extends Item {
         if (this.type !== "background"
             || this.flags.rsk?.appliedBackground
             || this.getBackgroundSkillImprovementTotal() === 0) return;
-        this.mapSkillImprovementOperation((skill, improvement) => {
-            actor.increaseSkillLevel(skill, improvement);
-        });
+        this.mapSkillImprovementOperation((skill, improvement) =>
+            actor.increaseSkillLevel(skill, improvement));
         this.update({ flags: { rsk: { appliedBackground: true } } });
     };
 
     removeBackgroundSkillImprovements = (actor) => {
         if (this.type !== "background") return;
-        this.mapSkillImprovementOperation((skill, improvement) => {
-            actor.decreaseSkillLevel(skill, improvement);
-        });
+        this.mapSkillImprovementOperation((skill, improvement) =>
+            actor.decreaseSkillLevel(skill, improvement));
         this.update({ system: { flags: { rsk: { appliedBackground: false } } } });
     };
 

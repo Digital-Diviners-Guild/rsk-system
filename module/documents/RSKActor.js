@@ -1,6 +1,9 @@
 import RSKMath from "../rsk-math.js";
 
 export default class RSKActor extends Actor {
+  minCharacterLevel = 1;
+  maxCharacterLevel = 10;
+
   /** @override */
   prepareData() {
     // Prepare data for the actor. Calling the super version of this executes
@@ -8,6 +11,16 @@ export default class RSKActor extends Actor {
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
     super.prepareData();
+    this._clampActorValues();
+  }
+
+  _clampActorValues() {
+    this.system.lifePoints.value = RSKMath.clamp_value(this.system.lifePoints.value, this.system.lifePoints);
+    for (let skill in this.system.skills) {
+      this.system.skills[skill].level = RSKMath.clamp_value(
+        this.system.skills[skill].level,
+        { min: this.minCharacterLevel, max: this.maxCharacterLevel });
+    }
   }
 
   /** @override */
@@ -15,7 +28,6 @@ export default class RSKActor extends Actor {
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
     this._prepareCharacterBaseData(this);
-    this.system.lifePoints.value = RSKMath.clamp_value(this.system.lifePoints.value, this.system.lifePoints);
   }
 
   /**
@@ -58,17 +70,19 @@ export default class RSKActor extends Actor {
 
   increaseSkillLevel(skill, amount) {
     if (this.type !== "character") return;
-    const skills = { ...this.system.skills };
     //todo: if this is now >= 5 award ability level
-    skills[skill].level += amount;
-    this.update({ system: { skills: { ...skills } } })
+    this.updateSkillLevel(skill, this.system.skills[skill].level + amount);
   }
 
   decreaseSkillLevel(skill, amount) {
     if (this.type !== "character") return;
+    this.updateSkillLevel(skill, this.system.skills[skill].level - amount);
+  }
+
+  updateSkillLevel(skill, newLevel) {
     const skills = { ...this.system.skills };
-    skills[skill].level -= amount;
-    this.update({ system: { skills: { ...skills } } })
+    skills[skill].level = RSKMath.clamp_value(newLevel, { min: this.minCharacterLevel, max: this.maxCharacterLevel });
+    this.update({ system: { skills: { ...skills } } });
   }
 
   _applyIncomingDamageModifiers(damage) {
