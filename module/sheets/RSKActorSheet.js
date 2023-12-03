@@ -1,4 +1,5 @@
 import RSKApplyDamageDialog from "../applications/RSKApplyDamageDialog.js";
+import RSKConfirmRollDialog from "../applications/RSKConfirmRollDialog.js";
 import RSKDice from "../rsk-dice.js";
 
 export default class RSKActorSheet extends ActorSheet {
@@ -45,8 +46,16 @@ export default class RSKActorSheet extends ActorSheet {
         const target = $(ev.currentTarget);
         const type = target.data("type");
         const value = target.data("value");
-        const options = type === "skill" ? { defaultSkill: value } : { defaultAbility: value };
-        await RSKDice.handlePlayerRoll(this.actor, options);
+        const dialogOptions = type === "skill" ? { defaultSkill: value } : { defaultAbility: value };
+        const rollData = this.actor.getRollData();
+        const dialog = RSKConfirmRollDialog.create(rollData, dialogOptions)
+        const rollOptions = await dialog();
+
+        if (rollOptions.rolled) {
+          await RSKDice.handlePlayerRoll(this.actor, rollOptions);
+          this.actor.useSkill(rollOptions.skill);
+          this.render();
+        }
       });
 
     html.find('.apply-damage').click(
@@ -58,12 +67,12 @@ export default class RSKActorSheet extends ActorSheet {
         }
       });
 
-      html.find('.item-edit').click(ev => {
-        const li = $(ev.currentTarget).parents(".item");
-        const item = this.actor.items.get(li.data("itemId"));
-        item.sheet.render(true);
-      });
-      if (!this.isEditable) return;
+    html.find('.item-edit').click(ev => {
+      const li = $(ev.currentTarget).parents(".item");
+      const item = this.actor.items.get(li.data("itemId"));
+      item.sheet.render(true);
+    });
+    if (!this.isEditable) return;
 
     html.find('.apply-backgrounds').click(ev => {
       this.actor.applyBackgrounds();

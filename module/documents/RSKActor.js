@@ -85,6 +85,12 @@ export default class RSKActor extends Actor {
     this.update({ system: { skills: { ...skills } } });
   }
 
+  useSkill(skill) {
+    if (this.system.skills && this.system.skills.hasOwnProperty(skill)) {
+      this.system.skills[skill].used = true;
+    }
+  }
+
   _applyIncomingDamageModifiers(damage) {
     //todo: apply modifiers
     return damage;
