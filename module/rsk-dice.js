@@ -1,5 +1,3 @@
-import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
-
 export default class RSKDice {
     static addClickListener = (selector, handler) => {
         selector.click(async (ev) => {
@@ -7,24 +5,15 @@ export default class RSKDice {
         });
     }
 
-    static handlePlayerRoll = async (actor, options = {}) => {
-        // is this even the right spot to set up the dialog?
-        // I feel like we should pass the result of the dialog to the roll system,
-        // not prompt the dialog from the roll system?
-        const rollData = actor.getRollData();
-        const dialog = RSKConfirmRollDialog.create(rollData, options)
-        const result = await dialog();
-
-        if (result.rolled) {
-            const rollResult = await RSKDice.roll(result.isAdvantage, result.isDisadvantage)
-            const rollTotal = Number(rollResult.total);
-            const testNumber = Number(result.testNumber);
-            const isSuccess = rollTotal <= testNumber;
-            const margin = testNumber - rollTotal;
-            const flavor = `<strong>${result.testName}</strong> TN: ${result.testNumber}
+    static handlePlayerRoll = async (options = {}) => {
+        const rollResult = await RSKDice.roll(options.isAdvantage, options.isDisadvantage)
+        const rollTotal = Number(rollResult.total);
+        const testNumber = Number(options.testNumber);
+        const isSuccess = rollTotal <= testNumber;
+        const margin = testNumber - rollTotal;
+        const flavor = `<strong>${options.testName}</strong> TN: ${options.testNumber}
             <p>${rollResult.isCritical ? "<em>critical</em>" : ""} ${isSuccess ? "success" : "fail"} (${margin})</p>`
-            await rollResult.toMessage({ flavor }, { rollMode: result.rollMode });
-        }
+        await rollResult.toMessage({ flavor }, { rollMode: options.rollMode });
     }
 
     static handleBasicRoll = async (rollMode, isAdvantage, isDisadvantage) => {
