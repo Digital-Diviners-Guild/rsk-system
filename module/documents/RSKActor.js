@@ -115,7 +115,11 @@ export default class RSKActor extends Actor {
   }
 
   _prepareCharacterData(actorData) {
-    if (actorData.type !== 'character') return;
+
+  }
+
+  applyBackgrounds() {
+    if (this.type !== 'character') return;
     this.items.filter(i => i.type === "background")
       .map(b => b.applyBackgroundSkillImprovements(this))
   }

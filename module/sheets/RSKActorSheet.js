@@ -58,13 +58,16 @@ export default class RSKActorSheet extends ActorSheet {
         }
       });
 
-    html.find('.item-edit').click(ev => {
-      const li = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(li.data("itemId"));
-      item.sheet.render(true);
-    });
+      html.find('.item-edit').click(ev => {
+        const li = $(ev.currentTarget).parents(".item");
+        const item = this.actor.items.get(li.data("itemId"));
+        item.sheet.render(true);
+      });
+      if (!this.isEditable) return;
 
-    if (!this.isEditable) return;
+    html.find('.apply-backgrounds').click(ev => {
+      this.actor.applyBackgrounds();
+    });
 
     html.find('.item-delete').click(ev => {
       const li = $(ev.currentTarget).parents(".item");

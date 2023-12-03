@@ -61,12 +61,6 @@ export default class RSKItem extends Item {
         this.update({ system: { flags: { rsk: { appliedBackground: false } } } });
     };
 
-    //todo: the idea here was to not apply the background
-    // if it was created as an embedded document.
-    // because then it gets applied before it has any improvements added.
-    // however, this doesn't work yet, as soon as you add any improvement to the background
-    // it gets applied, so you cant add multiple skill improvements through the embedded item sheet.
-    // probably need a different way to 'trigger' apply backgrounds that are created adhoc
     getBackgroundSkillImprovementTotal = () =>
         this.type === "background"
             ? Object
