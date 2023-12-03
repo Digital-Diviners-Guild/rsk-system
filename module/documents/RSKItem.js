@@ -58,7 +58,7 @@ export default class RSKItem extends Item {
         if (this.type !== "background") return;
         this.mapSkillImprovementOperation((skill, improvement) =>
             actor.decreaseSkillLevel(skill, improvement));
-        this.update({ system: { flags: { rsk: { appliedBackground: false } } } });
+        this.update({ flags: { rsk: { appliedBackground: false } } });
     };
 
     getBackgroundSkillImprovementTotal = () =>
