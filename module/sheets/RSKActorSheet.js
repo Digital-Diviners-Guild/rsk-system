@@ -54,7 +54,6 @@ export default class RSKActorSheet extends ActorSheet {
         if (rollOptions.rolled) {
           await RSKDice.handlePlayerRoll(this.actor, rollOptions);
           this.actor.useSkill(rollOptions.skill);
-          this.render();
         }
       });
 

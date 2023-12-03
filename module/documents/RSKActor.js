@@ -87,7 +87,9 @@ export default class RSKActor extends Actor {
 
   useSkill(skill) {
     if (this.system.skills && this.system.skills.hasOwnProperty(skill)) {
-      this.system.skills[skill].used = true;
+      const skills = { ...this.system.skills };
+      skills[skill].used = true;
+      this.update({ system: { skills: { ...skills } } });
     }
   }
 
