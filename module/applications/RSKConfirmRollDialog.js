@@ -65,6 +65,8 @@ export default class RSKConfirmRollDialog extends Application {
                 rolled: true,
                 testName: `${this._localizeText(CONFIG.RSK.skills[this.selectedSkill])} |  ${this._localizeText(CONFIG.RSK.abilities[this.selectedAbility])}`,
                 rollMode: this.rollMode,
+                skill: this.selectedSkill,
+                ability: this.selectedAbility,
                 testNumber: this.testNumber,
                 isAdvantage: this.advantageDisadvantage === "advantage",
                 isDisadvantage: this.advantageDisadvantage === "disadvantage",
