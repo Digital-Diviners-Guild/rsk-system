@@ -6,6 +6,7 @@ import RSKActorSheet from "./sheets/RSKActorSheet.js";
 
 import RSK from "./config.js";
 import RSKDice from "./rsk-dice.js";
+import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -52,10 +53,13 @@ Hooks.once("renderActorSheet", function (sheet, html, data) {
 });
 
 Hooks.once("ready", function () {
-    RSKDice.addClickListener($("i.fa-dice-d20"), (ev) => {
+    RSKDice.addClickListener($("i.fa-dice-d20"), async (ev) => {
         const currentCharacter = game.users?.current?.character;
         if (currentCharacter) {
-            RSKDice.handlePlayerRoll(currentCharacter);
+            const rollData = currentCharacter.getRollData();
+            const dialog = RSKConfirmRollDialog.create(rollData, options)
+            const result = await dialog();
+            RSKDice.handlePlayerRoll(result);
         } else {
             RSKDice.handleBasicRoll();
         }
