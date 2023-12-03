@@ -3,45 +3,26 @@
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100" />
     <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
   </header>
-  <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
-    <a class="item" data-tab="skills">{{localize "RSK.Skills"}}</a>
-    <a class="item" data-tab="magic">{{localize "RSK.SpellBook"}}</a>
-    <a class="item" data-tab="prayer">{{localize "RSK.Prayers"}}</a>
-    <a class="item" data-tab="inventory">{{localize "RSK.Inventory"}}</a>
-    <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
-  </nav>
-  <section class="sheet-body">
-    <div class="form-group">
-      <button class="roll-dice"><i class="fas fa-dice"></i>
-        {{localize "RSK.Roll"}}</button>
-      <button class="apply-damage">{{localize "RSK.ApplyDamage"}}</button>
-    </div>
-    <div class="form-group">
-      <div class="apply-damage">
-        <strong>{{localize "RSK.Lifepoints"}}: </strong>
-        {{system.lifePoints.value}} / {{system.lifePoints.max}}
-      </div>
-      <div>
-        {{!-- idea: click on prayer points to go to prayer tab? --}}
-        <strong>{{localize "RSK.Prayerpoints"}}: </strong>
-        {{system.prayerPoints.value}} / {{system.prayerPoints.max}}
-      </div>
-      <div>
-        <strong>{{localize "RSK.Summoningpoints"}}</strong>
-        {{system.summoningPoints.value}} / {{system.summoningPoints.max}}
-      </div>
-    </div>
-    <div class="tab features" data-group="primary" data-tab="description">
-      <label>{{localize "RSK.Backgrounds"}}</label>
-      {{> "/systems/rsk-system/templates/actors/parts/view-items.hbs" items=backgrounds }}
-      <label>{{localize "RSK.Catalyst"}}</label>
-      <div>{{system.catalyst}}</div>
-      <label>{{localize "RSK.Motivation"}}</label>
-      <div>{{system.motivation}}</div>
-    </div>
 
-    <div class="tab features" data-group="primary" data-tab="skills">
+  <div class="rsk stats-abilities">
+    <div class="rsk stats">
+      <div class="form-group">
+        <div class="apply-damage">
+          <strong>{{localize "RSK.Lifepoints"}}: </strong>
+          {{system.lifePoints.value}} / {{system.lifePoints.max}}
+        </div>
+        <div>
+          {{!-- idea: click on prayer points to go to prayer tab? --}}
+          <strong>{{localize "RSK.Prayerpoints"}}: </strong>
+          {{system.prayerPoints.value}} / {{system.prayerPoints.max}}
+        </div>
+        <div>
+          <strong>{{localize "RSK.Summoningpoints"}}</strong>
+          {{system.summoningPoints.value}} / {{system.summoningPoints.max}}
+        </div>
+      </div>
+    </div>
+    <div class="rsk abilities">
       <div class="form-group">
         {{#each abilities as |ability|}}
         <span class="roll-check" data-type="ability" data-value="{{ability.index}}">
@@ -51,7 +32,21 @@
         </span>
         {{/each}}
       </div>
-      <div>
+    </div>
+  </div>
+
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item" data-tab="skills">{{localize "RSK.Skills"}}</a>
+    <a class="item" data-tab="inventory">{{localize "RSK.Inventory"}}</a>
+    <a class="item" data-tab="magic">{{localize "RSK.SpellBook"}}</a>
+    <a class="item" data-tab="prayer">{{localize "RSK.Prayers"}}</a>
+    <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+    <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
+  </nav>
+
+  <section class="sheet-body">
+    <div class="tab features" data-group="primary" data-tab="skills">
+      <div class="rsk skill-container">
         {{#each skills as |skill|}}
         <div class="form-group">
           <span class="roll-check" data-type="skill" data-value="{{skill.index}}">
@@ -92,6 +87,17 @@
       {{#each system.backpack.inventoryslots as |slot key|}}
       <span>.</span>
       {{/each}}
+    </div>
+
+    <div class="tab features" data-group="primary" data-tab="description">
+      <div class="form-group">
+        <label>{{localize "RSK.Catalyst"}}</label>
+        <div>{{system.catalyst}}</div>
+        <label>{{localize "RSK.Motivation"}}</label>
+        <div>{{system.motivation}}</div>
+      </div>
+      <label>{{localize "RSK.Backgrounds"}}</label>
+      {{> "/systems/rsk-system/templates/actors/parts/view-items.hbs" items=backgrounds }}
     </div>
 
     <div class="tab features" data-group="primary" data-tab="edit">

@@ -45,6 +45,12 @@ Hooks.once("init", function () {
     console.log("rsk ready");
 });
 
+Hooks.once("renderActorSheet", function (sheet, html, data) {
+    sheet.activateTab(data.actor.type === "character"
+        ? "skills"
+        : "description");
+});
+
 Hooks.once("ready", function () {
     RSKDice.addClickListener($("i.fa-dice-d20"), (ev) => {
         const currentCharacter = game.users?.current?.character;
