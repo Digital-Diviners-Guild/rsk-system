@@ -16,11 +16,10 @@ export default class RSKDice {
         await rollResult.toMessage({ flavor }, { rollMode: options.rollMode });
     }
 
-    static handleBasicRoll = async (rollMode, isAdvantage, isDisadvantage) => {
-        const rollResult = await RSKDice.roll(isAdvantage, isDisadvantage);
+    static handleBasicRoll = async () => {
+        const rollResult = await RSKDice.roll();
         const flavor = `${rollResult.isCritical ? "critical" : ""}`
-        const cfg = rollMode ? { rollMode } : {};
-        await rollResult.toMessage({ flavor }, cfg);
+        await rollResult.toMessage({ flavor });
     }
 
     static roll = async (isAdvantage = false, isDisadvantage = false) => {

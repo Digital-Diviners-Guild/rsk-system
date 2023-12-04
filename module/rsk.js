@@ -58,8 +58,8 @@ Hooks.once("ready", function () {
         if (currentCharacter) {
             const rollData = currentCharacter.getRollData();
             const dialog = RSKConfirmRollDialog.create(rollData, options)
-            const result = await dialog();
-            RSKDice.handlePlayerRoll(result);
+            const rollOptions = await dialog();
+            RSKDice.handlePlayerRoll(rollOptions);
         } else {
             RSKDice.handleBasicRoll();
         }

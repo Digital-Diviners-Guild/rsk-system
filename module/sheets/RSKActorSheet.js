@@ -36,11 +36,6 @@ export default class RSKActorSheet extends ActorSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
-    RSKDice.addClickListener(html.find(".roll-dice"),
-      this.actor.type === "npc"
-        ? (ev) => RSKDice.handleBasicRoll()
-        : (ev) => RSKDice.handlePlayerRoll(this.actor));
-
     RSKDice.addClickListener(html.find(".roll-check"),
       async (ev) => {
         const target = $(ev.currentTarget);
@@ -52,7 +47,7 @@ export default class RSKActorSheet extends ActorSheet {
         const rollOptions = await dialog();
 
         if (rollOptions.rolled) {
-          await RSKDice.handlePlayerRoll(this.actor, rollOptions);
+          await RSKDice.handlePlayerRoll(rollOptions);
           this.actor.useSkill(rollOptions.skill);
         }
       });
