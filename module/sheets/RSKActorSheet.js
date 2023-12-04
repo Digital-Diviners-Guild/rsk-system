@@ -52,21 +52,20 @@ export default class RSKActorSheet extends ActorSheet {
         }
       });
 
-    html.find('.apply-damage').click(
-      async ev => {
-        const dialog = RSKApplyDamageDialog.create({}, {});
-        let damage = await dialog();
-        if (damage.confirmed) {
-          this.actor.receiveDamage(damage.damage);
-        }
-      });
-
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
     });
     if (!this.isEditable) return;
+
+    html.find('.apply-damage').click(async ev => {
+      const dialog = RSKApplyDamageDialog.create({}, {});
+      let damage = await dialog();
+      if (damage.confirmed) {
+        this.actor.receiveDamage(damage.damage);
+      }
+    });
 
     html.find('.apply-backgrounds').click(ev => {
       this.actor.applyBackgrounds();
