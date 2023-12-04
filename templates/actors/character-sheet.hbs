@@ -52,7 +52,7 @@
           <span class="roll-check" data-type="skill" data-value="{{skill.index}}">
             <i class="fas fa-dice"></i>
             <strong>{{skill.label}}</strong>
-            {{skill.level}}
+            {{skill.level}} {{#if skill.modifier}} (+{{skill.modifier}}){{/if}}
           </span>
           <input type="checkbox" data-dtype="Boolean" name="system.skills.{{skill.index}}.used" value="{{skill.used}}"
             {{checked skill.used}}>
@@ -140,6 +140,18 @@
             <strong>{{skill.label}}</strong>
             <input name="system.skills.{{skill.index}}.level" type="number" data-dtype="Number" value="{{skill.level}}">
           </span>
+        </div>
+        {{/each}}
+      </div>
+
+      <hr/>
+      {{!-- todo: actually implement this --}}
+      <div>
+        <button class="effect-add" type="button">Add Effect</button>
+        {{#each effects as |effect|}}
+        <div class="form-group">
+          {{effect.name}}
+          <button class="effect-delete" type="button" data-effect-id="{{effect._id}}">delete</button>
         </div>
         {{/each}}
       </div>

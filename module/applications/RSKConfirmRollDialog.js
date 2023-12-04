@@ -25,7 +25,6 @@ export default class RSKConfirmRollDialog extends Application {
 
         this.selectedAbility = options.hasOwnProperty("defaultAbility") ? options.defaultAbility : "strength";
         this.selectedSkill = options.hasOwnProperty("defaultSkill") ? options.defaultSkill : "attack";
-        this.testNumber = 3;
         this.rollMode = CONFIG.Dice.rollModes.publicroll;
         this.isAdvantage = false;
         this.isDisadvantage = false;
@@ -43,7 +42,6 @@ export default class RSKConfirmRollDialog extends Application {
             abilities: this._localizeList(this.context.abilities, CONFIG.RSK.abilities),
             selectedAbility: this.selectedAbility,
             selectedSkill: this.selectedSkill,
-            testNumber: this.testNumber,
             advantageDisadvantageOptions: this.advantageDisadvantageOptions,
             advantageDisadvantage: this.advantageDisadvantage
         }
@@ -60,14 +58,14 @@ export default class RSKConfirmRollDialog extends Application {
             this.selectedSkill = $("#skill-select").val();
             this.selectedAbility = $("#ability-select").val();
             this.advantageDisadvantage = $("#adv-dadv-select").val();
-            this.testNumber = this.context.skills[this.selectedSkill].level + this.context.abilities[this.selectedAbility];
+            const testNumber = this.context.calculateTestNumber(this.selectedSkill, this.selectedAbility) ?? 3;
             this.resolve({
                 rolled: true,
-                testName: `${this._localizeText(CONFIG.RSK.skills[this.selectedSkill])} |  ${this._localizeText(CONFIG.RSK.abilities[this.selectedAbility])}`,
+                testName: `${this._localizeText(CONFIG.RSK.skills[this.selectedSkill])} | ${this._localizeText(CONFIG.RSK.abilities[this.selectedAbility])}`,
                 rollMode: this.rollMode,
                 skill: this.selectedSkill,
                 ability: this.selectedAbility,
-                testNumber: this.testNumber,
+                testNumber,
                 isAdvantage: this.advantageDisadvantage === "advantage",
                 isDisadvantage: this.advantageDisadvantage === "disadvantage",
             });

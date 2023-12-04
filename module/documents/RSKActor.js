@@ -58,9 +58,16 @@ export default class RSKActor extends Actor {
     return actorData.type === 'character'
       ? {
         skills: { ...systemData.skills },
-        abilities: { ...systemData.abilities }
+        abilities: { ...systemData.abilities },
+        calculateTestNumber: this.calculateTestNumber
       }
       : {}
+  }
+
+  calculateTestNumber(skill, ability) {
+    return this.skills[skill].level
+      + (this.skills[skill].modifier ?? 0)
+      + this.abilities[ability];
   }
 
   receiveDamage(amount) {

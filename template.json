@@ -42,87 +42,108 @@
             "skills": {
                 "archaelogy": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "attack": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "cooking": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "crafting": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "defence": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "dungeoneering": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "farming": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "fishing": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "fletching": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "herblore": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "hunter": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "magic": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "mining": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "prayer": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "ranged": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "runecrafting": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "slayer": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "smithing": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "summoning": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "thieving": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 },
                 "woodcutting": {
                     "level": 1,
-                    "used": false
+                    "used": false,
+                    "modifier": 0
                 }
             },
             "backpack": {
