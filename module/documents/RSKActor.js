@@ -25,9 +25,14 @@ export default class RSKActor extends Actor {
 
   /** @override */
   prepareBaseData() {
+    super.prepareBaseData();
     // Data modifications in this step occur before processing embedded
     // documents or derived data.
     this._prepareCharacterBaseData(this);
+  }
+
+  prepareEmbeddedDocuments() {
+    super.prepareEmbeddedDocuments();
   }
 
   /**
@@ -65,7 +70,7 @@ export default class RSKActor extends Actor {
     remainingLifePoints.value = RSKMath.clamp_value(
       this.system.lifePoints.value - damageAfterSoakAndModifiers,
       { min: 0 });
-    this.update({ system: { lifePoints: remainingLifePoints } });
+    this.update({ "system.lifePoints": remainingLifePoints });
   }
 
   increaseSkillLevel(skill, amount) {
@@ -80,16 +85,13 @@ export default class RSKActor extends Actor {
   }
 
   updateSkillLevel(skill, newLevel) {
-    const skills = { ...this.system.skills };
-    skills[skill].level = RSKMath.clamp_value(newLevel, { min: this.minCharacterLevel, max: this.maxCharacterLevel });
-    this.update({ system: { skills: { ...skills } } });
+    const newSkillLevel = RSKMath.clamp_value(newLevel, { min: this.minCharacterLevel, max: this.maxCharacterLevel });
+    this.update({ [`system.skills.${skill}.level`]: newSkillLevel });
   }
 
   useSkill(skill) {
     if (this.system.skills && this.system.skills.hasOwnProperty(skill)) {
-      const skills = { ...this.system.skills };
-      skills[skill].used = true;
-      this.update({ system: { skills: { ...skills } } });
+      this.update({ [`system.skills.${skill}.used`]: true });
     }
   }
 

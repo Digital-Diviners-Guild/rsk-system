@@ -9,14 +9,14 @@ export default class RSKItem extends Item {
         this.executeQualitiesOperation((qualities) => {
             if (this.hasQuality(qualityData.sourceUuid)) return;
             const updatedQualities = [...qualities, qualityData];
-            this.update({ system: { values: { qualities: updatedQualities } } });
+            this.update({ "system.values.qualities": updatedQualities });
         });
     }
 
     removeQuality(qualitySourceUuid) {
         this.executeQualitiesOperation((qualities) => {
             const updatedQualities = qualities.filter(x => x.sourceUuId !== qualitySourceUuid)
-            this.update({ system: { values: { qualities: updatedQualities } } });
+            this.update({ "system.values.qualities": updatedQualities });
         });
     }
 
@@ -51,14 +51,14 @@ export default class RSKItem extends Item {
             || this.getBackgroundSkillImprovementTotal() === 0) return;
         this.mapSkillImprovementOperation((skill, improvement) =>
             actor.increaseSkillLevel(skill, improvement));
-        this.update({ flags: { rsk: { appliedBackground: true } } });
+        this.update({ "flags.rsk.appliedBackground": true });
     };
 
     removeBackgroundSkillImprovements = (actor) => {
         if (this.type !== "background") return;
         this.mapSkillImprovementOperation((skill, improvement) =>
             actor.decreaseSkillLevel(skill, improvement));
-        this.update({ flags: { rsk: { appliedBackground: false } } });
+        this.update({ "flags.rsk.appliedBackground": false });
     };
 
     getBackgroundSkillImprovementTotal = () =>
