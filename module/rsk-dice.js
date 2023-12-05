@@ -25,7 +25,7 @@ export default class RSKDice {
     static roll = async (rollType = "normal") => {
         let formula = ({
             advantage: "4d6dh1",
-            disadvantage: "4d6kh"
+            disadvantage: "4d6kh3"
         })[rollType] || "3d6";
         const r = await Roll.create(formula);
         const result = await r.evaluate();
