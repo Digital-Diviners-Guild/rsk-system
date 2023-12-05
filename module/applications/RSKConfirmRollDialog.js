@@ -26,9 +26,6 @@ export default class RSKConfirmRollDialog extends Application {
         this.selectedAbility = options.hasOwnProperty("defaultAbility") ? options.defaultAbility : "strength";
         this.selectedSkill = options.hasOwnProperty("defaultSkill") ? options.defaultSkill : "attack";
         this.rollMode = CONFIG.Dice.rollModes.publicroll;
-        this.isAdvantage = false;
-        this.isDisadvantage = false;
-        this.isNormal = true;
         this.advantageDisadvantageOptions = { normal: "RSK.Normal", advantage: "RSK.Advantage", disadvantage: "RSK.Disadvantage" };
         this.advantageDisadvantage = "normal";
     }
@@ -63,11 +60,10 @@ export default class RSKConfirmRollDialog extends Application {
                 rolled: true,
                 testName: `${this._localizeText(CONFIG.RSK.skills[this.selectedSkill])} | ${this._localizeText(CONFIG.RSK.abilities[this.selectedAbility])}`,
                 rollMode: this.rollMode,
+                rollType: this.advantageDisadvantage,
                 skill: this.selectedSkill,
                 ability: this.selectedAbility,
-                testNumber,
-                isAdvantage: this.advantageDisadvantage === "advantage",
-                isDisadvantage: this.advantageDisadvantage === "disadvantage",
+                testNumber
             });
             this.isResolved = true;
             this.close();

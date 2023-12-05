@@ -6,7 +6,7 @@ export default class RSKDice {
     }
 
     static handlePlayerRoll = async (options = {}) => {
-        const rollResult = await RSKDice.roll(options.isAdvantage, options.isDisadvantage)
+        const rollResult = await RSKDice.roll(options.rollType)
         const rollTotal = Number(rollResult.total);
         const testNumber = Number(options.testNumber);
         const isSuccess = rollTotal <= testNumber;
@@ -22,13 +22,11 @@ export default class RSKDice {
         await rollResult.toMessage({ flavor });
     }
 
-    static roll = async (isAdvantage = false, isDisadvantage = false) => {
-        let formula = isAdvantage || isDisadvantage ? "4d6" : "3d6";
-        formula = isAdvantage
-            ? `${formula}dh1`
-            : isDisadvantage
-                ? `${formula}kh3`
-                : formula;
+    static roll = async (rollType = "normal") => {
+        let formula = ({
+            advantage: "4d6dh1",
+            disadvantage: "4d6kh"
+        })[rollType] || "3d6";
         const r = await Roll.create(formula);
         const result = await r.evaluate();
         const results = result.terms[0].results;
