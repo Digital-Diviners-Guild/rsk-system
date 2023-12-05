@@ -7,6 +7,7 @@ import RSKActorSheet from "./sheets/RSKActorSheet.js";
 import RSK from "./config.js";
 import RSKDice from "./rsk-dice.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
+import RSKActiveEffect from "./documents/RSKActiveEffect.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -38,6 +39,7 @@ Hooks.once("init", function () {
     CONFIG.RSK = RSK;
     CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Item.documentClass = RSKItem;
+    CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
 
     Items.unregisterSheet("core", ItemSheet)
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
