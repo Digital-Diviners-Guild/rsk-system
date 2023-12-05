@@ -20,7 +20,10 @@ async function preloadHandlebarsTemplates() {
         "/systems/rsk-system/templates/items/parts/view-range.hbs",
 
         "/systems/rsk-system/templates/actors/parts/view-items.hbs",
-        "/systems/rsk-system/templates/actors/parts/edit-items.hbs"
+        "/systems/rsk-system/templates/actors/parts/edit-items.hbs",
+
+        "/systems/rsk-system/templates/parts/view-effects.hbs",
+        "/systems/rsk-system/templates/parts/edit-effects.hbs"
     ];
     return loadTemplates(templatePaths);
 }

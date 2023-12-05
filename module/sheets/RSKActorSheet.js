@@ -52,27 +52,17 @@ export default class RSKActorSheet extends ActorSheet {
         }
       });
 
-    html.find('.effect-add').on('click', ev => {
-      CONFIG.ActiveEffect.documentClass.create({
-        label: "test",
-        icon: "icons/svg/aura.svg",
-        transfer: true,
-      }, { parent: this.actor }).then(effect => effect?.sheet?.render(true));
-    });
-
-    html.find('.effect-delete').click(ev => {
-      const button = $(ev.currentTarget);
-      const effectId = button.data("effectId");
-      this.actor.deleteEmbeddedDocuments("ActiveEffect",
-        this.actor.effects
-          .filter(x => x._id === effectId)
-          .map(x => x._id));
-    });
-
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       item.sheet.render(true);
+    });
+    html.find('.effect-edit').click(ev => {
+      const effectId = $(ev.currentTarget)
+        .parents(".item")
+        .data("effectId");
+      const effect = this.actor.effects.get(effectId);
+      effect.sheet.render(true);
     });
     if (!this.isEditable) return;
 
@@ -96,6 +86,24 @@ export default class RSKActorSheet extends ActorSheet {
     });
 
     html.find('.item-create').click(this._onItemCreate.bind(this));
+
+    html.find('.effect-create').on('click', ev => {
+      CONFIG.ActiveEffect.documentClass.create({
+        label: "New Effect",
+        icon: "icons/svg/aura.svg",
+        transfer: true,
+      }, { parent: this.actor }).then(effect => effect?.sheet?.render(true));
+    });
+
+    html.find('.effect-delete').click(ev => {
+      const effectId = $(ev.currentTarget)
+        .parents(".item")
+        .data("effectId");
+      this.actor.deleteEmbeddedDocuments("ActiveEffect",
+        this.actor.effects
+          .filter(x => x._id === effectId)
+          .map(x => x._id));
+    });
   }
 
   _prepareSkills(context) {

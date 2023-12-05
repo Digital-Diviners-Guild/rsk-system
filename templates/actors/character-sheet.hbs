@@ -143,18 +143,11 @@
         </div>
         {{/each}}
       </div>
+      <hr />
 
-      <hr/>
-      {{!-- todo: actually implement this --}}
-      <div>
-        <button class="effect-add" type="button">Add Effect</button>
-        {{#each effects as |effect|}}
-        <div class="form-group">
-          {{effect.name}}
-          <button class="effect-delete" type="button" data-effect-id="{{effect._id}}">delete</button>
-        </div>
-        {{/each}}
-      </div>
+      <strong>Effects</strong>
+      {{> "/systems/rsk-system/templates/parts/edit-effects.hbs"}}
+
     </div>
   </section>
 </form>

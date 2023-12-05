@@ -1,0 +1,10 @@
+<ol class="items-list">
+    {{#each effects as |effect|}}
+    <li class="item flexrow" data-effect-id="{{effect._id}}">
+        <div class="item-name flexrow">
+            <strong>{{effect.name}}</strong>
+        </div>
+        {{!-- todo: effect details --}}
+    </li>
+    {{/each}}
+</ol>
