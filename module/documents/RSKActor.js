@@ -59,15 +59,15 @@ export default class RSKActor extends Actor {
       ? {
         skills: { ...systemData.skills },
         abilities: { ...systemData.abilities },
-        calculateTestNumber: this.calculateTestNumber
+        calculateTestNumber: (skill, ability) => this.calculateTestNumber(skill, ability)
       }
       : {}
   }
 
   calculateTestNumber(skill, ability) {
-    return this.skills[skill].level
-      + (this.skills[skill].modifier ?? 0)
-      + this.abilities[ability];
+    return this.system.skills[skill].level
+      + (this.system.skills[skill].modifier ?? 0)
+      + this.system.abilities[ability];
   }
 
   receiveDamage(amount) {
