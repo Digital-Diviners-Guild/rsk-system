@@ -31,10 +31,6 @@ export default class RSKActor extends Actor {
     this._prepareCharacterBaseData(this);
   }
 
-  prepareEmbeddedDocuments() {
-    super.prepareEmbeddedDocuments();
-  }
-
   /**
    * @override
    * Augment the basic actor data with additional dynamic data. Typically,
@@ -50,6 +46,14 @@ export default class RSKActor extends Actor {
     const flags = actorData.flags.boilerplate || {};
 
     this._prepareCharacterData(actorData);
+  }
+
+  applyActiveEffects() {
+    if (this.system?.prepareEmbeddedDocuments instanceof Function) this.system.prepareEmbeddedDocuments();
+    // not sure why, but if we do this step in the effects prepare data, it doesn't work
+    // doing it here seems to
+    this.effects.forEach(e => e.determineSuppression());
+    return super.applyActiveEffects();
   }
 
   getRollData() {
@@ -100,6 +104,16 @@ export default class RSKActor extends Actor {
     if (this.system.skills && this.system.skills.hasOwnProperty(skill)) {
       this.update({ [`system.skills.${skill}.used`]: true });
     }
+  }
+
+  //temp: will change when tanner is done with inventory
+  equip(item) {
+    const currentEquipped = this.items.filter(i => i.isEquipped
+      && i.inSlot === item.inSlot);
+    if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
+      currentEquipped[0].equip();
+    }
+    item.equip();
   }
 
   _applyIncomingDamageModifiers(damage) {
