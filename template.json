@@ -148,14 +148,6 @@
             },
             "backpack": {
                 "inventoryslots": []
-            },
-            "worn": {
-                "headarmour": {},
-                "bodyarmour": {},
-                "legarmour": {},
-                "armarmour": {},
-                "weapon": {},
-                "cape": {}
             }
         },
         "npc": {
@@ -187,6 +179,14 @@
             "spell",
             "prayer"
         ],
+        "templates": {
+            "equipable": {
+                "equipped": {
+                    "isEquipped": false,
+                    "slot": ""
+                }
+            }
+        },
         "material": {
             "description": "",
             "cost": 0
@@ -223,6 +223,9 @@
             }
         },
         "equipment": {
+            "templates": [
+                "equipable"
+            ],
             "cost": 0,
             "description": "",
             "uses": "",
@@ -239,6 +242,9 @@
             }
         },
         "armour": {
+            "templates": [
+                "equipable"
+            ],
             "armourType": "",
             "description": "",
             "upgrades": [],
@@ -250,6 +256,9 @@
             }
         },
         "cape": {
+            "templates": [
+                "equipable"
+            ],
             "awardedFor": ""
         },
         "action": {
