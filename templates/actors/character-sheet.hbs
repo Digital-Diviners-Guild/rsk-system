@@ -70,19 +70,22 @@
     </div>
 
     <div class="tab features" data-group="primary" data-tab="inventory">
+      <strong>temp (item list)</strong>
+      {{> "/systems/rsk-system/templates/actors/parts/edit-items.hbs" items=actor.items }}
+
       <div>
         <label>{{localize "RSK.Headarmour"}}</label>
-        <div>{{system.worn.headarmour}}</div>
+        <div>{{worn.head}}</div>
         <label>{{localize "RSK.Bodyarmour"}}</label>
-        <div>{{system.worn.bodyarmour}}</div>
+        <div>{{worn.body}}</div>
         <label>{{localize "RSK.Legarmour"}}</label>
-        <div>{{system.worn.legarmour}}</div>
+        <div>{{worn.leg}}</div>
         <label>{{localize "RSK.Armarmour"}}</label>
-        <div>{{system.worn.armarmour}}</div>
+        <div>{{worn.arm}}</div>
         <label>{{localize "RSK.Weapon"}}</label>
-        <div>{{system.worn.weapon}}</div>
+        <div>{{worn.weapon}}</div>
         <label>{{localize "RSK.Cape"}}</label>
-        <div>{{system.worn.cape}}</div>
+        <div>{{worn.cape}}</div>
       </div>
       {{#each system.backpack.inventoryslots as |slot key|}}
       <span>.</span>
