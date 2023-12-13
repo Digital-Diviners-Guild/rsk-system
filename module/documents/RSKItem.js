@@ -1,4 +1,12 @@
 export default class RSKItem extends Item {
+    get isEquipped() {
+        return this.system.equipped && this.system.equipped.isEquipped;
+    }
+
+    get inSlot() {
+        return this.system.equipped && this.system.equipped.slot;
+    }
+
     prepareData() {
         super.prepareData();
     }
@@ -74,5 +82,14 @@ export default class RSKItem extends Item {
             this.removeBackgroundSkillImprovements(this.actor);
         }
         super.delete();
+    }
+
+    equip() {
+        if (!this.system.equipped) return;
+        //test with head slot
+        //todo: use the correct slot
+        this.system.equipped.slot = "head";
+        this.system.equipped.isEquipped = !this.system.equipped.isEquipped;
+        this.update({ "system.equipped": { ...this.system.equipped } });
     }
 }
