@@ -24,10 +24,10 @@ export default class RSKActorSheet extends ActorSheet {
     context.config = CONFIG.RSK;
     context.publicRoll = CONST.DICE_ROLL_MODES.PUBLIC;
     context.privateRoll = CONST.DICE_ROLL_MODES.PRIVATE;
-
     if (actorData.type === 'character') {
       this._prepareSkills(context);
       this._prepareAbilities(context);
+      this._prepareEquipment(context);
     }
     this._prepareItems(context);
 
@@ -127,6 +127,12 @@ export default class RSKActorSheet extends ActorSheet {
           level: context.system.abilities[index]
         }
       });
+  }
+
+  _prepareEquipment(context) {
+    const equipped = context.items.filter(i => i.system.equipped && i.system.equipped.isEquipped);
+    context.worn = {};
+    equipped.map((e) => context.worn[e.system.equipped.slot] = e.name);
   }
 
   _prepareItems(context) {
