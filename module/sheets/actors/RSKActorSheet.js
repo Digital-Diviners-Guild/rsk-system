@@ -1,6 +1,6 @@
-import RSKApplyDamageDialog from "../applications/RSKApplyDamageDialog.js";
-import RSKConfirmRollDialog from "../applications/RSKConfirmRollDialog.js";
-import RSKDice from "../rsk-dice.js";
+import RSKApplyDamageDialog from "../../applications/RSKApplyDamageDialog.js";
+import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
+import RSKDice from "../../rsk-dice.js";
 
 export default class RSKActorSheet extends ActorSheet {
   static get defaultOptions() {

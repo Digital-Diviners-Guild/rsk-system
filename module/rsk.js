@@ -1,16 +1,16 @@
-import RSKItem from "./documents/RSKItem.js";
-import { RSKItemProxy } from "./documents/RSKItemProxy.js";
-import RSKActor from "./documents/RSKActor.js";
+import RSKItem from "./documents/items/RSKItem.js";
+import { RSKItemProxy } from "./documents/items/RSKItemProxy.js";
+import RSKActor from "./documents/actors/RSKActor.js";
 
-import RSKItemSheet from "./sheets/RSKItemSheet.js";
-import RSKActorSheet from "./sheets/RSKActorSheet.js";
+import RSKItemSheet from "./sheets/items/RSKItemSheet.js";
+import RSKActorSheet from "./sheets/actors/RSKActorSheet.js";
 
 import RSK from "./config.js";
 import RSKDice from "./rsk-dice.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
-import RSKActiveEffect from "./documents/RSKActiveEffect.js";
+import RSKActiveEffect from "./documents/items/RSKActiveEffect.js";
 import RSKQualityType from "./data/items/RSKQualityType.js";
-import RSKQualitySheet from "./sheets/RSKQualitySheet.js";
+import RSKQualitySheet from "./sheets/items/RSKQualitySheet.js";
 import RSKAction from "./data/items/RSKAction.js";
 import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
 import RSKCape from "./data/items/RSKCape.js";
@@ -23,6 +23,7 @@ import RSKSpell from "./data/items/RSKSpell.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
 import RSKCharacter from "./data/actors/RSKCharacter.js";
 import RSKNpc from "./data/actors/RSKNpc.js";
+import RSKMath from "./rsk-math.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -48,7 +49,8 @@ Hooks.once("init", function () {
     console.log("initializing...");
     game.rsk = {
         RSKItem,
-        RSKActor
+        RSKActor,
+        math: RSKMath
     };
 
     CONFIG.RSK = RSK;

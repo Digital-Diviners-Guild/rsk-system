@@ -1,13 +1,8 @@
-import RSKMath from "../rsk-math.js";
-
 export default class RSKActor extends Actor {
-  minCharacterLevel = 1;
-  maxCharacterLevel = 10;
+  minSkillLevel = 1;
+  maxSkillLevel = 10;
 
-  /** @override */
   prepareData() {
-    // Prepare data for the actor. Calling the super version of this executes
-    // the following, in order: data reset (to clear active effects),
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
     super.prepareData();
@@ -15,31 +10,19 @@ export default class RSKActor extends Actor {
   }
 
   _clampActorValues() {
-    this.system.lifePoints.value = RSKMath.clamp_value(this.system.lifePoints.value, this.system.lifePoints);
+    this.system.lifePoints.value = game.rsk.math.clamp_value(this.system.lifePoints.value, this.system.lifePoints);
     for (let skill in this.system.skills) {
-      this.system.skills[skill].level = RSKMath.clamp_value(
+      this.system.skills[skill].level = game.rsk.math.clamp_value(
         this.system.skills[skill].level,
-        { min: this.minCharacterLevel, max: this.maxCharacterLevel });
+        { min: this.minSkillLevel, max: this.maxSkillLevel });
     }
   }
 
-  /** @override */
   prepareBaseData() {
     super.prepareBaseData();
-    // Data modifications in this step occur before processing embedded
-    // documents or derived data.
     this._prepareCharacterBaseData(this);
   }
 
-  /**
-   * @override
-   * Augment the basic actor data with additional dynamic data. Typically,
-   * you'll want to handle most of your calculated/derived data in this step.
-   * Data calculated in this step should generally not exist in template.json
-   * (such as ability modifiers rather than ability scores) and should be
-   * available both inside and outside of character sheets (such as if an actor
-   * is queried and has a roll executed directly from it).
-   */
   prepareDerivedData() {
     const actorData = this;
     const systemData = actorData.system;
@@ -78,7 +61,7 @@ export default class RSKActor extends Actor {
     const damageAfterSoak = this._applyArmourSoak(amount);
     const damageAfterSoakAndModifiers = this._applyIncomingDamageModifiers(damageAfterSoak);
     let remainingLifePoints = { ...this.system.lifePoints };
-    remainingLifePoints.value = RSKMath.clamp_value(
+    remainingLifePoints.value = game.rsk.math.clamp_value(
       this.system.lifePoints.value - damageAfterSoakAndModifiers,
       { min: 0 });
     this.update({ "system.lifePoints": remainingLifePoints });
@@ -96,7 +79,7 @@ export default class RSKActor extends Actor {
   }
 
   updateSkillLevel(skill, newLevel) {
-    const newSkillLevel = RSKMath.clamp_value(newLevel, { min: this.minCharacterLevel, max: this.maxCharacterLevel });
+    const newSkillLevel = game.rsk.math.clamp_value(newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
     this.update({ [`system.skills.${skill}.level`]: newSkillLevel });
   }
 
@@ -123,7 +106,7 @@ export default class RSKActor extends Actor {
 
   _applyArmourSoak(damage) {
     let armourValue = this._getArmourSoakValue();
-    return RSKMath.clamp_value(damage - armourValue, { min: 0 });
+    return game.rsk.math.clamp_value(damage - armourValue, { min: 0 });
   }
 
   // todo: these two methods for calculating armour soak may be good to put in 
@@ -164,8 +147,8 @@ export default class RSKActor extends Actor {
       + Object.keys(systemData.skills).map(i => systemData.skills[i]).reduce((acc, s, i) => acc += Number(s.level), 0);
 
     systemData.prayerPoints.max = systemData.skills.prayer.level * 3;
-    systemData.prayerPoints.value = RSKMath.clamp_value(systemData.prayerPoints.value, systemData.prayerPoints)
+    systemData.prayerPoints.value = game.rsk.math.clamp_value(systemData.prayerPoints.value, systemData.prayerPoints)
     systemData.summoningPoints.max = systemData.skills.summoning.level * 5;
-    systemData.summoningPoints.value = RSKMath.clamp_value(systemData.summoningPoints.value, systemData.summoningPoints)
+    systemData.summoningPoints.value = game.rsk.math.clamp_value(systemData.summoningPoints.value, systemData.summoningPoints)
   }
 }
