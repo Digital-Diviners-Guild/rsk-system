@@ -1,6 +1,7 @@
 
 import RSKBackground from "./RSKBackground.js";
 import RSKQuality from "./RSKQuality.js";
+import RSKEquipment from "./RSKEquipment.js";
 import RSKItem from "./RSKItem.js";
 
 const handler = {
@@ -10,6 +11,8 @@ const handler = {
                 return new RSKBackground(...args);
             case "quality":
                 return new RSKQuality(...args);
+            case "equipment":
+                return new RSKEquipment(...args);
             default:
                 return new RSKItem(...args);
         }
