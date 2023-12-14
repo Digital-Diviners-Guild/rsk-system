@@ -9,7 +9,7 @@ import RSK from "./config.js";
 import RSKDice from "./rsk-dice.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKActiveEffect from "./documents/RSKActiveEffect.js";
-import RSKQuality from "./data/items/RSKQuality.js";
+import RSKQualityType from "./data/items/RSKQualityType.js";
 import RSKQualitySheet from "./sheets/RSKQualitySheet.js";
 import RSKAction from "./data/items/RSKAction.js";
 import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
@@ -55,7 +55,7 @@ Hooks.once("init", function () {
 
     CONFIG.Item.documentClass = RSKItemProxy;
     CONFIG.Item.dataModels = {
-        quality: RSKQuality,
+        quality: RSKQualityType,
         action: RSKAction,
         specialFeature: RSKSpecialFeature,
         cape: RSKCape,
