@@ -1,6 +1,6 @@
 import RSKCreature from "./RSKCreature.js";
 
-export default class RSKNpc extends foundry.abstract.TypeDataModel {
+export default class RSKNpcType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         const fields = foundry.data.fields;
         return {
