@@ -187,15 +187,8 @@
                 }
             }
         },
-        "material": {
-            "description": "",
-            "cost": 0
-        },
-        "resource": {
-            "description": "",
-            "uses": "",
-            "cost": 0
-        },
+        "material": {},
+        "resource": {},
         "background": {
             "description": "",
             "skillImprovements": {
