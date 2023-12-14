@@ -261,12 +261,8 @@
             ],
             "awardedFor": ""
         },
-        "action": {
-            "description": ""
-        },
-        "specialFeature": {
-            "description": ""
-        },
+        "action": {},
+        "specialFeature": {},
         "quality": {},
         "spell": {
             "spellType": "",

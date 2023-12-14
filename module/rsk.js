@@ -8,8 +8,12 @@ import RSK from "./config.js";
 import RSKDice from "./rsk-dice.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKActiveEffect from "./documents/RSKActiveEffect.js";
-import RSKQuality from "./data/quality.js";
+import RSKQuality from "./data/RSKQuality.js";
 import RSKQualitySheet from "./sheets/RSKQualitySheet.js";
+import RSKActionSheet from "./sheets/RSKActionSheet.js";
+import RSKSpecialFeatureSheet from "./sheets/RSKSpecialFeatureSheet.js";
+import RSKAction from "./data/RSKAction.js";
+import RSKSpecialFeature from "./data/RSKSpecialFeature.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -42,13 +46,17 @@ Hooks.once("init", function () {
     CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Item.documentClass = RSKItem;
     CONFIG.Item.dataModels = {
-        quality: RSKQuality
+        quality: RSKQuality,
+        action: RSKAction,
+        specialFeature: RSKSpecialFeature
     };
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
 
     Items.unregisterSheet("core", ItemSheet)
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
     Items.registerSheet("rsk", RSKQualitySheet, { types: ["quality"], makeDefault: true });
+    Items.registerSheet("rsk", RSKActionSheet, { types: ["action"], makeDefault: true });
+    Items.registerSheet("rsk", RSKSpecialFeatureSheet, { types: ["specialFeature"], makeDefault: true });
 
     Actors.unregisterSheet("core", ActorSheet)
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })
