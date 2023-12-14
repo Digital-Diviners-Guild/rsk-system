@@ -1,4 +1,4 @@
-import RSKEquippable from "./RSKEquippable.js";
+import RSKEquippableType from "./RSKEquippableType.js";
 
 export default class RSKMaterial extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -14,7 +14,7 @@ export default class RSKMaterial extends foundry.abstract.TypeDataModel {
                 qualities: new fields.ArrayField(new fields.ObjectField()),
                 soak: new fields.NumberField({ ...numberField, max: 100 })
             }),
-            ...RSKEquippable.defineSchema()
+            ...RSKEquippableType.defineSchema()
         }
     }
 }

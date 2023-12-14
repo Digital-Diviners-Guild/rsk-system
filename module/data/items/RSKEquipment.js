@@ -1,4 +1,4 @@
-import RSKEquippable from "./RSKEquippable.js";
+import RSKEquippableType from "./RSKEquippableType.js";
 
 export default class RSKEquipment extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -11,7 +11,7 @@ export default class RSKEquipment extends foundry.abstract.TypeDataModel {
             uses: new fields.StringField(),
             effectDescription: new fields.StringField(),
             range: new fields.StringField(),
-            ...RSKEquippable.defineSchema(),
+            ...RSKEquippableType.defineSchema(),
             damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes).reduce((obj, damageType) => {
                 obj[damageType] = new fields.NumberField({ ...numberField, max: 300 });
                 return obj;

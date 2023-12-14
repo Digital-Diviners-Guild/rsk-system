@@ -1,4 +1,4 @@
-import RSKEquippable from "./RSKEquippable.js";
+import RSKEquippableType from "./RSKEquippableType.js";
 
 export default class RSKCape extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -6,7 +6,7 @@ export default class RSKCape extends foundry.abstract.TypeDataModel {
         return {
             description: new fields.StringField(),
             awardedFor: new fields.StringField(),
-            ...RSKEquippable.defineSchema()
+            ...RSKEquippableType.defineSchema()
         };
     }
 }
