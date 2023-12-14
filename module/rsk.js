@@ -8,6 +8,8 @@ import RSK from "./config.js";
 import RSKDice from "./rsk-dice.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKActiveEffect from "./documents/RSKActiveEffect.js";
+import RSKQuality from "./data/quality.js";
+import RSKQualitySheet from "./sheets/RSKQualitySheet.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -39,10 +41,14 @@ Hooks.once("init", function () {
     CONFIG.RSK = RSK;
     CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Item.documentClass = RSKItem;
+    CONFIG.Item.dataModels = {
+        quality: RSKQuality
+    };
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
 
     Items.unregisterSheet("core", ItemSheet)
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
+    Items.registerSheet("rsk", RSKQualitySheet, { types: ["quality"], makeDefault: true });
 
     Actors.unregisterSheet("core", ActorSheet)
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })

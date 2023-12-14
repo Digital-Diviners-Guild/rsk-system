@@ -267,9 +267,7 @@
         "specialFeature": {
             "description": ""
         },
-        "quality": {
-            "description": ""
-        },
+        "quality": {},
         "spell": {
             "spellType": "",
             "description": "",
