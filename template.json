@@ -234,20 +234,7 @@
                 "fire": 0
             }
         },
-        "armour": {
-            "templates": [
-                "equipable"
-            ],
-            "armourType": "",
-            "description": "",
-            "upgrades": [],
-            "cost": 0,
-            "values": {
-                "soak": 0,
-                "material": "",
-                "qualities": []
-            }
-        },
+        "armour": {},
         "cape": {},
         "action": {},
         "specialFeature": {},

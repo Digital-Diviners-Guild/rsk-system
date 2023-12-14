@@ -15,6 +15,7 @@ import RSKSpecialFeature from "./data/RSKSpecialFeature.js";
 import RSKCape from "./data/RSKCape.js";
 import RSKMaterial from "./data/RSKMaterial.js";
 import RSKResource from "./data/RSKResource.js";
+import RSKArmour from "./data/RSKArmour.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -52,7 +53,8 @@ Hooks.once("init", function () {
         specialFeature: RSKSpecialFeature,
         cape: RSKCape,
         material: RSKMaterial,
-        resource: RSKResource
+        resource: RSKResource,
+        armour: RSKArmour
     };
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
 
