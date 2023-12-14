@@ -48,7 +48,7 @@ Hooks.once("init", function () {
     };
 
     CONFIG.RSK = RSK;
-    CONFIG.Actor.documentClass = RSKActor;
+
     CONFIG.Item.documentClass = RSKItem;
     CONFIG.Item.dataModels = {
         quality: RSKQuality,
@@ -62,12 +62,12 @@ Hooks.once("init", function () {
         background: RSKBackground,
         spell: RSKSpell
     };
-    CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
-
     Items.unregisterSheet("core", ItemSheet)
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
     Items.registerSheet("rsk", RSKQualitySheet, { types: ["quality"], makeDefault: true });
-
+    
+    CONFIG.Actor.documentClass = RSKActor;
+    CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
     Actors.unregisterSheet("core", ActorSheet)
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })
 
