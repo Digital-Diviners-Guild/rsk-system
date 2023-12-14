@@ -179,14 +179,6 @@
             "spell",
             "prayer"
         ],
-        "templates": {
-            "equipable": {
-                "equipped": {
-                    "isEquipped": false,
-                    "slot": ""
-                }
-            }
-        },
         "material": {},
         "resource": {},
         "background": {
@@ -216,9 +208,10 @@
             }
         },
         "equipment": {
-            "templates": [
-                "equipable"
-            ],
+            "equipped": {
+                "isEquipped": false,
+                "slot": ""
+            },
             "cost": 0,
             "description": "",
             "uses": "",

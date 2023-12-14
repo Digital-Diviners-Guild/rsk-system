@@ -8,14 +8,14 @@ import RSK from "./config.js";
 import RSKDice from "./rsk-dice.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKActiveEffect from "./documents/RSKActiveEffect.js";
-import RSKQuality from "./data/RSKQuality.js";
+import RSKQuality from "./data/items/RSKQuality.js";
 import RSKQualitySheet from "./sheets/RSKQualitySheet.js";
-import RSKAction from "./data/RSKAction.js";
-import RSKSpecialFeature from "./data/RSKSpecialFeature.js";
-import RSKCape from "./data/RSKCape.js";
-import RSKMaterial from "./data/RSKMaterial.js";
-import RSKResource from "./data/RSKResource.js";
-import RSKArmour from "./data/RSKArmour.js";
+import RSKAction from "./data/items/RSKAction.js";
+import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
+import RSKCape from "./data/items/RSKCape.js";
+import RSKMaterial from "./data/items/RSKMaterial.js";
+import RSKResource from "./data/items/RSKResource.js";
+import RSKArmour from "./data/items/RSKArmour.js";
 
 globalThis.rsk = {
     config: RSK,
