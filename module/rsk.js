@@ -14,6 +14,8 @@ import RSKActionSheet from "./sheets/RSKActionSheet.js";
 import RSKSpecialFeatureSheet from "./sheets/RSKSpecialFeatureSheet.js";
 import RSKAction from "./data/RSKAction.js";
 import RSKSpecialFeature from "./data/RSKSpecialFeature.js";
+import RSKCape from "./data/RSKCape.js";
+import RSKCapeSheet from "./sheets/RSKCapeSheet.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -48,7 +50,8 @@ Hooks.once("init", function () {
     CONFIG.Item.dataModels = {
         quality: RSKQuality,
         action: RSKAction,
-        specialFeature: RSKSpecialFeature
+        specialFeature: RSKSpecialFeature,
+        cape: RSKCape
     };
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
 
@@ -57,6 +60,7 @@ Hooks.once("init", function () {
     Items.registerSheet("rsk", RSKQualitySheet, { types: ["quality"], makeDefault: true });
     Items.registerSheet("rsk", RSKActionSheet, { types: ["action"], makeDefault: true });
     Items.registerSheet("rsk", RSKSpecialFeatureSheet, { types: ["specialFeature"], makeDefault: true });
+    Items.registerSheet("rsk", RSKCapeSheet, { types: ["cape"], makeDefault: true });
 
     Actors.unregisterSheet("core", ActorSheet)
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })

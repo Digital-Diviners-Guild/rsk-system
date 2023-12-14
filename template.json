@@ -255,12 +255,7 @@
                 "qualities": []
             }
         },
-        "cape": {
-            "templates": [
-                "equipable"
-            ],
-            "awardedFor": ""
-        },
+        "cape": {},
         "action": {},
         "specialFeature": {},
         "quality": {},
