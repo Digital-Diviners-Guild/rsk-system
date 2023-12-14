@@ -28,7 +28,7 @@ export default class RSKCharacterType extends foundry.abstract.TypeDataModel {
                 obj[skill] = new fields.SchemaField({
                     level: new fields.NumberField({ min: 1, initial: 1, max: 10 }),
                     used: new fields.BooleanField(),
-                    modifier: new fields.NumberField({ min: -80, initial: 0, max: 80 }), // todo: what are the min maxes for these?
+                    modifier: new fields.NumberField({ min: -100, initial: 0, max: 100 }),
                 });
                 return obj;
             }, {})),

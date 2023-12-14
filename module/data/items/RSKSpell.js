@@ -7,12 +7,12 @@ export default class RSKSpell extends foundry.abstract.TypeDataModel {
             spellType: new fields.StringField(),
             description: new fields.StringField(),
             cost: new fields.SchemaField(Object.keys(CONFIG.RSK.runeType).reduce((obj, rune) => {
-                obj[rune] = new fields.NumberField({ ...numberField, max: 10 });
+                obj[rune] = new fields.NumberField({ ...numberField, max: 30 });
                 return obj;
             }, {})),
             range: new fields.StringField(),
             damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes).reduce((obj, damageType) => {
-                obj[damageType] = new fields.NumberField({ ...numberField, max: 300 });
+                obj[damageType] = new fields.NumberField({ ...numberField, max: 150 });
                 return obj;
             }, {})),
             effectDescription: new fields.StringField(),

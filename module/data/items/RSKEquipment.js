@@ -13,7 +13,7 @@ export default class RSKEquipment extends foundry.abstract.TypeDataModel {
             range: new fields.StringField(),
             ...RSKEquippableType.defineSchema(),
             damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes).reduce((obj, damageType) => {
-                obj[damageType] = new fields.NumberField({ ...numberField, max: 300 });
+                obj[damageType] = new fields.NumberField({ ...numberField, max: 150 });
                 return obj;
             }, {}))
         }
