@@ -20,6 +20,7 @@ import RSKEquipment from "./data/items/RSKEquipment.js";
 import RSKBackground from "./data/items/RSKBackground.js";
 import RSKSpell from "./data/items/RSKSpell.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
+import RSKCharacter from "./data/actors/RSKCharacter.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -69,6 +70,9 @@ Hooks.once("init", function () {
     Items.registerSheet("rsk", RSKQualitySheet, { types: ["quality"], makeDefault: true });
     
     CONFIG.Actor.documentClass = RSKActor;
+    CONFIG.Actor.dataModels = {
+        character: RSKCharacter
+    };
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
     Actors.unregisterSheet("core", ActorSheet)
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })
