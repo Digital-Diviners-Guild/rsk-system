@@ -21,6 +21,7 @@ import RSKBackground from "./data/items/RSKBackground.js";
 import RSKSpell from "./data/items/RSKSpell.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
 import RSKCharacter from "./data/actors/RSKCharacter.js";
+import RSKNpc from "./data/actors/RSKNpc.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -71,7 +72,8 @@ Hooks.once("init", function () {
     
     CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Actor.dataModels = {
-        character: RSKCharacter
+        character: RSKCharacter,
+        npc: RSKNpc
     };
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
     Actors.unregisterSheet("core", ActorSheet)

@@ -5,20 +5,7 @@
             "npc"
         ],
         "character": {},
-        "npc": {
-            "templates": [
-                "creature"
-            ],
-            "description": "",
-            "armourValue": 0,
-            "isQuestGiver": false,
-            "actions": [],
-            "specialFeatures": [],
-            "drops": [],
-            "htmlFields": [
-                "description"
-            ]
-        }
+        "npc": {}
     },
     "Item": {
         "types": [
