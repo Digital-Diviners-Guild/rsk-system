@@ -1,4 +1,4 @@
-export default class RSKBackground extends foundry.abstract.TypeDataModel {
+export default class RSKBackgroundType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         const fields = foundry.data.fields;
         const numberField = { integer: true, initial: 0, min: 0, max: 10 };
