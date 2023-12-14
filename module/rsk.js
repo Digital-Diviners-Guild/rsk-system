@@ -1,4 +1,5 @@
 import RSKItem from "./documents/RSKItem.js";
+import { RSKItemProxy } from "./documents/RSKItemProxy.js";
 import RSKActor from "./documents/RSKActor.js";
 
 import RSKItemSheet from "./sheets/RSKItemSheet.js";
@@ -52,7 +53,7 @@ Hooks.once("init", function () {
 
     CONFIG.RSK = RSK;
 
-    CONFIG.Item.documentClass = RSKItem;
+    CONFIG.Item.documentClass = RSKItemProxy;
     CONFIG.Item.dataModels = {
         quality: RSKQuality,
         action: RSKAction,
@@ -69,7 +70,7 @@ Hooks.once("init", function () {
     Items.unregisterSheet("core", ItemSheet)
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
     Items.registerSheet("rsk", RSKQualitySheet, { types: ["quality"], makeDefault: true });
-    
+
     CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Actor.dataModels = {
         character: RSKCharacter,
