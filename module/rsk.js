@@ -16,7 +16,7 @@ import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
 import RSKCape from "./data/items/RSKCape.js";
 import RSKMaterial from "./data/items/RSKMaterial.js";
 import RSKResource from "./data/items/RSKResource.js";
-import RSKArmour from "./data/items/RSKArmour.js";
+import RSKArmourType from "./data/items/RSKArmourType.js";
 import RSKEquipment from "./data/items/RSKEquipment.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
 import RSKSpell from "./data/items/RSKSpell.js";
@@ -61,7 +61,7 @@ Hooks.once("init", function () {
         cape: RSKCape,
         material: RSKMaterial,
         resource: RSKResource,
-        armour: RSKArmour,
+        armour: RSKArmourType,
         equipment: RSKEquipment,
         background: RSKBackgroundType,
         spell: RSKSpell,

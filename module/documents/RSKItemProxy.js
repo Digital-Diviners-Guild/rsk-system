@@ -2,6 +2,7 @@
 import RSKBackground from "./RSKBackground.js";
 import RSKQuality from "./RSKQuality.js";
 import RSKEquipment from "./RSKEquipment.js";
+import RSKArmour from "./RSKArmour.js";
 import RSKItem from "./RSKItem.js";
 
 const handler = {
@@ -13,6 +14,8 @@ const handler = {
                 return new RSKQuality(...args);
             case "equipment":
                 return new RSKEquipment(...args);
+            case "armour":
+                return new RSKArmour(...args);
             default:
                 return new RSKItem(...args);
         }

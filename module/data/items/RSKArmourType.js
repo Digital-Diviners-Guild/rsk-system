@@ -1,6 +1,6 @@
 import RSKEquippableType from "./RSKEquippableType.js";
 
-export default class RSKMaterial extends foundry.abstract.TypeDataModel {
+export default class RSKArmourType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         const fields = foundry.data.fields;
         const numberField = { integer: true, initial: 0, min: 0 };
