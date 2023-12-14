@@ -23,14 +23,14 @@ export default class RSKItem extends Item {
 
     removeQuality(qualitySourceUuid) {
         this.executeQualitiesOperation((qualities) => {
-            const updatedQualities = qualities.filter(x => x.sourceUuId !== qualitySourceUuid)
+            const updatedQualities = qualities.filter(x => x.sourceUuid !== qualitySourceUuid)
             this.update({ "system.values.qualities": updatedQualities });
         });
     }
 
     hasQuality(uuid) {
         return this.executeQualitiesOperation((qualities) =>
-            qualities.filter(q => q.sourceUuId === uuid).length > 0, false)
+            qualities.filter(q => q.sourceUuid === uuid).length > 0, false)
     }
 
     executeQualitiesOperation = (op, defaultValue = {}) =>
