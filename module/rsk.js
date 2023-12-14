@@ -1,5 +1,6 @@
 import RSKItem from "./documents/items/RSKItem.js";
 import { RSKItemProxy } from "./documents/items/RSKItemProxy.js";
+import { RSKActorProxy } from "./documents/actors/RSKActorProxy.js";
 import RSKActor from "./documents/actors/RSKActor.js";
 
 import RSKItemSheet from "./sheets/items/RSKItemSheet.js";
@@ -21,7 +22,7 @@ import RSKEquipment from "./data/items/RSKEquipment.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
 import RSKSpell from "./data/items/RSKSpell.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
-import RSKCharacter from "./data/actors/RSKCharacter.js";
+import RSKCharacterType from "./data/actors/RSKCharacterType.js";
 import RSKNpc from "./data/actors/RSKNpc.js";
 import RSKMath from "./rsk-math.js";
 
@@ -73,9 +74,9 @@ Hooks.once("init", function () {
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
     Items.registerSheet("rsk", RSKQualitySheet, { types: ["quality"], makeDefault: true });
 
-    CONFIG.Actor.documentClass = RSKActor;
+    CONFIG.Actor.documentClass = RSKActorProxy;
     CONFIG.Actor.dataModels = {
-        character: RSKCharacter,
+        character: RSKCharacterType,
         npc: RSKNpc
     };
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;

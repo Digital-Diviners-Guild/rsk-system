@@ -1,6 +1,6 @@
 import RSKCreature from "./RSKCreature.js";
 
-export default class RSKCharacter extends foundry.abstract.TypeDataModel {
+export default class RSKCharacterType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         const fields = foundry.data.fields;
         return {
