@@ -207,26 +207,7 @@
                 "woodcutting": 0
             }
         },
-        "equipment": {
-            "equipped": {
-                "isEquipped": false,
-                "slot": ""
-            },
-            "cost": 0,
-            "description": "",
-            "uses": "",
-            "effectDescription": "",
-            "range": 0,
-            "damageEntries": {
-                "stab": 0,
-                "slash": 0,
-                "crush": 0,
-                "air": 0,
-                "water": 0,
-                "earth": 0,
-                "fire": 0
-            }
-        },
+        "equipment": {},
         "armour": {},
         "cape": {},
         "action": {},

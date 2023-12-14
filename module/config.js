@@ -87,4 +87,14 @@ RSK.abilities = {
     intellect: "RSK.Intellect"
 }
 
+RSK.damageTypes = {
+    stab: "RSK.Stab",
+    slash: "RSK.Slash",
+    crush: "RSK.Crush",
+    air: "RSK.Air",
+    water: "RSK.Water",
+    earth: "RSK.Earth",
+    fire:"RSK.Fire",
+}
+
 export default RSK;
