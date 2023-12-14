@@ -65,7 +65,7 @@ export default class RSKActorSheet extends ActorSheet {
       effect.sheet.render(true);
     });
     if (!this.isEditable) return;
-    
+
     html.find('.item-equip').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));

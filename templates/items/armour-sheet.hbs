@@ -49,9 +49,15 @@
                     {{selectOptions config.materials selected=system.values.material}}
                 </select>
             </div>
+            <div>
+                <label>{{localize "RSK.Soak"}}:</label>
+                <input type="number" name="system.values.soak" value="{{system.values.soak}}">
+            </div>
 
-            <label>{{localize "RSK.Soak"}}:</label>
-            <input type="number" name="system.values.soak" value="{{system.values.soak}}">
+            <div>
+                <label>{{localize "RSK.Slot"}}</label>
+                <input type="text" name="system.equipped.slot" value="{{system.equipped.slot}}">
+            </div>
 
             <label>{{localize "RSK.Qualities"}}:</label>
             <ol class="items-list">

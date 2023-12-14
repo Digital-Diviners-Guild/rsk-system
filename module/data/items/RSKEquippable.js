@@ -5,7 +5,7 @@ export default class RSKEquippable extends foundry.abstract.TypeDataModel {
             equipped: new fields.SchemaField(
                 {
                     isEquipped: new fields.BooleanField(),
-                    slot: new fields.StringField()
+                    slot: new fields.StringField({ required: true, nullable: false }) // todo: needs to be picked from list of valid values
                 }
             )
         };

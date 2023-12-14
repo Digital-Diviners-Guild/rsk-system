@@ -86,9 +86,6 @@ export default class RSKItem extends Item {
 
     equip() {
         if (!this.system.equipped) return;
-        //test with head slot
-        //todo: use the correct slot
-        this.system.equipped.slot = "head";
         this.system.equipped.isEquipped = !this.system.equipped.isEquipped;
         this.update({ "system.equipped": { ...this.system.equipped } });
     }
