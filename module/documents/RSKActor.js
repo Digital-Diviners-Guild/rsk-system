@@ -138,8 +138,8 @@ export default class RSKActor extends Actor {
 
   _calculateEquippedArmourSoakValue() {
     return this.type === "character"
-      ? Object.keys(this.system.worn)
-        .map((x) => this.system.worn[x])
+      ? this.items
+        .filter(i => i.isEquipped)
         .reduce((acc, w, i) => acc +=
           typeof w.getArmourValue === "function" ? w.getArmourValue() : 0, 0)
       : this._getArmourSoakValue();
