@@ -189,10 +189,6 @@
         "specialFeature": {},
         "quality": {},
         "spell": {},
-        "prayer": {
-            "description": "",
-            "cost": 0,
-            "range": ""
-        }
+        "prayer": {}
     }
 }

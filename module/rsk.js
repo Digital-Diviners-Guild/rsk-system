@@ -19,6 +19,7 @@ import RSKArmour from "./data/items/RSKArmour.js";
 import RSKEquipment from "./data/items/RSKEquipment.js";
 import RSKBackground from "./data/items/RSKBackground.js";
 import RSKSpell from "./data/items/RSKSpell.js";
+import RSKPrayer from "./data/items/RSKPrayer.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -60,7 +61,8 @@ Hooks.once("init", function () {
         armour: RSKArmour,
         equipment: RSKEquipment,
         background: RSKBackground,
-        spell: RSKSpell
+        spell: RSKSpell,
+        prayer: RSKPrayer
     };
     Items.unregisterSheet("core", ItemSheet)
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
