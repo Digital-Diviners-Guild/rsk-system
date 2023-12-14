@@ -13,7 +13,7 @@ export default class RSKActorSheet extends ActorSheet {
   }
 
   get template() {
-    return `systems/rsk-system/templates/actors/${this.actor.type}-sheet.hbs`;
+    return `systems/rsk/templates/actors/${this.actor.type}-sheet.hbs`;
   }
 
   getData() {

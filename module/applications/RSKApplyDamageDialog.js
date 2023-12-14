@@ -1,7 +1,7 @@
 export default class RSKApplyDamageDialog extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: 'systems/rsk-system/templates/applications/apply-damage-dialog.hbs',
+            template: 'systems/rsk/templates/applications/apply-damage-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
             height: 250

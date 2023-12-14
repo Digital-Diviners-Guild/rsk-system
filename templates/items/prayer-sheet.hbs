@@ -11,7 +11,7 @@
         <div class="tab features" data-group="primary" data-tab="description">
             <h3>{{localize "RSK.Description"}}</h3>
             <p>{{system.description}}</p>
-            {{> "/systems/rsk-system/templates/items/parts/view-range.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
             <div><strong>{{localize "RSK.Cost"}}:</strong>
                 {{system.cost}} {{localize "RSK.PrayerPoints"}}
             </div>
@@ -23,7 +23,7 @@
         <div class="tab features" data-group="primary" data-tab="edit">
             <h3>{{localize "RSK.Description"}}</h3>
             <input type="text" name="system.description" value="{{system.description}}">
-            {{> "/systems/rsk-system/templates/items/parts/edit-range.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
             <div>
                 <label>{{localize "RSK.Effect"}}</label>
                 <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">

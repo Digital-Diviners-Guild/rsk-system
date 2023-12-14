@@ -71,7 +71,7 @@
 
     <div class="tab features" data-group="primary" data-tab="inventory">
       <strong>temp (item list)</strong>
-      {{> "/systems/rsk-system/templates/actors/parts/edit-items.hbs" items=actor.items }}
+      {{> "/systems/rsk/templates/actors/parts/edit-items.hbs" items=actor.items }}
 
       <div>
         <label>{{localize "RSK.Headarmour"}}</label>
@@ -100,7 +100,7 @@
         <div>{{system.motivation}}</div>
       </div>
       <label>{{localize "RSK.Backgrounds"}}</label>
-      {{> "/systems/rsk-system/templates/actors/parts/view-items.hbs" items=backgrounds }}
+      {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=backgrounds }}
     </div>
 
     <div class="tab features" data-group="primary" data-tab="edit">
@@ -109,7 +109,7 @@
         {{editor system.description target="system.description" button=false engine="prosemirror"}}
       </div>
       <label>{{localize "RSK.Backgrounds"}}</label>
-      {{> "/systems/rsk-system/templates/actors/parts/edit-items.hbs"
+      {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
       items=backgrounds
       addType="background"
       addLabel="Add Background"}}
@@ -149,7 +149,7 @@
       <hr />
 
       <strong>Effects</strong>
-      {{> "/systems/rsk-system/templates/parts/edit-effects.hbs"}}
+      {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
 
     </div>
   </section>

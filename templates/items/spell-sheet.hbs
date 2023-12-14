@@ -12,7 +12,7 @@
             <h3>{{localize "RSK.Description"}}</h3>
             <p>{{system.description}}</p>
             <div><strong>{{localize "RSK.SpellType"}}:</strong> {{system.spellType}}</div>
-            {{> "/systems/rsk-system/templates/items/parts/view-range.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
 
             <div><strong>{{localize "RSK.Cost"}}:</strong>
                 {{#each spellCost as |sc|}}
@@ -24,7 +24,7 @@
 
             <h3>{{localize "RSK.Effect"}}:</h3>
             <p>{{system.effectDescription}}</p>
-            {{> "/systems/rsk-system/templates/items/parts/view-damage-entries.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
@@ -37,7 +37,7 @@
                     {{selectOptions config.spellTypes selected=system.spellType}}
                 </select>
             </div>
-            {{> "/systems/rsk-system/templates/items/parts/edit-range.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
 
             <div>
                 <label>{{localize "RSK.Effect"}}</label>
@@ -52,7 +52,7 @@
             </div>
             {{/each}}
 
-            {{> "/systems/rsk-system/templates/items/parts/edit-damage-entries.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
         </div>
     </section>
 </form>

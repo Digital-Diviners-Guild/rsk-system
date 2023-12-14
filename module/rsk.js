@@ -15,16 +15,16 @@ globalThis.rsk = {
 
 async function preloadHandlebarsTemplates() {
     const templatePaths = [
-        "/systems/rsk-system/templates/items/parts/edit-damage-entries.hbs",
-        "/systems/rsk-system/templates/items/parts/view-damage-entries.hbs",
-        "/systems/rsk-system/templates/items/parts/edit-range.hbs",
-        "/systems/rsk-system/templates/items/parts/view-range.hbs",
+        "/systems/rsk/templates/items/parts/edit-damage-entries.hbs",
+        "/systems/rsk/templates/items/parts/view-damage-entries.hbs",
+        "/systems/rsk/templates/items/parts/edit-range.hbs",
+        "/systems/rsk/templates/items/parts/view-range.hbs",
 
-        "/systems/rsk-system/templates/actors/parts/view-items.hbs",
-        "/systems/rsk-system/templates/actors/parts/edit-items.hbs",
+        "/systems/rsk/templates/actors/parts/view-items.hbs",
+        "/systems/rsk/templates/actors/parts/edit-items.hbs",
 
-        "/systems/rsk-system/templates/parts/view-effects.hbs",
-        "/systems/rsk-system/templates/parts/edit-effects.hbs"
+        "/systems/rsk/templates/parts/view-effects.hbs",
+        "/systems/rsk/templates/parts/edit-effects.hbs"
     ];
     return loadTemplates(templatePaths);
 }

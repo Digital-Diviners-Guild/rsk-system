@@ -1,7 +1,7 @@
 export default class RSKConfirmRollDialog extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: 'systems/rsk-system/templates/applications/roll-dialog.hbs',
+            template: 'systems/rsk/templates/applications/roll-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
             height: 250
