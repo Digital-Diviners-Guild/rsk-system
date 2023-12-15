@@ -57,13 +57,14 @@ async function preloadHandlebarsTemplates() {
 Hooks.once("init", function () {
     console.log("initializing...");
     game.rsk = {
-        RSKItem,
-        RSKActor,
-        math: RSKMath
+        item: RSKItem,
+        actor: RSKActor,
+        math: RSKMath,
+        dice: RSKDice
     };
-    
+
     CONFIG.RSK = RSK;
-    
+
     CONFIG.Item.documentClass = RSKItemProxy;
     CONFIG.Item.dataModels = {
         quality: RSKQualityType,
@@ -81,7 +82,7 @@ Hooks.once("init", function () {
     Items.unregisterSheet("core", ItemSheet)
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
     Items.registerSheet("rsk", RSKQualitySheet, { types: ["quality"], makeDefault: true });
-    
+
     CONFIG.Actor.documentClass = RSKActorProxy;
     CONFIG.Actor.dataModels = {
         character: RSKCharacterType,
