@@ -4,6 +4,9 @@ export default class RSKActiveEffect extends ActiveEffect {
     }
 
     determineSuppression() {
-        return !(this.parent.system.equipped && this.parent.isEquipped);
+        if (this.parent.system.equipped) {
+            return !this.parent.isEquipped;
+        }
+        return false;
     }
 }
