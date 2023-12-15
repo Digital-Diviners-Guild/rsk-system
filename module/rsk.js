@@ -30,6 +30,7 @@ import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSK from "./config.js";
 import RSKDice from "./rsk-dice.js";
 import RSKMath from "./rsk-math.js";
+import { customizeStatusEffects } from "./effects/statuses.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -93,6 +94,8 @@ Hooks.once("init", function () {
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
 
     preloadHandlebarsTemplates()
+    customizeStatusEffects();
+
     console.log("rsk ready");
 });
 
