@@ -6,7 +6,7 @@ export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
             equipped: new fields.SchemaField(
                 {
                     isEquipped: new fields.BooleanField(),
-                    slot: new fields.StringField({ required: true, nullable: false, initial: "body" }) // todo: needs to be picked from list of valid values
+                    slot: new fields.StringField({ required: true, initial: "body", choices: [...Object.keys(CONFIG.RSK.armourTypes)] })
                 }
             )
         };
