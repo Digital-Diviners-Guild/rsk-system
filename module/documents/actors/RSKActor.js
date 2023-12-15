@@ -11,14 +11,6 @@ export default class RSKActor extends Actor {
     this.system.lifePoints.value = game.rsk.math.clamp_value(this.system.lifePoints.value, this.system.lifePoints);
   }
 
-  applyActiveEffects() {
-    if (this.system?.prepareEmbeddedDocuments instanceof Function) this.system.prepareEmbeddedDocuments();
-    // not sure why, but if we do this step in the effects prepare data, it doesn't work
-    // doing it here seems to
-    this.effects.forEach(e => e.determineSuppression());
-    return super.applyActiveEffects();
-  }
-
   receiveDamage(amount) {
     const damageAfterSoak = this._applyArmourSoak(amount);
     const damageAfterSoakAndModifiers = this._applyIncomingDamageModifiers(damageAfterSoak);

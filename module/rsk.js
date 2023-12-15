@@ -60,9 +60,9 @@ Hooks.once("init", function () {
         RSKActor,
         math: RSKMath
     };
-
+    
     CONFIG.RSK = RSK;
-
+    
     CONFIG.Item.documentClass = RSKItemProxy;
     CONFIG.Item.dataModels = {
         quality: RSKQualityType,
@@ -80,15 +80,17 @@ Hooks.once("init", function () {
     Items.unregisterSheet("core", ItemSheet)
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
     Items.registerSheet("rsk", RSKQualitySheet, { types: ["quality"], makeDefault: true });
-
+    
     CONFIG.Actor.documentClass = RSKActorProxy;
     CONFIG.Actor.dataModels = {
         character: RSKCharacterType,
         npc: RSKNpc
     };
-    CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
     Actors.unregisterSheet("core", ActorSheet)
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })
+
+    CONFIG.ActiveEffect.legacyTransferral = false;
+    CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
 
     preloadHandlebarsTemplates()
     console.log("rsk ready");
