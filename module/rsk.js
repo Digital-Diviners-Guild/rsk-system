@@ -41,6 +41,8 @@ async function preloadHandlebarsTemplates() {
         "/systems/rsk/templates/items/parts/view-damage-entries.hbs",
         "/systems/rsk/templates/items/parts/edit-range.hbs",
         "/systems/rsk/templates/items/parts/view-range.hbs",
+        "/systems/rsk/templates/items/parts/edit-qualities.hbs",
+        "/systems/rsk/templates/items/parts/view-qualities.hbs",
 
         "/systems/rsk/templates/actors/parts/view-items.hbs",
         "/systems/rsk/templates/actors/parts/edit-items.hbs",

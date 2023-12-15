@@ -19,11 +19,8 @@
             <p><strong>{{localize "RSK.Soak"}}:</strong> {{system.values.soak}}</p>
             <div>
                 <strong>{{localize "RSK.Qualities"}}:</strong>
-                {{#each system.values.qualities as |quality|}}
-                <p>
-                    <strong>{{quality.name}}</strong> {{quality.description}}
-                </p>
-                {{/each}}
+                {{> "/systems/rsk/templates/items/parts/view-qualities.hbs"}}
+
                 <strong>Effects (temp)</strong>
                 {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
             </div>
@@ -55,19 +52,7 @@
             </div>
 
             <label>{{localize "RSK.Qualities"}}:</label>
-            <ol class="items-list">
-                {{#each system.values.qualities as |quality|}}
-                <li class="quality item flexrow" data-quality-id="{{quality.sourceUuid}}">
-                    <div class="item-name flexrow">
-                        <h4>{{quality.name}}</h4>
-                    </div>
-                    <div class="item-controls">
-                        <a class="item-control item-delete quality-delete" title="Delete Item"><i
-                                class="fas fa-trash"></i></a>
-                    </div>
-                </li>
-                {{/each}}
-            </ol>
+            {{> "/systems/rsk/templates/items/parts/edit-qualities.hbs"}}
         </div>
     </section>
 </form>
