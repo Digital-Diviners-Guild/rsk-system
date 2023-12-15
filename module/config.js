@@ -94,7 +94,7 @@ RSK.damageTypes = {
     air: "RSK.Air",
     water: "RSK.Water",
     earth: "RSK.Earth",
-    fire:"RSK.Fire",
+    fire: "RSK.Fire",
 }
 
 export default RSK;

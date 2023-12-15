@@ -6,7 +6,6 @@ export default class RSKArmourType extends foundry.abstract.TypeDataModel {
         return {
             description: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
-            armourType: new fields.StringField(), //todo: I think we can put the options here?
             upgrades: new fields.ArrayField(new fields.ObjectField()),
             values: new fields.SchemaField({
                 material: new fields.StringField(),
