@@ -16,18 +16,12 @@ export default class RSKItemSheet extends ItemSheet {
     getData() {
         const context = super.getData();
         const itemData = context.item;
-        // context.rollData = {};
-        // let actor = this.object?.parent ?? null;
-        // if (actor) {
-        //     context.rollData = actor.getRollData();
-        // }
         context.system = itemData.system;
         context.flags = itemData.flags;
         context.config = CONFIG.RSK;
         context.dealsDamage = itemData.system.damageEntries
             && Object.values(itemData.system.damageEntries)
                 .filter(x => x > 0).length > 0;
-        context.effects = itemData.effects;
         if (itemData.type === "spell") {
             this._prepareSpellCost(context);
         }
