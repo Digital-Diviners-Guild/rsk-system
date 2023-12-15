@@ -5,8 +5,8 @@ export default class RSKCharacterType extends foundry.abstract.TypeDataModel {
         const fields = foundry.data.fields;
         return {
             ...RSKCreature.defineSchema(),
-            catalyst: new fields.StringField(),
-            motivation: new fields.StringField(),
+            catalyst: new fields.HTMLField(),
+            motivation: new fields.HTMLField(),
             backgrounds: new fields.ArrayField(new fields.ObjectField()),
             summoningPoints: new fields.SchemaField({
                 min: new fields.NumberField({ min: 0, initial: 0 }),
