@@ -4,7 +4,7 @@ import RSKEquippableType from "./RSKEquippableType.js";
 export default class RSKArmourType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            description: new fields.StringField(),
+            description: new fields.HTMLField(),
             cost: new fields.NumberField({ ...costField }),
             upgrades: new fields.ArrayField(new fields.ObjectField()),
             values: new fields.SchemaField({
