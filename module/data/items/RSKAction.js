@@ -6,6 +6,8 @@ import { fields } from "./fields.js";
 export default class RSKAction extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
+            type: new fields.StringField(), // weapon, spell, prayer
+            label: new fields.StringField(), // what to display on the button?
             description: new fields.HTMLField(),
             range: new fields.SchemaField({
                 min: new fields.NumberField(),
@@ -21,11 +23,15 @@ export default class RSKAction extends foundry.abstract.TypeDataModel {
                 // ranged is ammo, and that sometimes is the weapon itself (ie thrown weapons)
                 // melee likely doesn't have cost, but a special weapon may, not sure what it would be though.
                 // that being said, it should be an option to enable homebrewing.
-                type: new fields.StringField(),// rune / ammo / points
+                type: new fields.StringField(),// rune / ammo / points / specific items
                 values: new fields.ArrayField(new fields.SchemaField({
                     name: new fields.StringField(), // air rune, steel arrow, prayer points
                     amount: new fields.NumberField()
-                }))
+                })),
+                // is the item consumed or just required?
+                // perhaps a condition field would be better for this use case?
+                // ie you need some staff equipped for this high level spell
+                consumed: new fields.BooleanField()
             }),
             // could be all friendlies, enemies, all, maybe even more specific like undead
             // could be self, single, multi
@@ -48,6 +54,18 @@ export default class RSKAction extends foundry.abstract.TypeDataModel {
                 effects: new fields.ArrayField(new fields.SchemaField({}))
             }),
         };
+    }
+
+    use() {
+        // first check can use
+        // then create outcomes.  this is an in memory list of things to apply
+        // send message to chat with this object
+    }
+
+    confirm() {
+        // when confirmed through dialog, use outcomes from 'use' to determine damage/effects
+        // here is where we would call the 'receiveDamage' which we should rename to applyOutcomes
+        // as it can be more than just damage.
     }
 }
 
