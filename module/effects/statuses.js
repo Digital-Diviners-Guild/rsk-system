@@ -9,6 +9,11 @@ export function customizeStatusEffects() {
 };
 
 //todo: need image urls (most are just made up)
+
+//thought: many of these things like poison, burning, etc... come from qualities of varying strength.
+// ie, Incendiary II does more than Incendiary I, do we need burning I and burning II? or just burning, and augment it some other way?
+//thought: items like antipoison can apply "poisoned" with a "reverse" param that instead deletes if existing on actor
+//thought: actor in an onRoundStart hook could look to apply damage from effects like poison and burning
 export const rskStatusEffects = [
     {
         id: "dead",
