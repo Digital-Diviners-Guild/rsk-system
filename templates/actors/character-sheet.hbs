@@ -62,11 +62,37 @@
     </div>
 
     <div class="tab features" data-group="primary" data-tab="prayer">
-      potentially have prayers here?
+      <ol class="items-list">
+        {{#each prayers as |prayer|}}
+        <li class="item flexrow activate-prayer" data-prayer-id="{{prayer._id}}">
+          <div class="item-name flexrow">
+            <strong>{{prayer.name}}</strong>
+          </div>
+          {{#if prayer.system.description}}
+          <div class="item-content">
+            {{prayer.system.description}}
+          </div>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ol>
     </div>
 
     <div class="tab features" data-group="primary" data-tab="magic">
-      potentially have spells here?
+      <ol class="items-list">
+        {{#each spells as |spell|}}
+        <li class="item flexrow cast-spell" data-spell-id="{{spell._id}}">
+          <div class="item-name flexrow">
+            <strong>{{spell.name}}</strong>
+          </div>
+          {{#if spell.system.description}}
+          <div class="item-content">
+            {{spell.system.description}}
+          </div>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ol>
     </div>
 
     <div class="tab features" data-group="primary" data-tab="inventory">

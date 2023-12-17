@@ -14,13 +14,13 @@
             <div><strong>{{localize "RSK.SpellType"}}:</strong> {{system.spellType}}</div>
             {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
 
-            <div><strong>{{localize "RSK.Cost"}}:</strong>
+            {{!-- <div><strong>{{localize "RSK.Cost"}}:</strong>
                 {{#each spellCost as |sc|}}
                 {{#if sc.cost}}
                 <span>{{sc.cost}} {{sc.type}}</span>
                 {{/if}}
                 {{/each}}
-            </div>
+            </div> --}}
 
             <h3>{{localize "RSK.Effect"}}:</h3>
             <p>{{system.effectDescription}}</p>
@@ -44,13 +44,13 @@
                 <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
             </div>
 
-            <h3>{{localize "RSK.Cost"}}</h3>
+            {{!-- <h3>{{localize "RSK.Cost"}}</h3>
             {{#each spellCost as |sc|}}
             <div class="form-group">
                 <label>{{sc.type}}</label>
                 <input type="number" name="system.cost.{{sc.index}}" value="{{sc.cost}}">
             </div>
-            {{/each}}
+            {{/each}} --}}
 
             {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
         </div>

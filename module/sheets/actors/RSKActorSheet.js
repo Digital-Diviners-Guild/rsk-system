@@ -1,5 +1,6 @@
 import RSKApplyDamageDialog from "../../applications/RSKApplyDamageDialog.js";
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
+import RSKSpell from "../../data/items/RSKSpell.js";
 export default class RSKActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -25,6 +26,8 @@ export default class RSKActorSheet extends ActorSheet {
     if (actorData.type === 'character') {
       this._prepareSkills(context);
       this._prepareAbilities(context);
+      this._prepareSpells(context);
+      this._preparePrayers(context);
       this._prepareEquipment(context);
     }
     this._prepareItems(context);
@@ -68,6 +71,17 @@ export default class RSKActorSheet extends ActorSheet {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       this.actor.equip(item);
+    });
+    html.find('.cast-spell').click(ev => {
+      const s = $(ev.currentTarget);
+      const spellData = this.actor.items.get(s.data("spellId"));
+      //const spell = new RSKSpell(spellData);
+      spellData.system.use(this.actor);
+    });
+    html.find('.activate-prayer').click(ev => {
+      const s = $(ev.currentTarget);
+      const prayerData = this.actor.items.get(s.data("prayerId"));
+      prayerData.system.use(this.actor);
     });
     html.find('.apply-damage').click(async ev => {
       const dialog = RSKApplyDamageDialog.create({}, {});
@@ -132,8 +146,16 @@ export default class RSKActorSheet extends ActorSheet {
       });
   }
 
+  _prepareSpells(context) {
+    context.spells = context.items.filter(i => i.type === "spell");
+  }
+
+  _preparePrayers(context) {
+    context.prayers = context.items.filter(i => i.type === "prayer");
+  }
+
   _prepareEquipment(context) {
-    const equipped = context.items.filter(i => i.system.equipped && i.system.equipped.isEquipped);
+    const equipped = context.items.filter(i => i.system?.equipped && i.system.equipped.isEquipped);
     context.worn = {};
     equipped.map((e) => context.worn[e.system.equipped.slot] = e.name);
   }
@@ -144,7 +166,6 @@ export default class RSKActorSheet extends ActorSheet {
     const backgrounds = [];
 
     for (let i of context.items) {
-      i.img = i.img || DEFAULT_TOKEN;
       if (i.type === 'action') {
         actions.push(i);
       } else if (i.type === 'specialFeature') {

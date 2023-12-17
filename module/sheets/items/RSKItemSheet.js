@@ -22,9 +22,9 @@ export default class RSKItemSheet extends ItemSheet {
         context.dealsDamage = itemData.system.damageEntries
             && Object.values(itemData.system.damageEntries)
                 .filter(x => x > 0).length > 0;
-        if (itemData.type === "spell") {
-            this._prepareSpellCost(context);
-        }
+        // if (itemData.type === "spell") {
+        //     this._prepareSpellCost(context);
+        // }
         return context;
     }
 
