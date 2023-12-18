@@ -1,6 +1,6 @@
 import RSKApplyDamageDialog from "../../applications/RSKApplyDamageDialog.js";
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
-import RSKSpell from "../../data/items/RSKSpell.js";
+
 export default class RSKActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -14,7 +14,7 @@ export default class RSKActorSheet extends ActorSheet {
   get template() {
     return `systems/rsk/templates/actors/${this.actor.type}-sheet.hbs`;
   }
-
+  
   getData() {
     const context = super.getData();
     const actorData = this.actor.toObject(false);
@@ -23,15 +23,7 @@ export default class RSKActorSheet extends ActorSheet {
     context.config = CONFIG.RSK;
     context.publicRoll = CONST.DICE_ROLL_MODES.PUBLIC;
     context.privateRoll = CONST.DICE_ROLL_MODES.PRIVATE;
-    if (actorData.type === 'character') {
-      this._prepareSkills(context);
-      this._prepareAbilities(context);
-      this._prepareSpells(context);
-      this._preparePrayers(context);
-      this._prepareEquipment(context);
-    }
     this._prepareItems(context);
-
     return context;
   }
 
@@ -72,17 +64,6 @@ export default class RSKActorSheet extends ActorSheet {
       const item = this.actor.items.get(li.data("itemId"));
       this.actor.equip(item);
     });
-    html.find('.cast-spell').click(ev => {
-      const s = $(ev.currentTarget);
-      const spellData = this.actor.items.get(s.data("spellId"));
-      //const spell = new RSKSpell(spellData);
-      spellData.system.use(this.actor);
-    });
-    html.find('.activate-prayer').click(ev => {
-      const s = $(ev.currentTarget);
-      const prayerData = this.actor.items.get(s.data("prayerId"));
-      prayerData.system.use(this.actor);
-    });
     html.find('.apply-damage').click(async ev => {
       const dialog = RSKApplyDamageDialog.create({}, {});
       let damage = await dialog();
@@ -121,43 +102,6 @@ export default class RSKActorSheet extends ActorSheet {
           .filter(x => x._id === effectId)
           .map(x => x._id));
     });
-  }
-
-  _prepareSkills(context) {
-    context.skills = Object.keys(context.system.skills)
-      .map(function (index) {
-        return {
-          index: index,
-          label: game.i18n.format(CONFIG.RSK.skills[index]),
-          ...context.system.skills[index]
-        }
-      });
-  }
-
-  //todo: this pattern is appearing a few times, probably something we can abstract
-  _prepareAbilities(context) {
-    context.abilities = Object.keys(context.system.abilities)
-      .map(function (index) {
-        return {
-          index: index,
-          label: game.i18n.format(CONFIG.RSK.abilities[index]),
-          level: context.system.abilities[index]
-        }
-      });
-  }
-
-  _prepareSpells(context) {
-    context.spells = context.items.filter(i => i.type === "spell");
-  }
-
-  _preparePrayers(context) {
-    context.prayers = context.items.filter(i => i.type === "prayer");
-  }
-
-  _prepareEquipment(context) {
-    const equipped = context.items.filter(i => i.system?.equipped && i.system.equipped.isEquipped);
-    context.worn = {};
-    equipped.map((e) => context.worn[e.system.equipped.slot] = e.name);
   }
 
   _prepareItems(context) {

@@ -31,6 +31,7 @@ import RSK from "./config.js";
 import RSKDice from "./rsk-dice.js";
 import RSKMath from "./rsk-math.js";
 import { customizeStatusEffects } from "./effects/statuses.js";
+import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -90,6 +91,7 @@ Hooks.once("init", function () {
     };
     Actors.unregisterSheet("core", ActorSheet)
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })
+    Actors.registerSheet("rsk", RSKCharacterSheet, { types: ["character"], makeDefault: true });
 
     CONFIG.ActiveEffect.legacyTransferral = false;
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;

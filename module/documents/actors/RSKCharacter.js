@@ -2,6 +2,7 @@ import RSKActor from "./RSKActor.js";
 
 export default class RSKCharacter extends RSKActor {
     //todo: do we need this type of validation here anymore if its in the datamodel?
+    // I think so for resetting the form, but not to protect updates, the model validation won't allow bad data into the db.
     minSkillLevel = 1;
     maxSkillLevel = 10;
 
