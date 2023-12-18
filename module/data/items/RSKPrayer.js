@@ -9,7 +9,7 @@ export default class RSKPrayer extends RSKAction {
     // how do we want to handle usage requiring a skill check?
 
     canUse(actor) {
-        return actor.system.prayerPoints.value >= (this.cost.values[0] || 0);
+        return actor.system.prayerPoints.value >= (this.usageCost.values[0] || 0);
     }
 
     static fromData(prayerData) {

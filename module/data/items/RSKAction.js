@@ -8,13 +8,12 @@ export default class RSKAction extends foundry.abstract.DataModel {
         return {
             type: new fields.StringField(), // weapon, spell, prayer
             label: new fields.StringField(), // what to display on the button?
-            label: new fields.StringField(),
             description: new fields.HTMLField(),
             range: new fields.StringField(),
             damageEntries: new fields.ArrayField(new fields.ObjectField()),
             effectDescription: new fields.HTMLField(),
             requiredEquipment: new fields.ArrayField(new fields.ObjectField()),
-            cost: new fields.SchemaField({
+            usageCost: new fields.SchemaField({
                 // prayer, summoning, magic, ranged, potentially even some melee attacks may have some cost
                 // these will be different per type though.
                 // prayer, and summoning are point costs
