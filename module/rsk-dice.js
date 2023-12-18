@@ -8,12 +8,14 @@ export default class RSKDice {
     static handlePlayerRoll = async (options = {}) => {
         const rollResult = await RSKDice.roll(options.rollType)
         const rollTotal = Number(rollResult.total);
-        const testNumber = Number(options.testNumber);
-        const isSuccess = rollTotal <= testNumber;
-        const margin = testNumber - rollTotal;
-        const flavor = `<strong>${options.testName}</strong> TN: ${options.testNumber}
-            <p>${rollResult.isCritical ? "<em>critical</em>" : ""} ${isSuccess ? "success" : "fail"} (${margin})</p>`
+        const targetNumber = Number(options.targetNumber);
+        const isSuccess = rollTotal <= targetNumber;
+        const margin = targetNumber - rollTotal;
+        const flavor = `<strong>${options.testName}</strong> TN: ${options.targetNumber}
+            <p>${rollResult.isCritical ? "<em>critical</em>" : ""} ${isSuccess ? "success" : "fail"} (${margin})</p> 
+            ${isSuccess && options.successMessage ? options.successMessage : ''}`
         await rollResult.toMessage({ flavor }, { rollMode: options.rollMode });
+        return isSuccess;
     }
 
     static handleBasicRoll = async () => {

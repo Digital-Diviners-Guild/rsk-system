@@ -89,4 +89,81 @@ export default class RSKCharacter extends RSKActor {
         this.items.filter(i => i.type === "background")
             .map(b => b.applyBackgroundSkillImprovements(this))
     }
+
+    // alternatively, we may code the main 'actions' here
+    // i'm not sure if we benefit much from making the spells and prayers 
+    // both actions.  We still need to account for melee,range,and summoning.
+    // which may not fit well into the other direction for rskaction
+    // qualities can grant actions, as well as items.
+    // perhaps rskaction as a datatype makes sense
+    //  but it may be something we create on the fly during data prep?
+    //  I think most of the 'action' configuration comes from the thing performing the action
+    //  not the action itself? ie damage is defined by the weapon/spell, not the act of doing it.
+    castSpell(spell) {
+        //TN: always magic/intellect
+    }
+
+    //temp: 
+    //getting something working here, simple, and without confirming before applying
+    //just to start working the model and figure out how exactly we want to do this.
+    async pray(prayer) {
+        const message = this.toMessage(prayer, {}, false);
+        const newPrayerPoints = this.system.prayerPoints.value - prayer.usageCost[0].amount;
+        if (newPrayerPoints >= 0) {
+            //use
+            const targetNumber = this.getRollData().calculateTestNumber("prayer", "intellect");
+            // dice need to be reworked to perform 'checks', rather than mostly creating chat messages.
+            // and probably should NOT be responsible for the chat message. 
+            const success = await game.rsk.dice.handlePlayerRoll({ targetNumber, testName: prayer.label, successMessage: message.content });
+            //also need to know crit and margin here too
+            if (success) {
+                this.update({ 'system.prayerPoints.value': newPrayerPoints });
+                //need to apply statuses. 
+            } else {
+                this.update({ 'system.prayerPoints.value': this.system.prayerPoints.value - 1 });
+            }
+            this.useSkill("prayer");
+        }
+        //TN: always prayer/intellect
+    }
+
+    //ranged/melee
+    attack() {
+        //get equipped weapon
+        // how do we detail that a ranged weapon's attack has a cost?
+        // perhaps the rskaction may be a good way to go?
+        // when creating an rskaction, the 'useWeapon' should be for more than just range
+        // it should also configure pulling the base damage stats from thew weapon?
+
+        //melee
+        // TN: usually attack/strength
+        // but martials use /agility
+        //ranged
+        // TN: usually ranged/strength
+        // but martials use /agility
+    }
+
+    toMessage(action, options = {}, send = true) {
+        const actionData = {
+            actor: this.uuid,
+            action: action.id,
+            // would outcomes just live here and then
+            // you can use the chat to commit them?
+            outcomes: [],
+        };
+        const content = `${this.name} is using ${action.label}`;
+        const messageData = {
+            type: CONST.CHAT_MESSAGE_TYPES["OTHER"], //CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL" : "OTHER"],
+            content: content,
+            speaker: ChatMessage.getSpeaker({ actor: this }),
+            //rolls: rolls,
+            flags: {
+                rsk: actionData
+            }
+        };
+        if (send) {
+            ChatMessage.create(messageData, options);
+        }
+        return messageData;
+    }
 }

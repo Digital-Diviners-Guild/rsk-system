@@ -41,8 +41,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        this.spells = Object.keys(CONFIG.RSK.defaultSpells).reduce((ss, s) => {
-            ss[s] = RSKSpell.fromData({ id: s, actor: this.actor, ...CONFIG.RSK.defaultSpells[s] });
+        this.spells = Object.keys(CONFIG.RSK.standardSpellBook).reduce((ss, s) => {
+            ss[s] = RSKSpell.fromData({ id: s, actor: this.actor, ...CONFIG.RSK.standardSpellBook[s] });
             return ss;
         }, {});
         context.spells = this.spells;
@@ -72,7 +72,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         html.find('.activate-prayer').click(ev => {
             const s = $(ev.currentTarget);
             const prayer = this.prayers[s.data("prayerId")];
-            prayer.use(this.actor);
+            //prayer.use(this.actor);
+            this.actor.pray(prayer);
         });
     }
 }
