@@ -71,11 +71,8 @@
           <div class="item-name flexrow">
             <strong>{{prayer.label}}</strong>
           </div>
-          {{!-- {{#if prayer.system.description}}
-          <div class="item-content">
-            {{prayer.system.description}}
-          </div>
-          {{/if}} --}}
+          <div class="item-content">{{prayer.cost}}</div>
+          <div class="item-content">{{prayer.effectDescription}}</div>
         </li>
         {{/each}}
       </ol>

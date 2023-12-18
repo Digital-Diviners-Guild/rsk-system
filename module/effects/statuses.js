@@ -108,6 +108,12 @@ export const rskMagicStatusEffects = [
         changes: []
     },
     {
+        id: "charged",
+        label: "RSK.CustomSTatus.charged",
+        icon: "icons/svg/charged.svg",
+        changes: []
+    },
+    {
         id: "claws_of_guthix",
         label: "RSK.CustomSTatus.claws_of_guthix",
         icon: "icons/svg/claws_of_guthix.svg",

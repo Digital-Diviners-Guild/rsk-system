@@ -105,8 +105,8 @@ RSK.defaultSpells = {
     confuse: {
         type: "utility",
         label: "RSK.Confuse",
-        description: "RSK.Description.Confuse",
-        effectDescription: "RSK.EffectDescription.Confuse",
+        description: "RSK.Confuse.Description",
+        effectDescription: "RSK.Confuse.EffectDescription",
         statuses: ["confused"], // or should we model the effect instead?
         // effects: [{name:"", statuses:[], changes: [{"system.damage.modifier": -5}]}]
         range: "near",
@@ -131,8 +131,8 @@ RSK.defaultSpells = {
     wind_strike: {
         type: "combat",
         label: "RSK.WindStrike",
-        description: "RSK.Description.WindStrike",
-        effectDescription: "RSK.EffectDescription.WindStrike",
+        description: "RSK.WindStrike.Description",
+        effectDescription: "RSK.WindStrike.EffectDescription",
         statuses: [],
         range: "far",
         target: {
@@ -155,8 +155,8 @@ RSK.defaultSpells = {
     teleport: {
         type: "teleport",
         label: "RSK.Teleport",
-        description: "RSK.Description.Teleport",
-        effectDescription: "RSK.EffectDescription.Teleport",
+        description: "RSK.Teleport.Description",
+        effectDescription: "RSK.Teleport.EffectDescription",
         range: "near",
         target: {
             scope: "all",
@@ -210,7 +210,7 @@ RSK.defaultPrayers = {
             scope: "all",
             number: 1
         },
-        effectDescription: "RSK.EffectDescription.Augury",
+        effectDescription: "RSK.Augury.EffectDescription",
     },
     burst_of_strength: {
         label: "RSK.BurstOfStrength",
@@ -226,7 +226,7 @@ RSK.defaultPrayers = {
             scope: "all",
             number: 1
         },
-        effectDescription: "RSK.EffectDescription.BurstOfStrength",
+        effectDescription: "RSK.BurstOfStrength.EffectDescription",
     },
     eagle_eye: {
         label: "RSK.EagleEye",
@@ -237,7 +237,7 @@ RSK.defaultPrayers = {
             scope: "all",
             number: 1
         },
-        effectDescription: "RSK.EffectDescription.EagleEye",
+        effectDescription: "RSK.EagleEye.EffectDescription",
     },
 }
 

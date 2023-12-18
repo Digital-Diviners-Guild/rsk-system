@@ -45,9 +45,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _preparePrayers(context) {
         this.prayers = Object.keys(CONFIG.RSK.defaultPrayers).reduce((ps, p) => {
-            const prayer = new RSKPrayer({ ...CONFIG.RSK.defaultPrayers[p] });
-            prayer._id = p;
-            ps[p] = prayer;
+            ps[p] = RSKPrayer.fromData({ id: p, actor: this.actor, ...CONFIG.RSK.defaultPrayers[p] });
             return ps;
         }, {});
         context.prayers = this.prayers;
