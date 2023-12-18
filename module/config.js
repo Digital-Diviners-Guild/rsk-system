@@ -97,4 +97,49 @@ RSK.damageTypes = {
     fire: "RSK.Fire",
 }
 
+//all characters have all the prayers and spells
+// shouldn't need to be added to the character one at a time.
+// perhaps these should just be predefined objects?
+// is this how we want to detail default spell/prayer books?
+RSK.defaultSpells = {
+    confuse: {
+        type: "utility",
+        label: "RSK.Confuse",
+        statuses: ["confused"]
+    },
+    air_bolt: {
+        type: "combat",
+        label: "RSK.AirBolt",
+        statuses: [],
+        cost: [{
+            type: "air",
+            value: 1
+        }],
+        damage: [{
+            type: "air",
+            value: 5
+        }]
+    },
+    teleport: {
+        type: "teleport",
+        label: "RSK.Teleport",
+        statuses: []
+    }
+}
+
+RSK.defaultPrayers = {
+    augury: {
+        label: "RSK.Augury",
+        statuses: ["augury"]
+    },
+    burst_of_strength: {
+        label: "RSK.BurstOfStrength",
+        statuses: ["burst_of_strength"]
+    },
+    eagle_eye: {
+        label: "RSK.EagleEye",
+        statuses: ["eagle_eye"]
+    },
+}
+
 export default RSK;

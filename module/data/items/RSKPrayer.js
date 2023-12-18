@@ -7,6 +7,8 @@ import { fields, positiveNumberField } from "./fields.js";
 export default class RSKPrayer extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
+            label: new fields.StringField(),
+            statuses: new fields.ArrayField(new fields.StringField()),
             description: new fields.HTMLField(),
             cost: new fields.NumberField({ required: true, ...positiveNumberField, max: 30 }),
             range: new fields.StringField()
@@ -25,7 +27,7 @@ export default class RSKPrayer extends foundry.abstract.TypeDataModel {
             outcomes: [],
         };
         console.log(this);
-        const content = `${actor.name} is using ${this.parent.name}!`;
+        const content = `${actor.name} is using ${this.label}!`;
         const messageData = {
             type: CONST.CHAT_MESSAGE_TYPES["OTHER"], //CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL" : "OTHER"],
             content: content,
