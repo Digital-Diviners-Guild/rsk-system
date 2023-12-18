@@ -35,11 +35,11 @@ export default class RSKCharacter extends RSKActor {
         return {
             skills: { ...systemData.skills },
             abilities: { ...systemData.abilities },
-            calculateTestNumber: (skill, ability) => this.calculateTestNumber(skill, ability)
+            calculateTargetNumber: (skill, ability) => this.calculateTargetNumber(skill, ability)
         };
     }
 
-    calculateTestNumber(skill, ability) {
+    calculateTargetNumber(skill, ability) {
         return this.system.skills[skill].level
             + (this.system.skills[skill].modifier ?? 0)
             + this.system.abilities[ability];
@@ -108,42 +108,58 @@ export default class RSKCharacter extends RSKActor {
     //getting something working here, simple, and without confirming before applying
     //just to start working the model and figure out how exactly we want to do this.
     async pray(prayer) {
-        console.log(this);
-        const message = this.toMessage(prayer, {}, false);
+        //can use
         const newPrayerPoints = this.system.prayerPoints.value - prayer.usageCost[0].amount;
-        if (newPrayerPoints >= 0) {
-            //use
-            const targetNumber = this.getRollData().calculateTestNumber("prayer", "intellect");
-            // dice need to be reworked to perform 'checks', rather than mostly creating chat messages.
-            // and probably should NOT be responsible for the chat message. 
-            const success = await game.rsk.dice.handlePlayerRoll({ targetNumber, testName: prayer.label, successMessage: message.content });
-            //also need to know crit and margin here too
-            if (success) {
-                //need to apply statuses. 
-                //can only have one active prayer
-                const currentPrayer = this.effects.filter(e => e.flags?.rsk?.prayer);
-                if (currentPrayer.length > 0) {
-                    console.log(currentPrayer);
-                    this.deleteEmbeddedDocuments("ActiveEffect", [currentPrayer[0]._id]);
-                }
-                const statusEffects = rskPrayerStatusEffects.filter(x => x.id === prayer._id)
-                    .map(e => {
-                        return {
-                            ...e,
-                            statuses: [e.id],
-                            flags: { rsk: { prayer: true } }
-                        };
-                    });
+        if (newPrayerPoints < 0) return;
 
-                this.createEmbeddedDocuments("ActiveEffect", [...statusEffects]);
-                this.update({ 'system.prayerPoints.value': newPrayerPoints });
-
-            } else {
-                this.update({ 'system.prayerPoints.value': this.system.prayerPoints.value - 1 });
-            }
-            this.useSkill("prayer");
-        }
+        //use
+        // dice need to be reworked to perform 'checks', rather than mostly creating chat messages.
+        // and probably should NOT be responsible for the chat message. 
         //TN: always prayer/intellect
+        const targetNumber = this.getRollData().calculateTargetNumber("prayer", "intellect");
+        const message = this.toMessage(prayer, {}, false);
+        const success = await game.rsk.dice.handlePlayerRoll({ targetNumber, testName: prayer.label, successMessage: message.content });
+        //also need to know crit and margin here too
+        // this is where we would create an outcome to later apply
+        // tagging these things with // updates to later build a model from
+        if (success) {
+            //can only have one active prayer
+            const currentPrayer = this.effects.filter(e => e.flags?.rsk?.prayer);
+            if (currentPrayer.length > 0) {
+                console.log(currentPrayer);
+                this.deleteEmbeddedDocuments("ActiveEffect", [currentPrayer[0]._id]);
+
+                // updates
+                //  - remove currently active prayer
+            }
+            // updates
+            //  - new activeEffect to apply
+            //  - new prayer points value to set
+            const statusEffects = rskPrayerStatusEffects.filter(x => x.id === prayer._id)
+                .map(e => {
+                    return {
+                        ...e,
+                        statuses: [e.id],
+                        flags: { rsk: { prayer: true } }
+                    };
+                });
+
+            this.createEmbeddedDocuments("ActiveEffect", [...statusEffects]);
+            this.update({ 'system.prayerPoints.value': newPrayerPoints });
+
+        } else {
+            // updates
+            //  - new prayer points value to set
+            this.update({ 'system.prayerPoints.value': this.system.prayerPoints.value - 1 });
+        }
+        // mark skill as used.
+        this.useSkill("prayer");
+
+        //updates to return for later application
+        // - removed effects
+        // - added effects
+        // - new resource value 
+        // - skill used
     }
 
     //ranged/melee
