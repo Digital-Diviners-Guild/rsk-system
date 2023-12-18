@@ -101,7 +101,9 @@ RSK.damageTypes = {
 // shouldn't need to be added to the character one at a time.
 // perhaps these should just be predefined objects?
 // is this how we want to detail default spell/prayer books?
-RSK.defaultSpells = {
+// perhaps the spell/prayer books should be items/actors?
+// we may have more spell books in the future, like the lunar spell book for lunar spells?
+RSK.standardSpellBook = {
     confuse: {
         type: "utility",
         label: "RSK.Confuse",
@@ -114,17 +116,17 @@ RSK.defaultSpells = {
             scope: "enemies",
             number: 1
         },
-        cost: [{
+        usageCost: [{
             type: "earth",
-            value: 2
+            amount: 2
         },
         {
             type: "water",
-            value: 3
+            amount: 3
         },
         {
             type: "body",
-            value: 1
+            amount: 1
         }],
         damage: []
     },
@@ -139,17 +141,17 @@ RSK.defaultSpells = {
             scope: "enemies",
             number: 1
         },
-        cost: [{
+        usageCost: [{
             type: "air",
-            value: 1
+            amount: 1
         },
         {
             type: "mind",
-            value: 1
+            amount: 1
         }],
         damage: [{
             type: "air",
-            value: 2
+            amount: 2
         }]
     },
     teleport: {
@@ -163,38 +165,38 @@ RSK.defaultSpells = {
             number: 6
         },
         statuses: [],
-        cost: [
+        usageCost: [
             {
                 type: "air",
-                value: 1
+                amount: 1
             },
             {
                 type: "mind",
-                value: 1
+                amount: 1
             },
             {
                 type: "earth",
-                value: 1
+                amount: 1
             },
             {
                 type: "body",
-                value: 1
+                amount: 1
             },
             {
                 type: "cosmic",
-                value: 1
+                amount: 1
             },
             {
                 type: "water",
-                value: 1
+                amount: 1
             },
             {
                 type: "fire",
-                value: 1
+                amount: 1
             },
             {
                 type: "law",
-                value: 1
+                amount: 1
             }],
         damage: []
     }
@@ -204,7 +206,10 @@ RSK.defaultPrayers = {
     augury: {
         label: "RSK.Augury",
         statuses: ["augury"],
-        cost: 15,
+        usageCost: [{
+            type: "prayer",
+            amount: 15
+        }],
         range: "near",
         target: {
             scope: "all",
@@ -215,7 +220,10 @@ RSK.defaultPrayers = {
     burst_of_strength: {
         label: "RSK.BurstOfStrength",
         statuses: ["burst_of_strength"],
-        cost: 3,
+        usageCost: [{
+            type: "prayer",
+            amount: 3
+        }],
         // perhaps this to be consistent?
         // [{
         //     type: "prayer", // or type: "prayer_points",
@@ -231,7 +239,10 @@ RSK.defaultPrayers = {
     eagle_eye: {
         label: "RSK.EagleEye",
         statuses: ["eagle_eye"],
-        cost: 8,
+        usageCost: [{
+            type: "prayer",
+            amount: 8
+        }],
         range: "near",
         target: {
             scope: "all",
@@ -240,5 +251,24 @@ RSK.defaultPrayers = {
         effectDescription: "RSK.EagleEye.EffectDescription",
     },
 }
+
+//for melee/ranged attack actions
+// most things come from the weapon itself.
+// ie, the range, and damage entries, etc...
+//
+
+//test only:
+RSK.testMeleeAttackAction = {
+    label: "RSK.MeleeAttack"
+};
+
+//test only:
+RSK.testRangedAttackAction = {
+    label: "RSK.RangedAttack"
+
+    //cost is usually arrows, but for thrown weapons, its the weapon itself.
+    // how should we determine cost on this action?
+    // cost type arrows/bolts/weapon?
+};
 
 export default RSK;

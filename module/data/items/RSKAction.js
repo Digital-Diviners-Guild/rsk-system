@@ -13,7 +13,7 @@ export default class RSKAction extends foundry.abstract.DataModel {
             damageEntries: new fields.ArrayField(new fields.ObjectField()),
             effectDescription: new fields.HTMLField(),
             requiredEquipment: new fields.ArrayField(new fields.ObjectField()),
-            usageCost: new fields.SchemaField({
+            usageCost: new fields.ArrayField(new fields.SchemaField({
                 // prayer, summoning, magic, ranged, potentially even some melee attacks may have some cost
                 // these will be different per type though.
                 // prayer, and summoning are point costs
@@ -21,12 +21,9 @@ export default class RSKAction extends foundry.abstract.DataModel {
                 // ranged is ammo, and that sometimes is the weapon itself (ie thrown weapons)
                 // melee likely doesn't have cost, but a special weapon may, not sure what it would be though.
                 // that being said, it should be an option to enable homebrewing.
-                type: new fields.StringField(),// rune / ammo / points / specific items
-                values: new fields.ArrayField(new fields.SchemaField({
-                    name: new fields.StringField(), // air rune, steel arrow, prayer points
-                    amount: new fields.NumberField()
-                }))
-            }),
+                type: new fields.StringField(),// rune / ammo / points
+                amount: new fields.NumberField()
+            })),
             // could be all friendlies, enemies, all, maybe even more specific like undead
             // could be self, single, multi
             target: new fields.SchemaField({
