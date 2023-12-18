@@ -105,40 +105,139 @@ RSK.defaultSpells = {
     confuse: {
         type: "utility",
         label: "RSK.Confuse",
-        statuses: ["confused"]
+        description: "RSK.Description.Confuse",
+        effectDescription: "RSK.EffectDescription.Confuse",
+        statuses: ["confused"], // or should we model the effect instead?
+        // effects: [{name:"", statuses:[], changes: [{"system.damage.modifier": -5}]}]
+        range: "near",
+        target: {
+            scope: "enemies",
+            number: 1
+        },
+        cost: [{
+            type: "earth",
+            value: 2
+        },
+        {
+            type: "water",
+            value: 3
+        },
+        {
+            type: "body",
+            value: 1
+        }],
+        damage: []
     },
-    air_bolt: {
+    wind_strike: {
         type: "combat",
-        label: "RSK.AirBolt",
+        label: "RSK.WindStrike",
+        description: "RSK.Description.WindStrike",
+        effectDescription: "RSK.EffectDescription.WindStrike",
         statuses: [],
+        range: "far",
+        target: {
+            scope: "enemies",
+            number: 1
+        },
         cost: [{
             type: "air",
+            value: 1
+        },
+        {
+            type: "mind",
             value: 1
         }],
         damage: [{
             type: "air",
-            value: 5
+            value: 2
         }]
     },
     teleport: {
         type: "teleport",
         label: "RSK.Teleport",
-        statuses: []
+        description: "RSK.Description.Teleport",
+        effectDescription: "RSK.EffectDescription.Teleport",
+        range: "near",
+        target: {
+            scope: "all",
+            number: 6
+        },
+        statuses: [],
+        cost: [
+            {
+                type: "air",
+                value: 1
+            },
+            {
+                type: "mind",
+                value: 1
+            },
+            {
+                type: "earth",
+                value: 1
+            },
+            {
+                type: "body",
+                value: 1
+            },
+            {
+                type: "cosmic",
+                value: 1
+            },
+            {
+                type: "water",
+                value: 1
+            },
+            {
+                type: "fire",
+                value: 1
+            },
+            {
+                type: "law",
+                value: 1
+            }],
+        damage: []
     }
 }
 
 RSK.defaultPrayers = {
     augury: {
         label: "RSK.Augury",
-        statuses: ["augury"]
+        statuses: ["augury"],
+        cost: 15,
+        range: "near",
+        target: {
+            scope: "all",
+            number: 1
+        },
+        effectDescription: "RSK.EffectDescription.Augury",
     },
     burst_of_strength: {
         label: "RSK.BurstOfStrength",
-        statuses: ["burst_of_strength"]
+        statuses: ["burst_of_strength"],
+        cost: 3,
+        // perhaps this to be consistent?
+        // [{
+        //     type: "prayer", // or type: "prayer_points",
+        //     value: 3
+        // }],
+        range: "near",
+        target: {
+            scope: "all",
+            number: 1
+        },
+        effectDescription: "RSK.EffectDescription.BurstOfStrength",
     },
     eagle_eye: {
         label: "RSK.EagleEye",
-        statuses: ["eagle_eye"]
+        statuses: ["eagle_eye"],
+        cost: 8,
+        range: "near",
+        target: {
+            scope: "all",
+            number: 1
+        },
+        effectDescription: "RSK.EffectDescription.EagleEye",
     },
 }
 
