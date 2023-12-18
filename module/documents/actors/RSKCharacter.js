@@ -1,3 +1,4 @@
+import { rskPrayerStatusEffects } from "../../effects/statuses.js";
 import RSKActor from "./RSKActor.js";
 
 export default class RSKCharacter extends RSKActor {
@@ -107,6 +108,7 @@ export default class RSKCharacter extends RSKActor {
     //getting something working here, simple, and without confirming before applying
     //just to start working the model and figure out how exactly we want to do this.
     async pray(prayer) {
+        console.log(this);
         const message = this.toMessage(prayer, {}, false);
         const newPrayerPoints = this.system.prayerPoints.value - prayer.usageCost[0].amount;
         if (newPrayerPoints >= 0) {
@@ -117,8 +119,25 @@ export default class RSKCharacter extends RSKActor {
             const success = await game.rsk.dice.handlePlayerRoll({ targetNumber, testName: prayer.label, successMessage: message.content });
             //also need to know crit and margin here too
             if (success) {
-                this.update({ 'system.prayerPoints.value': newPrayerPoints });
                 //need to apply statuses. 
+                //can only have one active prayer
+                const currentPrayer = this.effects.filter(e => e.flags?.rsk?.prayer);
+                if (currentPrayer.length > 0) {
+                    console.log(currentPrayer);
+                    this.deleteEmbeddedDocuments("ActiveEffect", [currentPrayer[0]._id]);
+                }
+                const statusEffects = rskPrayerStatusEffects.filter(x => x.id === prayer._id)
+                    .map(e => {
+                        return {
+                            ...e,
+                            statuses: [e.id],
+                            flags: { rsk: { prayer: true } }
+                        };
+                    });
+
+                this.createEmbeddedDocuments("ActiveEffect", [...statusEffects]);
+                this.update({ 'system.prayerPoints.value': newPrayerPoints });
+
             } else {
                 this.update({ 'system.prayerPoints.value': this.system.prayerPoints.value - 1 });
             }
