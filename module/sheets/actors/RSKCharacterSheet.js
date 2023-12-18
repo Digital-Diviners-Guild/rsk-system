@@ -1,4 +1,5 @@
 import RSKPrayer from "../../data/items/RSKPrayer.js";
+import RSKSpell from "../../data/items/RSKSpell.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 
 
@@ -40,7 +41,11 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        this.spells = context.items.filter(i => i.type === "spell");
+        this.spells = Object.keys(CONFIG.RSK.defaultSpells).reduce((ss, s) => {
+            ss[s] = RSKSpell.fromData({ id: s, actor: this.actor, ...CONFIG.RSK.defaultSpells[s] });
+            return ss;
+        }, {});
+        context.spells = this.spells;
     }
 
     _preparePrayers(context) {
@@ -62,7 +67,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         html.find('.cast-spell').click(ev => {
             const s = $(ev.currentTarget);
             const spell = this.spells[s.data("spellId")];
-            //const spell = new RSKSpell(spell);
             spell.use(this.actor);
         });
         html.find('.activate-prayer').click(ev => {

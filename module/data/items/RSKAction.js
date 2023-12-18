@@ -8,13 +8,11 @@ export default class RSKAction extends foundry.abstract.DataModel {
         return {
             type: new fields.StringField(), // weapon, spell, prayer
             label: new fields.StringField(), // what to display on the button?
+            label: new fields.StringField(),
             description: new fields.HTMLField(),
-            range: new fields.SchemaField({
-                min: new fields.NumberField(),
-                max: new fields.NumberField(),
-                // prayer/spell would define its range, while melee/range comes from weapon
-                useWeapon: new fields.BooleanField(),
-            }),
+            range: new fields.StringField(),
+            damageEntries: new fields.ArrayField(new fields.ObjectField()),
+            effectDescription: new fields.HTMLField(),
             requiredEquipment: new fields.ArrayField(new fields.ObjectField()),
             cost: new fields.SchemaField({
                 // prayer, summoning, magic, ranged, potentially even some melee attacks may have some cost
@@ -38,13 +36,24 @@ export default class RSKAction extends foundry.abstract.DataModel {
             }),
             // what happens to the target, 
             // statuses, damage, healing, etc...
+            statuses: new fields.ArrayField(new fields.StringField()),
             effects: new fields.ArrayField(new fields.ObjectField()),
         };
     }
 
+    canUse(actor) {
+        return false;
+    }
+
     use(actor) {
         // first check can use
+        // how do we want to handle just chatting the action?
+        // chat anyways when can't use but with no apply button?
+        // or have a separate button for chatting
+        if (!this.canUse(actor)) return;
+
         // then create outcomes.  this is an in memory list of things to apply
+
         // send message to chat with this object
         this.toMessage(actor)
     }
@@ -59,25 +68,15 @@ export default class RSKAction extends foundry.abstract.DataModel {
         const actionData = {
             actor: actor.uuid,
             action: this.id,
+            // would outcomes just live here and then
+            // you can use the chat to commit them?
             outcomes: [],
         };
-
-        //const content = await renderTemplate("<todo: action template>", {
-        // action: this,
-        // actor: this.actor,
-        // context: this.usage.context,
-        // outcomes: this.outcomes,
-        // showTargets: this.target.type !== "self",
-        // targets
-        //);
-
-        const content = `${actor.name} is using ${this.parent.name}!`;
-
-        // Create chat message
+        const content = `${actor.name} is using ${this.label}: \n${this.effectDescription}`;
         const messageData = {
             type: CONST.CHAT_MESSAGE_TYPES["OTHER"], //CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL" : "OTHER"],
             content: content,
-            speaker: ChatMessage.getSpeaker({ actor }),
+            speaker: ChatMessage.getSpeaker({ actor: actor }),
             //rolls: rolls,
             flags: {
                 rsk: actionData
@@ -86,5 +85,3 @@ export default class RSKAction extends foundry.abstract.DataModel {
         ChatMessage.create(messageData, options);
     }
 }
-
-//RSKActionEffect

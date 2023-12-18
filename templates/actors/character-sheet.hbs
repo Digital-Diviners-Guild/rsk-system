@@ -83,13 +83,11 @@
         {{#each spells as |spell|}}
         <li class="item flexrow cast-spell" data-spell-id="{{spell._id}}">
           <div class="item-name flexrow">
-            <strong>{{spell.name}}</strong>
+            <strong>{{spell.label}}</strong>
           </div>
-          {{#if spell.system.description}}
           <div class="item-content">
-            {{spell.system.description}}
+            {{spell.description}}
           </div>
-          {{/if}}
         </li>
         {{/each}}
       </ol>
