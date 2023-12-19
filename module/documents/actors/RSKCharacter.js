@@ -155,7 +155,8 @@ export default class RSKCharacter extends RSKActor {
             `${this.toMessage(prayer, {}, false).content}
             <p>target number: ${targetNumber}</p>
             <p>success: ${result.isSuccess} (${result.margin})</p>
-            <p>critical: ${result.isCritical}</p>`;
+            <p>critical: ${result.isCritical}</p>
+            <button class='test' type='button'>click me</button>`;
         result.rollResult.toMessage({ flavor: message });
     }
 

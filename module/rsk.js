@@ -32,6 +32,7 @@ import RSKDice from "./rsk-dice.js";
 import RSKMath from "./rsk-math.js";
 import { customizeStatusEffects } from "./effects/statuses.js";
 import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
+import RSKChatLog, { onRenderChatMessage } from "./applications/RSKChatLog.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -95,6 +96,9 @@ Hooks.once("init", function () {
 
     CONFIG.ActiveEffect.legacyTransferral = false;
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
+    CONFIG.ui.chat = RSKChatLog;
+
+    Hooks.on("renderChatMessage", onRenderChatMessage);
 
     preloadHandlebarsTemplates()
     customizeStatusEffects();
