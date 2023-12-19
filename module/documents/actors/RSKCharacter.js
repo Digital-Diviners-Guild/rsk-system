@@ -117,30 +117,34 @@ export default class RSKCharacter extends RSKActor {
         // how would this work for adding/removing effects?
         const outcome = {};
         const actorUpdates = {}
-        outcome[actorUpdates] = actorUpdates;
         actorUpdates["system.skills.prayer.used"] = true;
         if (result.isSuccess) {
-            const currentPrayer = this.effects.filter(e => e.flags?.rsk?.prayer);
-            if (currentPrayer.length > 0) {
-                outcome["actorRemovedEffects"] = [currentPrayer[0]._id];
+            const prayerStatuses = rskPrayerStatusEffects.map(se => se.id);
+            const currentPrayers = this.effects
+                .filter(e => e.statuses.filter(s => prayerStatuses.includes(s)).size > 0)
+                .map(e => e._id);
+            if (currentPrayers.length > 0) {
+                outcome["actorRemovedEffects"] = [...currentPrayers];
             }
-            const statusEffects = rskPrayerStatusEffects.filter(x => x.id === prayer._id)
+            const statusEffects = rskPrayerStatusEffects
+                .filter(x => x.id === prayer._id)
                 .map(e => {
                     return {
                         ...e,
-                        statuses: [e.id],
-                        flags: { rsk: { prayer: true } }
+                        statuses: [e.id]
                     };
                 });
             actorUpdates["system.prayerPoints.value"] = newPrayerPoints;
             outcome["actorAddedEffects"] = [...statusEffects];
-            outcome["actorUpdates"] = { ...actorUpdates };
 
         } else {
             actorUpdates["system.prayerPoints.value"] = this.system.prayerPoints.value - 1;
         }
+        outcome["actorUpdates"] = { ...actorUpdates };
 
-        //todo: move these finalize outcome lines 
+        //todo: move these finalize outcome lines
+        //todo: the target of a prayer is not necessarily the caster
+        //how do we want to determine who the outcome applies to?
         this.deleteEmbeddedDocuments("ActiveEffect", outcome.actorRemovedEffects);
         this.createEmbeddedDocuments("ActiveEffect", outcome.actorAddedEffects);
         this.update(outcome.actorUpdates);
@@ -169,6 +173,8 @@ export default class RSKCharacter extends RSKActor {
         //ranged
         // TN: usually ranged/strength
         // but martials use /agility
+
+        //duelweilding - allows 2 attacks in 1 turn with the 2nd attack at disadvantage
     }
 
     toMessage(action, options = {}, send = true) {
