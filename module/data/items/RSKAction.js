@@ -6,6 +6,7 @@ import { fields } from "./fields.js";
 export default class RSKAction extends foundry.abstract.DataModel {
     static defineSchema() {
         return {
+            id: new fields.StringField(),
             type: new fields.StringField(), // weapon, spell, prayer
             label: new fields.StringField(), // what to display on the button?
             description: new fields.HTMLField(),

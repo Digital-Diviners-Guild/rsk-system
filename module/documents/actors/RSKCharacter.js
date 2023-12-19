@@ -1,4 +1,4 @@
-import { rskPrayerStatusEffects } from "../../effects/statuses.js";
+import { activePrayers, prayerEffect, rskPrayerStatusEffects } from "../../rsk-prayer.js";
 import RSKActor from "./RSKActor.js";
 
 export default class RSKCharacter extends RSKActor {
@@ -59,9 +59,12 @@ export default class RSKCharacter extends RSKActor {
         this.update({ [`system.skills.${skill}.level`]: newSkillLevel });
     }
 
-    useSkill(skill) {
+    async useSkill(skill, attribute) {
         if (this.system.skills && this.system.skills.hasOwnProperty(skill)) {
             this.update({ [`system.skills.${skill}.used`]: true });
+            const targetNumber = this.getRollData().calculateTargetNumber(skill, attribute);
+            const rollResult = await game.rsk.dice.skillCheck(targetNumber);
+            return { ...rollResult, targetNumber };
         }
     }
 
@@ -124,54 +127,36 @@ export default class RSKCharacter extends RSKActor {
     //just to start working the model and figure out how exactly we want to do this.
     //todo: proper targeting? 
     async apply(prayer) {
-        const newPrayerPoints = this.system.prayerPoints.value - prayer.usageCost[0].amount;
+        const prayerId = prayer.id;
+        const prayerStatus = rskPrayerStatusEffects.find(p => p.id === prayerId);
+        if (!prayerStatus) return;
+
+        let newPrayerPoints = this.system.prayerPoints.value - prayer.usageCost[0].amount;
         if (newPrayerPoints < 0) return;
 
-        const targetNumber = this.getRollData().calculateTargetNumber("prayer", "intellect");
-        const result = await game.rsk.dice.skillCheck(targetNumber);
-        const outcome = {};
-        const actorUpdates = {}
-        actorUpdates["system.skills.prayer.used"] = true;
+        const result = await this.useSkill("prayer", "intellect");
         if (result.isSuccess) {
-            const prayerStatuses = rskPrayerStatusEffects.map(se => se.id);
-            const currentPrayers = this.effects
-                .filter(e => e.statuses.filter(s => prayerStatuses.includes(s)).size > 0)
-                .map(e => e._id);
+            // todo: make 'this' the 'target' actor
+            // this function should probably not live on the character
+            // to make this more generic to who the target actor is
+            const currentPrayers = activePrayers(this);
             if (currentPrayers.length > 0) {
-                outcome["actorRemovedEffects"] = [...currentPrayers];
+                await this.deleteEmbeddedDocuments("ActiveEffect", [...currentPrayers]);
             }
-            console.log(prayer);
-            const statusEffects = rskPrayerStatusEffects
-                .filter(x => x.id === prayer.statuses[0]) // need to fix prayer ids
-                .map(e => {
-                    return {
-                        ...e,
-                        statuses: [e.id]
-                    };
-                });
-            console.log(statusEffects);
-            actorUpdates["system.prayerPoints.value"] = newPrayerPoints;
-            outcome["actorAddedEffects"] = [...statusEffects];
-
+            await this.createEmbeddedDocuments("ActiveEffect", [prayerEffect(prayerId)]);
         } else {
-            actorUpdates["system.prayerPoints.value"] = this.system.prayerPoints.value - 1;
+            newPrayerPoints = this.system.prayerPoints.value - 1;
         }
-        outcome["actorUpdates"] = { ...actorUpdates };
-        outcome["target"] = this._id;
-        //todo: move these finalize outcome lines
-        //todo: the target of a prayer is not necessarily the caster
-        //how do we want to determine who the outcome applies to?
-        await this.deleteEmbeddedDocuments("ActiveEffect", outcome.actorRemovedEffects);
-        await this.createEmbeddedDocuments("ActiveEffect", outcome.actorAddedEffects);
-        this.update(outcome.actorUpdates);
+        this.update({ "system.prayerPoints.value": newPrayerPoints });
+
+        //todo: put this in a template
+        //todo: probably want to have the outcomes in the message with links to effects
         await result.rollResult.toMessage({
             flavor: `${this.toMessage(prayer, {}, false).content}
-        <p>target number: ${targetNumber}</p>
+        <p>target number: ${result.targetNumber}</p>
         <p>success: ${result.isSuccess} (${result.margin})</p>
         <p>critical: ${result.isCritical}</p>`
         });
-        //todo: put this in a template
-        //todo: probably want to have the outcomes in the message with links to effects
     }
 
     //ranged/melee
