@@ -108,13 +108,27 @@ export default class RSKCharacter extends RSKActor {
     //getting something working here, simple, and without confirming before applying
     //just to start working the model and figure out how exactly we want to do this.
     async pray(prayer) {
+        const message = `${this.toMessage(prayer, {}, false).content}
+        <button class='test' type='button'>click me</button>`;
+        const messageData = {
+            type: CONST.CHAT_MESSAGE_TYPES["OTHER"], //CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL" : "OTHER"],
+            content: message,
+            speaker: ChatMessage.getSpeaker({ actor: this }),
+            flags: { rsk: { actor: this._id, prayer } }
+        };
+        ChatMessage.create(messageData, {});
+    }
+
+    //temp: 
+    //getting something working here, simple, and without confirming before applying
+    //just to start working the model and figure out how exactly we want to do this.
+    //todo: proper targeting? 
+    async apply(prayer) {
         const newPrayerPoints = this.system.prayerPoints.value - prayer.usageCost[0].amount;
         if (newPrayerPoints < 0) return;
 
         const targetNumber = this.getRollData().calculateTargetNumber("prayer", "intellect");
         const result = await game.rsk.dice.skillCheck(targetNumber);
-        //is this how we could return actorUpdates for later application?
-        // how would this work for adding/removing effects?
         const outcome = {};
         const actorUpdates = {}
         actorUpdates["system.skills.prayer.used"] = true;
@@ -126,14 +140,16 @@ export default class RSKCharacter extends RSKActor {
             if (currentPrayers.length > 0) {
                 outcome["actorRemovedEffects"] = [...currentPrayers];
             }
+            console.log(prayer);
             const statusEffects = rskPrayerStatusEffects
-                .filter(x => x.id === prayer._id)
+                .filter(x => x.id === prayer.statuses[0]) // need to fix prayer ids
                 .map(e => {
                     return {
                         ...e,
                         statuses: [e.id]
                     };
                 });
+            console.log(statusEffects);
             actorUpdates["system.prayerPoints.value"] = newPrayerPoints;
             outcome["actorAddedEffects"] = [...statusEffects];
 
@@ -145,19 +161,17 @@ export default class RSKCharacter extends RSKActor {
         //todo: move these finalize outcome lines
         //todo: the target of a prayer is not necessarily the caster
         //how do we want to determine who the outcome applies to?
-        // this.deleteEmbeddedDocuments("ActiveEffect", outcome.actorRemovedEffects);
-        // this.createEmbeddedDocuments("ActiveEffect", outcome.actorAddedEffects);
-        // this.update(outcome.actorUpdates);
+        await this.deleteEmbeddedDocuments("ActiveEffect", outcome.actorRemovedEffects);
+        await this.createEmbeddedDocuments("ActiveEffect", outcome.actorAddedEffects);
+        this.update(outcome.actorUpdates);
+        await result.rollResult.toMessage({
+            flavor: `${this.toMessage(prayer, {}, false).content}
+        <p>target number: ${targetNumber}</p>
+        <p>success: ${result.isSuccess} (${result.margin})</p>
+        <p>critical: ${result.isCritical}</p>`
+        });
         //todo: put this in a template
-        //todo: how do we have a button to 'confirm' outcomes?
         //todo: probably want to have the outcomes in the message with links to effects
-        const message =
-            `${this.toMessage(prayer, {}, false).content}
-            <p>target number: ${targetNumber}</p>
-            <p>success: ${result.isSuccess} (${result.margin})</p>
-            <p>critical: ${result.isCritical}</p>
-            <button class='test' type='button'>click me</button>`;
-        result.rollResult.toMessage({ flavor: message, flags: { rsk: { outcome: outcome } } });
     }
 
     //ranged/melee
@@ -178,6 +192,7 @@ export default class RSKCharacter extends RSKActor {
         //duelweilding - allows 2 attacks in 1 turn with the 2nd attack at disadvantage
     }
 
+    //temp here while testing out ideas
     toMessage(action, options = {}, send = true) {
         const actionData = {
             actor: this.uuid,
