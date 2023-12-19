@@ -3,7 +3,7 @@ import RSKActor from "./RSKActor.js";
 
 export default class RSKCharacter extends RSKActor {
     //todo: do we need this type of validation here anymore if its in the datamodel?
-    // I think so for resetting the form, but not to protect updates, the model validation won't allow bad data into the db.
+    // I think so for resetting the form, but not to protect actorUpdates, the model validation won't allow bad data into the db.
     minSkillLevel = 1;
     maxSkillLevel = 10;
 
@@ -47,14 +47,14 @@ export default class RSKCharacter extends RSKActor {
 
     increaseSkillLevel(skill, amount) {
         //todo: if this is now >= 5 award ability level
-        this.updateSkillLevel(skill, this.system.skills[skill].level + amount);
+        this.actorUpdateskillLevel(skill, this.system.skills[skill].level + amount);
     }
 
     decreaseSkillLevel(skill, amount) {
-        this.updateSkillLevel(skill, this.system.skills[skill].level - amount);
+        this.actorUpdateskillLevel(skill, this.system.skills[skill].level - amount);
     }
 
-    updateSkillLevel(skill, newLevel) {
+    actorUpdateskillLevel(skill, newLevel) {
         const newSkillLevel = game.rsk.math.clamp_value(newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
         this.update({ [`system.skills.${skill}.level`]: newSkillLevel });
     }
@@ -110,14 +110,19 @@ export default class RSKCharacter extends RSKActor {
     async pray(prayer) {
         const newPrayerPoints = this.system.prayerPoints.value - prayer.usageCost[0].amount;
         if (newPrayerPoints < 0) return;
-        this.useSkill("prayer");
 
         const targetNumber = this.getRollData().calculateTargetNumber("prayer", "intellect");
         const result = await game.rsk.dice.skillCheck(targetNumber);
+        //is this how we could return actorUpdates for later application?
+        // how would this work for adding/removing effects?
+        const outcome = {};
+        const actorUpdates = {}
+        outcome[actorUpdates] = actorUpdates;
+        actorUpdates["system.skills.prayer.used"] = true;
         if (result.isSuccess) {
             const currentPrayer = this.effects.filter(e => e.flags?.rsk?.prayer);
             if (currentPrayer.length > 0) {
-                this.deleteEmbeddedDocuments("ActiveEffect", [currentPrayer[0]._id]);
+                outcome["actorRemovedEffects"] = [currentPrayer[0]._id];
             }
             const statusEffects = rskPrayerStatusEffects.filter(x => x.id === prayer._id)
                 .map(e => {
@@ -127,17 +132,18 @@ export default class RSKCharacter extends RSKActor {
                         flags: { rsk: { prayer: true } }
                     };
                 });
-
-            this.createEmbeddedDocuments("ActiveEffect", [...statusEffects]);
-            //is this how we could return updates for later application?
-            // how would this work for adding/removing effects?
-            const updates = {}
-            updates['system.prayerPoints.value'] = newPrayerPoints;
-            this.update(updates);
+            actorUpdates["system.prayerPoints.value"] = newPrayerPoints;
+            outcome["actorAddedEffects"] = [...statusEffects];
+            outcome["actorUpdates"] = { ...actorUpdates };
 
         } else {
-            this.update({ 'system.prayerPoints.value': this.system.prayerPoints.value - 1 });
+            actorUpdates["system.prayerPoints.value"] = this.system.prayerPoints.value - 1;
         }
+
+        //todo: move these finalize outcome lines 
+        this.deleteEmbeddedDocuments("ActiveEffect", outcome.actorRemovedEffects);
+        this.createEmbeddedDocuments("ActiveEffect", outcome.actorAddedEffects);
+        this.update(outcome.actorUpdates);
         //todo: put this in a template
         //todo: how do we have a button to 'confirm' outcomes?
         //todo: probably want to have the outcomes in the message with links to effects
@@ -147,12 +153,6 @@ export default class RSKCharacter extends RSKActor {
             <p>success: ${result.isSuccess} (${result.margin})</p>
             <p>critical: ${result.isCritical}</p>`;
         result.rollResult.toMessage({ flavor: message });
-
-        //todo: return these 'updates' for later application
-        // - removed effects
-        // - added effects
-        // - new resource value 
-        // - skill used
     }
 
     //ranged/melee
