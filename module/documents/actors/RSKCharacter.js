@@ -108,33 +108,17 @@ export default class RSKCharacter extends RSKActor {
     //getting something working here, simple, and without confirming before applying
     //just to start working the model and figure out how exactly we want to do this.
     async pray(prayer) {
-        //can use
         const newPrayerPoints = this.system.prayerPoints.value - prayer.usageCost[0].amount;
         if (newPrayerPoints < 0) return;
+        this.useSkill("prayer");
 
-        //use
-        // dice need to be reworked to perform 'checks', rather than mostly creating chat messages.
-        // and probably should NOT be responsible for the chat message. 
-        //TN: always prayer/intellect
         const targetNumber = this.getRollData().calculateTargetNumber("prayer", "intellect");
-        const message = this.toMessage(prayer, {}, false);
-        const success = await game.rsk.dice.handlePlayerRoll({ targetNumber, testName: prayer.label, successMessage: message.content });
-        //also need to know crit and margin here too
-        // this is where we would create an outcome to later apply
-        // tagging these things with // updates to later build a model from
-        if (success) {
-            //can only have one active prayer
+        const result = await game.rsk.dice.skillCheck(targetNumber);
+        if (result.isSuccess) {
             const currentPrayer = this.effects.filter(e => e.flags?.rsk?.prayer);
             if (currentPrayer.length > 0) {
-                console.log(currentPrayer);
                 this.deleteEmbeddedDocuments("ActiveEffect", [currentPrayer[0]._id]);
-
-                // updates
-                //  - remove currently active prayer
             }
-            // updates
-            //  - new activeEffect to apply
-            //  - new prayer points value to set
             const statusEffects = rskPrayerStatusEffects.filter(x => x.id === prayer._id)
                 .map(e => {
                     return {
@@ -145,17 +129,26 @@ export default class RSKCharacter extends RSKActor {
                 });
 
             this.createEmbeddedDocuments("ActiveEffect", [...statusEffects]);
-            this.update({ 'system.prayerPoints.value': newPrayerPoints });
+            //is this how we could return updates for later application?
+            // how would this work for adding/removing effects?
+            const updates = {}
+            updates['system.prayerPoints.value'] = newPrayerPoints;
+            this.update(updates);
 
         } else {
-            // updates
-            //  - new prayer points value to set
             this.update({ 'system.prayerPoints.value': this.system.prayerPoints.value - 1 });
         }
-        // mark skill as used.
-        this.useSkill("prayer");
+        //todo: put this in a template
+        //todo: how do we have a button to 'confirm' outcomes?
+        //todo: probably want to have the outcomes in the message with links to effects
+        const message =
+            `${this.toMessage(prayer, {}, false).content}
+            <p>target number: ${targetNumber}</p>
+            <p>success: ${result.isSuccess} (${result.margin})</p>
+            <p>critical: ${result.isCritical}</p>`;
+        result.rollResult.toMessage({ flavor: message });
 
-        //updates to return for later application
+        //todo: return these 'updates' for later application
         // - removed effects
         // - added effects
         // - new resource value 

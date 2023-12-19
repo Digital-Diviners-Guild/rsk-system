@@ -18,6 +18,19 @@ export default class RSKDice {
         return isSuccess;
     }
 
+    static skillCheck = async (targetNumber, rollType = "normal") => {
+        const rollResult = await RSKDice.roll(rollType);
+        const rollTotal = rollResult.total;
+        const isSuccess = rollTotal <= targetNumber;
+        const margin = targetNumber - rollTotal;
+        return {
+            isSuccess,
+            isCritical: rollResult.isCritical,
+            margin,
+            rollResult: rollResult.rollResult
+        }
+    }
+
     static handleBasicRoll = async () => {
         const rollResult = await RSKDice.roll();
         const flavor = `${rollResult.isCritical ? "critical" : ""}`
@@ -33,6 +46,6 @@ export default class RSKDice {
         const result = await r.evaluate();
         const results = result.terms[0].results;
         const isCritical = results.every(v => v.result === results[0].result);
-        return { isCritical, total: result.result, results, toMessage: (opt, cfg) => r.toMessage(opt, cfg) }
+        return { isCritical, total: result.result, results, toMessage: (opt, cfg) => r.toMessage(opt, cfg), rollResult: result }
     }
 }
