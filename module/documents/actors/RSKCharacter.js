@@ -141,13 +141,13 @@ export default class RSKCharacter extends RSKActor {
             actorUpdates["system.prayerPoints.value"] = this.system.prayerPoints.value - 1;
         }
         outcome["actorUpdates"] = { ...actorUpdates };
-
+        outcome["target"] = this._id;
         //todo: move these finalize outcome lines
         //todo: the target of a prayer is not necessarily the caster
         //how do we want to determine who the outcome applies to?
-        this.deleteEmbeddedDocuments("ActiveEffect", outcome.actorRemovedEffects);
-        this.createEmbeddedDocuments("ActiveEffect", outcome.actorAddedEffects);
-        this.update(outcome.actorUpdates);
+        // this.deleteEmbeddedDocuments("ActiveEffect", outcome.actorRemovedEffects);
+        // this.createEmbeddedDocuments("ActiveEffect", outcome.actorAddedEffects);
+        // this.update(outcome.actorUpdates);
         //todo: put this in a template
         //todo: how do we have a button to 'confirm' outcomes?
         //todo: probably want to have the outcomes in the message with links to effects
@@ -157,7 +157,7 @@ export default class RSKCharacter extends RSKActor {
             <p>success: ${result.isSuccess} (${result.margin})</p>
             <p>critical: ${result.isCritical}</p>
             <button class='test' type='button'>click me</button>`;
-        result.rollResult.toMessage({ flavor: message });
+        result.rollResult.toMessage({ flavor: message, flags: { rsk: { outcome: outcome } } });
     }
 
     //ranged/melee
