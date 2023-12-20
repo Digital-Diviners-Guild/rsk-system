@@ -1,3 +1,5 @@
+import { getPrayerData, rskPrayerStatusEffects } from "./rsk-prayer.js";
+
 const RSK = {};
 
 RSK.sizes = {
@@ -202,55 +204,7 @@ RSK.standardSpellBook = {
     }
 }
 
-RSK.defaultPrayers = {
-    augury: {
-        label: "RSK.Augury",
-        statuses: ["augury"],
-        usageCost: [{
-            type: "prayer",
-            amount: 15
-        }],
-        range: "near",
-        target: {
-            scope: "all",
-            number: 1
-        },
-        effectDescription: "RSK.Augury.EffectDescription",
-    },
-    burst_of_strength: {
-        label: "RSK.BurstOfStrength",
-        statuses: ["burst_of_strength"],
-        usageCost: [{
-            type: "prayer",
-            amount: 3
-        }],
-        // perhaps this to be consistent?
-        // [{
-        //     type: "prayer", // or type: "prayer_points",
-        //     value: 3
-        // }],
-        range: "near",
-        target: {
-            scope: "all",
-            number: 1
-        },
-        effectDescription: "RSK.BurstOfStrength.EffectDescription",
-    },
-    eagle_eye: {
-        label: "RSK.EagleEye",
-        statuses: ["eagle_eye"],
-        usageCost: [{
-            type: "prayer",
-            amount: 8
-        }],
-        range: "near",
-        target: {
-            scope: "all",
-            number: 1
-        },
-        effectDescription: "RSK.EagleEye.EffectDescription",
-    },
-}
+RSK.defaultPrayers = rskPrayerStatusEffects.map(se => getPrayerData(se.id));
 
 //for melee/ranged attack actions
 // most things come from the weapon itself.
