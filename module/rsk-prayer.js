@@ -2,6 +2,8 @@
 //     return text.replace(/_/g, "").slice(0, 16).padEnd(16, "0");
 // }
 
+import { isInRange } from "./rsk-range.js";
+
 export const rskPrayerStatusEffects = [
     {
         id: "improved_reflexes",
@@ -254,7 +256,7 @@ export async function getPrayerOutcomes(actor, prayerId) {
 
     const targetNumber = actor.getRollData().calculateTargetNumber("prayer", "intellect");
     const result = await game.rsk.dice.skillCheck(targetNumber);
-    const target = getTarget(actor);
+    const target = getTarget(actor, prayerData.range);
     const message = await result.rollResult.toMessage({
         flavor: `${toMessageContent(prayerData, false)}
         <p>target number: ${targetNumber}</p>
@@ -301,19 +303,13 @@ export async function applyPrayerResult(result) {
     }
 }
 
-function getTarget(actor) {
-    console.log(game);
+function getTarget(actor, range) {
     const targets = game.users.current.targets;
     let target = actor;
+
     for (const t of targets) {
-        //seems wrong to need to go through the sheet to get the token?
-        // must be doing something wrong, but rollin with it for now to poc
-        let distance = canvas.grid.measureDistance({ x: actor.sheet.token.x, y: actor.sheet.token.y }, { x: t.x, y: t.y });
-        console.log(distance);
         // should we default to self target, or throw since we cannot do what they wanted?
-        // todo: 
-        // - map ranged so distances ie near 10, far 30, distant 60 or something like that.
-        if (distance < 10) {
+        if (isInRange(actor.sheet.token, t, range)) {
             target = t.actor;
         }
     }
