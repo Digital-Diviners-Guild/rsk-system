@@ -269,6 +269,48 @@ export async function applyPrayer(actor, prayerId) {
     }
 }
 
+// could return outcomes to be applied later like this
+export async function getPrayerOutcomes(actor, prayerId) {
+    const prayerData = getPrayerData(prayerId);
+    if (prayerData.id != prayerId) return [];
+
+    let newPrayerPoints = actor.system.prayerPoints.value - prayerData.usageCost[0].amount;
+    if (newPrayerPoints < 0) return [];
+
+    const target = getTarget(actor);
+    const targetNumber = actor.getRollData().calculateTargetNumber("prayer", "intellect");
+    const rollResult = await game.rsk.dice.skillCheck(targetNumber);
+    result = {
+        roll: rollResult,
+        targetNumber: targetNumber,
+        outcomes: [
+            {
+                target,
+                addedEffects: rollResult.isSuccess ? [getPrayerEffectData(prayerId)] : [],
+                removedEffects: rollResult.isSuccess ? [...currentPrayers] : [],
+                updates: []
+            },
+            {
+                target: actor,
+                addedEffects: [],
+                removedEffects: [],
+                updates: {
+                    "system.skills.prayer.used": true,
+                    "system.prayerPoints.value":
+                        rollResult.isSuccess
+                            ? newPrayerPoints
+                            : actor.system.prayerPoints.value - 1
+                },
+            }
+        ]
+    }
+    return result;
+}
+export async function applyPrayerResult(result) {
+    // create a message 
+    // and apply changes described in result.outcomes
+}
+
 function getTarget(actor) {
     const targets = game.users.current.targets;
     let target = actor;
