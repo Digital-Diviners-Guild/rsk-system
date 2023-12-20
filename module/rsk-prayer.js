@@ -234,61 +234,37 @@ export function getActivePrayers(actorEffects) {
 // how would actually doing it this way affect permissions?
 // its probably good to keep actor changes in the actor?
 export async function applyPrayer(actor, prayerId) {
-    const prayerData = getPrayerData(prayerId);
-    if (prayerData.id != prayerId) return;
-
-    let newPrayerPoints = actor.system.prayerPoints.value - prayerData.usageCost[0].amount;
-    if (newPrayerPoints < 0) return;
-
-    const result = await actor.useSkill("prayer", "intellect");
-    actor.update({
-        "system.prayerPoints.value":
-            result.isSuccess
-                ? newPrayerPoints
-                : actor.system.prayerPoints.value - 1
-    });
-
-    //todo: put this in a template
-    //todo: probably want to have the outcomes in the message with links to effects
-    // that we can drag and drop to apply
-    await result.rollResult.toMessage({
-        flavor: `${toMessageContent(prayerData, false)}
-        <p>target number: ${result.targetNumber}</p>
-        <p>success: ${result.isSuccess} (${result.margin})</p>
-        <p>critical: ${result.isCritical}</p>`
-    });
-
-    if (result.isSuccess) {
-        //poc: targeting
-        const target = getTarget(actor);
-        const currentPrayers = getActivePrayers(target.effects);
-        if (currentPrayers.length > 0) {
-            await target.deleteEmbeddedDocuments("ActiveEffect", [...currentPrayers]);
-        }
-        await target.createEmbeddedDocuments("ActiveEffect", [getPrayerEffectData(prayerId)]);
-    }
+    const result = await getPrayerOutcomes(actor, prayerId);
+    //this might only be useful if we wanted to wait for a dialog response. it still has the same problem
+    // of being applied after the calculated outcomes are no longer valid.
+    await applyPrayerResult(result);
 }
 
 // could return outcomes to be applied later like this
 export async function getPrayerOutcomes(actor, prayerId) {
     const prayerData = getPrayerData(prayerId);
-    if (prayerData.id != prayerId) return [];
+    if (prayerData.id != prayerId) return {};
 
     let newPrayerPoints = actor.system.prayerPoints.value - prayerData.usageCost[0].amount;
-    if (newPrayerPoints < 0) return [];
+    if (newPrayerPoints < 0) return {};
 
     const target = getTarget(actor);
     const targetNumber = actor.getRollData().calculateTargetNumber("prayer", "intellect");
-    const rollResult = await game.rsk.dice.skillCheck(targetNumber);
-    result = {
-        roll: rollResult,
-        targetNumber: targetNumber,
+    const result = await game.rsk.dice.skillCheck(targetNumber);
+    const message = await result.rollResult.toMessage({
+        flavor: `${toMessageContent(prayerData, false)}
+        <p>target number: ${targetNumber}</p>
+        <p>success: ${result.isSuccess} (${result.margin})</p>
+        <p>critical: ${result.isCritical}</p>`
+    }, { create: false });
+    return {
+        message: message,
         outcomes: [
             {
                 target,
-                addedEffects: rollResult.isSuccess ? [getPrayerEffectData(prayerId)] : [],
-                removedEffects: rollResult.isSuccess ? [...currentPrayers] : [],
-                updates: []
+                addedEffects: result.isSuccess ? [getPrayerEffectData(prayerId)] : [],
+                removedEffects: result.isSuccess ? getActivePrayers(target.effects) : [],
+                updates: {}
             },
             {
                 target: actor,
@@ -296,19 +272,29 @@ export async function getPrayerOutcomes(actor, prayerId) {
                 removedEffects: [],
                 updates: {
                     "system.skills.prayer.used": true,
-                    "system.prayerPoints.value":
-                        rollResult.isSuccess
-                            ? newPrayerPoints
-                            : actor.system.prayerPoints.value - 1
+                    "system.prayerPoints.value": result.isSuccess
+                        ? newPrayerPoints
+                        : actor.system.prayerPoints.value - 1
                 },
             }
         ]
     }
-    return result;
 }
 export async function applyPrayerResult(result) {
-    // create a message 
-    // and apply changes described in result.outcomes
+    if (result.message) {
+        ChatMessage.create(result.message);
+    }
+    for (const outcome of result.outcomes) {
+        if (outcome.addedEffects.length > 0) {
+            await outcome.target.createEmbeddedDocuments("ActiveEffect", outcome.addedEffects);
+        }
+        if (outcome.removedEffects.length > 0) {
+            await outcome.target.deleteEmbeddedDocuments("ActiveEffect", outcome.removedEffects);
+        }
+        if (Object.keys(outcome.updates).length > 0) {
+            outcome.target.update(outcome.updates);
+        }
+    }
 }
 
 function getTarget(actor) {
