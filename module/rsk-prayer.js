@@ -240,28 +240,40 @@ export async function applyPrayer(actor, prayerId) {
     let newPrayerPoints = actor.system.prayerPoints.value - prayerData.usageCost[0].amount;
     if (newPrayerPoints < 0) return;
 
-    //this only applies to the character praying, which may be different than the target
     const result = await actor.useSkill("prayer", "intellect");
-    if (result.isSuccess) {
-        // todo: make 'this' the 'target' actor
-        // this function should probably not live on the character
-        // to make this more generic to who the target actor is
-        const currentPrayers = getActivePrayers(actor.effects);
-        if (currentPrayers.length > 0) {
-            await actor.deleteEmbeddedDocuments("ActiveEffect", [...currentPrayers]);
-        }
-        await actor.createEmbeddedDocuments("ActiveEffect", [getPrayerEffectData(prayerId)]);
-    } else {
-        newPrayerPoints = actor.system.prayerPoints.value - 1;
-    }
-    actor.update({ "system.prayerPoints.value": newPrayerPoints });
+    actor.update({
+        "system.prayerPoints.value":
+            result.isSuccess
+                ? newPrayerPoints
+                : actor.system.prayerPoints.value - 1
+    });
 
     //todo: put this in a template
     //todo: probably want to have the outcomes in the message with links to effects
+    // that we can drag and drop to apply
     await result.rollResult.toMessage({
         flavor: `${toMessageContent(prayerData, false)}
-    <p>target number: ${result.targetNumber}</p>
-    <p>success: ${result.isSuccess} (${result.margin})</p>
-    <p>critical: ${result.isCritical}</p>`
+        <p>target number: ${result.targetNumber}</p>
+        <p>success: ${result.isSuccess} (${result.margin})</p>
+        <p>critical: ${result.isCritical}</p>`
     });
+
+    if (result.isSuccess) {
+        //poc: targeting
+        const target = getTarget(actor);
+        const currentPrayers = getActivePrayers(target.effects);
+        if (currentPrayers.length > 0) {
+            await target.deleteEmbeddedDocuments("ActiveEffect", [...currentPrayers]);
+        }
+        await target.createEmbeddedDocuments("ActiveEffect", [getPrayerEffectData(prayerId)]);
+    }
+}
+
+function getTarget(actor) {
+    const targets = game.users.current.targets;
+    let target = actor;
+    for (const t of targets) {
+        target = t.actor; //todo: check for near range
+    }
+    return target;
 }
