@@ -235,8 +235,12 @@ export function getActivePrayers(actorEffects) {
 // its probably good to keep actor changes in the actor?
 export async function applyPrayer(actor, prayerId) {
     const result = await getPrayerOutcomes(actor, prayerId);
-    //this might only be useful if we wanted to wait for a dialog response. it still has the same problem
+    //this might only be useful if we wanted to wait for a dialog response. 
+    //it still has the same problem
     // of being applied after the calculated outcomes are no longer valid.
+    // the actor that generates the outcome could be flagged, and the outcomes invalidated
+    // if the actor generates a new outcome?
+    // or the workflow is just chat->use(which applies)
     await applyPrayerResult(result);
 }
 
@@ -248,9 +252,9 @@ export async function getPrayerOutcomes(actor, prayerId) {
     let newPrayerPoints = actor.system.prayerPoints.value - prayerData.usageCost[0].amount;
     if (newPrayerPoints < 0) return {};
 
-    const target = getTarget(actor);
     const targetNumber = actor.getRollData().calculateTargetNumber("prayer", "intellect");
     const result = await game.rsk.dice.skillCheck(targetNumber);
+    const target = getTarget(actor);
     const message = await result.rollResult.toMessage({
         flavor: `${toMessageContent(prayerData, false)}
         <p>target number: ${targetNumber}</p>
@@ -298,10 +302,20 @@ export async function applyPrayerResult(result) {
 }
 
 function getTarget(actor) {
+    console.log(game);
     const targets = game.users.current.targets;
     let target = actor;
     for (const t of targets) {
-        target = t.actor; //todo: check for near range
+        //seems wrong to need to go through the sheet to get the token?
+        // must be doing something wrong, but rollin with it for now to poc
+        let distance = canvas.grid.measureDistance({ x: actor.sheet.token.x, y: actor.sheet.token.y }, { x: t.x, y: t.y });
+        console.log(distance);
+        // should we default to self target, or throw since we cannot do what they wanted?
+        // todo: 
+        // - map ranged so distances ie near 10, far 30, distant 60 or something like that.
+        if (distance < 10) {
+            target = t.actor;
+        }
     }
     return target;
 }
