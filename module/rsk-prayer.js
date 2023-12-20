@@ -219,7 +219,6 @@ export function toMessageContent(prayerData, includeUseButton = true) {
 export function getActivePrayers(actorEffects) {
     const prayerStatuses = rskPrayerStatusEffects.map(se => se.id);
     const currentPrayers = [];
-    debugger;
     for (const effect of actorEffects) {
         for (const status of effect.statuses) {
             if (prayerStatuses.includes(status)) {

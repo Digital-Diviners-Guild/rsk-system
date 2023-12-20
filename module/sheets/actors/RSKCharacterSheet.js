@@ -1,5 +1,5 @@
-import RSKPrayer from "../../data/items/RSKPrayer.js";
 import RSKSpell from "../../data/items/RSKSpell.js";
+import { toMessageContent } from "../../rsk-prayer.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 
 
@@ -49,8 +49,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _preparePrayers(context) {
-        this.prayers = Object.keys(CONFIG.RSK.defaultPrayers).reduce((ps, p) => {
-            ps[p] = RSKPrayer.fromData({ id: p, actor: this.actor, ...CONFIG.RSK.defaultPrayers[p] });
+        this.prayers = CONFIG.RSK.defaultPrayers.reduce((ps, p) => {
+            ps[p.id] = p
             return ps;
         }, {});
         context.prayers = this.prayers;
@@ -72,8 +72,14 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         html.find('.activate-prayer').click(ev => {
             const s = $(ev.currentTarget);
             const prayer = this.prayers[s.data("prayerId")];
-            //prayer.use(this.actor);
-            this.actor.pray(prayer);
+            const message = `${toMessageContent(prayer)}`;
+            const messageData = {
+                type: CONST.CHAT_MESSAGE_TYPES["OTHER"],
+                content: message,
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                flags: { rsk: { actor: this.actor._id, prayerId: prayer.id } }
+            };
+            ChatMessage.create(messageData, {});
         });
     }
 }
