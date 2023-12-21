@@ -1,4 +1,5 @@
 import { getPrayerData, rskPrayerStatusEffects } from "./rsk-prayer.js";
+import { standardSpellBook } from "./rsk-magic.js";
 
 const RSK = {};
 
@@ -105,106 +106,15 @@ RSK.damageTypes = {
 // is this how we want to detail default spell/prayer books?
 // perhaps the spell/prayer books should be items/actors?
 // we may have more spell books in the future, like the lunar spell book for lunar spells?
-RSK.standardSpellBook = {
-    confuse: {
-        type: "utility",
-        label: "RSK.Confuse",
-        description: "RSK.Confuse.Description",
-        effectDescription: "RSK.Confuse.EffectDescription",
-        statuses: ["confused"], // or should we model the effect instead?
-        // effects: [{name:"", statuses:[], changes: [{"system.damage.modifier": -5}]}]
-        range: "near",
-        target: {
-            scope: "enemies",
-            number: 1
-        },
-        usageCost: [{
-            type: "earth",
-            amount: 2
-        },
-        {
-            type: "water",
-            amount: 3
-        },
-        {
-            type: "body",
-            amount: 1
-        }],
-        damage: []
-    },
-    wind_strike: {
-        type: "combat",
-        label: "RSK.WindStrike",
-        description: "RSK.WindStrike.Description",
-        effectDescription: "RSK.WindStrike.EffectDescription",
-        statuses: [],
-        range: "far",
-        target: {
-            scope: "enemies",
-            number: 1
-        },
-        usageCost: [{
-            type: "air",
-            amount: 1
-        },
-        {
-            type: "mind",
-            amount: 1
-        }],
-        damage: [{
-            type: "air",
-            amount: 2
-        }]
-    },
-    teleport: {
-        type: "teleport",
-        label: "RSK.Teleport",
-        description: "RSK.Teleport.Description",
-        effectDescription: "RSK.Teleport.EffectDescription",
-        range: "near",
-        target: {
-            scope: "all",
-            number: 6
-        },
-        statuses: [],
-        usageCost: [
-            {
-                type: "air",
-                amount: 1
-            },
-            {
-                type: "mind",
-                amount: 1
-            },
-            {
-                type: "earth",
-                amount: 1
-            },
-            {
-                type: "body",
-                amount: 1
-            },
-            {
-                type: "cosmic",
-                amount: 1
-            },
-            {
-                type: "water",
-                amount: 1
-            },
-            {
-                type: "fire",
-                amount: 1
-            },
-            {
-                type: "law",
-                amount: 1
-            }],
-        damage: []
-    }
-}
+RSK.standardSpellBook = Object.values(standardSpellBook).reduce((ssb, s) => {
+    ssb[s] = s;
+    return ssb;
+}, {});
 
-RSK.defaultPrayers = rskPrayerStatusEffects.map(se => getPrayerData(se.id));
+RSK.defaultPrayers = rskPrayerStatusEffects.reduce((dp, p) => {
+    dp[p.id] = getPrayerData(p.id);
+    return dp;
+}, {});
 
 //for melee/ranged attack actions
 // most things come from the weapon itself.

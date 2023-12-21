@@ -1,3 +1,4 @@
+import { rskMagicStatusEffects } from "../rsk-magic.js";
 import { rskPrayerStatusEffects } from "../rsk-prayer.js";
 
 const changeModes = {
@@ -71,54 +72,4 @@ export const rskStatusEffects = [
         icon: "icons/svg/stunned.svg",
         changes: []
     },
-];
-
-// do we want to use statuses for magical/prayer buff/debuff/effects?
-// if we do not use statuses for magic/prayer, how else will we track/show it? this may be a good fit.
-//  - the other way would be to use activeeffets that are not statuses? is that better?
-// also some of these things like cursed and vulnerable are the same effect to a stronger degree.
-// does that change anything?
-export const rskMagicStatusEffects = [
-    {
-        id: "confused",
-        label: "RSK.CustomStatus.confused",
-        icon: "icons/svg/confused.svg",
-        changes: []
-    },
-    {
-        id: "cursed",
-        label: "RSK.CustomStatus.cursed",
-        icon: "icons/svg/cursed.svg",
-        changes: []
-    },
-    {
-        id: "enfeebled",
-        label: "RSK.CustomStatus.enfeebled",
-        icon: "icons/svg/enfeebled.svg",
-        changes: []
-    },
-    {
-        id: "vulnerable",
-        label: "RSK.CustomStatus.vulnerable",
-        icon: "icons/svg/vulnerable.svg",
-        changes: []
-    },
-    {
-        id: "weakened",
-        label: "RSK.CustomSTatus.weakened",
-        icon: "icons/svg/weakened.svg",
-        changes: []
-    },
-    {
-        id: "charged",
-        label: "RSK.CustomSTatus.charged",
-        icon: "icons/svg/charged.svg",
-        changes: []
-    },
-    {
-        id: "claws_of_guthix",
-        label: "RSK.CustomSTatus.claws_of_guthix",
-        icon: "icons/svg/claws_of_guthix.svg",
-        changes: []
-    }
 ];

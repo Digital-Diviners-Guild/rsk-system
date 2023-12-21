@@ -41,18 +41,12 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        this.spells = Object.keys(CONFIG.RSK.standardSpellBook).reduce((ss, s) => {
-            ss[s] = RSKSpell.fromData({ id: s, actor: this.actor, ...CONFIG.RSK.standardSpellBook[s] });
-            return ss;
-        }, {});
+        this.spells = CONFIG.RSK.standardSpellBook;
         context.spells = this.spells;
     }
 
     _preparePrayers(context) {
-        this.prayers = CONFIG.RSK.defaultPrayers.reduce((ps, p) => {
-            ps[p.id] = p
-            return ps;
-        }, {});
+        this.prayers = CONFIG.RSK.defaultPrayers;
         context.prayers = this.prayers;
     }
 
