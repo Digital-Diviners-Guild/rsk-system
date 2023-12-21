@@ -235,83 +235,119 @@ export function getActivePrayers(actorEffects) {
 // though I wonder if it should be some sorta public api into the 'prayer system' like this
 // how would actually doing it this way affect permissions?
 // its probably good to keep actor changes in the actor?
-export async function applyPrayer(actor, prayerId) {
-    const result = await getPrayerOutcomes(actor, prayerId);
-    //this might only be useful if we wanted to wait for a dialog response. 
-    //it still has the same problem
-    // of being applied after the calculated outcomes are no longer valid.
-    // the actor that generates the outcome could be flagged, and the outcomes invalidated
-    // if the actor generates a new outcome?
-    // or the workflow is just chat->use(which applies)
-    await applyPrayerResult(result);
-}
+// export async function applyPrayer(actor, prayerId) {
+//     await usePrayer(actor, prayerId);
+//     //this might only be useful if we wanted to wait for a dialog response. 
+//     //it still has the same problem
+//     // of being applied after the calculated outcomes are no longer valid.
+//     // the actor that generates the outcome could be flagged, and the outcomes invalidated
+//     // if the actor generates a new outcome?
+//     // or the workflow is just chat->use(which applies)
+//     //await applyPrayerResult(result);
+// }
 
 // could return outcomes to be applied later like this
-export async function getPrayerOutcomes(actor, prayerId) {
-    const prayerData = getPrayerData(prayerId);
-    if (prayerData.id != prayerId) return {};
 
-    let newPrayerPoints = actor.system.prayerPoints.value - prayerData.usageCost[0].amount;
-    if (newPrayerPoints < 0) return {};
+function canUse(actor, costData) {
+    if (costData.length < 1) return true;
+    for (const cost of costData) {
+        if (cost.type === "prayer" && actor.system.prayerPoints.value < cost.amount) {
+            return false;
+        }
+    }
+    return true;
+}
+
+export async function usePrayer(actor, prayerId) {
+    const prayerData = getPrayerData(prayerId);
+    if (prayerData.id != prayerId
+        || !canUse(actor, prayerData.usageCost)) return {};
 
     const targetNumber = actor.getRollData().calculateTargetNumber("prayer", "intellect");
     const result = await game.rsk.dice.skillCheck(targetNumber);
-    const target = getTarget(actor, prayerData.range);
-    const message = await result.rollResult.toMessage({
+    await result.rollResult.toMessage({
         flavor: `${toMessageContent(prayerData, false)}
         <p>target number: ${targetNumber}</p>
         <p>success: ${result.isSuccess} (${result.margin})</p>
-        <p>critical: ${result.isCritical}</p>`
-    }, { create: false });
-    return {
-        message: message,
-        outcomes: [
-            {
-                target,
-                addedEffects: result.isSuccess ? [getPrayerEffectData(prayerId)] : [],
-                removedEffects: result.isSuccess ? getActivePrayers(target.effects) : [],
-                updates: {}
-            },
-            {
-                target: actor,
-                addedEffects: [],
-                removedEffects: [],
-                updates: {
-                    "system.skills.prayer.used": true,
-                    "system.prayerPoints.value": result.isSuccess
-                        ? newPrayerPoints
-                        : actor.system.prayerPoints.value - 1
-                },
+        <p>critical: ${result.isCritical}</p>
+        <button class='test'>apply</button>`,
+        flags: {
+            rsk: {
+                actionData: {
+                    actorId: actor._id, // the actor that initiated, probably want to validate 'apply' is this person or GM.
+                    actionType: "prayer", // how the usage and outcome should be applied
+                    // maybe the usage should be done when we roll?
+                    // and we should have a different button to just chat anyways
+                    // that way the outcomes can be applied as much as needed without needing to 
+                    // do anything special to not over apply the 'usage'?
+                    usage: {
+                        addedEffects: [],
+                        removedEffects: [],
+                        actorUpdates: {
+                            "system.skills.prayer.used": {
+                                operator: "replace",
+                                value: true
+                            },
+                            "system.prayerPoints.value": {
+                                operator: "subtract",
+                                value: result.isSuccess
+                                    ? prayerData.usageCost[0].amount
+                                    : 1
+                            }
+                        }
+                    },
+                    outcome: {
+                        addedEffects: result.isSuccess ? [getPrayerEffectData(prayerId)] : [],
+                        removedEffects: [],
+                        damageEntries: {},
+                        actorUpdates: {},
+                    }
+                }
             }
-        ]
-    }
+        }
+    });
 }
-export async function applyPrayerResult(result) {
-    if (result.message) {
-        ChatMessage.create(result.message);
-    }
-    for (const outcome of result.outcomes) {
-        if (outcome.addedEffects.length > 0) {
-            await outcome.target.createEmbeddedDocuments("ActiveEffect", outcome.addedEffects);
-        }
-        if (outcome.removedEffects.length > 0) {
-            await outcome.target.deleteEmbeddedDocuments("ActiveEffect", outcome.removedEffects);
-        }
-        if (Object.keys(outcome.updates).length > 0) {
-            outcome.target.update(outcome.updates);
-        }
+export async function applyPrayer(actionData) {
+    const actor = Actor.get(actionData.actorId);
+    const target = getTarget(actor);
+    applyUsage(actor, actionData.usage, actionData.actionType);
+    applyOutcome(target, actionData.outcome, actionData.actionType);
+}
+
+async function applyUsage(actor, usage, actionType) {
+    if (Object.keys(usage.actorUpdates).length > 0) {
+        actor.update(usage.actorUpdates);
     }
 }
 
-function getTarget(actor, range) {
+async function applyOutcome(actor, outcome, actionType) {
+    if (outcome.addedEffects.length > 0) {
+        if (actionType === "prayer") {
+            await actor.deleteEmbeddedDocuments("ActiveEffect", getActivePrayers(actor.effects))
+        }
+        await actor.createEmbeddedDocuments("ActiveEffect", outcome.addedEffects);
+    }
+    if (outcome.removedEffects.length > 0) {
+        await actor.deleteEmbeddedDocuments("ActiveEffect", outcome.removedEffects);
+    }
+    if (Object.keys(outcome.actorUpdates).length > 0) {
+        actor.update(outcome.actorUpdates);
+    }
+}
+
+function getTarget(actor) {
     const targets = game.users.current.targets;
     let target = actor;
 
     for (const t of targets) {
-        // should we default to self target, or throw since we cannot do what they wanted?
-        if (isInRange(actor.sheet.token, t, range)) {
-            target = t.actor;
-        }
+        //--- should we default to self target, or throw since we cannot do what they wanted?
+        //if we go with the updated outcome that doesn't yet have targets assigned, then this logic
+        //would need to be where ever we are handling the outcome.
+        //though, how does this work for usage? we don't want to take the resources if no targets where in range
+        //maybe we can just have an outcome undo and the player should be aware of if they have a target in range or not?
+        //if (isInRange(actor.sheet.token, t, range)) {
+        target = t.actor;
+        //}
     }
     return target;
 }
