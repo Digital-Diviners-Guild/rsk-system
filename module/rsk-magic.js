@@ -224,7 +224,9 @@ export async function useSpell(actor, spellId) {
     const result = await game.rsk.dice.skillCheck(targetNumber);
     const actionData = {
         actorId: actor._id, // the actor that initiated, probably want to validate 'apply' is this person or GM.
+
         actionType: "magic", // how the usage and outcome should be applied
+
         // how should qualities fit into actionData? on the outcome/usage? top level?
         // these may augment how damage is applied, or other things
         // really we need to figure out how to handle qualities all together
@@ -233,7 +235,11 @@ export async function useSpell(actor, spellId) {
         // but sometimes a quality will apply bleed, which is a status to add
         // maybe we can describe the outcome of the quality in outcomes?
         // ie for puncture, that may fit into damage entries somehow?
+        // qualities and effects only apply when margin is >= 1 if the spell does damage
+        // some qualities give the player an option on success to alter the damage in order to gain healing.
+        //  that doesn't seem to fit in this model yet.
         qualities: [...spellData.qualities],
+
         // maybe the usage should be done when we roll?
         // and we should have a different button to just chat anyways
         // that way the outcomes can be applied as much as needed without needing to 
@@ -253,6 +259,10 @@ export async function useSpell(actor, spellId) {
             addedEffects: result.isSuccess ? [getSpellEffectData(spellData)] : [],
             removedEffects: [],
             damageEntries: result.isSuccess ? [...spellData.damageEntries] : {},
+            // damageEntries.punctureDamage?
+            // what other things do qualities do that are not really suited to 'effects/statuses' maybe we just 
+            // detail them in the outcome?
+            //  some qualities will have a choice for the actor to make on activation 
             actorUpdates: {},
         }
     };
