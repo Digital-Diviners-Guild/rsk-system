@@ -7,14 +7,13 @@ export default class RSKAction extends foundry.abstract.DataModel {
     static defineSchema() {
         return {
             id: new fields.StringField(),
-            type: new fields.StringField(), // weapon, spell, prayer
+            type: new fields.StringField(), // melee, spell, prayer
             label: new fields.StringField(), // what to display on the button?
             description: new fields.HTMLField(),
-            range: new fields.StringField(),
-            damageEntries: new fields.ArrayField(new fields.ObjectField()),
             effectDescription: new fields.HTMLField(),
+            damageEntries: new fields.ArrayField(new fields.ObjectField()),
             requiredEquipment: new fields.ArrayField(new fields.ObjectField()),
-            usageCost: new fields.ArrayField(new fields.SchemaField({
+            usageCosts: new fields.ArrayField(new fields.SchemaField({
                 // prayer, summoning, magic, ranged, potentially even some melee attacks may have some cost
                 // these will be different per type though.
                 // prayer, and summoning are point costs
@@ -27,10 +26,12 @@ export default class RSKAction extends foundry.abstract.DataModel {
             })),
             // could be all friendlies, enemies, all, maybe even more specific like undead
             // could be self, single, multi
-            target: new fields.SchemaField({
+            targets: new ArrayField(new fields.SchemaField({
+                range: new fields.StringField(),
                 type: new fields.StringField(),
-                scope: new fields.StringField()
-            }),
+                scope: new fields.StringField(),
+                number: new fields.NumberField()
+            })),
             // what happens to the target, 
             // statuses, damage, healing, etc...
             statuses: new fields.ArrayField(new fields.StringField()),

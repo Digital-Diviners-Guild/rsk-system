@@ -2,7 +2,7 @@
 //     return text.replace(/_/g, "").slice(0, 16).padEnd(16, "0");
 // }
 
-import { isInRange } from "./rsk-range.js";
+import { toMessageContent } from "./rsk-action.js";
 
 export const rskPrayerStatusEffects = [
     {
@@ -212,12 +212,6 @@ export function getPrayerEffectData(prayerId, duration = {}) {
     }
 }
 
-export function toMessageContent(prayerData, includeUseButton = true) {
-    return `<p>${prayerData.label}</p>
-    <p>${prayerData.effectDescription}</p>
-    ${includeUseButton ? "<button class='test' type='button'>use</button>" : ""}`;
-}
-
 export function getActivePrayers(actorEffects) {
     const prayerStatuses = rskPrayerStatusEffects.map(se => se.id);
     const currentPrayers = [];
@@ -231,24 +225,7 @@ export function getActivePrayers(actorEffects) {
     return currentPrayers;
 }
 
-// temp: move experimental code here to keep character cleaner until we know what were doing with this.
-// though I wonder if it should be some sorta public api into the 'prayer system' like this
-// how would actually doing it this way affect permissions?
-// its probably good to keep actor changes in the actor?
-// export async function applyPrayer(actor, prayerId) {
-//     await usePrayer(actor, prayerId);
-//     //this might only be useful if we wanted to wait for a dialog response. 
-//     //it still has the same problem
-//     // of being applied after the calculated outcomes are no longer valid.
-//     // the actor that generates the outcome could be flagged, and the outcomes invalidated
-//     // if the actor generates a new outcome?
-//     // or the workflow is just chat->use(which applies)
-//     //await applyPrayerResult(result);
-// }
-
-// could return outcomes to be applied later like this
-
-function canUse(actor, costData) {
+function canPray(actor, costData) {
     if (costData.length < 1) return true;
     for (const cost of costData) {
         if (cost.type === "prayer" && actor.system.prayerPoints.value < cost.amount) {
@@ -261,10 +238,42 @@ function canUse(actor, costData) {
 export async function usePrayer(actor, prayerId) {
     const prayerData = getPrayerData(prayerId);
     if (prayerData.id != prayerId
-        || !canUse(actor, prayerData.usageCost)) return {};
+        || !canPray(actor, prayerData.usageCost)) return {};
 
     const targetNumber = actor.getRollData().calculateTargetNumber("prayer", "intellect");
     const result = await game.rsk.dice.skillCheck(targetNumber);
+    const actionData = {
+        actorId: actor._id, // the actor that initiated, probably want to validate 'apply' is this person or GM.
+        actionType: "prayer", // how the usage and outcome should be applied
+        // maybe the usage should be done when we roll?
+        // and we should have a different button to just chat anyways
+        // that way the outcomes can be applied as much as needed without needing to 
+        // do anything special to not over apply the 'usage'?
+        usage: {
+            addedEffects: [],
+            removedEffects: [],
+            actorUpdates: {
+                "system.skills.prayer.used": {
+                    operator: "replace",
+                    value: true
+                },
+                "system.prayerPoints.value": {
+                    operator: "subtract",
+                    value: result.isSuccess
+                        ? prayerData.usageCost[0].amount
+                        : 1
+                }
+            }
+        },
+        outcome: {
+            addedEffects: result.isSuccess ? [getPrayerEffectData(prayerId)] : [],
+            removedEffects: [],
+            damageEntries: {},
+            actorUpdates: {},
+        }
+    }
+
+    //return result?
     await result.rollResult.toMessage({
         flavor: `${toMessageContent(prayerData, false)}
         <p>target number: ${targetNumber}</p>
@@ -273,40 +282,12 @@ export async function usePrayer(actor, prayerId) {
         <button class='test'>apply</button>`,
         flags: {
             rsk: {
-                actionData: {
-                    actorId: actor._id, // the actor that initiated, probably want to validate 'apply' is this person or GM.
-                    actionType: "prayer", // how the usage and outcome should be applied
-                    // maybe the usage should be done when we roll?
-                    // and we should have a different button to just chat anyways
-                    // that way the outcomes can be applied as much as needed without needing to 
-                    // do anything special to not over apply the 'usage'?
-                    usage: {
-                        addedEffects: [],
-                        removedEffects: [],
-                        actorUpdates: {
-                            "system.skills.prayer.used": {
-                                operator: "replace",
-                                value: true
-                            },
-                            "system.prayerPoints.value": {
-                                operator: "subtract",
-                                value: result.isSuccess
-                                    ? prayerData.usageCost[0].amount
-                                    : 1
-                            }
-                        }
-                    },
-                    outcome: {
-                        addedEffects: result.isSuccess ? [getPrayerEffectData(prayerId)] : [],
-                        removedEffects: [],
-                        damageEntries: {},
-                        actorUpdates: {},
-                    }
-                }
+                actionData: actionData
             }
         }
     });
 }
+
 export async function applyPrayer(actionData) {
     const actor = Actor.get(actionData.actorId);
     const target = getTarget(actor);
