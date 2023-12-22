@@ -1,4 +1,5 @@
 import { applyPrayer, pray } from "./rsk-prayer.js";
+import { applySpell, cast } from "./rsk-magic.js";
 
 export function toUsableMessageContent(actionData) {
     return `<p>${actionData.label}</p>
@@ -17,11 +18,11 @@ export async function useAction(actor, action) {
         case "prayer":
             return await pray(actor, action.id);
         case "spell":
-        //await cast(actor, action)
+            return await cast(actor, action)
         case "ranged":
-        //await attack(actor, action)
+        //return await attack(actor, action);
         case "melee":
-        //await shootOrThrow(actor, action)
+        //return await shootOrThrow(actor, action);
         default:
             // is there some default handler that could make sense?
             throw `unknown action type: ${action.type}`
@@ -33,11 +34,11 @@ export async function applyActionOutcome(outcome) {
         case "prayer":
             return await applyPrayer(outcome);
         case "spell":
-        //await applySpell(actor, action)
+            return await applySpell(outcome)
         case "ranged":
-        //await applyMeleeAttack(actor, action)
+        //return await applyMeleeAttack(actor, action);
         case "melee":
-        //await applyRangedAttack(actor, action)
+        //return await applyRangedAttack(actor, action);
         default:
             // is there some default handler that could make sense?
             throw `unknown action type: ${action.type}`

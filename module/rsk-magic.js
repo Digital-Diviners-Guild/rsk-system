@@ -3,6 +3,7 @@
 //  - the other way would be to use activeeffets that are not statuses? is that better?
 // also some of these things like cursed and vulnerable are the same effect to a stronger degree.
 
+import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import { rskStatusEffects } from "./effects/statuses.js";
 
 // does that change anything?
@@ -207,6 +208,7 @@ export function getSpellData(spellId) {
     return spellData
 }
 
+//todo: for certain spells there may be an equipment requirement
 function canCast(actor, costData) {
     if (costData.length < 1) return true;
     for (const cost of costData) {
@@ -215,61 +217,57 @@ function canCast(actor, costData) {
     return true;
 }
 
-export async function useSpell(actor, spellId) {
-    const spellData = getSpellData(spellId);
-    if (spellData.id != spellId
-        || !canCast(actor, spellData.usageCost)) return {};
+export async function cast(actor, spell) {
+    if (!canCast(actor, [])) return {};
+    const result = await useSpell(actor, []);
 
-    const targetNumber = actor.getRollData().calculateTargetNumber("magic", "intellect");
-    const result = await game.rsk.dice.skillCheck(targetNumber);
-    const actionData = {
-        actorId: actor._id, // the actor that initiated, probably want to validate 'apply' is this person or GM.
-
-        actionType: "magic", // how the usage and outcome should be applied
-
-        // how should qualities fit into actionData? on the outcome/usage? top level?
-        // these may augment how damage is applied, or other things
-        // really we need to figure out how to handle qualities all together
-        // sometimes they are a status/effect, but they also seem to be somewhat their own thing.
-        // for example, sometimes a quality is something like puncture that applies to the attack and gives it a way to ignore armour
-        // but sometimes a quality will apply bleed, which is a status to add
-        // maybe we can describe the outcome of the quality in outcomes?
-        // ie for puncture, that may fit into damage entries somehow?
-        // qualities and effects only apply when margin is >= 1 if the spell does damage
-        // some qualities give the player an option on success to alter the damage in order to gain healing.
-        //  that doesn't seem to fit in this model yet.
-        qualities: [...spellData.qualities],
-
-        // maybe the usage should be done when we roll?
-        // and we should have a different button to just chat anyways
-        // that way the outcomes can be applied as much as needed without needing to 
-        // do anything special to not over apply the 'usage'?
-        usage: {
-            addedEffects: [],
-            removedEffects: [],
-            actorUpdates: {
-                "system.skills.magic.used": {
-                    operator: "replace",
-                    value: true
-                },
-                //todo: deduct runes from items
+    //todo: flavor
+    await result.rollResult.toMessage({
+        flavor: `todo: flavor (spell was cast)
+        <p>target number: ${result.targetNumber}</p>
+        <p>success: ${result.isSuccess} (${result.margin})</p>
+        <p>critical: ${result.isCritical}</p>
+        <button class='test'>apply</button>`,
+        //todo: outcome
+        // how will this apply to non combat spells?
+        // is type spell sufficient?
+        //  maybe non combat, chatting is sufficient? for now it will be
+        flags: {
+            rsk: {
+                outcome: {
+                    actorId: actor._id,
+                    type: "spell",
+                    addedEffects: [],
+                    removedEffects: [],
+                    damageEntries: {},
+                    actorUpdates: {}
+                }
             }
-        },
-        outcome: {
-            addedEffects: result.isSuccess ? [getSpellEffectData(spellData)] : [],
-            removedEffects: [],
-            damageEntries: result.isSuccess ? [...spellData.damageEntries] : {},
-            // damageEntries.punctureDamage?
-            // what other things do qualities do that are not really suited to 'effects/statuses' maybe we just 
-            // detail them in the outcome?
-            //  some qualities will have a choice for the actor to make on activation 
-            actorUpdates: {},
         }
-    };
-    return actionData;
+    });
+    return result;
+}
+
+
+async function useSpell(actor, runeCost) {
+    const rollData = actor.getRollData();
+    const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "magic", defaultAbility: "intellect" });
+    const rollOptions = await dialog();
+    if (!rollOptions.rolled) return {}
+
+    const result = await actor.useSkill(rollOptions.skill, rollOptions.ability);
+    //todo: deduct runes
+    // const cost = {}
+    // actor.update({ "system.prayerPoints.value": actor.system.prayerPoints.value - cost });
+    return result;
+}
+
+export async function applySpell(outcome) {
+    console.log(outcome);
 }
 
 // will the durations need to vary per status ever?
+//  what about not status effects?
 export function getSpellEffectData(spellData, duration = {}) {
     const spellEffects = spellData.statuses.filter(s => rskMagicStatusEffects.includes(s)).map(
         s => toEffect(rskMagicStatusEffects.find(s), duration));

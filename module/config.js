@@ -107,7 +107,7 @@ RSK.damageTypes = {
 // perhaps the spell/prayer books should be items/actors?
 // we may have more spell books in the future, like the lunar spell book for lunar spells?
 RSK.standardSpellBook = Object.values(standardSpellBook).reduce((ssb, s) => {
-    ssb[s] = s;
+    ssb[s.id] = s;
     return ssb;
 }, {});
 
