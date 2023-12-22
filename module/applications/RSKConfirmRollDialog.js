@@ -55,15 +55,14 @@ export default class RSKConfirmRollDialog extends Application {
             this.selectedSkill = $("#skill-select").val();
             this.selectedAbility = $("#ability-select").val();
             this.advantageDisadvantage = $("#adv-dadv-select").val();
-            const testNumber = this.context.calculateTestNumber(this.selectedSkill, this.selectedAbility) ?? 3;
+            const targetNumber = this.context.calculateTargetNumber(this.selectedSkill, this.selectedAbility) ?? 3;
             this.resolve({
                 rolled: true,
-                testName: `${this._localizeText(CONFIG.RSK.skills[this.selectedSkill])} | ${this._localizeText(CONFIG.RSK.abilities[this.selectedAbility])}`,
                 rollMode: this.rollMode,
                 rollType: this.advantageDisadvantage,
                 skill: this.selectedSkill,
                 ability: this.selectedAbility,
-                testNumber
+                targetNumber: targetNumber
             });
             this.isResolved = true;
             this.close();

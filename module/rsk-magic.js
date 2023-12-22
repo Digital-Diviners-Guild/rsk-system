@@ -3,7 +3,7 @@
 //  - the other way would be to use activeeffets that are not statuses? is that better?
 // also some of these things like cursed and vulnerable are the same effect to a stronger degree.
 
-import { rskStatusEffects } from "./effects/statuses";
+import { rskStatusEffects } from "./effects/statuses.js";
 
 // does that change anything?
 export const rskMagicStatusEffects = [

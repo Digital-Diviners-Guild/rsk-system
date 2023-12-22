@@ -3,6 +3,7 @@
 // }
 
 import { toMessageContent } from "./rsk-action.js";
+import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 
 export const rskPrayerStatusEffects = [
     {
@@ -240,8 +241,18 @@ export async function usePrayer(actor, prayerId) {
     if (prayerData.id != prayerId
         || !canPray(actor, prayerData.usageCost)) return {};
 
-    const targetNumber = actor.getRollData().calculateTargetNumber("prayer", "intellect");
-    const result = await game.rsk.dice.skillCheck(targetNumber);
+    const rollData = actor.getRollData();
+    const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "prayer", defaultAbility: "intellect" });
+    const rollOptions = await dialog();
+    if (!rollOptions.rolled) return {}
+
+    const result = await actor.useSkill(rollOptions.selectedSkill, rollOptions.selectedAbility);
+    const cost = result.isSuccess
+        ? prayerData.usageCost[0].amount
+        : 1
+    // wonder if this should go into 'useSkill'
+    actor.update({ "system.prayerPoints.value": actor.system.prayerPoints.value - cost });
+
     const actionData = {
         actorId: actor._id, // the actor that initiated, probably want to validate 'apply' is this person or GM.
         actionType: "prayer", // how the usage and outcome should be applied
@@ -249,22 +260,6 @@ export async function usePrayer(actor, prayerId) {
         // and we should have a different button to just chat anyways
         // that way the outcomes can be applied as much as needed without needing to 
         // do anything special to not over apply the 'usage'?
-        usage: {
-            addedEffects: [],
-            removedEffects: [],
-            actorUpdates: {
-                "system.skills.prayer.used": {
-                    operator: "replace",
-                    value: true
-                },
-                "system.prayerPoints.value": {
-                    operator: "subtract",
-                    value: result.isSuccess
-                        ? prayerData.usageCost[0].amount
-                        : 1
-                }
-            }
-        },
         outcome: {
             addedEffects: result.isSuccess ? [getPrayerEffectData(prayerId)] : [],
             removedEffects: [],
@@ -273,10 +268,10 @@ export async function usePrayer(actor, prayerId) {
         }
     }
 
-    //return result?
+    //return result or chat it?
     await result.rollResult.toMessage({
         flavor: `${toMessageContent(prayerData, false)}
-        <p>target number: ${targetNumber}</p>
+        <p>target number: ${rollOptions.targetNumber}</p>
         <p>success: ${result.isSuccess} (${result.margin})</p>
         <p>critical: ${result.isCritical}</p>
         <button class='test'>apply</button>`,
@@ -291,14 +286,7 @@ export async function usePrayer(actor, prayerId) {
 export async function applyPrayer(actionData) {
     const actor = Actor.get(actionData.actorId);
     const target = getTarget(actor);
-    applyUsage(actor, actionData.usage, actionData.actionType);
     applyOutcome(target, actionData.outcome, actionData.actionType);
-}
-
-async function applyUsage(actor, usage, actionType) {
-    if (Object.keys(usage.actorUpdates).length > 0) {
-        actor.update(usage.actorUpdates);
-    }
 }
 
 async function applyOutcome(actor, outcome, actionType) {

@@ -1,7 +1,5 @@
-import RSKSpell from "../../data/items/RSKSpell.js";
-import { toMessageContent, usePrayer } from "../../rsk-prayer.js";
+import { usePrayer } from "../../rsk-prayer.js";
 import RSKActorSheet from "./RSKActorSheet.js";
-
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
