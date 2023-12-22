@@ -2,7 +2,6 @@
 //     return text.replace(/_/g, "").slice(0, 16).padEnd(16, "0");
 // }
 
-import { toMessageContent } from "./rsk-action.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 
 export const rskPrayerStatusEffects = [
@@ -152,7 +151,7 @@ export const rskPrayerStatusEffects = [
     }
 ];
 
-const prayerCost = {
+export const standardPrayerCosts = {
     improved_reflexes: 2,
     incredible_reflexes: 2,
     mystic_lore: 2,
@@ -179,6 +178,10 @@ const prayerCost = {
     ultimate_strength: 2,
 }
 
+// the biggest problem so far, is this doesn't support custom prayers
+// that is probably ok for now until we get things working how we want with standard prayers
+// but, if there is no status effect with the prayer id, should we look at the actors 'prayers'
+// to see if there is custom prayer data?
 export function getPrayerData(prayerId) {
     const prayerStatus = rskPrayerStatusEffects.find(p => p.id === prayerId);
     if (!prayerStatus) return {}; //todo: handle
@@ -189,7 +192,7 @@ export function getPrayerData(prayerId) {
         statuses: [prayerId],
         usageCost: [{
             type: "prayer",
-            amount: prayerCost[prayerId]
+            amount: standardPrayerCosts[prayerId]
         }],
         range: "near",
         target: {
@@ -226,81 +229,67 @@ export function getActivePrayers(actorEffects) {
     return currentPrayers;
 }
 
-function canPray(actor, costData) {
-    if (costData.length < 1) return true;
-    for (const cost of costData) {
-        if (cost.type === "prayer" && actor.system.prayerPoints.value < cost.amount) {
-            return false;
-        }
-    }
-    return true;
-}
-
-export async function usePrayer(actor, prayerId) {
+export async function pray(actor, prayerId) {
     const prayerData = getPrayerData(prayerId);
+    const cost = prayerData.usageCost[0]?.amount ?? 0;
     if (prayerData.id != prayerId
-        || !canPray(actor, prayerData.usageCost)) return {};
+        || !canPray(actor, cost)) return {};
 
-    const rollData = actor.getRollData();
-    const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "prayer", defaultAbility: "intellect" });
-    const rollOptions = await dialog();
-    if (!rollOptions.rolled) return {}
-
-    const result = await actor.useSkill(rollOptions.selectedSkill, rollOptions.selectedAbility);
-    const cost = result.isSuccess
-        ? prayerData.usageCost[0].amount
-        : 1
-    // wonder if this should go into 'useSkill'
-    actor.update({ "system.prayerPoints.value": actor.system.prayerPoints.value - cost });
-
-    const actionData = {
-        actorId: actor._id, // the actor that initiated, probably want to validate 'apply' is this person or GM.
-        actionType: "prayer", // how the usage and outcome should be applied
-        // maybe the usage should be done when we roll?
-        // and we should have a different button to just chat anyways
-        // that way the outcomes can be applied as much as needed without needing to 
-        // do anything special to not over apply the 'usage'?
-        outcome: {
-            addedEffects: result.isSuccess ? [getPrayerEffectData(prayerId)] : [],
-            removedEffects: [],
-            damageEntries: {},
-            actorUpdates: {},
-        }
-    }
+    const result = await usePrayer(actor, cost);
 
     //return result or chat it?
     await result.rollResult.toMessage({
-        flavor: `${toMessageContent(prayerData, false)}
-        <p>target number: ${rollOptions.targetNumber}</p>
+        flavor: `${toMessageContent(prayerData)}
+        <p>target number: ${result.targetNumber}</p>
         <p>success: ${result.isSuccess} (${result.margin})</p>
         <p>critical: ${result.isCritical}</p>
         <button class='test'>apply</button>`,
         flags: {
             rsk: {
-                actionData: actionData
+                outcome: {
+                    actorId: actor._id,
+                    type: "prayer",
+                    addedEffects: result.isSuccess ? [getPrayerEffectData(prayerId)] : [],
+                    removedEffects: [],
+                    damageEntries: {},
+                    actorUpdates: {}
+                }
             }
         }
     });
+    return result;
 }
 
-export async function applyPrayer(actionData) {
-    const actor = Actor.get(actionData.actorId);
+function canPray(actor, prayerPoints) {
+    return actor.system.prayerPoints.value >= prayerPoints;
+}
+
+async function usePrayer(actor, prayerPoints) {
+    const rollData = actor.getRollData();
+    const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "prayer", defaultAbility: "intellect" });
+    const rollOptions = await dialog();
+    if (!rollOptions.rolled) return {}
+
+    const result = await actor.useSkill(rollOptions.skill, rollOptions.ability);
+    const cost = result.isSuccess
+        ? prayerPoints
+        : 1
+    actor.update({ "system.prayerPoints.value": actor.system.prayerPoints.value - cost });
+    return result;
+}
+
+export async function applyPrayer(outcome) {
+    const actor = Actor.get(outcome.actorId);
     const target = getTarget(actor);
-    applyOutcome(target, actionData.outcome, actionData.actionType);
-}
-
-async function applyOutcome(actor, outcome, actionType) {
     if (outcome.addedEffects.length > 0) {
-        if (actionType === "prayer") {
-            await actor.deleteEmbeddedDocuments("ActiveEffect", getActivePrayers(actor.effects))
-        }
-        await actor.createEmbeddedDocuments("ActiveEffect", outcome.addedEffects);
+        await target.deleteEmbeddedDocuments("ActiveEffect", getActivePrayers(target.effects))
+        await target.createEmbeddedDocuments("ActiveEffect", outcome.addedEffects);
     }
     if (outcome.removedEffects.length > 0) {
-        await actor.deleteEmbeddedDocuments("ActiveEffect", outcome.removedEffects);
+        await target.deleteEmbeddedDocuments("ActiveEffect", outcome.removedEffects);
     }
     if (Object.keys(outcome.actorUpdates).length > 0) {
-        actor.update(outcome.actorUpdates);
+        target.update(outcome.actorUpdates);
     }
 }
 
@@ -319,4 +308,9 @@ function getTarget(actor) {
         //}
     }
     return target;
+}
+
+function toMessageContent(actionData) {
+    return `<p>${actionData.label}</p>
+    <p>${actionData.effectDescription}</p>`;
 }

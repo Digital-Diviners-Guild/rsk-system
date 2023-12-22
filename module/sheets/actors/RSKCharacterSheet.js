@@ -1,4 +1,4 @@
-import { usePrayer } from "../../rsk-prayer.js";
+import { useAction } from "../../rsk-action.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
@@ -56,15 +56,21 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
+        // .use-action with data-action-type and data-action-id?
+        // just not sure how melee/ranged/summoning will play out
+        // and this may all change when we want to allow adding custom actions through 'items'
         html.find('.cast-spell').click(ev => {
             const s = $(ev.currentTarget);
-            const spell = this.spells[s.data("spellId")];
-            spell.use(this.actor);
+            const spellId = s.data("spellId");
+            // would this work for custom spells that are not in standardspellbook?
+            // probably not, but we can cross that bridge later
+            useAction(this.actor, { type: "spell", id: spellId });
         });
         html.find('.activate-prayer').click(ev => {
             const s = $(ev.currentTarget);
             const prayerId = s.data("prayerId");
-            usePrayer(this.actor, prayerId);
+            // should we just pass the prayer object?
+            useAction(this.actor, { type: "prayer", id: prayerId });
         });
     }
 }

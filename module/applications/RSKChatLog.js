@@ -1,4 +1,4 @@
-import { applyPrayer } from "../rsk-prayer.js";
+import { applyActionOutcome } from "../rsk-action.js";
 
 export default class RSKChatLog extends ChatLog {
 
@@ -11,6 +11,6 @@ export function onRenderChatMessage(app, html, data) {
             // const prayerId = app.flags.rsk.prayerId;
             // const actor = Actor.get(actorId);
             // temp call to test out action from chat.
-            applyPrayer(app.flags.rsk.actionData);
+            applyActionOutcome(app.flags.rsk.outcome);
         });
 }
