@@ -18,7 +18,7 @@ export async function useAction(actor, action) {
         case "prayer":
             return await pray(actor, action.id);
         case "spell":
-            return await cast(actor, action)
+            return await cast(actor, action.id);
         case "ranged":
         //return await attack(actor, action);
         case "melee":

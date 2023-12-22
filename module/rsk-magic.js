@@ -66,6 +66,7 @@ export const standardSpellBook = [{
     effectDescription: "RSK.Confuse.EffectDescription",
     statuses: ["confuse"], // or should we model the effect instead? 
     // effects: [{name:"", statuses:[], changes: [{"system.damage.modifier": -5}]}]
+    effects: [],
     range: "near",
     target: {
         scope: "enemies",
@@ -91,6 +92,7 @@ export const standardSpellBook = [{
     description: "RSK.WindStrike.Description",
     effectDescription: "RSK.WindStrike.EffectDescription",
     statuses: [],
+    effects: [],
     range: "far",
     target: {
         scope: "enemies",
@@ -122,6 +124,7 @@ export const standardSpellBook = [{
     description: "RSK.CrumbleUndead.Description",
     effectDescription: "RSK.CrumbleUndead.EffectDescription",
     statuses: [], // might actually need to model effects here on the spell data, maybe in addition or instead of statuses? 
+    effects: [],
     qualities: [{
         id: "puncture",
         tier: 4
@@ -165,6 +168,7 @@ export const standardSpellBook = [{
         number: 6
     },
     statuses: [],
+    effects: [],
     usageCost: [
         {
             type: "air",
@@ -217,13 +221,15 @@ function canCast(actor, costData) {
     return true;
 }
 
-export async function cast(actor, spell) {
+export async function cast(actor, spellId) {
     if (!canCast(actor, [])) return {};
     const result = await useSpell(actor, []);
-
+    const spellData = standardSpellBook.find(s => s.id === spellId);
     //todo: flavor
     await result.rollResult.toMessage({
-        flavor: `todo: flavor (spell was cast)
+        flavor: `<p>${spellData.label}</p>
+        <p>${spellData.description}</p>
+        <p>${spellData.effectDescription}</p>
         <p>target number: ${result.targetNumber}</p>
         <p>success: ${result.isSuccess} (${result.margin})</p>
         <p>critical: ${result.isCritical}</p>
@@ -234,12 +240,13 @@ export async function cast(actor, spell) {
         //  maybe non combat, chatting is sufficient? for now it will be
         flags: {
             rsk: {
+                //todo: only map this on success
                 outcome: {
                     actorId: actor._id,
                     type: "spell",
-                    addedEffects: [],
-                    removedEffects: [],
-                    damageEntries: {},
+                    addedEffects: [...getSpellEffectData(spellData)],
+                    removedEffects: [], // todo: how will we configure this?
+                    damageEntries: [...spellData.damageEntries],  // todo: account for things like puncture
                     actorUpdates: {}
                 }
             }
@@ -267,19 +274,20 @@ export async function applySpell(outcome) {
 }
 
 // will the durations need to vary per status ever?
-//  what about not status effects?
 export function getSpellEffectData(spellData, duration = {}) {
-    const spellEffects = spellData.statuses.filter(s => rskMagicStatusEffects.includes(s)).map(
-        s => toEffect(rskMagicStatusEffects.find(s), duration));
-    const spellAddedEffects = spellData.statuses.filter(s => rskStatusEffects.includes(s)).map(
-        s => toEffect(rskStatusEffects.find(s), duration));
-    return [...spellEffects, ...spellAddedEffects];
+    const magicStatusIds = rskMagicStatusEffects.map(s => s.id);
+    const rskStatusIds = rskStatusEffects.map(s => s.id);
+    const spellStatusEffects = spellData.statuses.filter(s => magicStatusIds.includes(s))
+        .map(s => toEffect(rskMagicStatusEffects.find(x => x.id === s), duration));
+    const spellAddedStatusEffects = spellData.statuses.filter(s => rskStatusIds.includes(s))
+        .map(s => toEffect(rskStatusEffects.find(x => x.id === s), duration));
+    return [...spellData.effects, ...spellStatusEffects, ...spellAddedStatusEffects];
 }
 
 function toEffect(status, duration) {
     return {
         name: status.label,
-        icon: status.find(s).icon,
+        icon: status.icon,
         duration: duration,
         statuses: [status.id]
     }
