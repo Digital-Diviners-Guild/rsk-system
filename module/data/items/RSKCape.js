@@ -6,7 +6,7 @@ export default class RSKCape extends foundry.abstract.TypeDataModel {
         return {
             description: new fields.HTMLField(),
             awardedFor: new fields.HTMLField(),
-            ...RSKEquippableType.defineSchema()
+            ...RSKEquippableType.defineSchema(),
         };
     }
 }

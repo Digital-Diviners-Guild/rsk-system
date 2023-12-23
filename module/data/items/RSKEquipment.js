@@ -1,8 +1,7 @@
 import { costField, fields, positiveNumberField } from "./fields.js";
-import RSKAction from "./RSKAction.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 
-export default class RSKEquipment extends RSKEquippableType {
+export default class RSKEquipment extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             description: new fields.HTMLField(),

@@ -1,4 +1,5 @@
 import RSKAction from "./RSKAction.js";
+import RSKStowableType from "./RSKStowableType.js"
 import { fields } from "./fields.js";
 
 export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
@@ -17,7 +18,8 @@ export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
                     isEquipped: new fields.BooleanField(),
                     slot: new fields.StringField({ required: true, initial: "body", choices: [...Object.keys(CONFIG.RSK.armourTypes)] })
                 }
-            )
+            ),
+            ...RSKStowableType.defineSchema()
         };
     }
 }
