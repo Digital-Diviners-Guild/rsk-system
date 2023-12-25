@@ -1,5 +1,5 @@
 import RSKAction from "./RSKAction.js";
-import { fields, positiveNumberField } from "./fields.js";
+import { fields } from "./fields.js";
 
 //is this and rskprayer a sub type of rskaction?
 // or are these more so spelldata and prayerdata that

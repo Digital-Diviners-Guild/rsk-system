@@ -36,7 +36,7 @@ export default class RSKCharacterType extends foundry.abstract.TypeDataModel {
                     modifier: new fields.NumberField({ min: -100, initial: 0, max: 100 }),
                 });
                 return obj;
-            }, {})),
+            }, {}))
         };
     }
 }

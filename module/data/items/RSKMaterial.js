@@ -4,7 +4,7 @@ import RSKStowableType from "./RSKStowableType.js";
 export default class RSKMaterial extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            ...RSKStowableType.defineSchema,
+            ...RSKStowableType.defineSchema(),
             description: new fields.HTMLField(),
             cost: new fields.NumberField({ ...costField })
         }

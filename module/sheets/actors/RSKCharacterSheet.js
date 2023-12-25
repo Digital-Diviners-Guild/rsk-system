@@ -12,6 +12,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         this._prepareSpells(context);
         this._preparePrayers(context);
         this._prepareEquipment(context);
+        this._prepareInventory(context);
         return context;
     }
 
@@ -54,6 +55,10 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         equipped.map((e) => context.worn[e.system.equipped.slot] = e.name);
     }
 
+    _prepareInventory(context) {
+
+    }
+
     activateListeners(html) {
         super.activateListeners(html);
         // .use-action with data-action-type and data-action-id?
@@ -72,5 +77,19 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             // should we just pass the prayer object?
             useAction(this.actor, { type: "prayer", id: prayerId });
         });
+    }
+
+    //inventory rules poc
+    async _onDropItem(event, data) {
+        const item = await Item.fromDropData(data);
+        // how do we want to identify something that can go in the inventory?
+        // maybe a flag on precreate for the item type?
+        //todo: handle heavy quality when we refactor this out
+        if (item.system.hasOwnProperty("slotId")) {
+            await this.actor.addItem(item)
+        }
+        else {
+            await super._onDropItem(event, data);
+        }
     }
 }
