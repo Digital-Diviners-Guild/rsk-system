@@ -216,15 +216,17 @@ export function getSpellData(spellId) {
 function canCast(actor, costData) {
     if (costData.length < 1) return true;
     for (const cost of costData) {
-        //todo: search items for runes
+        const runes = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
+        if (!runes || runes.system.quantity < cost.amount) return false;
     }
     return true;
 }
 
 export async function cast(actor, spellId) {
-    if (!canCast(actor, [])) return {};
-    const result = await useSpell(actor, []);
     const spellData = standardSpellBook.find(s => s.id === spellId);
+    if (!(spellData && canCast(actor, spellData?.usageCost))) return {};
+
+    const result = await useSpell(actor, spellData.usageCost);
     //todo: flavor
     await result.rollResult.toMessage({
         flavor: `<p>${spellData.label}</p>
@@ -263,6 +265,12 @@ async function useSpell(actor, runeCost) {
     if (!rollOptions.rolled) return {}
 
     const result = await actor.useSkill(rollOptions.skill, rollOptions.ability);
+    // what is the cost of fail for magic?
+    if (result.isSuccess) {
+        for (const cost of runeCost) {
+            actor.spendRunes(cost.type, cost.amount);
+        }
+    }
     //todo: deduct runes
     // const cost = {}
     // actor.update({ "system.prayerPoints.value": actor.system.prayerPoints.value - cost });

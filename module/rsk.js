@@ -33,6 +33,7 @@ import RSKMath from "./rsk-math.js";
 import { customizeStatusEffects } from "./effects/statuses.js";
 import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
 import RSKChatLog, { onRenderChatMessage } from "./applications/RSKChatLog.js";
+import RSKRuneType from "./data/items/RSKRune.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -79,7 +80,8 @@ Hooks.once("init", function () {
         equipment: RSKEquipment,
         background: RSKBackgroundType,
         spell: RSKSpell,
-        prayer: RSKPrayer
+        prayer: RSKPrayer,
+        rune: RSKRuneType
     };
     Items.unregisterSheet("core", ItemSheet)
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })

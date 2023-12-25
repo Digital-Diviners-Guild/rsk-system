@@ -19,7 +19,9 @@
             "specialFeature",
             "quality",
             "spell",
-            "prayer"
+            "prayer",
+            "rune",
+            "ammunition"
         ],
         "material": {},
         "resource": {},
@@ -31,6 +33,8 @@
         "specialFeature": {},
         "quality": {},
         "spell": {},
-        "prayer": {}
+        "prayer": {},
+        "rune": {},
+        "ammunition": {}
     }
 }

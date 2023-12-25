@@ -1,0 +1,45 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
+    </header>
+
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab features" data-group="primary" data-tab="description">
+            {{!-- todo: dropdown runetype --}}
+            <div>
+                <h3>{{localize "RSK.RuneType"}}:</h3>
+                <p>
+                    {{system.type}}
+                </p>
+            </div>
+            <div>
+                <h3>{{localize "RSK.Description"}}:</h3>
+                <p>
+                    {{system.description}}
+                </p>
+            </div>
+            <div>
+                <h3>{{localize "RSK.Cost"}}:</h3>
+                <p>
+                    {{system.cost}}
+                </p>
+            </div>
+        </div>
+
+        <div class="tab features" data-group="primary" data-tab="edit">
+            {{!-- editable? --}}
+            <label>{{localize "RSK.RuneType"}}</label>
+            {{!-- todo: dropdown runetype --}}
+            <input name="system.type" type="text" value="{{system.type}}">
+            <label>{{localize "RSK.Cost"}}</label>
+            <input name="system.cost" type="text" value="{{system.cost}}">
+            <label>{{localize "RSK.Description"}}</label>
+            <input name="system.description" type="text" value="{{system.description}}">
+        </div>
+    </section>
+</form>

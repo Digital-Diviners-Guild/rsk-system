@@ -94,10 +94,24 @@ export default class RSKCharacter extends RSKActor {
             .map(b => b.applyBackgroundSkillImprovements(this))
     }
 
+    spendRunes(type, amount) {
+        const rune = this.items.find(i => i.type === "rune" && i.system.type === type);
+        const newAmount = rune.system.quantity - amount;
+        if (newAmount < 1) {
+            this.deleteEmbeddedDocuments("Item", [rune.id]);
+        } else {
+            let update = { _id: rune.id, "system.quantity": newAmount };
+            this.updateEmbeddedDocuments("Item", [update]);
+        }
+    }
+
+    //todo: sort items
+    // do we want to use slotId?
+    // do we want to use container prop?
     addItem(itemToAdd) {
         const inventorySlotsUsed = this.flags.rsk?.inventorySlotsUsed || 0;
         const existingSlot = itemToAdd.system.isAmmo
-            ? this.items.find(i => i.isAmmo && i.flags.core.sourceId === itemToAdd.flags.core.sourceId)
+            ? this.items.find(i => i.system.isAmmo && i.flags.core.sourceId === itemToAdd.flags.core.sourceId)
             : this.items.find(i =>
                 i.flags.core.sourceId === itemToAdd.flags.core.sourceId
                 && i.system.isStackable
@@ -108,7 +122,6 @@ export default class RSKCharacter extends RSKActor {
             this.updateEmbeddedDocuments("Item", [update]);
         } else if (inventorySlotsUsed < this.maxInventorySlots) {
             this.createEmbeddedDocuments("Item", [{ ...itemToAdd.toObject() }]);
-            //todo: 
             this.update({ "flags.rsk.inventorySlotsUsed": inventorySlotsUsed + 1 });
         }
     }
