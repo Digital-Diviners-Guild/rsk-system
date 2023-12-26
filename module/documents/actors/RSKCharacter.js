@@ -59,11 +59,11 @@ export default class RSKCharacter extends RSKActor {
         this.update({ [`system.skills.${skill}.level`]: newSkillLevel });
     }
 
-    async useSkill(skill, attribute) {
+    async useSkill(skill, attribute, rollType = "normal") {
         if (this.system.skills && this.system.skills.hasOwnProperty(skill)) {
             this.update({ [`system.skills.${skill}.used`]: true });
             const targetNumber = this.getRollData().calculateTargetNumber(skill, attribute);
-            const rollResult = await game.rsk.dice.skillCheck(targetNumber);
+            const rollResult = await game.rsk.dice.skillCheck(targetNumber, rollType);
             return { ...rollResult, targetNumber };
         }
     }

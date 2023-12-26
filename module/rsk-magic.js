@@ -2,11 +2,11 @@
 // if we do not use statuses for magic/prayer, how else will we track/show it? this may be a good fit.
 //  - the other way would be to use activeeffets that are not statuses? is that better?
 // also some of these things like cursed and vulnerable are the same effect to a stronger degree.
+// does that change anything?
 
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import { rskStatusEffects } from "./effects/statuses.js";
 
-// does that change anything?
 export const rskMagicStatusEffects = [
     {
         id: "confuse",
@@ -228,7 +228,7 @@ export async function cast(actor, spellId) {
 
     const result = await useSpell(actor, spellData.usageCost);
     //todo: flavor
-    await result.rollResult.toMessage({
+    await result.toMessage({
         flavor: `<p>${spellData.label}</p>
         <p>${spellData.description}</p>
         <p>${spellData.effectDescription}</p>
@@ -271,9 +271,6 @@ async function useSpell(actor, runeCost) {
             actor.spendRunes(cost.type, cost.amount);
         }
     }
-    //todo: deduct runes
-    // const cost = {}
-    // actor.update({ "system.prayerPoints.value": actor.system.prayerPoints.value - cost });
     return result;
 }
 

@@ -20,9 +20,9 @@ export async function useAction(actor, action) {
         case "spell":
             return await cast(actor, action.id);
         case "ranged":
-        //return await attack(actor, action);
+        //return await rangedAttack(actor, action);
         case "melee":
-        //return await shootOrThrow(actor, action);
+        //return await meleeAttack(actor, action);
         default:
             // is there some default handler that could make sense?
             throw `unknown action type: ${action.type}`

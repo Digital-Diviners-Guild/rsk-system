@@ -1,5 +1,4 @@
 import RSKApplyDamageDialog from "../../applications/RSKApplyDamageDialog.js";
-import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 
 export default class RSKActorSheet extends ActorSheet {
   static get defaultOptions() {
@@ -14,7 +13,7 @@ export default class RSKActorSheet extends ActorSheet {
   get template() {
     return `systems/rsk/templates/actors/${this.actor.type}-sheet.hbs`;
   }
-  
+
   getData() {
     const context = super.getData();
     const actorData = this.actor.toObject(false);
@@ -29,22 +28,6 @@ export default class RSKActorSheet extends ActorSheet {
 
   activateListeners(html) {
     super.activateListeners(html);
-    game.rsk.dice.addClickListener(html.find(".roll-check"),
-      async (ev) => {
-        const target = $(ev.currentTarget);
-        const type = target.data("type");
-        const value = target.data("value");
-        const dialogOptions = type === "skill" ? { defaultSkill: value } : { defaultAbility: value };
-        const rollData = this.actor.getRollData();
-        const dialog = RSKConfirmRollDialog.create(rollData, dialogOptions)
-        const rollOptions = await dialog();
-
-        if (rollOptions.rolled) {
-          await game.rsk.dice.handlePlayerRoll(rollOptions);
-          this.actor.useSkill(rollOptions.skill);
-        }
-      });
-
     html.find('.item-edit').click(ev => {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));

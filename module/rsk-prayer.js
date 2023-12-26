@@ -236,13 +236,12 @@ export async function pray(actor, prayerId) {
         || !canPray(actor, cost)) return {};
 
     const result = await usePrayer(actor, cost);
-
     //return result or chat it?
+    // the chat needs to be in a template or reusable function
+    // we will need this flavor for all actions
     await result.rollResult.toMessage({
         flavor: `${toMessageContent(prayerData)}
-        <p>target number: ${result.targetNumber}</p>
-        <p>success: ${result.isSuccess} (${result.margin})</p>
-        <p>critical: ${result.isCritical}</p>
+        <p>TN: ${result.targetNumber} | ${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>
         <button class='test'>apply</button>`,
         flags: {
             rsk: {
@@ -278,6 +277,8 @@ async function usePrayer(actor, prayerPoints) {
     return result;
 }
 
+// could probably utilize some methods on the character actor
+// like activate prayer which can encapsulate the toggle
 export async function applyPrayer(outcome) {
     const actor = Actor.get(outcome.actorId);
     const target = getTarget(actor);

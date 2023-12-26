@@ -118,10 +118,7 @@ Hooks.once("ready", function () {
     RSKDice.addClickListener($("i.fa-dice-d20"), async (ev) => {
         const currentCharacter = game.users?.current?.character;
         if (currentCharacter) {
-            const rollData = currentCharacter.getRollData();
-            const dialog = RSKConfirmRollDialog.create(rollData, options)
-            const rollOptions = await dialog();
-            RSKDice.handlePlayerRoll(rollOptions);
+            await currentCharacter.sheet.handleSkillCheck();
         } else {
             RSKDice.handleBasicRoll();
         }

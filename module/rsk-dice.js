@@ -5,19 +5,6 @@ export default class RSKDice {
         });
     }
 
-    static handlePlayerRoll = async (options = {}) => {
-        const rollResult = await RSKDice.roll(options.rollType)
-        const rollTotal = Number(rollResult.total);
-        const targetNumber = Number(options.targetNumber);
-        const isSuccess = rollTotal <= targetNumber;
-        const margin = targetNumber - rollTotal;
-        const flavor = `<strong>${options.testName}</strong> TN: ${options.targetNumber}
-            <p>${rollResult.isCritical ? "<em>critical</em>" : ""} ${isSuccess ? "success" : "fail"} (${margin})</p> 
-            ${isSuccess && options.successMessage ? options.successMessage : ''}`
-        await rollResult.toMessage({ flavor }, { rollMode: options.rollMode });
-        return isSuccess;
-    }
-
     static skillCheck = async (targetNumber, rollType = "normal") => {
         const rollResult = await RSKDice.roll(rollType);
         const rollTotal = rollResult.total;
@@ -27,7 +14,7 @@ export default class RSKDice {
             isSuccess,
             isCritical: rollResult.isCritical,
             margin,
-            rollResult: rollResult.rollResult
+            rollResult: rollResult
         }
     }
 
@@ -46,6 +33,6 @@ export default class RSKDice {
         const result = await r.evaluate();
         const results = result.terms[0].results;
         const isCritical = results.every(v => v.result === results[0].result);
-        return { isCritical, total: result.result, results, toMessage: (opt, cfg) => r.toMessage(opt, cfg), rollResult: result }
+        return { isCritical, total: result.result, results, result: result, toMessage: (opt, cfg) => r.toMessage(opt, cfg) }
     }
 }
