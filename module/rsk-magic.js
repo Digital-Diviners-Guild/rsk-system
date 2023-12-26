@@ -228,7 +228,7 @@ export async function cast(actor, spellId) {
 
     const result = await useSpell(actor, spellData.usageCost);
     //todo: flavor
-    await result.toMessage({
+    await result.rollResult.toMessage({
         flavor: `<p>${spellData.label}</p>
         <p>${spellData.description}</p>
         <p>${spellData.effectDescription}</p>
