@@ -11,6 +11,7 @@ export default class RSKActor extends Actor {
     this.system.lifePoints.value = game.rsk.math.clamp_value(this.system.lifePoints.value, this.system.lifePoints);
   }
 
+  // rename this to apply outcome?
   receiveDamage(amount) {
     const damageAfterSoak = this._applyArmourSoak(amount);
     const damageAfterSoakAndModifiers = this._applyIncomingDamageModifiers(damageAfterSoak);

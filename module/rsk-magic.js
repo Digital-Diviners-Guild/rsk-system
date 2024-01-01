@@ -124,7 +124,9 @@ export const standardSpellBook = [{
     description: "RSK.CrumbleUndead.Description",
     effectDescription: "RSK.CrumbleUndead.EffectDescription",
     statuses: [], // might actually need to model effects here on the spell data, maybe in addition or instead of statuses? 
+    // statuses: {added: [], removed: []} ?
     effects: [],
+    // effects: {added: [], removed: []} ?
     qualities: [{
         id: "puncture",
         tier: 4

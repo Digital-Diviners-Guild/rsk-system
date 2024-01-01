@@ -7,15 +7,6 @@ export default class RSKCharacter extends RSKActor {
     maxSkillLevel = 10;
     maxInventorySlots = 28;
 
-    _clampActorValues() {
-        super._clampActorValues();
-        for (let skill in this.system.skills) {
-            this.system.skills[skill].level = game.rsk.math.clamp_value(
-                this.system.skills[skill].level,
-                { min: this.minSkillLevel, max: this.maxSkillLevel });
-        }
-    }
-
     prepareBaseData() {
         super.prepareBaseData();
 
@@ -68,27 +59,6 @@ export default class RSKCharacter extends RSKActor {
         }
     }
 
-    //temp: will change when tanner is done with inventory
-    equip(item) {
-        const currentEquipped = this.items.filter(i => i.isEquipped
-            && i.inSlot === item.inSlot);
-        if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
-            currentEquipped[0].equip();
-        }
-        item.equip();
-    }
-
-    // todo: armour soak may be good to put in 
-    // one of the prepare data methods and displayed somewhere on the char
-    // sheet, to give feedback about the current soak values based on 
-    // the current character/equipment.
-    _getArmourSoakValue() {
-        return this.items
-            .filter(i => i.isEquipped)
-            .reduce((acc, w, i) => acc +=
-                typeof w.getArmourValue === "function" ? w.getArmourValue() : 0, 0)
-    }
-
     applyBackgrounds() {
         this.items.filter(i => i.type === "background")
             .map(b => b.applyBackgroundSkillImprovements(this))
@@ -124,6 +94,36 @@ export default class RSKCharacter extends RSKActor {
             this.createEmbeddedDocuments("Item", [{ ...itemToAdd.toObject() }]);
             this.update({ "flags.rsk.inventorySlotsUsed": inventorySlotsUsed + 1 });
         }
+    }
+
+    //temp: will change when tanner is done with inventory
+    equip(item) {
+        const currentEquipped = this.items.filter(i => i.isEquipped
+            && i.inSlot === item.inSlot);
+        if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
+            currentEquipped[0].equip();
+        }
+        item.equip();
+    }
+
+    _clampActorValues() {
+        super._clampActorValues();
+        for (let skill in this.system.skills) {
+            this.system.skills[skill].level = game.rsk.math.clamp_value(
+                this.system.skills[skill].level,
+                { min: this.minSkillLevel, max: this.maxSkillLevel });
+        }
+    }
+
+    // todo: armour soak may be good to put in 
+    // one of the prepare data methods and displayed somewhere on the char
+    // sheet, to give feedback about the current soak values based on 
+    // the current character/equipment.
+    _getArmourSoakValue() {
+        return this.items
+            .filter(i => i.isEquipped)
+            .reduce((acc, w, i) => acc +=
+                typeof w.getArmourValue === "function" ? w.getArmourValue() : 0, 0)
     }
 
     _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {
