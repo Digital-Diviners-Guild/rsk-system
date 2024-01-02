@@ -26,7 +26,7 @@ export default class RSKAction extends foundry.abstract.DataModel {
             })),
             // could be all friendlies, enemies, all, maybe even more specific like undead
             // could be self, single, multi
-            targets: new ArrayField(new fields.SchemaField({
+            targets: new fields.ArrayField(new fields.SchemaField({
                 range: new fields.StringField(),
                 type: new fields.StringField(),
                 scope: new fields.StringField(),

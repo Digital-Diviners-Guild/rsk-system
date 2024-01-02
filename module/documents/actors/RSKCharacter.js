@@ -128,7 +128,7 @@ export default class RSKCharacter extends RSKActor {
 
     _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {
         //todo: better way to identify items that can be in inventory
-        const inventorySlotsReclaimed = documents.filter(d => d.system.hasOwnProperty("slotId")).length;
+        const inventorySlotsReclaimed = documents.filter(d => d.system && d.system.hasOwnProperty("slotId")).length;
         this.update({ "flags.rsk.inventorySlotsUsed": this.flags.rsk.inventorySlotsUsed - inventorySlotsReclaimed });
         super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
     }

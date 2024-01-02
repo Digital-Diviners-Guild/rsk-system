@@ -1,3 +1,5 @@
+import { rskStatusEffects } from "../../effects/statuses.js";
+
 export default class RSKActor extends Actor {
   prepareData() {
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
@@ -12,15 +14,26 @@ export default class RSKActor extends Actor {
   }
 
   // rename this to apply outcome?
-  receiveDamage(amount) {
+  async receiveDamage(amount) {
     const damageAfterSoak = this._applyArmourSoak(amount);
     const damageAfterSoakAndModifiers = this._applyIncomingDamageModifiers(damageAfterSoak);
     let remainingLifePoints = { ...this.system.lifePoints };
     remainingLifePoints.value = game.rsk.math.clamp_value(
       this.system.lifePoints.value - damageAfterSoakAndModifiers,
       { min: 0 });
+    if (remainingLifePoints.value < 1 && !this.statuses.has("dead")) {
+      const death = rskStatusEffects.find(x => x.id === "dead");
+      await this.createEmbeddedDocuments("ActiveEffect", [{
+        name: death.label,
+        icon: death.icon,
+        statuses: [death.id],
+        changes: [...death.changes]
+      }]);
+    }
     this.update({ "system.lifePoints": remainingLifePoints });
   }
+
+
 
   _applyIncomingDamageModifiers(damage) {
     //todo: apply modifiers
