@@ -3,6 +3,7 @@
 // }
 
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
+import { statusToEffect } from "./effects/statuses.js";
 import { getTarget } from "./rsk-targetting.js";
 
 export const rskPrayerStatusEffects = [
@@ -208,13 +209,7 @@ export function getPrayerEffectData(prayerId, duration = {}) {
     const prayerStatus = rskPrayerStatusEffects.find(p => p.id === prayerId);
     if (!prayerId) return {}; //todo: handle
 
-    return {
-        name: prayerStatus.label,
-        icon: prayerStatus.icon,
-        duration: duration,
-        // origin: actor.uuid,
-        statuses: [prayerId]
-    }
+    return statusToEffect(prayerStatus, duration);
 }
 
 export function getActivePrayers(actorEffects) {
@@ -245,16 +240,16 @@ export async function pray(actor, prayerId) {
         <p>TN: ${result.targetNumber} | ${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>
         <button class='test'>apply</button>`,
         flags: {
-            rsk: {
+            rsk: result.isSuccess ? {
                 outcome: {
                     actorId: actor._id,
                     type: "prayer",
-                    addedEffects: result.isSuccess ? [getPrayerEffectData(prayerId)] : [],
+                    addedEffects: [getPrayerEffectData(prayerId)],
                     removedEffects: [],
                     damageEntries: {},
                     actorUpdates: {}
                 }
-            }
+            } : {}
         }
     });
     return result;

@@ -230,31 +230,25 @@ export async function cast(actor, spellId) {
     if (!(spellData && canCast(actor, spellData?.usageCost))) return {};
 
     const result = await useSpell(actor, spellData.usageCost);
-    //todo: flavor
+    //todo: outcome
+    // how will this apply to non combat spells?
+    // is type spell sufficient?
+    //  maybe non combat, chatting is sufficient? for now it will be
     await result.rollResult.toMessage({
-        flavor: `<p>${spellData.label}</p>
-        <p>${spellData.description}</p>
-        <p>${spellData.effectDescription}</p>
-        <p>target number: ${result.targetNumber}</p>
-        <p>success: ${result.isSuccess} (${result.margin})</p>
-        <p>critical: ${result.isCritical}</p>
+        flavor: `${toMessageContent(prayerData)}
+        <p>TN: ${result.targetNumber} | ${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>
         <button class='test'>apply</button>`,
-        //todo: outcome
-        // how will this apply to non combat spells?
-        // is type spell sufficient?
-        //  maybe non combat, chatting is sufficient? for now it will be
         flags: {
-            rsk: {
-                //todo: only map this on success
+            rsk: result.isSuccess ? {
                 outcome: {
                     actorId: actor._id,
                     type: "spell",
-                    addedEffects: [...getSpellEffectData(spellData)],
+                    addedEffects: [...getSpellEffectData(prayerId)],
                     removedEffects: [], // todo: how will we configure this?
-                    damageEntries: [...spellData.damageEntries],  // todo: account for things like puncture
+                    damageEntries: [...spellData.damageEntries], // todo: account for things like puncture
                     actorUpdates: {}
                 }
-            }
+            } : {}
         }
     });
     return result;
