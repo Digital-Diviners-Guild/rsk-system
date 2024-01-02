@@ -1,0 +1,13 @@
+<p>{{label}}</p>
+{{#if description}}
+<p>{{description}}</p>
+{{/if}}
+{{#if effectDescription}}
+<p>{{effectDescription}}</p>
+{{/if}}
+{{!-- todo: localize --}}
+<p>
+    TN: {{targetNumber}} | {{#if isCritical}}<em>critical</em>{{/if}} {{#if isSuccess}} success {{else}} fail{{/if}}
+    ({{margin}})
+</p>
+<button class='test'>apply</button>

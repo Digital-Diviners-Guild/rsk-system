@@ -234,10 +234,13 @@ export async function cast(actor, spellId) {
     // how will this apply to non combat spells?
     // is type spell sufficient?
     //  maybe non combat, chatting is sufficient? for now it will be
+    const flavor = await renderTemplate("systems/rsk/templates/applications/outcome-message.hbs",
+        {
+            ...spellData,
+            ...result
+        });
     await result.rollResult.toMessage({
-        flavor: `${toMessageContent(prayerData)}
-        <p>TN: ${result.targetNumber} | ${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>
-        <button class='test'>apply</button>`,
+        flavor: flavor,
         flags: {
             rsk: result.isSuccess ? {
                 outcome: {

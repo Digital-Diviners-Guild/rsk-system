@@ -232,13 +232,14 @@ export async function pray(actor, prayerId) {
         || !canPray(actor, cost)) return {};
 
     const result = await usePrayer(actor, cost);
-    //return result or chat it?
-    // the chat needs to be in a template or reusable function
-    // we will need this flavor for all actions
+    const flavor = await renderTemplate("systems/rsk/templates/applications/outcome-message.hbs",
+        {
+            ...prayerData,
+            ...result
+        });
+    // how do we use our template?
     await result.rollResult.toMessage({
-        flavor: `${toMessageContent(prayerData)}
-        <p>TN: ${result.targetNumber} | ${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>
-        <button class='test'>apply</button>`,
+        flavor: flavor,
         flags: {
             rsk: result.isSuccess ? {
                 outcome: {
@@ -284,9 +285,4 @@ export async function applyPrayer(outcome) {
     if (Object.keys(outcome.actorUpdates).length > 0) {
         target.update(outcome.actorUpdates);
     }
-}
-
-function toMessageContent(actionData) {
-    return `<p>${actionData.label}</p>
-    <p>${actionData.effectDescription}</p>`;
 }
