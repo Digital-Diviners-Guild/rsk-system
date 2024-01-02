@@ -1,6 +1,14 @@
-import { rskStatusEffects } from "../../effects/statuses.js";
+import { rskStatusEffects, statusToEffect } from "../../effects/statuses.js";
 
 export default class RSKActor extends Actor {
+  get isDead() {
+    return this.system.lifePoints.value < 1;
+  }
+
+  get isAlive() {
+    return this.system.lifePoints.value > 0;
+  }
+
   prepareData() {
     // prepareBaseData(), prepareEmbeddedDocuments() (including active effects),
     // prepareDerivedData().
@@ -14,8 +22,9 @@ export default class RSKActor extends Actor {
   }
 
   // rename this to apply outcome?
-  async receiveDamage(amount) {
-    const damageAfterSoak = this._applyArmourSoak(amount);
+  // - damage by type: slash, stab, crush, air, fire, poison, etc...
+  async receiveDamage(damageEntry) {
+    const damageAfterSoak = this._applyArmourSoak(damageEntry.amount);
     const damageAfterSoakAndModifiers = this._applyIncomingDamageModifiers(damageAfterSoak);
     let remainingLifePoints = { ...this.system.lifePoints };
     remainingLifePoints.value = game.rsk.math.clamp_value(
@@ -23,17 +32,10 @@ export default class RSKActor extends Actor {
       { min: 0 });
     if (remainingLifePoints.value < 1 && !this.statuses.has("dead")) {
       const death = rskStatusEffects.find(x => x.id === "dead");
-      await this.createEmbeddedDocuments("ActiveEffect", [{
-        name: death.label,
-        icon: death.icon,
-        statuses: [death.id],
-        changes: [...death.changes]
-      }]);
+      await this.createEmbeddedDocuments("ActiveEffect", [statusToEffect(death)]);
     }
     this.update({ "system.lifePoints": remainingLifePoints });
   }
-
-
 
   _applyIncomingDamageModifiers(damage) {
     //todo: apply modifiers

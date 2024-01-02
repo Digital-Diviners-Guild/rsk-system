@@ -5,7 +5,8 @@
 // does that change anything?
 
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
-import { rskStatusEffects } from "./effects/statuses.js";
+import { rskStatusEffects, statusToEffect } from "./effects/statuses.js";
+import { getTarget } from "./rsk-targetting.js";
 
 export const rskMagicStatusEffects = [
     {
@@ -172,34 +173,34 @@ export const standardSpellBook = [{
     statuses: [],
     effects: [],
     usageCost: [
-        {
-            type: "air",
-            amount: 1
-        },
-        {
-            type: "mind",
-            amount: 1
-        },
-        {
-            type: "earth",
-            amount: 1
-        },
-        {
-            type: "body",
-            amount: 1
-        },
-        {
-            type: "cosmic",
-            amount: 1
-        },
-        {
-            type: "water",
-            amount: 1
-        },
-        {
-            type: "fire",
-            amount: 1
-        },
+        // {
+        //     type: "air",
+        //     amount: 1
+        // },
+        // {
+        //     type: "mind",
+        //     amount: 1
+        // },
+        // {
+        //     type: "earth",
+        //     amount: 1
+        // },
+        // {
+        //     type: "body",
+        //     amount: 1
+        // },
+        // {
+        //     type: "cosmic",
+        //     amount: 1
+        // },
+        // {
+        //     type: "water",
+        //     amount: 1
+        // },
+        // {
+        //     type: "fire",
+        //     amount: 1
+        // },
         {
             type: "law",
             amount: 1
@@ -259,7 +260,6 @@ export async function cast(actor, spellId) {
     return result;
 }
 
-
 async function useSpell(actor, runeCost) {
     const rollData = actor.getRollData();
     const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "magic", defaultAbility: "intellect" });
@@ -267,7 +267,6 @@ async function useSpell(actor, runeCost) {
     if (!rollOptions.rolled) return {}
 
     const result = await actor.useSkill(rollOptions.skill, rollOptions.ability);
-    // what is the cost of fail for magic?
     if (result.isSuccess) {
         for (const cost of runeCost) {
             actor.spendRunes(cost.type, cost.amount);
@@ -277,7 +276,20 @@ async function useSpell(actor, runeCost) {
 }
 
 export async function applySpell(outcome) {
-    console.log(outcome);
+    const actor = Actor.get(outcome.actorId);
+    const target = getTarget(actor);
+    for (let damage of outcome.damageEntries) {
+        await target.receiveDamage(damage);
+    }
+    if (target.isDead) {
+        return;
+    }
+
+    await target.createEmbeddedDocuments("ActiveEffect", outcome.addedEffects);
+    await target.deleteEmbeddedDocuments("ActiveEffect", outcome.removedEffects);
+    if (Object.keys(outcome.actorUpdates).length > 0) {
+        target.update(outcome.actorUpdates);
+    }
 }
 
 // will the durations need to vary per status ever?
@@ -285,17 +297,8 @@ export function getSpellEffectData(spellData, duration = {}) {
     const magicStatusIds = rskMagicStatusEffects.map(s => s.id);
     const rskStatusIds = rskStatusEffects.map(s => s.id);
     const spellStatusEffects = spellData.statuses.filter(s => magicStatusIds.includes(s))
-        .map(s => toEffect(rskMagicStatusEffects.find(x => x.id === s), duration));
+        .map(s => statusToEffect(rskMagicStatusEffects.find(x => x.id === s), duration));
     const spellAddedStatusEffects = spellData.statuses.filter(s => rskStatusIds.includes(s))
-        .map(s => toEffect(rskStatusEffects.find(x => x.id === s), duration));
+        .map(s => statusToEffect(rskStatusEffects.find(x => x.id === s), duration));
     return [...spellData.effects, ...spellStatusEffects, ...spellAddedStatusEffects];
-}
-
-function toEffect(status, duration) {
-    return {
-        name: status.label,
-        icon: status.icon,
-        duration: duration,
-        statuses: [status.id]
-    }
 }

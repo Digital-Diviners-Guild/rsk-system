@@ -3,6 +3,7 @@
 // }
 
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
+import { getTarget } from "./rsk-targetting.js";
 
 export const rskPrayerStatusEffects = [
     {
@@ -282,33 +283,12 @@ async function usePrayer(actor, prayerPoints) {
 export async function applyPrayer(outcome) {
     const actor = Actor.get(outcome.actorId);
     const target = getTarget(actor);
-    if (outcome.addedEffects.length > 0) {
-        await target.deleteEmbeddedDocuments("ActiveEffect", getActivePrayers(target.effects))
-        await target.createEmbeddedDocuments("ActiveEffect", outcome.addedEffects);
-    }
-    if (outcome.removedEffects.length > 0) {
-        await target.deleteEmbeddedDocuments("ActiveEffect", outcome.removedEffects);
-    }
+    await target.deleteEmbeddedDocuments("ActiveEffect", getActivePrayers(target.effects))
+    await target.createEmbeddedDocuments("ActiveEffect", outcome.addedEffects);
+    await target.deleteEmbeddedDocuments("ActiveEffect", outcome.removedEffects);
     if (Object.keys(outcome.actorUpdates).length > 0) {
         target.update(outcome.actorUpdates);
     }
-}
-
-function getTarget(actor) {
-    const targets = game.users.current.targets;
-    let target = actor;
-
-    for (const t of targets) {
-        //--- should we default to self target, or throw since we cannot do what they wanted?
-        //if we go with the updated outcome that doesn't yet have targets assigned, then this logic
-        //would need to be where ever we are handling the outcome.
-        //though, how does this work for usage? we don't want to take the resources if no targets where in range
-        //maybe we can just have an outcome undo and the player should be aware of if they have a target in range or not?
-        //if (isInRange(actor.sheet.token, t, range)) {
-        target = t.actor;
-        //}
-    }
-    return target;
 }
 
 function toMessageContent(actionData) {

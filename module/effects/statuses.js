@@ -73,3 +73,12 @@ export const rskStatusEffects = [
         changes: []
     },
 ];
+
+export function statusToEffect(status, duration) {
+    return {
+        name: status.label,
+        icon: status.icon,
+        duration: duration,
+        statuses: [status.id]
+    }
+}
