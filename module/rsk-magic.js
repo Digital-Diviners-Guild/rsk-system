@@ -246,7 +246,7 @@ export async function cast(actor, spellId) {
                 outcome: {
                     actorId: actor._id,
                     type: "spell",
-                    addedEffects: [...getSpellEffectData(prayerId)],
+                    addedEffects: [...getSpellEffectData(spellData)],
                     removedEffects: [], // todo: how will we configure this?
                     damageEntries: [...spellData.damageEntries], // todo: account for things like puncture
                     actorUpdates: {}
