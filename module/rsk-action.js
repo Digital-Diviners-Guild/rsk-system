@@ -1,13 +1,6 @@
 import { applyPrayer, pray } from "./rsk-prayer.js";
 import { applySpell, cast } from "./rsk-magic.js";
 
-export function toUsableMessageContent(actionData) {
-    return `<p>${actionData.label}</p>
-    <p>${actionData.description}</p>
-    <p>${actionData.effectDescription}</p>
-    ${includeUseButton ? "<button class='test' type='button'>use</button>" : ""}`;
-}
-
 // if we were to go this route, what 
 // exactly is an 'action'?  and how do we support things like 'block' that comes from a quality?
 // does that need to be handled here?

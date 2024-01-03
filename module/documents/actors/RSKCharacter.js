@@ -96,7 +96,6 @@ export default class RSKCharacter extends RSKActor {
         }
     }
 
-    //temp: will change when tanner is done with inventory
     equip(item) {
         const currentEquipped = this.items.filter(i => i.isEquipped
             && i.inSlot === item.inSlot);

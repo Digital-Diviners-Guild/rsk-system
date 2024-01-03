@@ -237,7 +237,6 @@ export async function pray(actor, prayerId) {
             ...prayerData,
             ...result
         });
-    // how do we use our template?
     await result.rollResult.toMessage({
         flavor: flavor,
         flags: {
