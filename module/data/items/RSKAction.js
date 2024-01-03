@@ -38,48 +38,4 @@ export default class RSKAction extends foundry.abstract.DataModel {
             effects: new fields.ArrayField(new fields.ObjectField()),
         };
     }
-
-    canUse(actor) {
-        return false;
-    }
-
-    use(actor) {
-        // first check can use
-        // how do we want to handle just chatting the action?
-        // chat anyways when can't use but with no apply button?
-        // or have a separate button for chatting
-        if (!this.canUse(actor)) return;
-
-        // then create outcomes.  this is an in memory list of things to apply
-
-        // send message to chat with this object
-        this.toMessage(actor)
-    }
-
-    confirm() {
-        // when confirmed through dialog, use outcomes from 'use' to determine damage/effects
-        // here is where we would call the 'receiveDamage' which we should rename to applyOutcomes
-        // as it can be more than just damage.
-    }
-
-    async toMessage(actor, options = {}) {
-        const actionData = {
-            actor: actor.uuid,
-            action: this.id,
-            // would outcomes just live here and then
-            // you can use the chat to commit them?
-            outcomes: [],
-        };
-        const content = `${actor.name} is using ${this.label}: \n${this.effectDescription}`;
-        const messageData = {
-            type: CONST.CHAT_MESSAGE_TYPES["OTHER"], //CONST.CHAT_MESSAGE_TYPES[rolls.length > 0 ? "ROLL" : "OTHER"],
-            content: content,
-            speaker: ChatMessage.getSpeaker({ actor: actor }),
-            //rolls: rolls,
-            flags: {
-                rsk: actionData
-            }
-        }
-        ChatMessage.create(messageData, options);
-    }
 }
