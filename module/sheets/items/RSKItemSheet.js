@@ -93,7 +93,9 @@ export default class RSKItemSheet extends ItemSheet {
         if (!droppedItem) return;
 
         const droppedEffects = droppedItem.effects.map(e => {
-            let eObj = e.toObject(); delete eObj._id; return eObj;
+            let eObj = e.toObject();
+            delete eObj._id;
+            return eObj;
         });
         this.item.createEmbeddedDocuments("ActiveEffect", [...droppedEffects]);
 

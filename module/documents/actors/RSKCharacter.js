@@ -38,14 +38,14 @@ export default class RSKCharacter extends RSKActor {
 
     increaseSkillLevel(skill, amount) {
         //todo: if this is now >= 5 award ability level
-        this.actorUpdateskillLevel(skill, this.system.skills[skill].level + amount);
+        this.actorUpdateSkillLevel(skill, this.system.skills[skill].level + amount);
     }
 
     decreaseSkillLevel(skill, amount) {
-        this.actorUpdateskillLevel(skill, this.system.skills[skill].level - amount);
+        this.actorUpdateSkillLevel(skill, this.system.skills[skill].level - amount);
     }
 
-    actorUpdateskillLevel(skill, newLevel) {
+    actorUpdateSkillLevel(skill, newLevel) {
         const newSkillLevel = game.rsk.math.clamp_value(newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
         this.update({ [`system.skills.${skill}.level`]: newSkillLevel });
     }

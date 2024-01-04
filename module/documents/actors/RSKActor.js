@@ -23,8 +23,15 @@ export default class RSKActor extends Actor {
 
   // rename this to apply outcome?
   // - damage by type: slash, stab, crush, air, fire, poison, etc...
-  async receiveDamage(damageEntry) {
-    const damageAfterSoak = this._applyArmourSoak(damageEntry.amount);
+  async receiveDamage(damageEntry) { return await applyOutcome(damageEntry); }
+  async applyOutcome(outcome) {
+    //todo: how to communicate damage by type, and the puncture assotiated with the outcome
+    // potentially a weakness to air could be implemented by adding 2 puncture to air attacks?
+    const puncture = Object.keys(outcome.damageEntries).reduce((punctureAmount, damageType) =>
+      damageType === "something were weak too"
+        ? punctureAmount + 0 // + amount were weak to it
+        : punctureAmount, Number(outcome.puncture));
+    const damageAfterSoak = this._applyArmourSoak(damageAmount, puncture);
     const damageAfterSoakAndModifiers = this._applyIncomingDamageModifiers(damageAfterSoak);
     let remainingLifePoints = { ...this.system.lifePoints };
     remainingLifePoints.value = game.rsk.math.clamp_value(
@@ -42,9 +49,10 @@ export default class RSKActor extends Actor {
     return damage;
   }
 
-  _applyArmourSoak(damage) {
+  _applyArmourSoak(damage, puncture = 0) {
     let armourValue = this._getArmourSoakValue();
-    return game.rsk.math.clamp_value(damage - armourValue, { min: 0 });
+    const applicablePuncture = game.rsk.math.clamp_value(puncture, { min: 0, max: armourValue });
+    return game.rsk.math.clamp_value(damage - applicablePuncture, { min: 0 });
   }
 
   // todo: these two methods for calculating armour soak may be good to put in 
