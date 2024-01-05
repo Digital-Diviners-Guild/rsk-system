@@ -85,7 +85,7 @@ export const standardSpellBook = [{
         type: "body",
         amount: 1
     }],
-    damageEntries: []
+    damageEntries: {}
 }, {
     id: "windstrike",
     type: "combat",
@@ -107,17 +107,10 @@ export const standardSpellBook = [{
         type: "mind",
         amount: 1
     }],
-    damageEntries: [{
-        type: "air",
-        amount: 2
-    }]
+    damageEntries: {
+        air: 2
+    }
 },
-// this is an interesting spell
-// it can only affect 'undead'
-// it can attack two enemies at far range
-// but only one enemy at distant range
-// how do we want to change range/target to be able to handle this?
-// one option would be to have a 2nd version of crumble undead that is for distant?
 {
     id: "crumble_undead",
     type: "combat",
@@ -132,7 +125,6 @@ export const standardSpellBook = [{
         id: "puncture",
         tier: 4
     }],
-    // this would be another option for how to handle the range variability
     target: [{
         range: "far",
         scope: "enemies",
@@ -155,10 +147,9 @@ export const standardSpellBook = [{
         type: "chaos",
         amount: 1
     }],
-    damageEntries: [{
-        type: "earth",
-        amount: 10
-    }]
+    damageEntries: {
+        earth: 10
+    }
 }, {
     id: "teleport",
     type: "teleport",
@@ -205,7 +196,7 @@ export const standardSpellBook = [{
             type: "law",
             amount: 1
         }],
-    damageEntries: []
+    damageEntries: {}
 }];
 
 export function getSpellData(spellId) {
@@ -248,7 +239,7 @@ export async function cast(actor, spellId) {
                     type: "spell",
                     addedEffects: [...getSpellEffectData(spellData)],
                     removedEffects: [], // todo: how will we configure this?
-                    damageEntries: [...spellData.damageEntries], // todo: account for things like puncture
+                    damageEntries: { ...spellData.damageEntries }, // todo: account for things like puncture
                     actorUpdates: {}
                 }
             } : {}
@@ -275,18 +266,7 @@ async function useSpell(actor, runeCost) {
 export async function applySpell(outcome) {
     const actor = Actor.get(outcome.actorId);
     const target = getTarget(actor);
-    for (let damage of outcome.damageEntries) {
-        await target.receiveDamage(damage);
-    }
-    if (target.isDead) {
-        return;
-    }
-
-    await target.createEmbeddedDocuments("ActiveEffect", outcome.addedEffects);
-    await target.deleteEmbeddedDocuments("ActiveEffect", outcome.removedEffects);
-    if (Object.keys(outcome.actorUpdates).length > 0) {
-        target.update(outcome.actorUpdates);
-    }
+    await target.applyOutcome(outcome);
 }
 
 // will the durations need to vary per status ever?

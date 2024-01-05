@@ -212,19 +212,6 @@ export function getPrayerEffectData(prayerId, duration = {}) {
     return statusToEffect(prayerStatus, duration);
 }
 
-export function getActivePrayers(actorEffects) {
-    const prayerStatuses = rskPrayerStatusEffects.map(se => se.id);
-    const currentPrayers = [];
-    for (const effect of actorEffects) {
-        for (const status of effect.statuses) {
-            if (prayerStatuses.includes(status)) {
-                currentPrayers.push(effect._id);
-            }
-        }
-    }
-    return currentPrayers;
-}
-
 export async function pray(actor, prayerId) {
     const prayerData = getPrayerData(prayerId);
     const cost = prayerData.usageCost[0]?.amount ?? 0;
@@ -273,15 +260,23 @@ async function usePrayer(actor, prayerPoints) {
     return result;
 }
 
-// could probably utilize some methods on the character actor
-// like activate prayer which can encapsulate the toggle
 export async function applyPrayer(outcome) {
     const actor = Actor.get(outcome.actorId);
     const target = getTarget(actor);
-    await target.deleteEmbeddedDocuments("ActiveEffect", getActivePrayers(target.effects))
-    await target.createEmbeddedDocuments("ActiveEffect", outcome.addedEffects);
-    await target.deleteEmbeddedDocuments("ActiveEffect", outcome.removedEffects);
-    if (Object.keys(outcome.actorUpdates).length > 0) {
-        target.update(outcome.actorUpdates);
+    const outcomeToApply = { ...outcome };
+    outcomeToApply.removedEffects.push(getActivePrayers(target.effects));
+    target.applyOutcome(outcomeToApply);
+}
+
+export function getActivePrayers(actorEffects) {
+    const prayerStatuses = rskPrayerStatusEffects.map(se => se.id);
+    const currentPrayers = [];
+    for (const effect of actorEffects) {
+        for (const status of effect.statuses) {
+            if (prayerStatuses.includes(status)) {
+                currentPrayers.push(effect._id);
+            }
+        }
     }
+    return currentPrayers;
 }
