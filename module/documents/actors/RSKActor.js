@@ -22,20 +22,12 @@ export default class RSKActor extends Actor {
   }
 
   // todo: damage by type: slash, stab, crush, air, fire, poison, etc...
-  // I think the type of damage only matters when determining the armour value
-  // - weakness may add puncture, for example, if something is weak to air, then air attacks get free puncture of some amount.
   async applyOutcome(outcome) {
-    //todo: how to communicate damage by type, and any puncture associated with the outcome
-    // potentially a weakness to x could be implemented by adding puncture to x attacks?
     if (outcome.damageEntries) {
-      const puncture = Object.keys(outcome.damageEntries).reduce((punctureAmount, damageType) =>
-        damageType === "something were weak too"
-          ? punctureAmount + 0 // + amount were weak to it
-          : punctureAmount, Number(outcome.puncture));
-      const damageAfterSoak = this._applyArmourSoak(damageAmount, puncture);
+      const totalDamageTaken = this._calculateDamageTaken(outcome.damageEntries, outcome.puncture);
       let remainingLifePoints = { ...this.system.lifePoints };
       remainingLifePoints.value = game.rsk.math.clamp_value(
-        this.system.lifePoints.value - damageAfterSoak,
+        this.system.lifePoints.value - totalDamageTaken,
         { min: 0 });
       if (remainingLifePoints.value < 1 && !this.statuses.has("dead")) {
         const death = rskStatusEffects.find(x => x.id === "dead");
@@ -52,11 +44,31 @@ export default class RSKActor extends Actor {
     }
   }
 
-  _applyArmourSoak(damage, puncture = 0) {
-    let armourValue = this._getArmourSoakValue();
+  _calculateDamageTaken(damageEntries, puncture = 0) {
+    let totalDamage = 0;
+    for (const type in Object.keys(damageEntries)) {
+      const damage = this._applyArmourSoak(damageEntries[type], type, puncture);
+      totalDamage += damage;
+    }
+    return totalDamage;
+  }
+
+  _applyArmourSoak(damage, damageType, puncture = 0) {
+    let armourValue = this._calculateEffectiveArmourValue(damageType);
     const applicablePuncture = game.rsk.math.clamp_value(puncture, { min: 0, max: armourValue });
     const applicableArmourSoak = armourValue - applicablePuncture;
     return game.rsk.math.clamp_value(damage - applicableArmourSoak, { min: 0 });
+  }
+
+  _calculateEffectiveArmourValue(damageType) {
+    let armourValue = this._getArmourSoakValue();
+    if (damageType === "something were weak to") {
+      return Math.max(0, (armourValue - 0)); // minus weakness value; // can a weakness give you negative armour??
+    }
+    if (damageType === "something were strong to") {
+      return armourValue + 0; // plus stength value;
+    }
+    return armourValue;
   }
 
   // todo: these two methods for calculating armour soak may be good to put in 
