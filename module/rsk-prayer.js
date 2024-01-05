@@ -263,7 +263,7 @@ async function usePrayer(actor, prayerPoints) {
 export async function applyPrayer(outcome) {
     const actor = Actor.get(outcome.actorId);
     const target = getTarget(actor);
-    const outcomeToApply = { ...outcome };
+    const outcomeToApply = foundry.utils.deepClone(outcome);
     outcomeToApply.removedEffects.push(...getActivePrayers(target.effects));
     target.applyOutcome(outcomeToApply);
 }
