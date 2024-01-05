@@ -55,7 +55,8 @@ export default class RSKActor extends Actor {
   _applyArmourSoak(damage, puncture = 0) {
     let armourValue = this._getArmourSoakValue();
     const applicablePuncture = game.rsk.math.clamp_value(puncture, { min: 0, max: armourValue });
-    return game.rsk.math.clamp_value(damage - applicablePuncture, { min: 0 });
+    const applicableArmourSoak = armourValue - applicablePuncture;
+    return game.rsk.math.clamp_value(damage - applicableArmourSoak, { min: 0 });
   }
 
   // todo: these two methods for calculating armour soak may be good to put in 
