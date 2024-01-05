@@ -52,7 +52,7 @@ export const rskPrayerStatusEffects = [
     {
         id: "burst_of_strength",
         label: "RSK.burstOfStrength",
-        icon: "icons/svg/burst_of_strength.svg",
+        icon: "systems/rsk/icons/svg/burst_of_strength.svg",
         changes: []
     },
     {
@@ -142,7 +142,7 @@ export const rskPrayerStatusEffects = [
     {
         id: "thick_skin",
         label: "RSK.ThickSkin",
-        icon: "icons/svg/thick_skin.svg",
+        icon: "systems/rsk/icons/svg/thick_skin.svg",
         changes: []
     },
     {
@@ -264,7 +264,7 @@ export async function applyPrayer(outcome) {
     const actor = Actor.get(outcome.actorId);
     const target = getTarget(actor);
     const outcomeToApply = { ...outcome };
-    outcomeToApply.removedEffects.push(getActivePrayers(target.effects));
+    outcomeToApply.removedEffects.push(...getActivePrayers(target.effects));
     target.applyOutcome(outcomeToApply);
 }
 
