@@ -118,11 +118,11 @@ export default class RSKCharacter extends RSKActor {
     // one of the prepare data methods and displayed somewhere on the char
     // sheet, to give feedback about the current soak values based on 
     // the current character/equipment.
-    _getArmourSoakValue() {
+    _getArmourSoakValue(damageType) {
         return this.items
             .filter(i => i.isEquipped)
             .reduce((acc, w, i) => acc +=
-                typeof w.getArmourValue === "function" ? w.getArmourValue() : 0, 0)
+                typeof w.getArmourValue === "function" ? w.getArmourValue(damageType) : 0, 0)
     }
 
     _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {

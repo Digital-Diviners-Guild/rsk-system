@@ -279,27 +279,3 @@ export function getSpellEffectData(spellData, duration = {}) {
         .map(s => statusToEffect(rskStatusEffects.find(x => x.id === s), duration));
     return [...spellData.effects, ...spellStatusEffects, ...spellAddedStatusEffects];
 }
-
-// qualities can
-// augment damage: puncture ignores soak
-// damage:
-//  amt: 4
-//  type: puncture // ignores armour
-
-// qualities can
-// apply status: bleeding
-// damage:
-//  amt: 0
-//  type: n/a
-// effects:
-//  {bleed}
-
-// first calculate outcome,
-// then calculate quality changes to outcome?
-
-//???
-// applying qualities will be something that applies to all actions
-// and even some non actions.
-function applyQuality(quality) {
-
-}

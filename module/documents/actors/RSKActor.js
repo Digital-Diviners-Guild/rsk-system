@@ -54,26 +54,15 @@ export default class RSKActor extends Actor {
   }
 
   _applyArmourSoak(damage, damageType, puncture = 0) {
-    let armourValue = this._calculateEffectiveArmourValue(damageType);
+    let armourValue = this._getArmourSoakValue(damageType);
     const applicablePuncture = game.rsk.math.clamp_value(puncture, { min: 0, max: armourValue });
     const applicableArmourSoak = armourValue - applicablePuncture;
     return game.rsk.math.clamp_value(damage - applicableArmourSoak, { min: 0 });
-  }
-
-  _calculateEffectiveArmourValue(damageType) {
-    let armourValue = this._getArmourSoakValue();
-    if (damageType === "something were weak to") {
-      return Math.max(0, (armourValue - 0)); // minus weakness value; // can a weakness give you negative armour??
-    }
-    if (damageType === "something were strong to") {
-      return armourValue + 0; // plus stength value;
-    }
-    return armourValue;
   }
 
   // todo: these two methods for calculating armour soak may be good to put in 
   // one of the prepare data methods and displayed somewhere on the char
   // sheet, to give feedback about the current soak values based on 
   // the current character/equipment.
-  _getArmourSoakValue = () => 0;
+  _getArmourSoakValue = (damageType) => 0;
 }
