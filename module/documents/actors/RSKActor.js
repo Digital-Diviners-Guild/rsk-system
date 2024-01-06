@@ -25,15 +25,14 @@ export default class RSKActor extends Actor {
   async applyOutcome(outcome) {
     if (outcome.damageEntries) {
       const totalDamageTaken = this._calculateDamageTaken(outcome.damageEntries, outcome.puncture);
-      let remainingLifePoints = { ...this.system.lifePoints };
-      remainingLifePoints.value = game.rsk.math.clamp_value(
+      const remainingLifePoints = game.rsk.math.clamp_value(
         this.system.lifePoints.value - totalDamageTaken,
         { min: 0 });
-      if (remainingLifePoints.value < 1 && !this.statuses.has("dead")) {
+      if (remainingLifePoints < 1 && !this.statuses.has("dead")) {
         const death = rskStatusEffects.find(x => x.id === "dead");
         await this.createEmbeddedDocuments("ActiveEffect", [statusToEffect(death)]);
       }
-      this.update({ "system.lifePoints": remainingLifePoints });
+      this.update({ "system.lifePoints.value": remainingLifePoints });
     }
     if (this.isDead) { return; }
 
@@ -44,25 +43,5 @@ export default class RSKActor extends Actor {
     }
   }
 
-  _calculateDamageTaken(damageEntries, puncture = 0) {
-    let totalDamage = 0;
-    for (const type in Object.keys(damageEntries)) {
-      const damage = this._applyArmourSoak(damageEntries[type], type, puncture);
-      totalDamage += damage;
-    }
-    return totalDamage;
-  }
-
-  _applyArmourSoak(damage, damageType, puncture = 0) {
-    let armourValue = this._getArmourSoakValue(damageType);
-    const applicablePuncture = game.rsk.math.clamp_value(puncture, { min: 0, max: armourValue });
-    const applicableArmourSoak = armourValue - applicablePuncture;
-    return game.rsk.math.clamp_value(damage - applicableArmourSoak, { min: 0 });
-  }
-
-  // todo: these two methods for calculating armour soak may be good to put in 
-  // one of the prepare data methods and displayed somewhere on the char
-  // sheet, to give feedback about the current soak values based on 
-  // the current character/equipment.
-  _getArmourSoakValue = (damageType) => 0;
+  _calculateDamageTaken(damageEntries, puncture) { return 0; }
 }

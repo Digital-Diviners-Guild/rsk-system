@@ -1,13 +1,19 @@
 import RSKActor from "./RSKActor.js";
 
 export default class RSKNpc extends RSKActor {
-    _getArmourSoakValue(damageType) {
-        if (damageType === "something were weak to") {
-            return Math.max(0, (this.system.armourValue - 0)); // minus weakness value; // can a weakness give you negative armour??
-        }
-        if (damageType === "something were strong to") {
-            return this.system.armourValue + 0; // plus stength value;
-        }
-        return this.system.armourValue;
+    _calculateDamageTaken(damageEntries, puncture = 0) {
+        const applicablePuncture = game.rsk.math.clamp_value(puncture, { min: 0, max: this.system.armourValue });
+        const remainingArmourSoak = this.system.armourValue - applicablePuncture;
+        const { totalDamage, bonusArmour } = Object.keys(damageEntries).reduce((acc, type, i) => {
+            acc.totalDamage += damageEntries[type];
+            acc.bonusArmour += this._getBonusArmourValue(type);
+            return acc;
+        }, { totalDamage: 0, bonusArmour: 0 });
+        const totalArmourSoak = remainingArmourSoak + bonusArmour;
+        return totalDamage - totalArmourSoak;
+    }
+
+    _getBonusArmourValue(damageType) {
+        return 0; // check for 'strengths' and 'weaknesses' to damageType
     }
 }

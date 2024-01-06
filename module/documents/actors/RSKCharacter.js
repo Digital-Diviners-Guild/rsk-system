@@ -114,15 +114,21 @@ export default class RSKCharacter extends RSKActor {
         }
     }
 
+    _calculateDamageTaken(damageEntries, puncture) {
+        const baseArmourValue = this._getArmourSoakValue();
+        // todo: need to prompt for defense roll and add to armourValue
+        return 0;
+    }
+
     // todo: armour soak may be good to put in 
     // one of the prepare data methods and displayed somewhere on the char
     // sheet, to give feedback about the current soak values based on 
     // the current character/equipment.
-    _getArmourSoakValue(damageType) {
+    _getArmourSoakValue() {
         return this.items
             .filter(i => i.isEquipped)
             .reduce((acc, w, i) => acc +=
-                typeof w.getArmourValue === "function" ? w.getArmourValue(damageType) : 0, 0)
+                typeof w.getArmourValue === "function" ? w.getArmourValue() : 0, 0)
     }
 
     _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {
@@ -131,5 +137,4 @@ export default class RSKCharacter extends RSKActor {
         this.update({ "flags.rsk.inventorySlotsUsed": this.flags.rsk.inventorySlotsUsed - inventorySlotsReclaimed });
         super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
     }
-
 }
