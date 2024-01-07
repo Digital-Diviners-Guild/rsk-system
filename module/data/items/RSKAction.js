@@ -1,8 +1,5 @@
 import { fields } from "./fields.js";
 
-//todo: 
-// this needs to detail data about what 
-// happens to you and your targets as a result of the action being taken.
 export default class RSKAction extends foundry.abstract.DataModel {
     static defineSchema() {
         return {

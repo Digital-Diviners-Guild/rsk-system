@@ -64,7 +64,7 @@
     <div class="tab features" data-group="primary" data-tab="prayer">
       <ol class="items-list">
         {{#each prayers as |prayer|}}
-        <li class="item flexrow activate-prayer" data-prayer-id="{{prayer.id}}">
+        <li class="item flexrow use-action" data-action-type="prayer" data-action-id="{{prayer.id}}">
           <div class="item-name flexrow">
             <strong>{{prayer.label}}</strong>
           </div>
@@ -78,7 +78,7 @@
     <div class="tab features" data-group="primary" data-tab="magic">
       <ol class="items-list">
         {{#each spells as |spell|}}
-        <li class="item flexrow cast-spell" data-spell-id="{{spell.id}}">
+        <li class="item flexrow use-action" data-action-type="spell" data-action-id="{{spell.id}}">
           <div class="item-name flexrow">
             <strong>{{spell.label}}</strong>
           </div>

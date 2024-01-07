@@ -40,12 +40,20 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _prepareSpells(context) {
         //todo: this is probably where we should .fromSource to get the spell object
+        // currently it is already done in CONFIG.  I wonder if it should also
+        // be done during prepareData in the document rather than
+        // on the sheet.  currently I think spells and prayers don't exist on the document
+        // just the sheet
         this.spells = CONFIG.RSK.standardSpellBook;
         context.spells = this.spells;
     }
 
     _preparePrayers(context) {
         //todo: this is probably where we should .fromSource to get the prayer object
+        // currently it is already done in CONFIG.  I wonder if it should also
+        // be done during prepareData in the document rather than
+        // on the sheet.  currently I think spells and prayers don't exist on the document
+        // just the sheet
         this.prayers = CONFIG.RSK.defaultPrayers;
         context.prayers = this.prayers;
     }
@@ -66,22 +74,21 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 const dialogOptions = type === "skill" ? { defaultSkill: value } : { defaultAbility: value };
                 await this.handleSkillCheck(dialogOptions);
             });
-        // .use-action with data-action-type and data-action-id?
-        // just not sure how melee/ranged/summoning will play out
-        // and this may all change when we want to allow adding custom actions through 'items'
-        html.find('.cast-spell').click(async ev => {
+        html.find('.use-action').click(async ev => {
             const s = $(ev.currentTarget);
-            const spellId = s.data("spellId");
-            const spell = getSpell(spellId);
-            await spell.use(actor);
+            const actionType = s.data("actionType");
+            const actionId = s.data("actionId");
+            await this._getAction(actionType, actionId).use(this.actor)
         });
-        html.find('.activate-prayer').click(async ev => {
-            const s = $(ev.currentTarget);
-            //todo: create the prayer object in a prepare prayer method so they are ready to go?
-            const prayerId = s.data("prayerId");
-            const prayer = getPrayer(prayerId);
-            return await prayer.use(actor);
-        });
+    }
+
+    _getAction(type, id) {
+        switch (type) {
+            case "prayer":
+                return this.prayers[id];
+            case "spell":
+                return this.spells[id];
+        }
     }
 
     //inventory rules poc

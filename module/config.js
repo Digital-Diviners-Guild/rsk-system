@@ -1,5 +1,5 @@
-import { getPrayerData, rskPrayerStatusEffects } from "./rsk-prayer.js";
-import { standardSpellBook } from "./rsk-magic.js";
+import { getPrayer, rskPrayerStatusEffects } from "./rsk-prayer.js";
+import { getSpell, standardSpellBook } from "./rsk-magic.js";
 
 const RSK = {};
 
@@ -107,32 +107,13 @@ RSK.damageTypes = {
 // perhaps the spell/prayer books should be items/actors?
 // we may have more spell books in the future, like the lunar spell book for lunar spells?
 RSK.standardSpellBook = Object.values(standardSpellBook).reduce((ssb, s) => {
-    ssb[s.id] = s;
+    ssb[s.id] = getSpell(s.id);
     return ssb;
 }, {});
 
 RSK.defaultPrayers = rskPrayerStatusEffects.reduce((dp, p) => {
-    dp[p.id] = getPrayerData(p.id);
+    dp[p.id] = getPrayer(p.id);
     return dp;
 }, {});
-
-//for melee/ranged attack actions
-// most things come from the weapon itself.
-// ie, the range, and damage entries, etc...
-//
-
-//test only:
-RSK.testMeleeAttackAction = {
-    label: "RSK.MeleeAttack"
-};
-
-//test only:
-RSK.testRangedAttackAction = {
-    label: "RSK.RangedAttack"
-
-    //cost is usually arrows, but for thrown weapons, its the weapon itself.
-    // how should we determine cost on this action?
-    // cost type arrows/bolts/weapon?
-};
 
 export default RSK;
