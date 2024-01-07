@@ -10,6 +10,8 @@ import RSKAction from "./RSKAction.js";
 // plus it keeps these models just data and use case specific
 export default class RSKPrayer extends RSKAction {
     async use(actor) {
+        if (actor.type === "npc") return; // todo: can npc's pray?
+
         const cost = this.usageCost[0]?.amount ?? 0;
         if (!this.canPray(actor, cost)) return;
 
@@ -50,14 +52,14 @@ export default class RSKPrayer extends RSKAction {
         const result = await actor.useSkill(rollOptions.skill, rollOptions.ability);
         const cost = result.isSuccess
             ? prayerPoints
-            : 1
+            : 1;
         actor.update({ "system.prayerPoints.value": actor.system.prayerPoints.value - cost });
         return result;
     }
 
-    // does this live here?
+    // does this live here? action outcome application can vary from npc to character
     async apply(outcome) {
-        //todo: check success?
+        if (!outcome.result.isSuccess) return;
 
         const actor = Actor.get(outcome.actorId);
         const target = getTarget(actor);
@@ -66,16 +68,13 @@ export default class RSKPrayer extends RSKAction {
         outcomeToApply['addedEffects'] = [this.getPrayerEffectData()];
         await target.createEmbeddedDocuments("ActiveEffect", outcomeToApply.addedEffects);
         await target.deleteEmbeddedDocuments("ActiveEffect", outcomeToApply.removedEffects);
-        // will prayer need to worry about this?
-        // if (Object.keys(outcome.actorUpdates).length > 0) {
-        //     target.update(outcome.actorUpdates);
-        // }
     }
 
     getPrayerEffectData(duration = {}) {
         const prayerStatus = rskPrayerStatusEffects.find(p => p.id === this.id);
-        if (!prayerStatus) return {};
-
+        if (!prayerStatus) {
+            return this.effects;
+        }
         return statusToEffect(prayerStatus, duration);
     }
 
