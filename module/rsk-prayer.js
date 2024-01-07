@@ -3,10 +3,7 @@
 //     return text.replace(/_/g, "").slice(0, 16).padEnd(16, "0");
 // }
 
-import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
-import { statusToEffect } from "./effects/statuses.js";
-import { getTarget } from "./rsk-targetting.js";
 
 export const rskPrayerStatusEffects = [
     {
@@ -182,15 +179,11 @@ export const standardPrayerCosts = {
     ultimate_strength: 2,
 }
 
-// the biggest problem so far, is this doesn't support custom prayers
-// that is probably ok for now until we get things working how we want with standard prayers
-// but, if there is no status effect with the prayer id, should we look at the actors 'prayers'
-// to see if there is custom prayer data?
-export function getPrayerData(prayerId) {
+export function getPrayer(prayerId) {
     const prayerStatus = rskPrayerStatusEffects.find(p => p.id === prayerId);
     if (!prayerStatus) return {}; //todo: handle
 
-    return {
+    return RSKPrayer.fromSource({
         id: prayerStatus.id,
         label: prayerStatus.label,
         statuses: [prayerId],
@@ -205,17 +198,5 @@ export function getPrayerData(prayerId) {
             number: 1
         },
         effectDescription: `${prayerStatus.label}.EffectDescription`,
-    }
-}
-
-export function getPrayerEffectData(prayerId, duration = {}) {
-    const prayerStatus = rskPrayerStatusEffects.find(p => p.id === prayerId);
-    if (!prayerId) return {}; //todo: handle
-
-    return statusToEffect(prayerStatus, duration);
-}
-
-export async function pray(actor, prayerId) {
-    const prayerData = getPrayerData(prayerId);
-    await RSKPrayer.fromSource(prayerData).use(actor);
+    });
 }

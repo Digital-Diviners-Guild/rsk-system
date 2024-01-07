@@ -203,10 +203,10 @@ export const standardSpellBook = [{
     damageEntries: {}
 }];
 
-//todo: need to move this into the character, 
-// the RSKSpell.fromSource(spellData) part
-// so that the sheets button handler on spells can just be the .cast(this) part.
-export async function cast(actor, spellId) {
-    const spellData = standardSpellBook.find(s => s.id === spellId);
-    await RSKSpell.fromSource(spellData).cast(actor);
+//todo: move to a prepare Spells method in character
+export function getSpell(spellId) {
+    const data = standardSpellBook.find(s => s.id === spellId);
+    if (!data) return {};
+
+    return RSKSpell.fromSource(data);
 }

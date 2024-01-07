@@ -1,4 +1,3 @@
-import { useAction } from "../../rsk-action.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 
@@ -40,11 +39,13 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
+        //todo: this is probably where we should .fromSource to get the spell object
         this.spells = CONFIG.RSK.standardSpellBook;
         context.spells = this.spells;
     }
 
     _preparePrayers(context) {
+        //todo: this is probably where we should .fromSource to get the prayer object
         this.prayers = CONFIG.RSK.defaultPrayers;
         context.prayers = this.prayers;
     }
@@ -68,18 +69,18 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         // .use-action with data-action-type and data-action-id?
         // just not sure how melee/ranged/summoning will play out
         // and this may all change when we want to allow adding custom actions through 'items'
-        html.find('.cast-spell').click(ev => {
+        html.find('.cast-spell').click(async ev => {
             const s = $(ev.currentTarget);
             const spellId = s.data("spellId");
-            // would this work for custom spells that are not in standardspellbook?
-            // probably not, but we can cross that bridge later
-            useAction(this.actor, { type: "spell", id: spellId });
+            const spell = getSpell(spellId);
+            await spell.use(actor);
         });
-        html.find('.activate-prayer').click(ev => {
+        html.find('.activate-prayer').click(async ev => {
             const s = $(ev.currentTarget);
+            //todo: create the prayer object in a prepare prayer method so they are ready to go?
             const prayerId = s.data("prayerId");
-            // should we just pass the prayer object?
-            useAction(this.actor, { type: "prayer", id: prayerId });
+            const prayer = getPrayer(prayerId);
+            return await prayer.use(actor);
         });
     }
 
