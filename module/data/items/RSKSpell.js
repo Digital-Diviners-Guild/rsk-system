@@ -13,35 +13,23 @@ export default class RSKSpell extends RSKAction {
     };
 
     async use(actor) {
+        if (actor.type === "npc") return;
         if (!this.canCast(actor)) return;
 
         const result = await this.useSpell(actor);
         if (!result) return;
 
-        //todo: outcome
-        // how will this apply to non combat spells?
-        // is type spell sufficient?
-        //  maybe non combat, chatting is sufficient? for now it will be
         const flavor = await renderTemplate("systems/rsk/templates/applications/outcome-message.hbs",
             {
                 ...this,
                 ...result
             });
-        let outcome = { actorId: actor._id, type: "spell" };
-        if (result.isSuccess) {
-            outcome['damageEntries'] = { ...this.damageEntries };
-        }
-        if (result.isSuccess && result.margin > 0) {
-            //todo: do spells gain extra damage from margin?
-            outcome['addedEffects'] = [...this.getSpellEffectData()];
-        }
-        //todo: failures
-        else if (!result.isSuccess && margin < 0) {
-
-        }
-        else {
-
-        }
+        const outcome = {
+            actorId: actor._id,
+            type: "spell",
+            action: this.toObject(),
+            result: result
+        };
         await result.rollResult.toMessage({
             flavor: flavor,
             flags: {
@@ -83,5 +71,17 @@ export default class RSKSpell extends RSKAction {
         const spellAddedStatusEffects = this.statuses.filter(s => rskStatusIds.includes(s))
             .map(s => statusToEffect(rskStatusEffects.find(x => x.id === s), duration));
         return [...this.effects, ...spellStatusEffects, ...spellAddedStatusEffects];
+    }
+
+    async apply(outcome) {
+        if (!outcome.result.isSuccess) return;
+
+        const actor = Actor.get(outcome.actorId);
+        const target = getTarget(actor);
+        //todo: I think actions npc's take are different from player actions
+        // but sometimes player actions can target both players and npc's.
+        // when an npc is affecting a character there is a different workflow
+        // than when a character is affecting an npc/character. 
+        // we will need to check target.type to make sure the apply makes sense.
     }
 }
