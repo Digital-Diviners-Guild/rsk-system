@@ -265,6 +265,11 @@ export async function applyPrayer(outcome) {
     const target = getTarget(actor);
     const outcomeToApply = foundry.utils.deepClone(outcome);
     outcomeToApply.removedEffects.push(...getActivePrayers(target.effects));
+    await this.createEmbeddedDocuments("ActiveEffect", outcomeToApply.addedEffects);
+    await this.deleteEmbeddedDocuments("ActiveEffect", outcomeToApply.removedEffects);
+    if (Object.keys(outcome.actorUpdates).length > 0) {
+        this.update(outcome.actorUpdates);
+    }
     target.applyOutcome(outcomeToApply);
 }
 

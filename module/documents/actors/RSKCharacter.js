@@ -1,3 +1,4 @@
+import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKActor from "./RSKActor.js";
 
 export default class RSKCharacter extends RSKActor {
@@ -112,12 +113,6 @@ export default class RSKCharacter extends RSKActor {
                 this.system.skills[skill].level,
                 { min: this.minSkillLevel, max: this.maxSkillLevel });
         }
-    }
-
-    _calculateDamageTaken(damageEntries, puncture) {
-        const baseArmourValue = this._getArmourSoakValue();
-        // todo: need to prompt for defense roll and add to armourValue
-        return 0;
     }
 
     // todo: armour soak may be good to put in 

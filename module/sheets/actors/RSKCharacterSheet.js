@@ -13,7 +13,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         this._prepareSpells(context);
         this._preparePrayers(context);
         this._prepareEquipment(context);
-        this._prepareInventory(context);
         return context;
     }
 
@@ -54,10 +53,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const equipped = context.items.filter(i => i.system?.equipped && i.system.equipped.isEquipped);
         context.worn = {};
         equipped.map((e) => context.worn[e.system.equipped.slot] = e.name);
-    }
-
-    _prepareInventory(context) {
-
     }
 
     activateListeners(html) {

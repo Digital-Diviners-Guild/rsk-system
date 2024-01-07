@@ -1,7 +1,7 @@
 import RSKActor from "./RSKActor.js";
 
 export default class RSKNpc extends RSKActor {
-    _calculateDamageTaken(damageEntries, puncture = 0) {
+    async _calculateDamageTaken(damageEntries, puncture = 0) {
         const applicablePuncture = game.rsk.math.clamp_value(puncture, { min: 0, max: this.system.armourValue });
         const remainingArmourSoak = this.system.armourValue - applicablePuncture;
         const { totalDamage, bonusArmour } = Object.keys(damageEntries).reduce((acc, type, i) => {

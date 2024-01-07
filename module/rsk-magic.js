@@ -266,8 +266,18 @@ async function useSpell(actor, runeCost) {
 export async function applySpell(outcome) {
     const actor = Actor.get(outcome.actorId);
     const target = getTarget(actor);
-    await target.applyOutcome(outcome);
+    //todo: Defense Roll
+    // const rollData = this.getRollData();
+    // const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "defence" });
+    // const rollOptions = await dialog();
+    // if (!rollOptions.rolled) return {}
+
+    // const defenceResult = await this.useSkill(rollOptions.skill, rollOptions.ability, rollOptions.rollType);
+    // const flavor = `<strong>${rollOptions.skill} | ${rollOptions.ability}</strong>
+    //           <p>${defenceResult.isCritical ? "<em>critical</em>" : ""} ${defenceResult.isSuccess ? "success" : "fail"} (${defenceResult.margin})</p>`;
+    // defenceResult.rollResult.toMessage({ flavor }, { ...rollOptions });
 }
+
 
 // will the durations need to vary per status ever?
 export function getSpellEffectData(spellData, duration = {}) {
