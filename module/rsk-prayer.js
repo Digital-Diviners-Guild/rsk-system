@@ -193,6 +193,7 @@ export function getPrayerData(prayerId) {
         label: prayerStatus.label,
         statuses: [prayerId],
         usageCost: [{
+            itemType: "points",
             type: "prayer",
             amount: standardPrayerCosts[prayerId]
         }],

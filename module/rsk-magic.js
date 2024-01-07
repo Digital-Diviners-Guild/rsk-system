@@ -75,14 +75,17 @@ export const standardSpellBook = [{
     },
     usageCost: [{
         type: "earth",
+        itemType: "rune",
         amount: 2
     },
     {
         type: "water",
+        itemType: "rune",
         amount: 3
     },
     {
         type: "body",
+        itemType: "rune",
         amount: 1
     }],
     damageEntries: {}
@@ -101,10 +104,12 @@ export const standardSpellBook = [{
     },
     usageCost: [{
         type: "air",
+        itemType: "rune",
         amount: 1
     },
     {
         type: "mind",
+        itemType: "rune",
         amount: 1
     }],
     damageEntries: {
@@ -138,13 +143,16 @@ export const standardSpellBook = [{
     }],
     usageCost: [{
         type: "air",
+        itemType: "rune",
         amount: 2
     }, {
         type: "earth",
+        itemType: "rune",
         amount: 2
     },
     {
         type: "chaos",
+        itemType: "rune",
         amount: 1
     }],
     damageEntries: {
@@ -165,35 +173,43 @@ export const standardSpellBook = [{
     effects: [],
     usageCost: [
         // {
-        //     type: "air",
+        //     type:"air",    
+        //     itemType: "rune",
         //     amount: 1
         // },
         // {
-        //     type: "mind",
+        //     type:"mind",    
+        //     itemType: "rune",
         //     amount: 1
         // },
         // {
-        //     type: "earth",
+        //     type:"earth",    
+        //     itemType: "rune",
         //     amount: 1
         // },
         // {
-        //     type: "body",
+        //     type:"body",    
+        //     itemType: "rune",
         //     amount: 1
         // },
         // {
-        //     type: "cosmic",
+        //     type:"cosmic",    
+        //     itemType: "rune",
         //     amount: 1
         // },
         // {
-        //     type: "water",
+        //     type:"water",    
+        //     itemType: "rune",
         //     amount: 1
         // },
         // {
-        //     type: "fire",
+        //     type:"fire",    
+        //     itemType: "rune",
         //     amount: 1
         // },
         {
             type: "law",
+            itemType: "rune",
             amount: 1
         }],
     damageEntries: {}
@@ -210,7 +226,7 @@ export function getSpellData(spellId) {
 function canCast(actor, costData) {
     if (costData.length < 1) return true;
     for (const cost of costData) {
-        const runes = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
+        const runes = actor.items.find(i => i.type === cost.type && i.system.type === cost.itemType);
         if (!runes || runes.system.quantity < cost.amount) return false;
     }
     return true;
