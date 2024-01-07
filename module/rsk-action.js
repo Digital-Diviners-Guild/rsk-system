@@ -1,11 +1,9 @@
-import { applyPrayer, pray } from "./rsk-prayer.js";
-import { applySpell, cast } from "./rsk-magic.js";
+import { pray } from "./rsk-prayer.js";
+import { cast } from "./rsk-magic.js";
+import RSKPrayer from "./data/items/RSKPrayer.js";
 
-// if we were to go this route, what 
-// exactly is an 'action'?  and how do we support things like 'block' that comes from a quality?
-// does that need to be handled here?
-// what about consuming potions an crafting?
-//  do we need to revisit RSKAction? and or do we need combat and non combat action systems?
+//todo: most likely this approach is deprecated.  probably going to move
+// the functions into the datamodels... for now
 export async function useAction(actor, action) {
     switch (action.type) {
         case "prayer":
@@ -22,18 +20,19 @@ export async function useAction(actor, action) {
     }
 }
 
+// applying outcomes needs 100% rework, it is different depending on npc/char and what type it is.
 export async function applyActionOutcome(outcome) {
     switch (outcome.type) {
         case "prayer":
-            return await applyPrayer(outcome);
-        case "spell":
-            return await applySpell(outcome)
-        case "ranged":
-        //return await applyMeleeAttack(actor, action);
-        case "melee":
-        //return await applyRangedAttack(actor, action);
+            return await RSKPrayer.fromSource(outcome.action).apply(outcome);
+        //     case "spell":
+        //     //     return await applySpell(outcome)
+        //     case "ranged":
+        //     //return await applyMeleeAttack(actor, action);
+        //     case "melee":
+        //     //return await applyRangedAttack(actor, action);
         default:
             // is there some default handler that could make sense?
-            throw `unknown action type: ${action.type}`
+            throw `unknown action type: ${outcome.type}`
     }
 }

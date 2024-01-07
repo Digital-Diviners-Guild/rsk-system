@@ -1,8 +1,10 @@
+//todo: this may be helpful to control _id fields.
 // export function getEffectId(text) {
 //     return text.replace(/_/g, "").slice(0, 16).padEnd(16, "0");
 // }
 
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
+import RSKPrayer from "./data/items/RSKPrayer.js";
 import { statusToEffect } from "./effects/statuses.js";
 import { getTarget } from "./rsk-targetting.js";
 
@@ -215,74 +217,5 @@ export function getPrayerEffectData(prayerId, duration = {}) {
 
 export async function pray(actor, prayerId) {
     const prayerData = getPrayerData(prayerId);
-    const cost = prayerData.usageCost[0]?.amount ?? 0;
-    if (prayerData.id != prayerId
-        || !canPray(actor, cost)) return {};
-
-    const result = await usePrayer(actor, cost);
-    const flavor = await renderTemplate("systems/rsk/templates/applications/outcome-message.hbs",
-        {
-            ...prayerData,
-            ...result
-        });
-    await result.rollResult.toMessage({
-        flavor: flavor,
-        flags: {
-            rsk: result.isSuccess ? {
-                outcome: {
-                    actorId: actor._id,
-                    type: "prayer",
-                    addedEffects: [getPrayerEffectData(prayerId)],
-                    removedEffects: [],
-                    damageEntries: {},
-                    actorUpdates: {}
-                }
-            } : {}
-        }
-    });
-    return result;
-}
-
-function canPray(actor, prayerPoints) {
-    return actor.system.prayerPoints.value >= prayerPoints;
-}
-
-async function usePrayer(actor, prayerPoints) {
-    const rollData = actor.getRollData();
-    const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "prayer", defaultAbility: "intellect" });
-    const rollOptions = await dialog();
-    if (!rollOptions.rolled) return {}
-
-    const result = await actor.useSkill(rollOptions.skill, rollOptions.ability);
-    const cost = result.isSuccess
-        ? prayerPoints
-        : 1
-    actor.update({ "system.prayerPoints.value": actor.system.prayerPoints.value - cost });
-    return result;
-}
-
-export async function applyPrayer(outcome) {
-    const actor = Actor.get(outcome.actorId);
-    const target = getTarget(actor);
-    const outcomeToApply = foundry.utils.deepClone(outcome);
-    outcomeToApply.removedEffects.push(...getActivePrayers(target.effects));
-    await this.createEmbeddedDocuments("ActiveEffect", outcomeToApply.addedEffects);
-    await this.deleteEmbeddedDocuments("ActiveEffect", outcomeToApply.removedEffects);
-    if (Object.keys(outcome.actorUpdates).length > 0) {
-        this.update(outcome.actorUpdates);
-    }
-    target.applyOutcome(outcomeToApply);
-}
-
-export function getActivePrayers(actorEffects) {
-    const prayerStatuses = rskPrayerStatusEffects.map(se => se.id);
-    const currentPrayers = [];
-    for (const effect of actorEffects) {
-        for (const status of effect.statuses) {
-            if (prayerStatuses.includes(status)) {
-                currentPrayers.push(effect._id);
-            }
-        }
-    }
-    return currentPrayers;
+    await RSKPrayer.fromSource(prayerData).use(actor);
 }

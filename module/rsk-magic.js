@@ -1,12 +1,4 @@
-// do we want to use statuses for magical/prayer buff/debuff/effects?
-// if we do not use statuses for magic/prayer, how else will we track/show it? this may be a good fit.
-//  - the other way would be to use activeeffets that are not statuses? is that better?
-// also some of these things like cursed and vulnerable are the same effect to a stronger degree.
-// does that change anything?
-
-import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
-import { rskStatusEffects, statusToEffect } from "./effects/statuses.js";
-import { getTarget } from "./rsk-targetting.js";
+import RSKSpell from "./data/items/RSKSpell.js";
 
 export const rskMagicStatusEffects = [
     {
@@ -53,15 +45,11 @@ export const rskMagicStatusEffects = [
     }
 ];
 
-// going to implement magic in a similar fashion to prayer
-//  however, this will add damage, multi-targeting, and different spell types.
-// hoping that after we implement prayer and magic, we will understand 
-// enough about 'actions' to create something that can work for other actions
-// like summoning, melee, ranged, etc...
-
+// this spell book could probably still be hardcoded defaults, but we need to 
+// have the characters import them in prepareData via : RSKSpell.fromSource(spellData)
 export const standardSpellBook = [{
     id: "confuse",
-    type: "utility",
+    spellType: "utility",
     label: "RSK.Confuse",
     description: "RSK.Confuse.Description",
     effectDescription: "RSK.Confuse.EffectDescription",
@@ -91,7 +79,7 @@ export const standardSpellBook = [{
     damageEntries: {}
 }, {
     id: "windstrike",
-    type: "combat",
+    spellType: "combat",
     label: "RSK.WindStrike",
     description: "RSK.WindStrike.Description",
     effectDescription: "RSK.WindStrike.EffectDescription",
@@ -118,7 +106,7 @@ export const standardSpellBook = [{
 },
 {
     id: "crumble_undead",
-    type: "combat",
+    spellType: "combat",
     label: "RSK.CrumbleUndead",
     description: "RSK.CrumbleUndead.Description",
     effectDescription: "RSK.CrumbleUndead.EffectDescription",
@@ -160,7 +148,7 @@ export const standardSpellBook = [{
     }
 }, {
     id: "teleport",
-    type: "teleport",
+    spellType: "teleport",
     label: "RSK.Teleport",
     description: "RSK.Teleport.Description",
     effectDescription: "RSK.Teleport.EffectDescription",
@@ -215,93 +203,10 @@ export const standardSpellBook = [{
     damageEntries: {}
 }];
 
-export function getSpellData(spellId) {
-    const spellData = standardSpellBook.find(p => p.id === spellId);
-    if (!spellData) return {}; //todo: handle
-
-    return spellData
-}
-
-//todo: for certain spells there may be an equipment requirement
-function canCast(actor, costData) {
-    if (costData.length < 1) return true;
-    for (const cost of costData) {
-        const runes = actor.items.find(i => i.type === cost.type && i.system.type === cost.itemType);
-        if (!runes || runes.system.quantity < cost.amount) return false;
-    }
-    return true;
-}
-
+//todo: need to move this into the character, 
+// the RSKSpell.fromSource(spellData) part
+// so that the sheets button handler on spells can just be the .cast(this) part.
 export async function cast(actor, spellId) {
     const spellData = standardSpellBook.find(s => s.id === spellId);
-    if (!(spellData && canCast(actor, spellData?.usageCost))) return {};
-
-    const result = await useSpell(actor, spellData.usageCost);
-    //todo: outcome
-    // how will this apply to non combat spells?
-    // is type spell sufficient?
-    //  maybe non combat, chatting is sufficient? for now it will be
-    const flavor = await renderTemplate("systems/rsk/templates/applications/outcome-message.hbs",
-        {
-            ...spellData,
-            ...result
-        });
-    await result.rollResult.toMessage({
-        flavor: flavor,
-        flags: {
-            rsk: result.isSuccess ? {
-                outcome: {
-                    actorId: actor._id,
-                    type: "spell",
-                    addedEffects: [...getSpellEffectData(spellData)],
-                    removedEffects: [], // todo: how will we configure this?
-                    damageEntries: { ...spellData.damageEntries }, // todo: account for things like puncture
-                    actorUpdates: {}
-                }
-            } : {}
-        }
-    });
-    return result;
-}
-
-async function useSpell(actor, runeCost) {
-    const rollData = actor.getRollData();
-    const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "magic", defaultAbility: "intellect" });
-    const rollOptions = await dialog();
-    if (!rollOptions.rolled) return {}
-
-    const result = await actor.useSkill(rollOptions.skill, rollOptions.ability);
-    if (result.isSuccess) {
-        for (const cost of runeCost) {
-            actor.spendRunes(cost.type, cost.amount);
-        }
-    }
-    return result;
-}
-
-export async function applySpell(outcome) {
-    const actor = Actor.get(outcome.actorId);
-    const target = getTarget(actor);
-    //todo: Defense Roll
-    // const rollData = this.getRollData();
-    // const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "defence" });
-    // const rollOptions = await dialog();
-    // if (!rollOptions.rolled) return {}
-
-    // const defenceResult = await this.useSkill(rollOptions.skill, rollOptions.ability, rollOptions.rollType);
-    // const flavor = `<strong>${rollOptions.skill} | ${rollOptions.ability}</strong>
-    //           <p>${defenceResult.isCritical ? "<em>critical</em>" : ""} ${defenceResult.isSuccess ? "success" : "fail"} (${defenceResult.margin})</p>`;
-    // defenceResult.rollResult.toMessage({ flavor }, { ...rollOptions });
-}
-
-
-// will the durations need to vary per status ever?
-export function getSpellEffectData(spellData, duration = {}) {
-    const magicStatusIds = rskMagicStatusEffects.map(s => s.id);
-    const rskStatusIds = rskStatusEffects.map(s => s.id);
-    const spellStatusEffects = spellData.statuses.filter(s => magicStatusIds.includes(s))
-        .map(s => statusToEffect(rskMagicStatusEffects.find(x => x.id === s), duration));
-    const spellAddedStatusEffects = spellData.statuses.filter(s => rskStatusIds.includes(s))
-        .map(s => statusToEffect(rskStatusEffects.find(x => x.id === s), duration));
-    return [...spellData.effects, ...spellStatusEffects, ...spellAddedStatusEffects];
+    await RSKSpell.fromSource(spellData).cast(actor);
 }
