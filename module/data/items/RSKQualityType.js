@@ -8,6 +8,7 @@ export default class RSKQualityType extends foundry.abstract.TypeDataModel {
             conditions: new fields.ArrayField(new fields.ObjectField()),
             // effects to apply
             effects: new fields.ArrayField(new fields.ObjectField()),
+            statuses: new fields.ArrayField(new fields.ObjectField()),
             // actions the quality provides to the owner, such as block?
             actions: new fields.ArrayField(new fields.ObjectField())
         }
