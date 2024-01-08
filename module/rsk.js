@@ -26,8 +26,6 @@ import RSKQualitySheet from "./sheets/items/RSKQualitySheet.js";
 
 import RSKActorSheet from "./sheets/actors/RSKActorSheet.js";
 
-import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
-
 import RSK from "./config.js";
 import RSKDice from "./rsk-dice.js";
 import RSKMath from "./rsk-math.js";

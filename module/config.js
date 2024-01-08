@@ -65,7 +65,7 @@ RSK.skills = {
     attack: "RSK.Attack",
     cooking: "RSK.Cooking",
     crafting: "RSK.Crafting",
-    defence: "RSK.Defence",
+    defense: "RSK.Defense",
     dungeoneering: "RSK.Dungeoneering",
     farming: "RSK.Farming",
     fishing: "RSK.Fishing",

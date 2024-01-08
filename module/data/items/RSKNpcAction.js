@@ -12,7 +12,7 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
             description: new fields.HTMLField(), // what it look like
             effectDescription: new fields.HTMLField(), // what it does
             damageEntries: new fields.ObjectField(),
-            defenseCheck: new fields.StringField(), //todo: options of skills to validate against
+            defenseCheck: new fields.StringField({ initial: "defense" }), //todo: options of skills to validate against
             statuses: new fields.ArrayField(new fields.StringField()),
             effects: new fields.ArrayField(new fields.ObjectField()),
             //todo: I think we can reference the quality type here
