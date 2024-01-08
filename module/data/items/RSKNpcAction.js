@@ -37,16 +37,8 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
     async apply(outcome) {
         const target = getTarget();
         if (target.type === "character") {
-            const rollData = target.getRollData();
-            const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: this.defenseCheck });
-            const rollOptions = await dialog();
-            if (!rollOptions.rolled) return;
-
-            const result = await target.useSkill(rollOptions.skill, rollOptions.ability, rollOptions.rollType);
-            const flavor = `<strong>${rollOptions.skill} | ${rollOptions.ability}</strong>
-              <p>${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>`;
-            result.rollResult.toMessage({ flavor }, { ...rollOptions });
-
+            const result = await target.defenseCheck({ defaultSkill: this.defenseCheck });
+            if (!result) return;
             //todo: apply 
         }
         console.log(outcome);
