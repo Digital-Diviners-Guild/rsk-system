@@ -6,7 +6,6 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
     static defineSchema() {
         return {
             id: new fields.StringField(),
-            type: new fields.StringField(), // melee, magic, prayer
             label: new fields.StringField(), // what to display on the button?
             description: new fields.HTMLField(), // what it look like
             effectDescription: new fields.HTMLField(), // what it does
@@ -20,6 +19,7 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
     }
 
     async use(actor) {
+        //todo: message content template
         await ChatMessage.implementation.create({
             content: `${this.description} ${this.effectDescription} <button class="test">apply</button>`,
             flags: {
@@ -38,7 +38,25 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
         if (target.type === "character") {
             const result = await target.defenseCheck({ defaultSkill: this.defenseCheck });
             if (!result) return;
-            //todo: apply 
+
+            if (result.isSuccess) {
+                if (result.margin > 0) {
+                    //todo: look through equipped armour
+                    // for qualities with the success condition
+                    // should be things such as retaliate and resilient
+                    // some things like retaliate may affect the actor of this ability
+                    // for example, if an npc does earth damage the the quality is
+                    // retaliate earth 1, then they will take 1 earth damage if this is successful.
+
+                    //todo: add margin to bonus damage mitigation
+                }
+            } else {
+                //todo: apply negative affects from npc's attack
+                //todo: add margin to attack damage
+            }
+        } else {
+            //todo: apply actions outcome to npc.
+            // this is just applied, no checks needed.
         }
         console.log(outcome);
     }
