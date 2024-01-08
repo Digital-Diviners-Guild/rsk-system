@@ -39,6 +39,7 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
             const result = await target.defenseCheck({ defaultSkill: this.defenseCheck });
             if (!result) return;
 
+            let outcomeToApply = {};
             if (result.isSuccess) {
                 if (result.margin > 0) {
                     //todo: look through equipped armour
@@ -47,17 +48,28 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
                     // some things like retaliate may affect the actor of this ability
                     // for example, if an npc does earth damage the the quality is
                     // retaliate earth 1, then they will take 1 earth damage if this is successful.
+                    outcomeToApply.damageMitigation = 0; // resilient would add to this maybe?
+
+                    outcomeToApply.retaliateDamage = 0; // how do we want to model damaging the attacker?
+                    // we could also just apply here and now
+                    const actor = Actor.get(outcome.actorId);
+                    actor.receiveDamage(0)// retaliate damage?
 
                     //todo: add margin to bonus damage mitigation
+                    outcomeToApply.damageEntries = { ...this.damageEntries };
+                    outcomeToApply.damageMitigation += result.margin;
                 }
             } else {
                 //todo: apply negative affects from npc's attack
                 //todo: add margin to attack damage
+                outcomeToApply.appliedEffects = [] // todo: map status, qualities, effects
+                outcomeToApply.bonusDamage = Math.abs(result.margin); // or do we want to add to damageEntries?
             }
         } else {
             //todo: apply actions outcome to npc.
             // this is just applied, no checks needed.
         }
-        console.log(outcome);
+        //target.applyOutcome(outcomeToApply) ? is this what we'll do?
+        console.log(outcomeToApply);
     }
 }
