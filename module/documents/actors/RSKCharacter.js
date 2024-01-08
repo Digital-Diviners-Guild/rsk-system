@@ -111,6 +111,10 @@ export default class RSKCharacter extends RSKActor {
         }
     }
 
+    getActiveItems() {
+        return this.items.filter(i => i.isEquipped);
+    }
+
     equip(item) {
         const currentEquipped = this.items.filter(i => i.isEquipped
             && i.inSlot === item.inSlot);
