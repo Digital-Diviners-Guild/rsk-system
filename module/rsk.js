@@ -35,6 +35,7 @@ import { customizeStatusEffects } from "./effects/statuses.js";
 import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
 import RSKChatLog, { onRenderChatMessage } from "./applications/RSKChatLog.js";
 import RSKRuneType from "./data/items/RSKRune.js";
+import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -97,6 +98,7 @@ Hooks.once("init", function () {
     Actors.unregisterSheet("core", ActorSheet)
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })
     Actors.registerSheet("rsk", RSKCharacterSheet, { types: ["character"], makeDefault: true });
+    Actors.registerSheet("rsk", RSKNpcSheet, { types: ["npc"], makeDefault: true });
 
     CONFIG.ActiveEffect.legacyTransferral = false;
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;

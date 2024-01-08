@@ -1,4 +1,5 @@
 import RSKAction from "../data/items/RSKAction.js";
+import RSKNpcAction from "../data/items/RSKNpcAction.js";
 import RSKPrayer from "../data/items/RSKPrayer.js";
 
 export default class RSKChatLog extends ChatLog {
@@ -18,6 +19,8 @@ function actionFromOutcome(type, data) {
     switch (type) {
         case "prayer":
             return RSKPrayer.fromSource(data);
+        case "npcAction":
+            return RSKNpcAction.fromSource(data);
         default:
             return RSKAction.fromSource(data);
     }

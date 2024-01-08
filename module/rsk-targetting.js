@@ -12,7 +12,7 @@ export function isInRange(actorToken, targetToken, range) {
     return distance < maxDistance;
 }
 
-export function getTarget(actor) {
+export function getTarget(actor = {}) {
     const targets = game.users.current.targets;
     let target = actor;
 

@@ -36,7 +36,19 @@
 
             <div>
                 <strong>{{localize "RSK.Actions"}}: </strong>
-                {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=actions }}
+                <ol class="items-list">
+                    {{#each actions as |action|}}
+                    <li class="item flexrow use-action" data-action-type="npcAction" data-action-id="{{action._id}}">
+                        <div class="item-name flexrow">
+                            <strong>{{action.name}}</strong>
+                        </div>
+                        <div class="item-content">{{action.description}}</div>
+                        <div class="item-content">{{action.effectDescription}}</div>
+                    </li>
+                    {{/each}}
+                </ol>
+                {{!-- todo: need a part for actions --}}
+                {{!-- {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=actions }} --}}
             </div>
             <div>
                 <strong>{{localize "RSK.Specials"}}: </strong>
