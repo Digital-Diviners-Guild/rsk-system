@@ -1,4 +1,3 @@
-import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import { getTarget } from "../../rsk-targetting.js";
 import { fields } from "./fields.js";
 
@@ -26,7 +25,7 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
             flags: {
                 rsk: {
                     outcome: {
-                        action: this.toObject,
+                        action: this.toObject(),
                         type: "npcAction"
                     }
                 }
