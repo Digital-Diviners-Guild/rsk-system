@@ -62,7 +62,7 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
                             stab: 2
                         }
 
-                        // if this were resilient stabbing 2 we would want this somehow?
+                        // if this were retaliate stabbing 2 we would want this somehow?
                         outcomeToApply.retaliateDamageEntries = {
                             stab: 2
                         };
@@ -76,10 +76,14 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
 
                 }
             } else {
-                //todo: apply negative affects from npc's attack
-                //todo: add margin to attack damage
-                outcomeToApply.appliedEffects = [] // todo: map status, qualities, effects
-                outcomeToApply.bonusDamage = Math.abs(result.margin); // or do we want to add to damageEntries?
+                if (Math.abs(result.margin) > 0) {
+                    //todo: apply negative affects from npc's attack
+                    //todo: add margin to attack damage
+                    outcomeToApply.appliedEffects = [] // todo: map status, qualities, effects
+                    outcomeToApply.bonusDamage = Math.abs(result.margin); // or do we want to add to damageEntries?
+                } else {
+                    //todo: normal outcome
+                }
             }
         } else {
             //todo: apply actions outcome to npc.
