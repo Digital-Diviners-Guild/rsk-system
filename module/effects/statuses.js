@@ -1,7 +1,7 @@
 import { rskMagicStatusEffects } from "../rsk-magic.js";
 import { rskPrayerStatusEffects } from "../rsk-prayer.js";
 
-const changeModes = {
+export const changeModes = {
     ADD: 2,
     OVERRIDE: 5
 };
