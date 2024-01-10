@@ -106,14 +106,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     async handleSkillCheck(dialogOptions = {}) {
-        const rollData = this.actor.getRollData();
-        const dialog = RSKConfirmRollDialog.create(rollData, dialogOptions)
-        const rollOptions = await dialog();
-        if (rollOptions.rolled) {
-            const result = await this.actor.useSkill(rollOptions.skill, rollOptions.ability, rollOptions.rollType);
-            const flavor = `<strong>${rollOptions.skill} | ${rollOptions.ability}</strong>
-          <p>${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>`;
-            result.rollResult.toMessage({ flavor }, { ...rollOptions });
-        }
+        this.actor.skillCheck(dialogOptions);
     }
 }

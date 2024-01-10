@@ -33,12 +33,14 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
         });
     }
 
-
+    // ?? would it be worth splitting npc action types into combat and non combat?
+    // I think there may be times npc's do things that don't require a defense check
+    // but maybe not.
     //todo: QUALITIES
     async apply(outcome) {
         const target = getTarget();
         if (target.type === "character") {
-            const result = await target.defenseCheck({ defaultSkill: this.defenseCheck });
+            const result = await target.skillCheck({ defaultSkill: this.defenseCheck });
             if (!result) return;
 
             const totalDamage = Object.values(this.damageEntries).reduce((acc, d) => acc += d, 0);
