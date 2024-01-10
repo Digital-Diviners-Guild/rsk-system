@@ -18,6 +18,10 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
         };
     }
 
+    // depending on the npc's action, they may actually need to roll a test (not sure how this works yet)
+    // example on page 167, "Healing Aura" references a successful magic test. 
+    // this is a familiar so it may use the characters skills for this 
+    // perhaps this would be a 'familiar action'?
     async use(actor) {
         //todo: message content template
         await ChatMessage.implementation.create({
@@ -38,25 +42,49 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
     // but maybe not.
     //todo: QUALITIES
     async apply(outcome) {
+        // todo: enforce target type, sometimes it can only be 'self' targeting.
         const target = getTarget();
-        if (target.type === "character") {
-            const result = await target.skillCheck({ defaultSkill: this.defenseCheck });
-            if (!result) return;
+        return await (target.type === "character"
+            ? applyCharacterOutcome(outcome, target)
+            : applyNpcOutcome(outcome, target));
+    }
 
-            const totalDamage = Object.values(this.damageEntries).reduce((acc, d) => acc += d, 0);
-            if (result.isSuccess) {
-                // todo: qualities/armour types may interact with damageTypes
-                // todo: qualities may reflect damage back to the attacker
-                const damageMitigation = target.getArmourValue() + result.margin;
-                const damageTaken = game.rsk.math.clamp_value(totalDamage - damageMitigation, { min: 0 });
-                target.receiveDamage(damageTaken);
-            } else {
-                // todo: enemy qualities will apply and can augment the damage with things like puncture or apply bleed.
-                target.receiveDamage(totalDamage);
-            }
+    async applyCharacterOutcome(outcome, character) {
+        const result = await character.skillCheck({ defaultSkill: this.defenseCheck });
+        if (!result) return;
+
+        const totalDamage = Object.values(this.damageEntries).reduce((acc, d) => acc += d, 0);
+        if (result.isSuccess) {
+            // todo: qualities/armour types may interact with damageTypes
+            // todo: qualities may reflect damage back to the attacker
+            const damageMitigation = character.getArmourValue() + result.margin;
+            const damageTaken = game.rsk.math.clamp_value(totalDamage - damageMitigation, { min: 0 });
+            character.receiveDamage(damageTaken);
         } else {
-            //todo: apply actions outcome to npc.
-            // this is just applied, no checks needed.
+            // todo: enemy qualities will apply and can augment the damage with things like puncture or apply bleed.
+            character.receiveDamage(totalDamage);
+        }
+    }
+
+    //todo: apply actions outcome to npc.
+    // this is just applied, no checks needed.
+    // this will mostly likely be healing/statuses granted to friendly npc's
+    // though it could be damage too
+    async applyNpcOutcome(outcome, npc) {
+        if (this.statuses.length > 0) {
+            //todo: create effects documents with statuses
+        }
+
+        if (this.effects.length > 0) {
+            //todo: create effects documents
+        }
+
+        // todo: how do we want to model healing that can be applied
+        // and how will we handle when these numbers are actually dice formula and not a static number?
+
+        if (Object.keys(this.damageEntries).length > 0) {
+            const damage = npc.calculateDamageTaken(this.damageEntries, 0);
+            npc.receiveDamage(damage);
         }
     }
 }
