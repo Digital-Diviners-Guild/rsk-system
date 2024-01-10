@@ -30,4 +30,6 @@ export default class RSKActor extends Actor {
     }
     this.update({ "system.lifePoints.value": remainingLifePoints });
   }
+
+  getArmourValue() { return 0; }
 }

@@ -38,9 +38,9 @@
                 <strong>{{localize "RSK.Actions"}}: </strong>
                 <ol class="items-list">
                     {{#each actions as |action|}}
-                    <li class="item flexrow use-action" data-action-type="npcAction" data-action-id="{{action._id}}">
+                    <li class="item flexrow use-action" data-action-type="npcAction" data-action-id="{{action.id}}">
                         <div class="item-name flexrow">
-                            <strong>{{action.name}}</strong>
+                            <strong>{{action.label}}</strong>
                         </div>
                         <div class="item-content">{{action.description}}</div>
                         <div class="item-content">{{action.effectDescription}}</div>

@@ -137,7 +137,7 @@ export default class RSKCharacter extends RSKActor {
     // one of the prepare data methods and displayed somewhere on the char
     // sheet, to give feedback about the current soak values based on 
     // the current character/equipment.
-    _getArmourSoakValue() {
+    getArmourValue() {
         return this.items
             .filter(i => i.isEquipped)
             .reduce((acc, w, i) => acc +=
