@@ -1,3 +1,4 @@
+import { statusToEffect } from "../../effects/statuses.js";
 import { getTarget } from "../../rsk-targetting.js";
 import { fields } from "./fields.js";
 
@@ -10,6 +11,7 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
             description: new fields.HTMLField(), // what it look like
             effectDescription: new fields.HTMLField(), // what it does
             damageEntries: new fields.ObjectField(),
+            healing: new fields.ObjectField(),
             defenseCheck: new fields.StringField({ initial: "defense" }), //todo: options of skills to validate against
             statuses: new fields.ArrayField(new fields.StringField()), //todo: list of statuses that can be chosen
             effects: new fields.ArrayField(new fields.ObjectField()),
@@ -71,16 +73,16 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
     // this will mostly likely be healing/statuses granted to friendly npc's
     // though it could be damage too
     async applyNpcOutcome(outcome, npc) {
-        if (this.statuses.length > 0) {
-            //todo: create effects documents with statuses
-        }
-
-        if (this.effects.length > 0) {
-            //todo: create effects documents
-        }
+        const addedEffects = []
+        //todo: create effects documents with statuses
+        const statusEffects = this.status.map(s => statusToEffect(s, {}));
+        addedEffects.push(...statusEffects);
+        addedEffects.push(...this.effects);
+        await target.createEmbeddedDocuments("ActiveEffect", outcomeToApply.addedEffects);
 
         // todo: how do we want to model healing that can be applied
         // and how will we handle when these numbers are actually dice formula and not a static number?
+        const healingDone = healing.type === "roll" ? 0 : healing.value; //todo: roll with provided formula
 
         if (Object.keys(this.damageEntries).length > 0) {
             const damage = npc.calculateDamageTaken(this.damageEntries, 0);
