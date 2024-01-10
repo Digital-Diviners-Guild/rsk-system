@@ -3,6 +3,7 @@ import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import { rskStatusEffects } from "../../effects/statuses.js";
 import { rskMagicStatusEffects } from "../../rsk-magic.js";
 import { fields } from "./fields.js";
+import { getTarget } from "../../rsk-targetting.js";
 
 export default class RSKSpell extends RSKAction {
     static defineSchema() {
@@ -83,5 +84,26 @@ export default class RSKSpell extends RSKAction {
         // when an npc is affecting a character there is a different workflow
         // than when a character is affecting an npc/character. 
         // we will need to check target.type to make sure the apply makes sense.
+
+        if (this.spellType === "combat") {
+            this.applyCombatSpell(outcome, target);
+        } else {
+            this.applySpell(outcome, target);
+        }
+    }
+
+    async applyCombatSpell(outcome, target) {
+        if (target.type !== "npc") return; // maybe one day we could do pvp? but I think for now you can only attack npc's
+        if (outcome.result.margin > 0) {
+            //todo: trigger QUALITIES
+        }
+        //todo: add margin for damage taken, I think it is added pre soak.
+        const damageTaken = target.calculateDamageTaken(this.damageEntries, 0); // todo: puncture from qualities
+        target.receiveDamage(damageTaken);
+    }
+
+    async applySpell(outcome, target) {
+        // for non combat, it just needs to succeed, margin doesn't add anything (i don't think)
+        //todo: apply
     }
 }
