@@ -37,6 +37,8 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
                 }
             }
         });
+        // if this is a self target only action, we can probably apply and chat at the same time without
+        // needing apply to be clicked.
     }
 
     // ?? would it be worth splitting npc action types into combat and non combat?
@@ -82,8 +84,10 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
 
         // todo: how do we want to model healing that can be applied
         // and how will we handle when these numbers are actually dice formula and not a static number?
-        const healingDone = healing.type === "roll" ? 0 : healing.value; //todo: roll with provided formula
-
+        const healingDone = healing.type === "roll"
+            ? (await game.rsk.dice.roll("1d4")).total  //todo: roll with provided formula
+            : healing.value ?? 0;
+        npc.receiveDamage(-healingDone) //todo: healing method for clarity
         if (Object.keys(this.damageEntries).length > 0) {
             const damage = npc.calculateDamageTaken(this.damageEntries, 0);
             npc.receiveDamage(damage);

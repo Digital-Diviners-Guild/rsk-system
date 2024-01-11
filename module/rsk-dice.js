@@ -24,11 +24,12 @@ export default class RSKDice {
         await rollResult.toMessage({ flavor });
     }
 
-    static roll = async (rollType = "normal") => {
+    static roll = async (rollType = "normal", customFormula = "3d6") => {
         let formula = ({
+            normal: "3d6",
             advantage: "4d6dh1",
             disadvantage: "4d6kh3"
-        })[rollType] || "3d6";
+        })[rollType] || customFormula; // todo: validate its a valid formula
         const r = await Roll.create(formula);
         const result = await r.evaluate();
         const results = result.terms[0].results;
