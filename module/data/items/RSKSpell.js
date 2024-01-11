@@ -1,6 +1,6 @@
 import RSKAction from "./RSKAction.js";
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
-import { rskStatusEffects } from "../../effects/statuses.js";
+import { rskStatusEffects, statusToEffect } from "../../effects/statuses.js";
 import { rskMagicStatusEffects } from "../../rsk-magic.js";
 import { fields } from "./fields.js";
 import { getTarget } from "../../rsk-targetting.js";
@@ -96,14 +96,28 @@ export default class RSKSpell extends RSKAction {
         if (target.type !== "npc") return; // maybe one day we could do pvp? but I think for now you can only attack npc's
         if (outcome.result.margin > 0) {
             //todo: trigger QUALITIES
+            this.applySpellEffects(target);
         }
         //todo: add margin for damage taken, I think it is added pre soak.
         const damageTaken = target.calculateDamageTaken(this.damageEntries, 0); // todo: puncture from qualities
         target.receiveDamage(damageTaken);
     }
 
+    //todo: healing spells?
+    // once we figure out healing in npc actions, we need to apply to character actions too
     async applySpell(outcome, target) {
         // for non combat, it just needs to succeed, margin doesn't add anything (i don't think)
-        //todo: apply
+        //todo: how to model removed effects
+        this.applySpellEffects(target);
+    }
+
+    async applySpellEffects(target) {
+        const outcomeToApply = {
+            removedEffects: [],
+            addedEffects: []
+        };
+        outcomeToApply.addedEffects = this.getSpellEffectData();
+        await target.createEmbeddedDocuments("ActiveEffect", outcomeToApply.addedEffects);
+        await target.deleteEmbeddedDocuments("ActiveEffect", outcomeToApply.removedEffects);
     }
 }
