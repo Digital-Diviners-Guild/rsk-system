@@ -6,6 +6,7 @@ export default class RSKNpc extends RSKActor {
 
     prepareData() {
         super.prepareData();
+        this.testActions = [];
         this.testActions.push(RSKNpcAction.fromSource({ id: "testAction", label: "test action", damageEntries: { stab: 3 } }));
         console.log(this.testActions);
     }

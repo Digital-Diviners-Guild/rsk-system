@@ -1,3 +1,4 @@
+import RSKApplyDamageDialog from "../../applications/RSKApplyDamageDialog.js";
 import { statusToEffect } from "../../effects/statuses.js";
 import { getTarget } from "../../rsk-targetting.js";
 import { fields } from "./fields.js";
@@ -31,6 +32,7 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
             flags: {
                 rsk: {
                     outcome: {
+                        actorId: actor._id,
                         action: this.toObject(),
                         type: "npcAction"
                     }
@@ -47,13 +49,14 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
     //todo: QUALITIES
     async apply(outcome) {
         // todo: enforce target type, sometimes it can only be 'self' targeting.
-        const target = getTarget();
+        const actor = Actor.get(outcome.actorId);
+        const target = getTarget(actor);
         return await (target.type === "character"
-            ? applyCharacterOutcome(outcome, target)
-            : applyNpcOutcome(outcome, target));
+            ? this.applyCharacterOutcome(outcome, target, actor)
+            : this.applyNpcOutcome(outcome, target, actor));
     }
 
-    async applyCharacterOutcome(outcome, character) {
+    async applyCharacterOutcome(outcome, character, actor) {
         const result = await character.skillCheck({ defaultSkill: this.defenseCheck });
         if (!result) return;
 
@@ -61,6 +64,15 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
         if (result.isSuccess) {
             // todo: qualities/armour types may interact with damageTypes
             // todo: qualities may reflect damage back to the attacker
+            if (result.margin > 0) {
+                //pretending we identified the reflection quality applies
+                // todo: this would be in the quality type though
+                const dialog = RSKApplyDamageDialog.create({ canReflect: true });
+                const qualityResult = await dialog()
+                if (qualityResult.confirmed && qualityResult.damageReflection > 0) {
+                    actor.receiveDamage(qualityResult.damageReflection); // not sure if this ignores soak or not.
+                }
+            }
             const damageMitigation = character.getArmourValue() + result.margin;
             const damageTaken = game.rsk.math.clamp_value(totalDamage - damageMitigation, { min: 0 });
             character.receiveDamage(damageTaken);
@@ -74,19 +86,19 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
     // this is just applied, no checks needed.
     // this will mostly likely be healing/statuses granted to friendly npc's
     // though it could be damage too
-    async applyNpcOutcome(outcome, npc) {
+    async applyNpcOutcome(outcome, npc, actor) {
         const addedEffects = []
         //todo: create effects documents with statuses
-        const statusEffects = this.status.map(s => statusToEffect(s, {}));
+        const statusEffects = this.statuses.map(s => statusToEffect(s, {}));
         addedEffects.push(...statusEffects);
         addedEffects.push(...this.effects);
-        await target.createEmbeddedDocuments("ActiveEffect", outcomeToApply.addedEffects);
+        await npc.createEmbeddedDocuments("ActiveEffect", addedEffects);
 
         // todo: how do we want to model healing that can be applied
         // and how will we handle when these numbers are actually dice formula and not a static number?
-        const healingDone = healing.type === "roll"
+        const healingDone = this.healing?.type === "roll"
             ? (await game.rsk.dice.roll("1d4")).total  //todo: roll with provided formula
-            : healing.value ?? 0;
+            : this.healing?.value ?? 0;
         npc.receiveDamage(-healingDone) //todo: healing method for clarity
         if (Object.keys(this.damageEntries).length > 0) {
             const damage = npc.calculateDamageTaken(this.damageEntries, 0);
