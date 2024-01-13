@@ -47,6 +47,7 @@ export default class RSKActorSheet extends ActorSheet {
       const item = this.actor.items.get(li.data("itemId"));
       this.actor.equip(item);
     });
+
     html.find('.apply-damage').click(async ev => {
       const dialog = RSKApplyDamageDialog.create({}, {});
       let damage = await dialog();

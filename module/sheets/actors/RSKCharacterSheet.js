@@ -1,18 +1,24 @@
 import RSKActorSheet from "./RSKActorSheet.js";
-import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
     spells;
+    inventoryItems;
 
     getData() {
         const context = super.getData();
+        this._prepareInventory(context);
         this._prepareSkills(context);
         this._prepareAbilities(context);
         this._prepareSpells(context);
         this._preparePrayers(context);
         this._prepareEquipment(context);
         return context;
+    }
+
+    _prepareInventory(context) {
+        this.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("slotId"));
+        context.inventoryItems = this.inventoryItems;
     }
 
     _prepareSkills(context) {
@@ -39,21 +45,11 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        //todo: this is probably where we should .fromSource to get the spell object
-        // currently it is already done in CONFIG.  I wonder if it should also
-        // be done during prepareData in the document rather than
-        // on the sheet.  currently I think spells and prayers don't exist on the document
-        // just the sheet
         this.spells = CONFIG.RSK.standardSpellBook;
         context.spells = this.spells;
     }
 
     _preparePrayers(context) {
-        //todo: this is probably where we should .fromSource to get the prayer object
-        // currently it is already done in CONFIG.  I wonder if it should also
-        // be done during prepareData in the document rather than
-        // on the sheet.  currently I think spells and prayers don't exist on the document
-        // just the sheet
         this.prayers = CONFIG.RSK.defaultPrayers;
         context.prayers = this.prayers;
     }

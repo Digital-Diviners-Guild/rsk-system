@@ -91,9 +91,10 @@
     </div>
 
     <div class="tab features" data-group="primary" data-tab="inventory">
-      <strong>temp (item list)</strong>
-      {{> "/systems/rsk/templates/actors/parts/edit-items.hbs" items=actor.items }}
+      <strong>Inventory</strong>
+      {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
 
+      <strong>Active Slots</strong>
       <div>
         <label>{{localize "RSK.Head"}}</label>
         <div>{{worn.head}}</div>
@@ -108,9 +109,6 @@
         <label>{{localize "RSK.Cape"}}</label>
         <div>{{worn.cape}}</div>
       </div>
-      {{#each system.backpack.inventoryslots as |slot key|}}
-      <span>.</span>
-      {{/each}}
     </div>
 
     <div class="tab features" data-group="primary" data-tab="description">
