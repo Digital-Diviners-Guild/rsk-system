@@ -63,7 +63,7 @@ export default class RSKPrayer extends RSKAction {
 
         const actor = Actor.get(outcome.actorId);
         const target = getTarget(actor);
-        if (target.type === "npc") return; // todo: can npc's receive prayers? I think npc actions are a completely different thing
+        if (target.type === "npc") return;
 
         const outcomeToApply = {};
         outcomeToApply['removedEffects'] = this.getActivePrayers(target.effects);
@@ -75,7 +75,7 @@ export default class RSKPrayer extends RSKAction {
     getPrayerEffectData(duration = {}) {
         const prayerStatus = rskPrayerStatusEffects.find(p => p.id === this.id);
         if (!prayerStatus) {
-            return this.effects;
+            return [];
         }
         return statusToEffect(prayerStatus, duration);
     }

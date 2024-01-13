@@ -50,10 +50,9 @@ export default class RSKActorSheet extends ActorSheet {
 
     html.find('.apply-damage').click(async ev => {
       const dialog = RSKApplyDamageDialog.create({}, {});
-      let damage = await dialog();
-      if (damage.confirmed) {
-        const outcome = {}; //todo: generate outcome, dialog may need damage type options
-        await this.actor.applyOutcome(outcome);
+      let result = await dialog();
+      if (result.confirmed) {
+        this.actor.receiveDamage(result.damage);
       }
     });
 
