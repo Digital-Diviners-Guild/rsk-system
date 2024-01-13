@@ -1,38 +1,37 @@
-import RSKQualityType from "./data/items/RSKQualityType.js";
-import RSKNpcAction from "./data/items/RSKNpcAction.js";
 import RSKAction from "./data/items/RSKAction.js";
-import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
-import RSKCape from "./data/items/RSKCape.js";
-import RSKMaterial from "./data/items/RSKMaterial.js";
-import RSKResource from "./data/items/RSKResource.js";
 import RSKArmourType from "./data/items/RSKArmourType.js";
-import RSKEquipment from "./data/items/RSKEquipment.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
-import RSKSpell from "./data/items/RSKSpell.js";
+import RSKCape from "./data/items/RSKCape.js";
+import RSKEquipment from "./data/items/RSKEquipment.js";
+import RSKMaterial from "./data/items/RSKMaterial.js";
+import RSKNpcAction from "./data/items/RSKNpcAction.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
+import RSKQualityType from "./data/items/RSKQualityType.js";
+import RSKResource from "./data/items/RSKResource.js";
+import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
+import RSKSpell from "./data/items/RSKSpell.js";
 
 import RSKCharacterType from "./data/actors/RSKCharacterType.js";
 import RSKNpc from "./data/actors/RSKNpcType.js";
 
+import RSKActiveEffect from "./documents/items/RSKActiveEffect.js";
 import RSKItem from "./documents/items/RSKItem.js";
 import { RSKItemProxy } from "./documents/items/RSKItemProxy.js";
-import RSKActiveEffect from "./documents/items/RSKActiveEffect.js";
 
-import { RSKActorProxy } from "./documents/actors/RSKActorProxy.js";
 import RSKActor from "./documents/actors/RSKActor.js";
+import { RSKActorProxy } from "./documents/actors/RSKActorProxy.js";
 
 import RSKItemSheet from "./sheets/items/RSKItemSheet.js";
-import RSKQualitySheet from "./sheets/items/RSKQualitySheet.js";
 
 import RSKActorSheet from "./sheets/actors/RSKActorSheet.js";
 
+import RSKChatLog, { onRenderChatMessage } from "./applications/RSKChatLog.js";
 import RSK from "./config.js";
+import RSKRuneType from "./data/items/RSKRune.js";
+import { customizeStatusEffects } from "./effects/statuses.js";
 import RSKDice from "./rsk-dice.js";
 import RSKMath from "./rsk-math.js";
-import { customizeStatusEffects } from "./effects/statuses.js";
 import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
-import RSKChatLog, { onRenderChatMessage } from "./applications/RSKChatLog.js";
-import RSKRuneType from "./data/items/RSKRune.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 
 globalThis.rsk = {
@@ -84,17 +83,16 @@ Hooks.once("init", function () {
         prayer: RSKPrayer,
         rune: RSKRuneType
     };
-    Items.unregisterSheet("core", ItemSheet)
-    Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true })
-    Items.registerSheet("rsk", RSKQualitySheet, { types: ["quality"], makeDefault: true });
+    Items.unregisterSheet("core", ItemSheet);
+    Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
 
     CONFIG.Actor.documentClass = RSKActorProxy;
     CONFIG.Actor.dataModels = {
         character: RSKCharacterType,
         npc: RSKNpc
     };
-    Actors.unregisterSheet("core", ActorSheet)
-    Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true })
+    Actors.unregisterSheet("core", ActorSheet);
+    Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true });
     Actors.registerSheet("rsk", RSKCharacterSheet, { types: ["character"], makeDefault: true });
     Actors.registerSheet("rsk", RSKNpcSheet, { types: ["npc"], makeDefault: true });
 
