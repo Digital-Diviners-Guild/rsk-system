@@ -16,8 +16,7 @@ export default class RSKAction extends foundry.abstract.DataModel {
                 amount: new fields.NumberField()
             })),
             statuses: new fields.ArrayField(new fields.StringField()),
-            //todo: I think we can reference the quality type here
-            qualities: new fields.ArrayField(new fields.ObjectField()),
+            qualities: new fields.HTMLField(),
         };
     }
 }
