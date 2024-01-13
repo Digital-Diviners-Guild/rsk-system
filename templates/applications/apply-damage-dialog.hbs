@@ -1,27 +1,8 @@
 <div autocomplete="off" spellcheck="off">
-    {{!-- todo: limit healing+block+damage === startingDamage --}}
     <div class="form-group">
         <label>{{localize "RSK.Damage"}}</label>
         <input id="damage-value" type="number" name="damage" value="{{damage}}">
     </div>
-    {{#if canHeal}}
-    <div class="form-group">
-        <label>{{localize "RSK.Healing"}}</label>
-        <input id="healing-value" type="number" name="healing" value="{{healing}}">
-    </div>
-    {{/if}}
-    {{#if canBlock}}
-    <div class="form-group">
-        <label>{{localize "RSK.Block"}}</label>
-        <input id="block-value" type="number" name="block" value="{{block}}">
-    </div>
-    {{/if}}
-    {{#if canReflect}}
-    <div class="form-group">
-        <label>{{localize "RSK.Reflect"}}</label>
-        <input id="reflect-value" type="number" name="damageReflection" value="{{damageReflection}}">
-    </div>
-    {{/if}}
     <hr />
     <button class="apply" type="button">{{localize "RSK.Apply"}}</button>
 </div>

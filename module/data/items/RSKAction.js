@@ -1,5 +1,6 @@
 import { fields } from "./fields.js";
 
+//todo: trim model for manual
 export default class RSKAction extends foundry.abstract.DataModel {
     static defineSchema() {
         return {
@@ -27,7 +28,4 @@ export default class RSKAction extends foundry.abstract.DataModel {
             qualities: new fields.ArrayField(new fields.ObjectField()),
         };
     }
-
-    async use(actor) { console.log(actor); }
-    async apply(outcome) { console.log(outcome); }
 }
