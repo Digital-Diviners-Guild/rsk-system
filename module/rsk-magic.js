@@ -1,5 +1,3 @@
-import RSKSpell from "./data/items/RSKSpell.js";
-
 export const rskMagicStatusEffects = [
     {
         id: "confuse",
@@ -55,7 +53,6 @@ export const standardSpellBook = [{
     effectDescription: "RSK.Confuse.EffectDescription",
     statuses: ["confuse"], // or should we model the effect instead? 
     // effects: [{name:"", statuses:[], changes: [{"system.damage.modifier": -5}]}]
-    effects: [],
     range: "near",
     target: {
         scope: "enemies",
@@ -84,7 +81,6 @@ export const standardSpellBook = [{
     description: "RSK.WindStrike.Description",
     effectDescription: "RSK.WindStrike.EffectDescription",
     statuses: [],
-    effects: [],
     range: "far",
     target: {
         scope: "enemies",
@@ -112,7 +108,6 @@ export const standardSpellBook = [{
     effectDescription: "RSK.CrumbleUndead.EffectDescription",
     statuses: [], // might actually need to model effects here on the spell data, maybe in addition or instead of statuses? 
     // statuses: {added: [], removed: []} ?
-    effects: [],
     // effects: {added: [], removed: []} ?
     qualities: [{
         id: "puncture",
@@ -158,7 +153,6 @@ export const standardSpellBook = [{
         number: 6
     },
     statuses: [],
-    effects: [],
     usageCost: [
         // {
         //     type:"air",    
@@ -202,11 +196,3 @@ export const standardSpellBook = [{
         }],
     damageEntries: {}
 }];
-
-//todo: move to a prepare Spells method in character
-export function getSpell(spellId) {
-    const data = standardSpellBook.find(s => s.id === spellId);
-    if (!data) return {};
-
-    return RSKSpell.fromSource(data);
-}

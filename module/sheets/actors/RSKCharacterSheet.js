@@ -1,9 +1,11 @@
+import RSKPrayer from "../../data/items/RSKPrayer.js";
+import RSKSpell from "../../data/items/RSKSpell.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
     spells;
-    
+
     getData() {
         const context = super.getData();
         this._prepareInventory(context);
@@ -43,12 +45,18 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        this.spells = CONFIG.RSK.standardSpellBook;
+        this.spells = Object.values(CONFIG.RSK.standardSpellBook).reduce((ssb, s) => {
+            ssb[s.id] = RSKSpell.fromSource(s);
+            return ssb;
+        }, {});
         context.spells = this.spells;
     }
 
     _preparePrayers(context) {
-        this.prayers = CONFIG.RSK.defaultPrayers;
+        this.prayers = Object.values(CONFIG.RSK.defaultPrayers).reduce((dp, p) => {
+            dp[p.id] = RSKPrayer.fromSource(p);
+            return dp;
+        }, {});
         context.prayers = this.prayers;
     }
 

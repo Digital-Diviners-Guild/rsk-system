@@ -1,6 +1,5 @@
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import { statusToEffect } from "../../effects/statuses.js";
-import { rskPrayerStatusEffects } from "../../rsk-prayer.js";
 import { getTarget } from "../../rsk-targetting.js";
 import RSKAction from "./RSKAction.js";
 
@@ -57,7 +56,6 @@ export default class RSKPrayer extends RSKAction {
         return result;
     }
 
-    // does this live here? action outcome application can vary from npc to character
     async apply(outcome) {
         if (!outcome.result.isSuccess) return;
 
@@ -67,17 +65,9 @@ export default class RSKPrayer extends RSKAction {
 
         const outcomeToApply = {};
         outcomeToApply['removedEffects'] = this.getActivePrayers(target.effects);
-        outcomeToApply['addedEffects'] = [this.getPrayerEffectData()];
+        outcomeToApply['addedEffects'] = [statusToEffect(this, duration)];
         await target.createEmbeddedDocuments("ActiveEffect", outcomeToApply.addedEffects);
         await target.deleteEmbeddedDocuments("ActiveEffect", outcomeToApply.removedEffects);
-    }
-
-    getPrayerEffectData(duration = {}) {
-        const prayerStatus = rskPrayerStatusEffects.find(p => p.id === this.id);
-        if (!prayerStatus) {
-            return [];
-        }
-        return statusToEffect(prayerStatus, duration);
     }
 
     getActivePrayers(actorEffects) {

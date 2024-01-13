@@ -1,5 +1,4 @@
 import { rskMagicStatusEffects } from "../rsk-magic.js";
-import { rskPrayerStatusEffects } from "../rsk-prayer.js";
 
 export const changeModes = {
     ADD: 2,
@@ -7,8 +6,8 @@ export const changeModes = {
 };
 
 export function customizeStatusEffects() {
+    const rskPrayerStatusEffects = CONFIG.RSK.defaultPrayers.map(p => p.id);
     CONFIG.statusEffects = [...rskStatusEffects, ...rskMagicStatusEffects, ...rskPrayerStatusEffects];
-    console.log(CONFIG.statusEffects);
 };
 
 //todo: need image urls (most are just made up)
