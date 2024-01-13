@@ -60,25 +60,6 @@ export default class RSKCharacter extends RSKActor {
         }
     }
 
-    // this pops up a dialog, do we want to do those types of things from the documents?
-    // or should that not be done here? how else/where else would we do it?
-    // I think we can access the sheet through actor.sheet when we are elsewhere like in an action
-    // but that doesn't feel great either. idk, maybe it would be better to keep the ui stuff in the ui related code though.
-    //todo: maybe move this back to the sheet.
-    async skillCheck(options) {
-        const rollData = this.getRollData();
-        const dialog = RSKConfirmRollDialog.create(rollData, options);
-        const rollOptions = await dialog();
-        if (!rollOptions.rolled) return false;
-
-        const result = await this.useSkill(rollOptions.skill, rollOptions.ability, rollOptions.rollType);
-        //todo: could probably be in a template
-        const flavor = `<strong>${rollOptions.skill} | ${rollOptions.ability}</strong>
-              <p>${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>`;
-        result.rollResult.toMessage({ flavor }, { ...rollOptions });
-        return result;
-    }
-
     applyBackgrounds() {
         this.items.filter(i => i.type === "background")
             .map(b => b.applyBackgroundSkillImprovements(this))
