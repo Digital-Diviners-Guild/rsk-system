@@ -19,6 +19,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _prepareInventory(context) {
         context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("slotId"));
+        context.usedSlots = this.actor.flags?.rsk?.inventorySlotsUsed ?? 0;
     }
 
     _prepareSkills(context) {
