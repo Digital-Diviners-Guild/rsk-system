@@ -4,7 +4,7 @@ export default class RSKActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["rsk", "actor", "sheet"],
-      width: 600,
+      width: 900,
       height: 600,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
     });
