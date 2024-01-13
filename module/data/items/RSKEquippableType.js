@@ -1,12 +1,10 @@
-import RSKAction from "./RSKAction.js";
 import RSKStowableType from "./RSKStowableType.js"
 import { fields } from "./fields.js";
 
 export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            actions: new fields.ArrayField(new fields.EmbeddedDataField(RSKAction)),
-            qualities: new fields.ArrayField(new fields.ObjectField()),
+            qualities: new fields.HtmlField(),
             equipped: new fields.SchemaField(
                 {
                     isEquipped: new fields.BooleanField(),
