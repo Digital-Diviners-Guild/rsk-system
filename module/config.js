@@ -1,5 +1,5 @@
-import { getPrayer, rskPrayerStatusEffects } from "./rsk-prayer.js";
-import { getSpell, standardSpellBook } from "./rsk-magic.js";
+import { rskDefaultPrayers } from "./rsk-prayer.js";
+import { standardSpellBook } from "./rsk-magic.js";
 
 const RSK = {};
 
@@ -106,14 +106,6 @@ RSK.damageTypes = {
 // is this how we want to detail default spell/prayer books?
 // perhaps the spell/prayer books should be items/actors?
 // we may have more spell books in the future, like the lunar spell book for lunar spells?
-RSK.standardSpellBook = Object.values(standardSpellBook).reduce((ssb, s) => {
-    ssb[s.id] = getSpell(s.id);
-    return ssb;
-}, {});
-
-RSK.defaultPrayers = rskPrayerStatusEffects.reduce((dp, p) => {
-    dp[p.id] = getPrayer(p.id);
-    return dp;
-}, {});
-
+RSK.standardSpellBook = standardSpellBook;
+RSK.defaultPrayers = rskDefaultPrayers;
 export default RSK;

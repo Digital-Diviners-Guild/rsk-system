@@ -1,6 +1,5 @@
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import { statusToEffect } from "../../effects/statuses.js";
-import { rskPrayerStatusEffects } from "../../rsk-prayer.js";
 import { getTarget } from "../../rsk-targetting.js";
 import RSKAction from "./RSKAction.js";
 
@@ -57,27 +56,18 @@ export default class RSKPrayer extends RSKAction {
         return result;
     }
 
-    // does this live here? action outcome application can vary from npc to character
     async apply(outcome) {
         if (!outcome.result.isSuccess) return;
 
         const actor = Actor.get(outcome.actorId);
         const target = getTarget(actor);
-        if (target.type === "npc") return; // todo: can npc's receive prayers? I think npc actions are a completely different thing
+        if (target.type === "npc") return;
 
         const outcomeToApply = {};
         outcomeToApply['removedEffects'] = this.getActivePrayers(target.effects);
-        outcomeToApply['addedEffects'] = [this.getPrayerEffectData()];
+        outcomeToApply['addedEffects'] = [statusToEffect(this, duration)];
         await target.createEmbeddedDocuments("ActiveEffect", outcomeToApply.addedEffects);
         await target.deleteEmbeddedDocuments("ActiveEffect", outcomeToApply.removedEffects);
-    }
-
-    getPrayerEffectData(duration = {}) {
-        const prayerStatus = rskPrayerStatusEffects.find(p => p.id === this.id);
-        if (!prayerStatus) {
-            return this.effects;
-        }
-        return statusToEffect(prayerStatus, duration);
     }
 
     getActivePrayers(actorEffects) {

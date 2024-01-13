@@ -106,9 +106,9 @@
           </ol>
         </div>
 
-        <div class="tab features" data-group="primary" data-tab="inventory">
-          <strong>Inventory</strong>
-          {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
+    <div class="tab features" data-group="primary" data-tab="inventory">
+      <div><strong>Inventory</strong> ({{usedSlots}} / 28)</div>
+      {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
 
           <strong>Active Slots</strong>
           <div>

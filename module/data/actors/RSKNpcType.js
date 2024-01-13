@@ -6,10 +6,12 @@ export default class RSKNpcType extends foundry.abstract.TypeDataModel {
         return {
             ...RSKCreature.defineSchema(),
             description: new fields.HTMLField(),
-            isQuestGiver: new fields.BooleanField(),
-            drops: new fields.ArrayField(new fields.ObjectField()),
-            specialFeatures: new fields.ArrayField(new fields.ObjectField()),
-            actions: new fields.ArrayField(new fields.ObjectField()),
+            drops: new fields.HTMLField(),
+            specialFeatures: new fields.HTMLField(),
+            actions: new fields.ArrayField(new fields.SchemaField({
+                label: new fields.StringField(),
+                description: new fields.HTMLField()
+            })),
             armourValue: new fields.NumberField({ min: 0, initial: 0, max: 20 }),
         };
     }

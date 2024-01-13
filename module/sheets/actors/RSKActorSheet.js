@@ -1,5 +1,3 @@
-import RSKApplyDamageDialog from "../../applications/RSKApplyDamageDialog.js";
-
 export default class RSKActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -46,15 +44,6 @@ export default class RSKActorSheet extends ActorSheet {
       const li = $(ev.currentTarget).parents(".item");
       const item = this.actor.items.get(li.data("itemId"));
       this.actor.equip(item);
-    });
-
-    html.find('.apply-damage').click(async ev => {
-      const dialog = RSKApplyDamageDialog.create({}, {});
-      let damage = await dialog();
-      if (damage.confirmed) {
-        const outcome = {}; //todo: generate outcome, dialog may need damage type options
-        await this.actor.applyOutcome(outcome);
-      }
     });
 
     html.find('.apply-backgrounds').click(ev => {

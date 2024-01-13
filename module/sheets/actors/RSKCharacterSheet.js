@@ -1,9 +1,10 @@
+import RSKPrayer from "../../data/items/RSKPrayer.js";
+import RSKSpell from "../../data/items/RSKSpell.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
     spells;
-    inventoryItems;
 
     getData() {
         const context = super.getData();
@@ -17,8 +18,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareInventory(context) {
-        this.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("slotId"));
-        context.inventoryItems = this.inventoryItems;
+        context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("slotId"));
+        context.usedSlots = this.actor.flags?.rsk?.inventorySlotsUsed ?? 0;
     }
 
     _prepareSkills(context) {
@@ -45,12 +46,18 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        this.spells = CONFIG.RSK.standardSpellBook;
+        this.spells = Object.values(CONFIG.RSK.standardSpellBook).reduce((ssb, s) => {
+            ssb[s.id] = RSKSpell.fromSource(s);
+            return ssb;
+        }, {});
         context.spells = this.spells;
     }
 
     _preparePrayers(context) {
-        this.prayers = CONFIG.RSK.defaultPrayers;
+        this.prayers = Object.values(CONFIG.RSK.defaultPrayers).reduce((dp, p) => {
+            dp[p.id] = RSKPrayer.fromSource(p);
+            return dp;
+        }, {});
         context.prayers = this.prayers;
     }
 
@@ -91,8 +98,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     async _onDropItem(event, data) {
         const item = await Item.fromDropData(data);
         // how do we want to identify something that can go in the inventory?
-        // maybe a flag on precreate for the item type?
-        //todo: handle heavy quality when we refactor this out
         if (item.system.hasOwnProperty("slotId")) {
             await this.actor.addItem(item)
         }
