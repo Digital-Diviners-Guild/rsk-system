@@ -3,102 +3,104 @@
         <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64" />
         <h1><input type="text" name="name" value="{{actor.name}}" placeholder="Name"></h1>
     </header>
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
-        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
-    </nav>
-    <section class="sheet-body">
-        <div class="tab features" data-group="primary" data-tab="description">
-            <div class="form-group">
-                <button class="apply-damage">{{localize "RSK.ApplyDamage"}}</button>
-            </div>
-            <div>
-                <h3>{{localize "RSK.Description"}}</h3>
-                {{editor system.description target="system.description" editable=false engine="prosemirror"}}
-            </div>
-            <hr />
-            <div>
-                <strong>{{localize "RSK.Movement"}}: </strong>
-                {{system.movement}}
-            </div>
-            <div>
-                <strong>{{localize "RSK.Size"}}: </strong>
-                {{system.size}}
-            </div>
-            <div>
-                <strong>{{localize "RSK.ArmourValue"}}: </strong>
-                {{system.armourValue}}
-            </div>
-            <div>
-                <strong>{{localize "RSK.LifePoints"}}: </strong>
-                {{system.lifePoints.value}} / {{system.lifePoints.max}}
-            </div>
-
-            <div>
-                <strong>{{localize "RSK.Actions"}}: </strong>
-                <ol class="items-list">
-                    {{#each actions as |action|}}
-                    <li class="item flexrow use-action" data-action-type="npcAction" data-action-id="{{action.id}}">
-                        <div class="item-name flexrow">
-                            <strong>{{action.label}}</strong>
-                        </div>
-                        <div class="item-content">{{action.description}}</div>
-                        <div class="item-content">{{action.effectDescription}}</div>
-                    </li>
-                    {{/each}}
-                </ol>
-            </div>
-            <div>
-                <strong>{{localize "RSK.Specials"}}: </strong>
-                {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=specialFeatures }}
+    <div class="sheet-container">
+        <div class="sidebar">
+            <div class="rsk stats-abilities">
+                <div class="rsk stats">
+                    <div class="stats-toolbar">
+                        <div class="actor-application" application-method="characterDamage" effect-label="Take Damage"
+                            glow-color="red"><i class="fas fa-sword"></i></div>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="main-content">
+            <nav class="sheet-tabs tabs" data-group="primary">
+                <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+                <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
+            </nav>
+            <section class="sheet-body">
+                <div class="tab features" data-group="primary" data-tab="description">
+                    <div>
+                        <h3>{{localize "RSK.Description"}}</h3>
+                        {{editor system.description target="system.description" editable=false engine="prosemirror"}}
+                    </div>
+                    <hr />
+                    <div>
+                        <strong>{{localize "RSK.Movement"}}: </strong>
+                        {{system.movement}}
+                    </div>
+                    <div>
+                        <strong>{{localize "RSK.Size"}}: </strong>
+                        {{system.size}}
+                    </div>
+                    <div>
+                        <strong>{{localize "RSK.ArmourValue"}}: </strong>
+                        {{system.armourValue}}
+                    </div>
+                    <div>
+                        <strong>{{localize "RSK.LifePoints"}}: </strong>
+                        {{system.lifePoints.value}} / {{system.lifePoints.max}}
+                    </div>
 
-        <div class="tab features" data-group="primary" data-tab="edit">
-            <div class="rsk-editor">
-                <label>{{localize "RSK.Description"}}</label>
-                {{editor system.description target="system.description" button=false engine="prosemirror"}}
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.QuestGiver"}}</label>
-                <input type="checkbox" name="system.isQuestGiver" {{checked system.isQuestGiver}}>
-            </div>
+                    <div>
+                        <strong>{{localize "RSK.Actions"}}: </strong>
+                        {{> "/systems/rsk/templates/actors/parts/view-items.hbs"
+                        items=actions }}
+                    </div>
+                    <div>
+                        <strong>{{localize "RSK.Specials"}}: </strong>
+                        {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=specialFeatures }}
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label>{{localize "RSK.Size"}}</label>
-                <select name="system.size">
-                    {{selectOptions config.sizes selected=system.size}}
-                </select>
-            </div>
+                <div class="tab features" data-group="primary" data-tab="edit">
+                    <div class="rsk-editor">
+                        <label>{{localize "RSK.Description"}}</label>
+                        {{editor system.description target="system.description" button=false engine="prosemirror"}}
+                    </div>
+                    <div class="form-group">
+                        <label>{{localize "RSK.QuestGiver"}}</label>
+                        <input type="checkbox" name="system.isQuestGiver" {{checked system.isQuestGiver}}>
+                    </div>
 
-            <div class="form-group">
-                <label>{{localize "RSK.Movement"}}</label>
-                <input name="system.movement" type="number" value="{{system.movement}}">
-            </div>
+                    <div class="form-group">
+                        <label>{{localize "RSK.Size"}}</label>
+                        <select name="system.size">
+                            {{selectOptions config.sizes selected=system.size}}
+                        </select>
+                    </div>
 
-            <div class="form-group">
-                <label>{{localize "RSK.ArmourValue"}}</label>
-                <input name="system.armourValue" type="number" value="{{system.armourValue}}">
-            </div>
+                    <div class="form-group">
+                        <label>{{localize "RSK.Movement"}}</label>
+                        <input name="system.movement" type="number" value="{{system.movement}}">
+                    </div>
 
-            <div class="form-group">
-                <label>{{localize "RSK.LifePoints"}}</label>
-                <input name="system.lifePoints.value" type="number" value="{{system.lifePoints.value}}"> /
-                <input name="system.lifePoints.max" type="number" value="{{system.lifePoints.max}}">
-            </div>
+                    <div class="form-group">
+                        <label>{{localize "RSK.ArmourValue"}}</label>
+                        <input name="system.armourValue" type="number" value="{{system.armourValue}}">
+                    </div>
 
-            <label>{{localize "RSK.Actions"}}</label>
-            {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
-            items=actions
-            addType="action"
-            addLabel="Add Action"}}
+                    <div class="form-group">
+                        <label>{{localize "RSK.LifePoints"}}</label>
+                        <input name="system.lifePoints.value" type="number" value="{{system.lifePoints.value}}"> /
+                        <input name="system.lifePoints.max" type="number" value="{{system.lifePoints.max}}">
+                    </div>
 
-            <label>{{localize "RSK.Specials"}}</label>
-            {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
-            items=specialFeatures
-            addType="specialFeature"
-            addLabel="Add Special"}}
+                    <label>{{localize "RSK.Actions"}}</label>
+                    {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
+                    items=actions
+                    addType="npcAction"
+                    addLabel="Add Action"}}
 
+                    <label>{{localize "RSK.Specials"}}</label>
+                    {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
+                    items=specialFeatures
+                    addType="specialFeature"
+                    addLabel="Add Special"}}
+
+                </div>
+            </section>
         </div>
-    </section>
+    </div>
 </form>
