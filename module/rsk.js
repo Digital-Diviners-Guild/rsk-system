@@ -4,7 +4,6 @@ import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
 import RSKCape from "./data/items/RSKCape.js";
 import RSKEquipment from "./data/items/RSKEquipment.js";
 import RSKMaterial from "./data/items/RSKMaterial.js";
-import RSKNpcAction from "./data/items/RSKNpcAction.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
 import RSKQualityType from "./data/items/RSKQualityType.js";
 import RSKResource from "./data/items/RSKResource.js";
@@ -69,7 +68,6 @@ Hooks.once("init", function () {
     CONFIG.Item.dataModels = {
         quality: RSKQualityType,
         action: RSKAction,
-        npcAction: RSKNpcAction,
         specialFeature: RSKSpecialFeature,
         cape: RSKCape,
         material: RSKMaterial,

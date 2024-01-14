@@ -8,6 +8,18 @@ import RSKAction from "./RSKAction.js";
 // basically, a more functional command pattern, rather than inheritance.
 // plus it keeps these models just data and use case specific
 export default class RSKPrayer extends RSKAction {
+    static defineSchema() {
+        return {
+            ...RSKAction.defineSchema(),
+            usageCost: new fields.ArrayField(new fields.SchemaField({
+                itemType: new fields.StringField(),// rune / ammo / points
+                type: new fields.StringField(), // air / arrow / prayer
+                amount: new fields.NumberField()
+            })),
+            statuses: new fields.ArrayField(new fields.StringField()),
+        }
+    }
+
     async use(actor) {
         if (actor.type === "npc") return; // todo: can npc's pray?
 

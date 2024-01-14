@@ -1,4 +1,4 @@
-import RSKNpcAction from "../../data/items/RSKNpcAction.js";
+import RSKAction from "../../data/items/RSKAction.js";
 import RSKActor from "./RSKActor.js";
 
 export default class RSKNpc extends RSKActor {
@@ -7,7 +7,7 @@ export default class RSKNpc extends RSKActor {
     prepareData() {
         super.prepareData();
         this.testActions = [];
-        this.testActions.push(RSKNpcAction.fromSource({ id: "testAction", label: "test action", damageEntries: { stab: 3 } }));
+        this.testActions.push(RSKAction.fromSource({ id: "testAction", label: "test action", damageEntries: { stab: 3 } }));
         console.log(this.testActions);
     }
 

@@ -6,7 +6,15 @@ export default class RSKSpell extends RSKAction {
     static defineSchema() {
         return {
             spellType: new fields.StringField(),
-            ...RSKAction.defineSchema()
+            ...RSKAction.defineSchema(),
+            usageCost: new fields.ArrayField(new fields.SchemaField({
+                itemType: new fields.StringField(),// rune / ammo / points
+                type: new fields.StringField(), // air / arrow / prayer
+                amount: new fields.NumberField()
+            })),
+            statuses: new fields.ArrayField(new fields.StringField()),
+            qualities: new fields.StringField(),
+            requiredEquipment: new fields.StringField(),
         }
     };
 
