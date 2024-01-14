@@ -19,7 +19,7 @@
             <p><strong>{{localize "RSK.Soak"}}:</strong> {{system.values.soak}}</p>
             <div>
                 <strong>{{localize "RSK.Qualities"}}:</strong>
-                {{> "/systems/rsk/templates/items/parts/view-qualities.hbs"}}
+                <div>{{system.qualities}}:</div>
             </div>
 
         </div>
@@ -48,8 +48,8 @@
                 <input type="number" name="system.values.soak" value="{{system.values.soak}}">
             </div>
 
-            <label>{{localize "RSK.Qualities"}}:</label>
-            {{> "/systems/rsk/templates/items/parts/edit-qualities.hbs"}}
+            <strong>{{localize "RSK.Qualities"}}:</strong>
+            <input type="text" name="system.qualities" value="{{system.qualities}}">
 
             <strong>Effects (temp)</strong>
             {{> "/systems/rsk/templates/parts/view-effects.hbs"}}

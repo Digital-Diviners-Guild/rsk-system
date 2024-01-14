@@ -8,14 +8,14 @@
                 <em>(qty: {{item.system.quantity}})</em>
             </div>
             {{/if}}
-            {{#if item.system.equipped}}
-            <a class="item-control item-equip" title="Equip Item">equip</a>
-            {{/if}}
         </div>
         {{#if item.system.description}}
         <div class="item-content">
             {{item.system.description}}
         </div>
+        {{/if}}
+        {{#if item.system.equipped}}
+        <a class="item-control item-equip" title="Equip Item">equip</a>
         {{/if}}
         {{!-- todo reduce quantity, don't remove all --}}
         <a class="item-control item-delete" title="Equip Item">remove</a>

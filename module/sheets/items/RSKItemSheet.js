@@ -53,12 +53,6 @@ export default class RSKItemSheet extends ItemSheet {
                     .filter(x => x._id === effectId)
                     .map(x => x._id));
         });
-
-        html.find('.quality-delete').click(ev => {
-            const li = $(ev.currentTarget).parents(".quality");
-            this.item.removeQuality(li.data("qualityId"));
-            li.slideUp(200, () => this.render(false));
-        });
     }
 
     _prepareSpellCost(context) {
@@ -95,9 +89,6 @@ export default class RSKItemSheet extends ItemSheet {
             return eObj;
         });
         this.item.createEmbeddedDocuments("ActiveEffect", [...droppedEffects]);
-
-        const qualityData = { sourceUuid: transferObj.uuid, name: droppedItem.name, type: droppedItem.type, description: droppedItem.system.description };
-        this.item.addQuality(qualityData);
         this.render(true);
     }
 }

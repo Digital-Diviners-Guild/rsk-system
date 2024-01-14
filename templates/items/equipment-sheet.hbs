@@ -27,7 +27,8 @@
             <p> {{system.effectDescription}}</p>
             {{/if}}
             <strong>{{localize "RSK.Qualities"}}:</strong>
-            {{> "/systems/rsk/templates/items/parts/view-qualities.hbs"}}
+            <div>{{system.qualities}}:</div>
+
 
             {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
             {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
@@ -50,7 +51,8 @@
                 <input type="text" name="system.equipped.slot" value="{{system.equipped.slot}}">
             </div>
             <strong>{{localize "RSK.Qualities"}}:</strong>
-            {{> "/systems/rsk/templates/items/parts/edit-qualities.hbs"}}
+            <input type="text" name="system.qualities" value="{{system.qualities}}">
+
             {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
             {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
             <strong>Effects (temp)</strong>
