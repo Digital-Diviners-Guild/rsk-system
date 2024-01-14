@@ -4,9 +4,12 @@ import { standardSpellBook } from "./rsk-magic.js";
 const RSK = {};
 
 RSK.sizes = {
+    tiny: "RSK.Tiny",
     small: "RSK.Small",
     medium: "RSK.Medium",
     large: "RSK.Large",
+    giant: "RSK.Giant",
+    colossal: "RSK.Colossal"
 };
 
 RSK.runeType = {

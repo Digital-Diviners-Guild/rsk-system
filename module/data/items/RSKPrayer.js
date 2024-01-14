@@ -2,6 +2,7 @@ import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import { statusToEffect } from "../../effects/statuses.js";
 import { getTarget } from "../../rsk-targetting.js";
 import RSKAction from "./RSKAction.js";
+import { fields } from "./fields.js";
 
 //i'm wondering if we just want these datamodels to be their own data types
 //and have the use function in another service rather than in the datamodels
