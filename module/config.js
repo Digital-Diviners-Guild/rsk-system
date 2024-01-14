@@ -41,11 +41,13 @@ RSK.ranges = {
     distant: "RSK.Distant",
 };
 
-RSK.armourTypes = {
+RSK.activeSlotType = {
     head: "RSK.Head",
     body: "RSK.Body",
     legs: "RSK.Legs",
-    arm: "RSK.Arm"
+    arm: "RSK.Arm",
+    weapon: "RSK.Weapon",
+    cape: "RSK.Cape",
 };
 
 RSK.materials = {

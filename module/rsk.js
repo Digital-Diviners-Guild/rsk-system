@@ -1,7 +1,6 @@
 import RSKAction from "./data/items/RSKAction.js";
 import RSKArmourType from "./data/items/RSKArmourType.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
-import RSKCape from "./data/items/RSKCape.js";
 import RSKEquipment from "./data/items/RSKEquipment.js";
 import RSKMaterial from "./data/items/RSKMaterial.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
@@ -32,6 +31,7 @@ import RSKDice from "./rsk-dice.js";
 import RSKMath from "./rsk-math.js";
 import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
+import RSKCapeType from "./data/items/RSKCapeType.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -69,7 +69,7 @@ Hooks.once("init", function () {
         quality: RSKQualityType,
         action: RSKAction,
         specialFeature: RSKSpecialFeature,
-        cape: RSKCape,
+        cape: RSKCapeType,
         material: RSKMaterial,
         resource: RSKResource,
         armour: RSKArmourType,

@@ -4,6 +4,7 @@ import RSKEquipment from "./RSKEquipment.js";
 import RSKArmour from "./RSKArmour.js";
 import RSKItem from "./RSKItem.js";
 import RSKRune from "./RSKRune.js";
+import RSKCape from "./RSKCape.js";
 
 const handler = {
     construct(_, args) {
@@ -18,6 +19,8 @@ const handler = {
                 return new RSKArmour(...args);
             case "rune":
                 return new RSKRune(...args);
+            case "cape":
+                return new RSKCape(...args);
             default:
                 return new RSKItem(...args);
         }
