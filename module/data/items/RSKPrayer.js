@@ -30,9 +30,10 @@ export default class RSKPrayer extends RSKAction {
         const result = await this.usePrayer(actor, cost);
         if (!result) return;
 
-        const flavor = await renderTemplate("systems/rsk/templates/applications/outcome-message.hbs",
+        const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
             {
                 ...this,
+                showRollResult: true,
                 ...result
             });
         await result.rollResult.toMessage({

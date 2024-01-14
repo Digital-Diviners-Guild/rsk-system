@@ -25,9 +25,10 @@ export default class RSKSpell extends RSKAction {
         const result = await this.useSpell(actor);
         if (!result) return;
 
-        const flavor = await renderTemplate("systems/rsk/templates/applications/outcome-message.hbs",
+        const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
             {
                 ...this,
+                showRollResult: true,
                 ...result
             });
         const outcome = {

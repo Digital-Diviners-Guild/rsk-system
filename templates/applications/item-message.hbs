@@ -1,5 +1,9 @@
-{{!-- label or name? --}}
+{{#if label}}
 <p>{{label}}</p>
+{{else}}
+<p>{{name}}</p>
+{{/if}}
+
 {{#if description}}
 <p>{{description}}</p>
 {{/if}}
@@ -7,7 +11,9 @@
 <p>{{effectDescription}}</p>
 {{/if}}
 {{!-- todo: localize --}}
+{{#if showRollResult}}
 <p>
     TN: {{targetNumber}} | {{#if isCritical}}<em>critical</em>{{/if}} {{#if isSuccess}} success {{else}} fail{{/if}}
     ({{margin}})
 </p>
+{{/if}}

@@ -8,3 +8,12 @@ export function onRenderChatMessage(app, html, data) {
             //todo apply outcomes?
         });
 }
+
+export async function chatItem(item) {
+    const content = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
+        {
+            ...item,
+            showRollResult: false,
+        });
+    await ChatMessage.create({ content });
+}

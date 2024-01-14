@@ -1,3 +1,4 @@
+import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKPrayer from "../../data/items/RSKPrayer.js";
 import RSKSpell from "../../data/items/RSKSpell.js";
@@ -83,6 +84,14 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             const actionType = s.data("actionType");
             const actionId = s.data("actionId");
             await this._getAction(actionType, actionId).use(this.actor)
+        });
+        html.find('.chat-item').click(async ev => {
+            const s = $(ev.currentTarget);
+            const itemType = s.data("itemType");
+            const itemId = s.data("itemId");
+            const chattedItem = itemType === "prayer" || itemType === "spell"
+                ? await chatItem(this._getAction(itemType, itemId))
+                : await chatItem(this.actor.items.find(i => i._id === itemId))
         });
     }
 

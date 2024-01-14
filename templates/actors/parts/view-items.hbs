@@ -18,6 +18,8 @@
         <a class="item-control item-equip" title="Equip Item">equip</a>
         {{/if}}
         {{!-- todo reduce quantity, don't remove all --}}
+        <a class="item-control chat-item" data-item-type="{{item.type}}" data-item-id="{{item._id}}"
+            title="Chat Item">chat</a>
         <a class="item-control item-delete" title="Equip Item">remove</a>
     </li>
     {{/each}}
