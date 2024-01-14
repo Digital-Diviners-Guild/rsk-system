@@ -12,6 +12,36 @@
                             glow-color="red"><i class="fas fa-sword"></i></div>
                     </div>
                 </div>
+                <div class="stats-group">
+                    <div class="stats-box">
+                        <div class="stats-label">{{localize "RSK.Lifepoints"}}</div>
+                        <div class="stats-values">
+                            <input class="stats-value-left" data-stat="Life" type="number"
+                                name="system.lifePoints.value" value="{{system.lifePoints.value}}">
+                            <div class="stats-value-right">{{system.lifePoints.max}}</div>
+                        </div>
+                    </div>
+                    <div class="stats-box">
+                        <div class="stats-label">{{localize "RSK.ArmourValue"}}</div>
+                        <div class="stats-values">
+                            <input class="stats-value-left" data-stat="Life" type="number" name="system.armourValue"
+                                value="{{system.armourValue}}">
+                        </div>
+                    </div>
+                    <div class="stats-box">
+                        <strong>{{localize "RSK.Size"}}: </strong>
+                        <select name="system.size">
+                            {{selectOptions config.sizes selected=system.size}}
+                        </select>
+                    </div>
+                    <div class="stats-box">
+                        <div class="stats-label">{{localize "RSK.Movement"}}</div>
+                        <div class="stats-values">
+                            <input class="stats-value-left" data-stat="Movement" type="number" name="system.movement"
+                                value="{{system.movement}}">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="main-content">
@@ -27,23 +57,6 @@
                     </div>
                     <hr />
                     <div>
-                        <strong>{{localize "RSK.Movement"}}: </strong>
-                        {{system.movement}}
-                    </div>
-                    <div>
-                        <strong>{{localize "RSK.Size"}}: </strong>
-                        {{system.size}}
-                    </div>
-                    <div>
-                        <strong>{{localize "RSK.ArmourValue"}}: </strong>
-                        {{system.armourValue}}
-                    </div>
-                    <div>
-                        <strong>{{localize "RSK.LifePoints"}}: </strong>
-                        {{system.lifePoints.value}} / {{system.lifePoints.max}}
-                    </div>
-
-                    <div>
                         <strong>{{localize "RSK.Actions"}}: </strong>
                         {{> "/systems/rsk/templates/actors/parts/view-items.hbs"
                         items=actions }}
@@ -55,35 +68,13 @@
                 </div>
 
                 <div class="tab features" data-group="primary" data-tab="edit">
-                    <div class="rsk-editor">
+                    <div>
                         <label>{{localize "RSK.Description"}}</label>
                         {{editor system.description target="system.description" button=false engine="prosemirror"}}
-                    </div>
-                    <div class="form-group">
-                        <label>{{localize "RSK.QuestGiver"}}</label>
-                        <input type="checkbox" name="system.isQuestGiver" {{checked system.isQuestGiver}}>
-                    </div>
-
-                    <div class="form-group">
-                        <label>{{localize "RSK.Size"}}</label>
-                        <select name="system.size">
-                            {{selectOptions config.sizes selected=system.size}}
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>{{localize "RSK.Movement"}}</label>
-                        <input name="system.movement" type="number" value="{{system.movement}}">
-                    </div>
-
-                    <div class="form-group">
-                        <label>{{localize "RSK.ArmourValue"}}</label>
-                        <input name="system.armourValue" type="number" value="{{system.armourValue}}">
                     </div>
 
                     <div class="form-group">
                         <label>{{localize "RSK.LifePoints"}}</label>
-                        <input name="system.lifePoints.value" type="number" value="{{system.lifePoints.value}}"> /
                         <input name="system.lifePoints.max" type="number" value="{{system.lifePoints.max}}">
                     </div>
 
@@ -98,7 +89,6 @@
                     items=specialFeatures
                     addType="specialFeature"
                     addLabel="Add Special"}}
-
                 </div>
             </section>
         </div>

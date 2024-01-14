@@ -8,28 +8,33 @@
       <div class="rsk stats-abilities">
         <div class="rsk stats">
           <div class="stats-toolbar">
-            <div class="actor-application" application-method="characterRest" effect-label="Rest" glow-color="green"><i class="fas fa-bed"></i></div>
-            <div class="actor-application" application-method="characterDamage" effect-label="Take Damage" glow-color="red"><i class="fas fa-sword"></i></div>
+            <div class="actor-application" application-method="characterRest" effect-label="Rest" glow-color="green"><i
+                class="fas fa-bed"></i></div>
+            <div class="actor-application" application-method="characterDamage" effect-label="Take Damage"
+              glow-color="red"><i class="fas fa-sword"></i></div>
           </div>
           <div class="stats-group">
             <div class="stats-box">
-                <div class="stats-label">{{localize "RSK.Lifepoints"}}</div>
-                <div class="stats-values">
-                  <input class="stats-value-left" data-stat="Life" type="number" value="{{system.lifePoints.value}}">
-                  <div class="stats-value-right">{{system.lifePoints.max}}</div>
-                </div>
+              <div class="stats-label">{{localize "RSK.Lifepoints"}}</div>
+              <div class="stats-values">
+                <input class="stats-value-left" data-stat="Life" type="number" name="system.lifePoints.value"
+                  value="{{system.lifePoints.value}}">
+                <div class="stats-value-right">{{system.lifePoints.max}}</div>
               </div>
+            </div>
             <div class="stats-box">
               <div class="stats-label">{{localize "RSK.Prayerpoints"}}</div>
               <div class="stats-values">
-                <input class="stats-value-left" data-stat="Prayer" type="number" value="{{system.prayerPoints.value}}">
+                <input class="stats-value-left" data-stat="Prayer" type="number" name="system.prayerPoints.value"
+                  value="{{system.prayerPoints.value}}">
                 <div class="stats-value-right">{{system.prayerPoints.max}}</div>
               </div>
             </div>
             <div class="stats-box">
               <div class="stats-label">{{localize "RSK.Summoningpoints"}}</div>
               <div class="stats-values">
-                <input class="stats-value-left" data-stat="Summoning" type="number" value="{{system.summoningPoints.value}}">
+                <input class="stats-value-left" data-stat="Summoning" type="number" name="system.summoningPoints.value"
+                  value="{{system.summoningPoints.value}}">
                 <div class="stats-value-right">{{system.summoningPoints.max}}</div>
               </div>
             </div>
@@ -71,8 +76,8 @@
                 <strong>{{skill.label}}</strong>
                 {{skill.level}} {{#if skill.modifier}} (+{{skill.modifier}}){{/if}}
               </span>
-              <input type="checkbox" data-dtype="Boolean" name="system.skills.{{skill.index}}.used" value="{{skill.used}}"
-                {{checked skill.used}}>
+              <input type="checkbox" data-dtype="Boolean" name="system.skills.{{skill.index}}.used"
+                value="{{skill.used}}" {{checked skill.used}}>
             </div>
             {{/each}}
           </div>
@@ -107,9 +112,9 @@
           </ol>
         </div>
 
-    <div class="tab features" data-group="primary" data-tab="inventory">
-      <div><strong>Inventory</strong> ({{usedSlots}} / 28)</div>
-      {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
+        <div class="tab features" data-group="primary" data-tab="inventory">
+          <div><strong>Inventory</strong> ({{usedSlots}} / 28)</div>
+          {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
 
           <strong>Active Slots</strong>
           <div>
@@ -140,7 +145,7 @@
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
-          <div class="rsk-editor">
+          <div>
             <label>{{localize "RSK.Description"}}</label>
             {{editor system.description target="system.description" button=false engine="prosemirror"}}
           </div>
@@ -152,23 +157,11 @@
           <button class="apply-backgrounds">{{localize "RSK.ApplyBackgrounds"}}</button>
 
           <div class="form-group">
-            <label>{{localize "RSK.LifePoints"}}</label>
-            <input name="system.lifePoints.value" type="number" value="{{system.lifePoints.value}}">
-          </div>
-          <div class="form-group">
-            <label>{{localize "RSK.SummoningPoints"}}</label>
-            <input name="system.summoningPoints.value" type="number" value="{{system.summoningPoints.value}}">
-          </div>
-          <div class="form-group">
-            <label>{{localize "RSK.PrayerPoints"}}</label>
-            <input name="system.prayerPoints.value" type="number" value="{{system.prayerPoints.value}}">
-          </div>
-
-          <div class="form-group">
             {{#each abilities as |ability|}}
             <span data-type="ability" data-value="{{ability.index}}">
               <strong>{{ability.label}}</strong>
-              <input name="system.abilities.{{ability.index}}" type="number" data-dtype="Number" value="{{ability.level}}">
+              <input name="system.abilities.{{ability.index}}" type="number" data-dtype="Number"
+                value="{{ability.level}}">
             </span>
             {{/each}}
           </div>
@@ -177,7 +170,8 @@
             <div class="form-group">
               <span data-type="skill" data-value="{{skill.index}}">
                 <strong>{{skill.label}}</strong>
-                <input name="system.skills.{{skill.index}}.level" type="number" data-dtype="Number" value="{{skill.level}}">
+                <input name="system.skills.{{skill.index}}.level" type="number" data-dtype="Number"
+                  value="{{skill.level}}">
               </span>
             </div>
             {{/each}}
@@ -189,7 +183,7 @@
 
         </div>
       </section>
-      
+
     </div>
   </div>
 </form>
