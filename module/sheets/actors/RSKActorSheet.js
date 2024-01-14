@@ -76,6 +76,27 @@ export default class RSKActorSheet extends ActorSheet {
           .filter(x => x._id === effectId)
           .map(x => x._id));
     });
+
+    html.find('.actor-application').click(ev => {
+      const actorApp = $(ev.currentTarget);
+      actorApp.addClass('clicked');
+      setTimeout(function() {
+        actorApp.removeClass('clicked');
+      }, 1000);
+
+      var glowColor = actorApp[0].getAttribute('glow-color');
+      if (glowColor) {
+        actorApp[0].style.setProperty('--glow-color', glowColor);
+      }
+      else {
+        actorApp[0].style.setProperty('--glow-color', "white");
+      }
+      var applicationMethod = actorApp[0].getAttribute('application-method');
+      
+      if (applicationMethod) {
+        this.actor.sheet[applicationMethod]();
+      }
+    });
   }
 
   _prepareItems(context) {
@@ -113,4 +134,22 @@ export default class RSKActorSheet extends ActorSheet {
     delete itemData.system["type"];
     return await Item.create(itemData, { parent: this.actor });
   }
+
+  async characterRest() {
+    alert("this.actor.system.lifePoints.value:" + this.actor.system.lifePoints.value);
+
+    // Set the Life Points to max
+    this.actor.system.lifePoints.value = this.actor.system.lifePoints.max;
+
+    alert("this.actor.system.lifePoints.value:" + this.actor.system.lifePoints.value);
+
+    // Set the Prayer Points to max
+    this.actor.system.prayerPoints.value = this.actor.system.prayerPoints.max;
+
+    // Set the Summoning Points to max
+    this.actor.system.summoningPoints.value = this.actor.system.summoningPoints.max;
+    
+    // Refresh the sheet
+    this.render();
+  };
 }

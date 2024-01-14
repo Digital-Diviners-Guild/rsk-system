@@ -5,14 +5,15 @@
   </header>
   <div class="sheet-container">
     <div class="sidebar">
-      <div class="rest"></div>
       <div class="rsk stats-abilities">
         <div class="rsk stats">
+          <div class="stats-toolbar">
+            <div class="actor-application" application-method="characterRest" effect-label="Rest" glow-color="green"><i class="fas fa-bed"></i></div>
+            <div class="actor-application" application-method="characterDamage" effect-label="Take Damage" glow-color="red"><i class="fas fa-sword"></i></div>
+          </div>
           <div class="stats-group">
             <div class="stats-box">
-                <div class="apply-damage">
-                  <div class="stats-label">{{localize "RSK.Lifepoints"}}</div>
-                </div>
+                <div class="stats-label">{{localize "RSK.Lifepoints"}}</div>
                 <div class="stats-values">
                   <input class="stats-value-left" data-stat="Life" type="number" value="{{system.lifePoints.value}}">
                   <div class="stats-value-right">{{system.lifePoints.max}}</div>
