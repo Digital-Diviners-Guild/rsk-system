@@ -138,16 +138,9 @@ export default class RSKActorSheet extends ActorSheet {
     }
 
     async characterRest() {
-        // Set the Life Points to max
         this.actor.system.lifePoints.value = this.actor.system.lifePoints.max;
-
-        // Set the Prayer Points to max
         this.actor.system.prayerPoints.value = this.actor.system.prayerPoints.max;
-
-        // Set the Summoning Points to max
         this.actor.system.summoningPoints.value = this.actor.system.summoningPoints.max;
-
-        // Refresh the sheet
         this.render();
     };
 

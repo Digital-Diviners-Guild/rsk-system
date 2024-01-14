@@ -1,3 +1,4 @@
+import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKPrayer from "../../data/items/RSKPrayer.js";
 import RSKSpell from "../../data/items/RSKSpell.js";
 import RSKActorSheet from "./RSKActorSheet.js";
