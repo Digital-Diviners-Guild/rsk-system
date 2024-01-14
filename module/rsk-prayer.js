@@ -10,7 +10,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/improved_reflexes.svg",
         statuses: ["improved_reflexes"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -24,7 +24,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/incredible_reflexes.svg",
         statuses: ["incredible_reflexes"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -38,7 +38,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/mystic_lore.svg",
         statuses: ["mystic_lore"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -52,7 +52,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/mystic_might.svg",
         statuses: ["mystic_might"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -66,7 +66,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/mystic_will.svg",
         statuses: ["mystic_will"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -80,7 +80,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/piety.svg",
         statuses: ["piety"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -94,7 +94,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/augury.svg",
         statuses: ["augury"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -108,7 +108,7 @@ export const rskDefaultPrayers = [
         icon: "systems/rsk/icons/svg/burst_of_strength.svg",
         statuses: ["burst_of_strength"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -122,7 +122,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/eagle_eye.svg",
         statuses: ["eagle_eye"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -136,7 +136,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/hawk_eye.svg",
         statuses: ["hawk_eye"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -150,7 +150,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/protect_from_melee.svg",
         statuses: ["protect_from_melee"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -164,7 +164,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/protect_from_range.svg",
         statuses: ["protect_from_range"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -178,7 +178,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/protect_from_magic.svg",
         statuses: ["protect_from_magic"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -192,7 +192,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/protect_item.svg",
         statuses: ["protect_item"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -206,7 +206,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/rapid_heal.svg",
         statuses: ["rapid_heal"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -220,7 +220,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/redemption.svg",
         statuses: ["redemption"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -234,7 +234,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/retribution.svg",
         statuses: ["retribution"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -248,7 +248,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/rigour.svg",
         statuses: ["rigour"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -262,7 +262,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/rock_skin.svg",
         statuses: ["rock_skin"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -276,7 +276,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/sharp_eye.svg",
         statuses: ["sharp_eye"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -290,7 +290,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/steel_skin.svg",
         statuses: ["steel_skin"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -304,7 +304,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/superhuman_strength.svg",
         statuses: ["superhuman_strength"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -318,7 +318,7 @@ export const rskDefaultPrayers = [
         icon: "systems/rsk/icons/svg/thick_skin.svg",
         statuses: ["thick_skin"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
@@ -332,7 +332,7 @@ export const rskDefaultPrayers = [
         icon: "icons/svg/ultimate_strength.svg",
         statuses: ["ultimate_strength"],
         usageCost: [{
-            itemType: "points",
+            itemType: "point",
             type: "prayer",
             amount: 2
         }],
