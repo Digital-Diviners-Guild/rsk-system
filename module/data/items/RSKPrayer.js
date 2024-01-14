@@ -12,11 +12,6 @@ export default class RSKPrayer extends RSKAction {
     static defineSchema() {
         return {
             ...RSKAction.defineSchema(),
-            usageCost: new fields.ArrayField(new fields.SchemaField({
-                itemType: new fields.StringField(),// rune / ammo / points
-                type: new fields.StringField(), // air / arrow / prayer
-                amount: new fields.NumberField()
-            })),
             statuses: new fields.ArrayField(new fields.StringField()),
         }
     }

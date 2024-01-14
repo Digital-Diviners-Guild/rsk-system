@@ -10,17 +10,90 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
-                <h3>{{localize "RSK.Description"}}:</h3>
+                <strong>{{localize "RSK.ActionType"}}:</strong>
+                <p>
+                    {{system.type}}
+                </p>
+            </div>
+
+            {{#if system.spellType}}
+            <div><strong>{{localize "RSK.SpellType"}}:</strong> {{system.spellType}}</div>
+            {{/if}}
+
+            {{#if system.description}}
+            <div>
+                <strong>{{localize "RSK.Description"}}:</strong>
                 <p>
                     {{system.description}}
                 </p>
             </div>
+            {{/if}}
+            {{#if system.effectDescription}}
+            <div>
+                <strong>{{localize "RSK.EffectDescription"}}:</strong>
+                <p>
+                    {{system.effectDescription}}
+                </p>
+            </div>
+            {{/if}}
+            {{#if system.usageCost}}
+            <div>
+                <strong>{{localize "RSK.Cost"}}:</strong>
+                <p>
+                    {{usageCost}}
+                </p>
+            </div>
+            {{/if}}
+
+            {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
         </div>
         <div class="tab features" data-group="primary" data-tab="edit">
+            <div class="form-group">
+                <label>{{localize "RSK.ActionType"}}:</label>
+                <input type="text" name="system.type" value="{{system.type}}">
+            </div>
+            {{#if system.spellType}}
+            <div class="form-group">
+                <label>{{localize "RSK.SpellType"}}</label>
+                <select name="system.spellType">
+                    {{selectOptions config.spellTypes selected=system.spellType}}
+                </select>
+            </div>
+            {{/if}}
             <div class="form-group">
                 <label>{{localize "RSK.Description"}}:</label>
                 <input type="text" name="system.description" value="{{system.description}}">
             </div>
+            <div class="form-group">
+                <label>{{localize "RSK.EffectDescription"}}:</label>
+                <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
+            </div>
+
+            <strong>{{localize "RSK.Cost"}}:</strong>
+            <ol class="items-list">
+                {{#each system.usageCost as |cost|}}
+                <li class="item flexrow" data-item-type="{{cost.itemType}}" data-type="{{cost.type}}">
+                    {{cost.itemType}}
+                    {{cost.type}}
+                    {{cost.amount}}
+                    <div class=" item-controls">
+                        <a class="item-control remove-usage-cost" title="Delete cost"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+            <div class="form-group">
+                itemType: <input id="itemType" type="text">
+                type: <input id="type" type="text">
+                amount: <input id="amount" type="number">
+                <a class="item-control add-usage-cost" title="add cost">
+                    <i class="fas fa-plus"></i> add cost
+                </a>
+            </div>
+
+            {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
         </div>
     </section>
 </form>

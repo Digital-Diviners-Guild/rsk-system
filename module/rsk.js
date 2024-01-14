@@ -32,6 +32,7 @@ import RSKMath from "./rsk-math.js";
 import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 import RSKCapeType from "./data/items/RSKCapeType.js";
+import RSKActionSheet from "./sheets/items/RSKActionSheet.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -81,6 +82,7 @@ Hooks.once("init", function () {
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
+    Items.registerSheet("rsk", RSKActionSheet, { types: ["action", "spell", "prayer"], makeDefault: true });
 
     CONFIG.Actor.documentClass = RSKActorProxy;
     CONFIG.Actor.dataModels = {
