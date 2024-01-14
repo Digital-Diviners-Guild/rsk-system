@@ -5,8 +5,8 @@ export default class RSKResource extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             ...RSKStowableType.defineSchema(),
-            description: new fields.HTMLField(),
-            uses: new fields.HTMLField(),
+            description: new fields.StringField(),
+            uses: new fields.StringField(),
             cost: new fields.NumberField({ ...costField })
         }
     }

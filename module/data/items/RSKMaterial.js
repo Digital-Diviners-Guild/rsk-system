@@ -5,7 +5,7 @@ export default class RSKMaterial extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             ...RSKStowableType.defineSchema(),
-            description: new fields.HTMLField(),
+            description: new fields.StringField(),
             cost: new fields.NumberField({ ...costField })
         }
     }

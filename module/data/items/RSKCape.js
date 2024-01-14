@@ -4,8 +4,8 @@ import RSKEquippableType from "./RSKEquippableType.js";
 export default class RSKCape extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            description: new fields.HTMLField(),
-            awardedFor: new fields.HTMLField(),
+            description: new fields.StringField(),
+            awardedFor: new fields.StringField(),
             ...RSKEquippableType.defineSchema(),
         };
     }

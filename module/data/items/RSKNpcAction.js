@@ -5,8 +5,8 @@ export default class RSKNpcAction extends foundry.abstract.DataModel {
         return {
             id: new fields.StringField(),
             label: new fields.StringField(), // what to display on the button?
-            description: new fields.HTMLField(), // what it look like
-            effectDescription: new fields.HTMLField(), // what it does
+            description: new fields.StringField(), // what it look like
+            effectDescription: new fields.StringField(), // what it does
             damageEntries: new fields.ObjectField(),
         };
     }

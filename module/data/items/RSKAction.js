@@ -6,8 +6,8 @@ export default class RSKAction extends foundry.abstract.DataModel {
             id: new fields.StringField(),
             type: new fields.StringField(), // melee, magic, prayer
             label: new fields.StringField(), // what to display on the button?
-            description: new fields.HTMLField(), // what it look like
-            effectDescription: new fields.HTMLField(), // what it does
+            description: new fields.StringField(), // what it look like
+            effectDescription: new fields.StringField(), // what it does
             damageEntries: new fields.ObjectField(),
             requiredEquipment: new fields.StringField(),
             usageCost: new fields.ArrayField(new fields.SchemaField({
@@ -16,7 +16,7 @@ export default class RSKAction extends foundry.abstract.DataModel {
                 amount: new fields.NumberField()
             })),
             statuses: new fields.ArrayField(new fields.StringField()),
-            qualities: new fields.HTMLField(),
+            qualities: new fields.StringField(),
         };
     }
 }
