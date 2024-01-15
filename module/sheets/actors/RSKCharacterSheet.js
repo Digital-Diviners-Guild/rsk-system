@@ -89,6 +89,17 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             const actionId = s.data("actionId");
             await this._getAction(actionType, actionId).use(this.actor)
         });
+
+        html.find('.increase-item-quantity').click(async ev => {
+            const s = $(ev.currentTarget);
+            const itemId = s.data("itemId");
+            await this.handleIncreaseItemQuantity(itemId);
+        });
+        html.find('.decrease-item-quantity').click(async ev => {
+            const s = $(ev.currentTarget);
+            const itemId = s.data("itemId");
+            await this.handleDecreaseItemQuantity(itemId);
+        });
     }
 
     //inventory rules poc
@@ -115,6 +126,16 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                   <p>${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>`;
         result.rollResult.toMessage({ flavor }, { ...rollOptions });
         return result;
+    }
+
+    async handleIncreaseItemQuantity(itemId) {
+        const item = this.actor.items.find(i => i.id === itemId);
+        this.actor.addItem(item)
+    }
+
+    async handleDecreaseItemQuantity(itemId) {
+        const item = this.actor.items.find(i => i.id === itemId);
+        this.actor.removeItem(item)
     }
 
     async handleChatItem(itemType, itemId) {

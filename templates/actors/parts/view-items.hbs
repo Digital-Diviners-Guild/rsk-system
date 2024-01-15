@@ -5,9 +5,13 @@
             <div>
                 <strong>{{item.name}}</strong>
                 {{#if item.system.isStackable}}
-                <em>(qty: {{item.system.quantity}})</em>
+                (
+                <a class="item-control decrease-item-quantity" data-item-id="{{item.id}}">-</a>
+                <em>qty: {{item.system.quantity}}</em>
+                <a class="item-control increase-item-quantity" data-item-id="{{item.id}}">+</a>
+                )
+                {{/if}}
             </div>
-            {{/if}}
         </div>
         {{#if item.system.description}}
         <div class="item-content">
