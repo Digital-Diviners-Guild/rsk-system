@@ -147,6 +147,10 @@ export default class RSKCharacter extends RSKActor {
     }
 
     _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {
+        if (!this.flags?.rsk?.inventorySlotsUsed) {
+            super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
+            return;
+        }
         //todo: better way to identify items that can be in inventory
         const inventorySlotsReclaimed = documents.filter(d => d.system && d.system.hasOwnProperty("slotId")).length;
         const newInventorySlotsUsed = game.rsk.math.clamp_value(this.flags.rsk.inventorySlotsUsed - inventorySlotsReclaimed, { min: 0 });
