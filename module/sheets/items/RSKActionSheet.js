@@ -7,9 +7,7 @@ export default class RSKActionSheet extends RSKItemSheet {
 
     getData() {
         const context = super.getData();
-        context.usageCost = context.system.usageCost
-            .map(c => `${c.amount} ${c.type} ${c.itemType}${c.amount > 1 ? 's' : ''}`)
-            .join(", ");
+        context.usageCost = context.system.getUsageCostLabel()
         return context;
     }
 

@@ -87,10 +87,10 @@
           <ol class="items-list">
             {{#each prayers as |prayer|}}
             <li class="item flexrow">
-              <div class="item-name flexrow">
+              <div class="item-name">
                 <strong>{{prayer.label}}</strong>
               </div>
-              <div class="item-content">{{prayer.cost}}</div>
+              <div class="item-content">{{prayer.usageCostLabel}}</div>
               <div class="item-content">{{prayer.effectDescription}}</div>
               <a class="item-control chat-item" data-item-type="prayer" data-item-id="{{prayer.id}}"
                 title="Chat Item">{{localize "RSK.ChatItem"}}</a>
@@ -105,8 +105,11 @@
           <ol class="items-list">
             {{#each spells as |spell|}}
             <li class="item flexrow">
-              <div class="item-name flexrow">
+              <div class="item-name">
                 <strong>{{spell.label}}</strong>
+              </div>
+              <div class="item-content">
+                {{spell.usageCostLabel}}
               </div>
               <div class="item-content">
                 {{spell.description}}

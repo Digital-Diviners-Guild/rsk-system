@@ -49,7 +49,9 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _prepareSpells(context) {
         this.spells = Object.values(CONFIG.RSK.standardSpellBook).reduce((ssb, s) => {
-            ssb[s.id] = RSKSpell.fromSource(s);
+            const spell = RSKSpell.fromSource(s);
+            spell["usageCostLabel"] = spell.getUsageCostLabel();
+            ssb[spell.id] = spell;
             return ssb;
         }, {});
         context.spells = this.spells;
@@ -57,7 +59,9 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _preparePrayers(context) {
         this.prayers = Object.values(CONFIG.RSK.defaultPrayers).reduce((dp, p) => {
-            dp[p.id] = RSKPrayer.fromSource(p);
+            const prayer = RSKPrayer.fromSource(p);
+            prayer["usageCostLabel"] = prayer.getUsageCostLabel();
+            dp[prayer.id] = prayer;
             return dp;
         }, {});
         context.prayers = this.prayers;

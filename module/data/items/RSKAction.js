@@ -17,4 +17,10 @@ export default class RSKAction extends foundry.abstract.DataModel {
             })),
         };
     }
+
+    getUsageCostLabel() {
+        return this.usageCost
+            .map(c => `${c.amount} ${c.type} ${c.itemType}${c.amount > 1 ? 's' : ''}`)
+            .join(", ");
+    }
 }
