@@ -15,11 +15,12 @@
             "equipment",
             "armour",
             "cape",
-            "action",
             "specialFeature",
             "quality",
+            "action",
             "spell",
             "prayer",
+            "summonFamiliar",
             "rune",
             "ammunition"
         ],
@@ -29,11 +30,12 @@
         "equipment": {},
         "armour": {},
         "cape": {},
-        "action": {},
         "specialFeature": {},
         "quality": {},
+        "action": {},
         "spell": {},
         "prayer": {},
+        "summonFamiliar": {},
         "rune": {},
         "ammunition": {}
     }

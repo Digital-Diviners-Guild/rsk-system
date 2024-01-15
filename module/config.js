@@ -1,5 +1,6 @@
 import { rskDefaultPrayers } from "./rsk-prayer.js";
 import { standardSpellBook } from "./rsk-magic.js";
+import { rskDefaultSummoningFamiliars } from "./rsk-summoning.js";
 
 const RSK = {};
 
@@ -119,4 +120,5 @@ RSK.damageTypes = {
 // we may have more spell books in the future, like the lunar spell book for lunar spells?
 RSK.standardSpellBook = standardSpellBook;
 RSK.defaultPrayers = rskDefaultPrayers;
+RSK.defaultSummoningFamiliars = rskDefaultSummoningFamiliars;
 export default RSK;

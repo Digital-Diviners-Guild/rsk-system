@@ -33,6 +33,7 @@ import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 import RSKCapeType from "./data/items/RSKCapeType.js";
 import RSKActionSheet from "./sheets/items/RSKActionSheet.js";
+import RSKSummonFamiliar from "./data/items/RSKSummonFamiliar.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -79,11 +80,12 @@ Hooks.once("init", function () {
         background: RSKBackgroundType,
         spell: RSKSpell,
         prayer: RSKPrayer,
+        summonFamiliar: RSKSummonFamiliar,
         rune: RSKRuneType
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
-    Items.registerSheet("rsk", RSKActionSheet, { types: ["action", "spell", "prayer"], makeDefault: true });
+    Items.registerSheet("rsk", RSKActionSheet, { types: ["action", "spell", "prayer", "summonFamiliar"], makeDefault: true });
 
     CONFIG.Actor.documentClass = RSKActorProxy;
     CONFIG.Actor.dataModels = {

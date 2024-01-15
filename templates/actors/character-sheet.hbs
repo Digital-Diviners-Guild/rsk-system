@@ -63,6 +63,7 @@
         <a class="item" data-tab="inventory">{{localize "RSK.Inventory"}}</a>
         <a class="item" data-tab="magic">{{localize "RSK.SpellBook"}}</a>
         <a class="item" data-tab="prayer">{{localize "RSK.Prayers"}}</a>
+        <a class="item" data-tab="summoning">{{localize "RSK.Familiars"}}</a>
         <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
         <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
       </nav>
@@ -117,6 +118,28 @@
               <a class="item-control chat-item" data-item-type="spell" data-item-id="{{spell.id}}"
                 title="Chat Item">{{localize "RSK.ChatItem"}}</a>
               <a class="item-control use-action" data-action-type="spell" data-action-id="{{spell.id}}"
+                title="Chat Item">{{localize "RSK.UseAction"}}</a>
+            </li>
+            {{/each}}
+          </ol>
+        </div>
+        {{!-- todo: probably time for a template to use for actions --}}
+        <div class="tab features" data-group="primary" data-tab="summoning">
+          <ol class="items-list">
+            {{#each familiars as |familiar|}}
+            <li class="item flexrow">
+              <div class="item-name">
+                <strong>{{familiar.label}}</strong>
+              </div>
+              <div class="item-content">
+                {{familiar.usageCostLabel}}
+              </div>
+              <div class="item-content">
+                {{familiar.description}}
+              </div>
+              <a class="item-control chat-item" data-item-type="summonFamiliar" data-item-id="{{familiar.id}}"
+                title="Chat Item">{{localize "RSK.ChatItem"}}</a>
+              <a class="item-control use-action" data-action-type="summonFamiliar" data-action-id="{{familiar.id}}"
                 title="Chat Item">{{localize "RSK.UseAction"}}</a>
             </li>
             {{/each}}

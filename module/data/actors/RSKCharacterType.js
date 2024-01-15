@@ -30,6 +30,7 @@ export default class RSKCharacterType extends foundry.abstract.TypeDataModel {
             // and or add custom ones?
             // prayers: new fields.ArrayField(new fields.ObjectField()),
             // spells: new fields.ArrayField(new fields.ObjectField()),
+            // familiars: new fields.ArrayField(new fields.ObjectField()),
             skills: new fields.SchemaField(Object.keys(CONFIG.RSK.skills).reduce((obj, skill) => {
                 obj[skill] = new fields.SchemaField({
                     level: new fields.NumberField({ min: 1, initial: 1, max: 10 }),

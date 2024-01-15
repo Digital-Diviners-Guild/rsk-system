@@ -1,12 +1,14 @@
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKPrayer from "../../data/items/RSKPrayer.js";
 import RSKSpell from "../../data/items/RSKSpell.js";
+import RSKSummonFamiliar from "../../data/items/RSKSummonFamiliar.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
     spells;
+    familiars;
 
     getData() {
         const context = super.getData();
@@ -15,6 +17,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         this._prepareAbilities(context);
         this._prepareSpells(context);
         this._preparePrayers(context);
+        this._prepareSummons(context);
         this._prepareEquipment(context);
         return context;
     }
@@ -65,6 +68,16 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             return dp;
         }, {});
         context.prayers = this.prayers;
+    }
+
+    _prepareSummons(context) {
+        this.familiars = Object.values(CONFIG.RSK.defaultSummoningFamiliars).reduce((fs, f) => {
+            const familiar = RSKSummonFamiliar.fromSource(f);
+            familiar["usageCostLabel"] = familiar.getUsageCostLabel();
+            fs[familiar.id] = familiar;
+            return fs;
+        }, {});
+        context.familiars = this.familiars;
     }
 
     _prepareEquipment(context) {
@@ -139,9 +152,12 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     async handleChatItem(itemType, itemId) {
-        const chattedItem = itemType === "prayer" || itemType === "spell"
-            ? await chatItem(this._getAction(itemType, itemId))
-            : await super.handleChatItem(itemType, itemId);
+        const action = this._getAction(itemType, itemId);
+        if (action) {
+            await chatItem(action);
+        } else {
+            await super.handleChatItem(itemType, itemId);
+        }
     }
 
     _getAction(type, id) {
@@ -150,6 +166,10 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 return this.prayers[id];
             case "spell":
                 return this.spells[id];
+            case "summonFamiliar":
+                return this.familiars[id];
+            default:
+                return false;
         }
     }
 }
