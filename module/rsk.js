@@ -13,7 +13,6 @@ import RSKCharacterType from "./data/actors/RSKCharacterType.js";
 import RSKNpc from "./data/actors/RSKNpcType.js";
 
 import RSKActiveEffect from "./documents/items/RSKActiveEffect.js";
-import RSKItem from "./documents/items/RSKItem.js";
 import { RSKItemProxy } from "./documents/items/RSKItemProxy.js";
 
 import RSKActor from "./documents/actors/RSKActor.js";
@@ -57,7 +56,7 @@ async function preloadHandlebarsTemplates() {
 Hooks.once("init", function () {
     console.log("initializing...");
     game.rsk = {
-        item: RSKItem,
+        item: Item,
         actor: RSKActor,
         math: RSKMath,
         dice: RSKDice

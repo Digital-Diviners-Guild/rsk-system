@@ -1,6 +1,4 @@
-import RSKItem from "./RSKItem.js";
-
-export default class RSKEquippable extends RSKItem {
+export default class RSKEquippable extends Item {
     get isEquipped() {
         return this.system.equipped && this.system.equipped.isEquipped;
     }

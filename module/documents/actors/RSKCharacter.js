@@ -113,15 +113,6 @@ export default class RSKCharacter extends RSKActor {
         item.equip();
     }
 
-    _clampActorValues() {
-        super._clampActorValues();
-        for (let skill in this.system.skills) {
-            this.system.skills[skill].level = game.rsk.math.clamp_value(
-                this.system.skills[skill].level,
-                { min: this.minSkillLevel, max: this.maxSkillLevel });
-        }
-    }
-
     // todo: armour soak may be good to put in 
     // one of the prepare data methods and displayed somewhere on the char
     // sheet, to give feedback about the current soak values based on 
@@ -131,6 +122,15 @@ export default class RSKCharacter extends RSKActor {
             .filter(i => i.isEquipped)
             .reduce((acc, w, i) => acc +=
                 typeof w.getArmourValue === "function" ? w.getArmourValue() : 0, 0)
+    }
+
+    _clampActorValues() {
+        super._clampActorValues();
+        for (let skill in this.system.skills) {
+            this.system.skills[skill].level = game.rsk.math.clamp_value(
+                this.system.skills[skill].level,
+                { min: this.minSkillLevel, max: this.maxSkillLevel });
+        }
     }
 
     _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {
