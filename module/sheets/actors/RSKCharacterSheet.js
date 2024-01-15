@@ -1,8 +1,8 @@
-import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKPrayer from "../../data/items/RSKPrayer.js";
 import RSKSpell from "../../data/items/RSKSpell.js";
 import RSKActorSheet from "./RSKActorSheet.js";
+import { chatItem } from "../../applications/RSKChatLog.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
@@ -85,23 +85,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             const actionId = s.data("actionId");
             await this._getAction(actionType, actionId).use(this.actor)
         });
-        html.find('.chat-item').click(async ev => {
-            const s = $(ev.currentTarget);
-            const itemType = s.data("itemType");
-            const itemId = s.data("itemId");
-            const chattedItem = itemType === "prayer" || itemType === "spell"
-                ? await chatItem(this._getAction(itemType, itemId))
-                : await chatItem(this.actor.items.find(i => i._id === itemId))
-        });
-    }
-
-    _getAction(type, id) {
-        switch (type) {
-            case "prayer":
-                return this.prayers[id];
-            case "spell":
-                return this.spells[id];
-        }
     }
 
     //inventory rules poc
@@ -128,5 +111,20 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                   <p>${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>`;
         result.rollResult.toMessage({ flavor }, { ...rollOptions });
         return result;
+    }
+
+    async handleChatItem(itemType, itemId) {
+        const chattedItem = itemType === "prayer" || itemType === "spell"
+            ? await chatItem(this._getAction(itemType, itemId))
+            : await super.handleChatItem(itemType, itemId);
+    }
+
+    _getAction(type, id) {
+        switch (type) {
+            case "prayer":
+                return this.prayers[id];
+            case "spell":
+                return this.spells[id];
+        }
     }
 }

@@ -10,9 +10,10 @@ export function onRenderChatMessage(app, html, data) {
 }
 
 export async function chatItem(item) {
+    const data = item.hasOwnProperty("system") ? { name: item.name, ...item.system } : item;
     const content = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
         {
-            ...item,
+            ...data,
             showRollResult: false,
         });
     await ChatMessage.create({ content });

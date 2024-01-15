@@ -92,8 +92,10 @@
               </div>
               <div class="item-content">{{prayer.cost}}</div>
               <div class="item-content">{{prayer.effectDescription}}</div>
-              <div class="item-content chat-item" data-item-type="prayer" data-item-id="{{prayer.id}}">chat</div>
-              <div class="item-content use-action" data-action-type="prayer" data-action-id="{{prayer.id}}">use</div>
+              <a class="item-control chat-item" data-item-type="prayer" data-item-id="{{prayer.id}}"
+                title="Chat Item">{{localize "RSK.ChatItem"}}</a>
+              <a class="item-control use-action" data-action-type="prayer" data-action-id="{{prayer.id}}"
+                title="Chat Item">{{localize "RSK.UseAction"}}</a>
             </li>
             {{/each}}
           </ol>
@@ -109,8 +111,10 @@
               <div class="item-content">
                 {{spell.description}}
               </div>
-              <div class="item-content chat-item" data-item-type="spell" data-item-id="{{spell.id}}">chat</div>
-              <div class="item-content use-action" data-action-type="spell" data-action-id="{{spell.id}}">use</div>
+              <a class="item-control chat-item" data-item-type="spell" data-item-id="{{spell.id}}"
+                title="Chat Item">{{localize "RSK.ChatItem"}}</a>
+              <a class="item-control use-action" data-action-type="spell" data-action-id="{{spell.id}}"
+                title="Chat Item">{{localize "RSK.UseAction"}}</a>
             </li>
             {{/each}}
           </ol>

@@ -1,4 +1,5 @@
 import RSKApplyDamageDialog from "../../applications/RSKApplyDamageDialog.js";
+import { chatItem } from "../../applications/RSKChatLog.js";
 
 export default class RSKActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -39,6 +40,12 @@ export default class RSKActorSheet extends ActorSheet {
                 .data("effectId");
             const effect = this.actor.effects.get(effectId);
             effect.sheet.render(true);
+        });
+        html.find('.chat-item').click(async ev => {
+            const s = $(ev.currentTarget);
+            const itemType = s.data("itemType");
+            const itemId = s.data("itemId");
+            this.handleChatItem(itemType, itemId);
         });
         if (!this.isEditable) return;
 
@@ -150,5 +157,9 @@ export default class RSKActorSheet extends ActorSheet {
         if (result.confirmed) {
             this.actor.receiveDamage(result.damage);
         }
+    }
+
+    async handleChatItem(itemType, itemId) {
+        await chatItem(this.actor.items.find(i => i._id === itemId));
     }
 }
