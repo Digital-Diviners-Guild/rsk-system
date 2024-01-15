@@ -4,6 +4,7 @@ import RSKSpell from "../../data/items/RSKSpell.js";
 import RSKSummonFamiliar from "../../data/items/RSKSummonFamiliar.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
+import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeList } from "../../rsk-localize.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
@@ -88,6 +89,10 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             const itemId = s.data("itemId");
             await this.handleDecreaseItemQuantity(itemId);
         });
+
+        html.find('.improve-your-character').click(async ev => {
+            await this.handleImproveYourCharacter();
+        });
     }
 
     //inventory rules poc
@@ -137,6 +142,11 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         } else {
             await super.handleChatItem(itemType, itemId);
         }
+    }
+
+    async handleImproveYourCharacter() {
+        const dialog = RSKImproveYourCharacterDialog.create(this.actor);
+        await dialog();
     }
 
     _mapToActionDictionary(factory, datas, data) {
