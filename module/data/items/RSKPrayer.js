@@ -17,7 +17,7 @@ export default class RSKPrayer extends RSKAction {
     }
 
     async use(actor) {
-        if (actor.type === "npc") return; // todo: can npc's pray?
+        if (actor.type === "npc") return;
 
         const cost = this.usageCost[0]?.amount ?? 0;
         if (!this.canPray(actor, cost)) return;
@@ -63,32 +63,5 @@ export default class RSKPrayer extends RSKAction {
             : 1;
         actor.update({ "system.prayerPoints.value": actor.system.prayerPoints.value - cost });
         return result;
-    }
-
-    async apply(outcome) {
-        if (!outcome.result.isSuccess) return;
-
-        const actor = Actor.get(outcome.actorId);
-        const target = getTarget(actor);
-        if (target.type === "npc") return;
-
-        const outcomeToApply = {};
-        outcomeToApply['removedEffects'] = this.getActivePrayers(target.effects);
-        outcomeToApply['addedEffects'] = [statusToEffect(this, duration)];
-        await target.createEmbeddedDocuments("ActiveEffect", outcomeToApply.addedEffects);
-        await target.deleteEmbeddedDocuments("ActiveEffect", outcomeToApply.removedEffects);
-    }
-
-    getActivePrayers(actorEffects) {
-        const prayerStatuses = rskPrayerStatusEffects.map(se => se.id);
-        const currentPrayers = [];
-        for (const effect of actorEffects) {
-            for (const status of effect.statuses) {
-                if (prayerStatuses.includes(status)) {
-                    currentPrayers.push(effect._id);
-                }
-            }
-        }
-        return currentPrayers;
     }
 }
