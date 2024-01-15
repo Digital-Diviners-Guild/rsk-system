@@ -4,7 +4,11 @@
         <div class="item-name flexrow">
             <strong>{{effect.name}}</strong>
         </div>
-        {{!-- todo: effect details --}}
+        {{#if effect.description}}
+        <div class="item-name flexrow">
+            {{editor effect.description target="effect.description" editable=false engine="prosemirror"}}
+        </div>
+        {{/if}}
     </li>
     {{/each}}
 </ol>

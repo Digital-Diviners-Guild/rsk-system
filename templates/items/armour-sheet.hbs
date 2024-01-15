@@ -22,6 +22,11 @@
                 <div>{{system.qualities}}</div>
             </div>
 
+            <div>
+                <strong>{{localize "RSK.Effects"}}:</strong>
+                {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
+            </div>
+
         </div>
         <div class="tab features" data-group="primary" data-tab="edit">
             <label>{{localize "RSK.Description"}}:</label>
@@ -31,9 +36,9 @@
             <input type="number" name="system.cost" value="{{system.cost}}">
 
             <div class="form-group">
-                <label>{{localize "RSK.ArmourType"}}:</label>
+                <label>{{localize "RSK.ActiveSlot"}}:</label>
                 <select name="system.equipped.slot">
-                    {{selectOptions config.armourTypes selected=system.equipped.slot}}
+                    {{selectOptions config.activeSlotType selected=system.equipped.slot}}
                 </select>
             </div>
 
@@ -51,8 +56,8 @@
             <strong>{{localize "RSK.Qualities"}}:</strong>
             <input type="text" name="system.qualities" value="{{system.qualities}}">
 
-            <strong>Effects (temp)</strong>
-            {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
+            <strong>{{localize "RSK.Effects"}}:</strong>
+            {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
         </div>
     </section>
 </form>

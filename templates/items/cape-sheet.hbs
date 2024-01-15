@@ -10,22 +10,31 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
+                <h3>{{localize "RSK.Description"}}:</h3>
+                <p>
+                    {{system.description}}
+                </p>
+            </div>
+            <div>
                 <h3>{{localize "RSK.AwardedFor"}}:</h3>
                 <p>
                     {{system.awardedFor}}
                 </p>
             </div>
+
+            <strong>{{localize "RSK.Effects"}}:</strong>
+            {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
+            <label>{{localize "RSK.Description"}}</label>
+            <input name="system.description" type="text" value="{{system.description}}">
+
             <label>{{localize "RSK.AwardedFor"}}</label>
             <input name="system.awardedFor" type="text" value="{{system.awardedFor}}">
+
+            <strong>{{localize "RSK.Effects"}}:</strong>
+            {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
         </div>
     </section>
-
-    {{!--
-    todo: sheet functionality to input the values for the effects described
-    these will be numerical values that augment you skills/damage when equipped
-    these values will need to be categorized by 'stat' /'damage type' and if they 'increase' or 'decrease' these values
-    --}}
 </form>

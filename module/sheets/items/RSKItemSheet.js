@@ -22,6 +22,7 @@ export default class RSKItemSheet extends ItemSheet {
         context.dealsDamage = itemData.system.damageEntries
             && Object.values(itemData.system.damageEntries)
                 .filter(x => x > 0).length > 0;
+        context.effects = itemData.effects;
         return context;
     }
 
