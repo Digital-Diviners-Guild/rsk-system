@@ -74,6 +74,12 @@ export default class RSKCharacter extends RSKActor {
         }
     }
 
+    spendPoints(type, amount) {
+        const points = this.system[`${type}Points`];
+        const newAmount = game.rsk.math.clamp_value(points.value - amount, points);
+        this.update({ [`system.${type}Points.value`]: newAmount });
+    }
+
     //todo: sort items
     // do we want to use slotId?
     // do we want to use container prop?

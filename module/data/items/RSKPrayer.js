@@ -61,7 +61,7 @@ export default class RSKPrayer extends RSKAction {
         const cost = result.isSuccess
             ? prayerPoints
             : 1;
-        actor.update({ "system.prayerPoints.value": actor.system.prayerPoints.value - cost });
+        actor.spendPoints("prayer", cost);
         return result;
     }
 }
