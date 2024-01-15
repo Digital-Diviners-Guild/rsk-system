@@ -1,6 +1,4 @@
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
-import { statusToEffect } from "../../effects/statuses.js";
-import { getTarget } from "../../rsk-targetting.js";
 import RSKAction from "./RSKAction.js";
 import { fields } from "./fields.js";
 
