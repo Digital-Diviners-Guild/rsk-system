@@ -1,4 +1,3 @@
-import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKActor from "./RSKActor.js";
 
 export default class RSKCharacter extends RSKActor {

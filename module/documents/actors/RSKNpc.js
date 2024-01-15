@@ -11,6 +11,10 @@ export default class RSKNpc extends RSKActor {
         console.log(this.testActions);
     }
 
+    async receiveDamage(damage) {
+        await super.receiveDamage(this.calculateDamageTaken({ typeless: damage }));
+    }
+
     calculateDamageTaken(damageEntries, puncture = 0) {
         const applicablePuncture = game.rsk.math.clamp_value(puncture, { min: 0, max: this.system.armourValue });
         const remainingArmourSoak = this.system.armourValue - applicablePuncture;
@@ -20,7 +24,7 @@ export default class RSKNpc extends RSKActor {
             return acc;
         }, { totalDamage: 0, bonusArmour: 0 });
         const totalArmourSoak = remainingArmourSoak + bonusArmour;
-        return totalDamage - totalArmourSoak;
+        return game.rsk.math.clamp_value(totalDamage - totalArmourSoak, { min: 0 });
     }
 
     _getBonusArmourValue(damageType) {
