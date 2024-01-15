@@ -28,6 +28,7 @@ export default class RSKConfirmRollDialog extends Application {
         this.rollMode = CONFIG.Dice.rollModes.publicroll;
         this.advantageDisadvantageOptions = { normal: "RSK.Normal", advantage: "RSK.Advantage", disadvantage: "RSK.Disadvantage" };
         this.advantageDisadvantage = "normal";
+        this.targetNumberModifier = 0;
     }
 
     getData() {
@@ -40,7 +41,8 @@ export default class RSKConfirmRollDialog extends Application {
             selectedAbility: this.selectedAbility,
             selectedSkill: this.selectedSkill,
             advantageDisadvantageOptions: this.advantageDisadvantageOptions,
-            advantageDisadvantage: this.advantageDisadvantage
+            advantageDisadvantage: this.advantageDisadvantage,
+            targetNumberModifier: this.targetNumberModifier
         }
     }
 
@@ -55,14 +57,14 @@ export default class RSKConfirmRollDialog extends Application {
             this.selectedSkill = $("#skill-select").val();
             this.selectedAbility = $("#ability-select").val();
             this.advantageDisadvantage = $("#adv-dadv-select").val();
-            const targetNumber = this.context.calculateTargetNumber(this.selectedSkill, this.selectedAbility) ?? 3;
+            this.targetNumberModifier = Number($("#tn-modifier").val());
             this.resolve({
                 rolled: true,
                 rollMode: this.rollMode,
                 rollType: this.advantageDisadvantage,
                 skill: this.selectedSkill,
                 ability: this.selectedAbility,
-                targetNumber: targetNumber
+                targetNumberModifier: this.targetNumberModifier
             });
             this.isResolved = true;
             this.close();
