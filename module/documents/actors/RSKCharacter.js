@@ -5,6 +5,13 @@ export default class RSKCharacter extends RSKActor {
     maxSkillLevel = 10;
     maxInventorySlots = 28;
 
+    _onCreate(data, options, userId) {
+        // Send the content of data to the console for debugging.
+        console.log(data);
+        this.update({ "prototypeToken.actorLink": true });
+        super._onCreate(data, options, userId)
+    }
+
     prepareBaseData() {
         super.prepareBaseData();
 
