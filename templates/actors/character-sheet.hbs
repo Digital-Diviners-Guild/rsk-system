@@ -1,63 +1,64 @@
 <form class="{{cssClass}} {{actor.type}}" autocomplete="off">
-  <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200" />
-    <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
-  </header>
   <div class="sheet-container">
     <div class="sidebar">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200" />
       <div class="rsk stats-abilities">
-        <div class="rsk stats">
-          <div class="stats-toolbar">
-            <div class="actor-application" application-method="characterRest" effect-label="Rest" glow-color="green"><i
-                class="fas fa-bed"></i></div>
-            <div class="actor-application" application-method="characterDamage" effect-label="Take Damage"
-              glow-color="red"><i class="fas fa-sword"></i></div>
-          </div>
-          <div class="stats-group">
-            <div class="stats-box">
-              <div class="stats-label">{{localize "RSK.Lifepoints"}}</div>
-              <div class="stats-values">
-                <input class="stats-value-left" data-stat="Life" type="number" name="system.lifePoints.value"
-                  value="{{system.lifePoints.value}}">
-                <div class="stats-value-right">{{system.lifePoints.max}}</div>
-              </div>
-            </div>
-            <div class="stats-box">
-              <div class="stats-label">{{localize "RSK.Prayerpoints"}}</div>
-              <div class="stats-values">
-                <input class="stats-value-left" data-stat="Prayer" type="number" name="system.prayerPoints.value"
-                  value="{{system.prayerPoints.value}}">
-                <div class="stats-value-right">{{system.prayerPoints.max}}</div>
-              </div>
-            </div>
-            <div class="stats-box">
-              <div class="stats-label">{{localize "RSK.Summoningpoints"}}</div>
-              <div class="stats-values">
-                <input class="stats-value-left" data-stat="Summoning" type="number" name="system.summoningPoints.value"
-                  value="{{system.summoningPoints.value}}">
-                <div class="stats-value-right">{{system.summoningPoints.max}}</div>
-              </div>
-            </div>
-          </div>
+        <div class="actor-toolbar">
+          <div class="actor-application" application-method="characterRest" effect-label="Rest" glow-color="green"><i
+              class="fas fa-bed"></i></div>
+          <div class="actor-application" application-method="characterDamage" effect-label="Take Damage"
+            glow-color="red"><i class="fas fa-sword"></i></div>
         </div>
-        <div class="rsk abilities">
-          <div class="stats-group">
-            {{#each abilities as |ability|}}
-            <div class="stats-box">
-              <span class="roll-check" data-type="ability" data-value="{{ability.index}}">
-                <i class="fas fa-dice"></i>
-                <div class="stats-label">{{ability.label}}</div>
+        <div class "rsk stats-abilities-container">
+          <div class="rsk stats">
+            <div class="stats-group">
+              <div class="stats-box">
+                <div class="stats-label">{{localize "RSK.Lifepoints"}}</div>
                 <div class="stats-values">
-                  <div class="stats-value-center">{{ability.value}}</div>
+                  <input class="stats-value-left" data-stat="Life" type="number" name="system.lifePoints.value"
+                    value="{{system.lifePoints.value}}">
+                  <div class="stats-value-right">{{system.lifePoints.max}}</div>
                 </div>
-              </span>
+              </div>
+              <div class="stats-box">
+                <div class="stats-label">{{localize "RSK.Prayerpoints"}}</div>
+                <div class="stats-values">
+                  <input class="stats-value-left" data-stat="Prayer" type="number" name="system.prayerPoints.value"
+                    value="{{system.prayerPoints.value}}">
+                  <div class="stats-value-right">{{system.prayerPoints.max}}</div>
+                </div>
+              </div>
+              <div class="stats-box">
+                <div class="stats-label">{{localize "RSK.Summoningpoints"}}</div>
+                <div class="stats-values">
+                  <input class="stats-value-left" data-stat="Summoning" type="number" name="system.summoningPoints.value"
+                    value="{{system.summoningPoints.value}}">
+                  <div class="stats-value-right">{{system.summoningPoints.max}}</div>
+                </div>
+              </div>
             </div>
-            {{/each}}
+          </div>
+          <div class="rsk abilities">
+            <div class="stats-group">
+              {{#each abilities as |ability|}}
+              <div class="stats-box">
+                <span class="roll-check" data-type="ability" data-value="{{ability.index}}">
+                  <div class="stats-label"><i class="fas fa-dice"></i> {{ability.label}}</div>
+                  <div class="stats-values">
+                    <div class="stats-value-center">{{ability.value}}</div>
+                  </div>
+                </span>
+              </div>
+              {{/each}}
+            </div>
           </div>
         </div>
       </div>
     </div>
     <div class="main-content">
+      <header class="sheet-header">
+        <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
+      </header>
       <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="skills">{{localize "RSK.Skills"}}</a>
         <a class="item" data-tab="inventory">{{localize "RSK.Inventory"}}</a>
@@ -69,6 +70,12 @@
       </nav>
       <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="skills">
+          <div class="skill-header">
+            <button name="improve-your-character" disabled>Improve Your Character</button>
+            <div class="current-level-label">
+              <strong>Current Level: {{system.lifePoints.max}}</strong>
+            </div>
+          </div>
           <div class="rsk skill-container">
             {{#each skills as |skill|}}
             <div class="form-group">
