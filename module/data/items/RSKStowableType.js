@@ -1,4 +1,4 @@
-import { fields } from "./fields.js";
+import { fields, costField } from "./fields.js";
 
 export default class RSKStowableType extends foundry.abstract.DataModel {
     static defineSchema() {
@@ -7,7 +7,8 @@ export default class RSKStowableType extends foundry.abstract.DataModel {
             slotId: new fields.NumberField({ initial: -1 }),
             isStackable: new fields.BooleanField({ initial: true }),
             isAmmo: new fields.BooleanField(),
-            quantity: new fields.NumberField({ initial: 1 })
+            quantity: new fields.NumberField({ initial: 1 }),
+            cost: new fields.NumberField({ ...costField })
         }
     }
 }

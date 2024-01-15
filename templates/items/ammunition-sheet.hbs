@@ -9,24 +9,79 @@
     </nav>
     <section class="sheet-body" data-can-drop="true">
         <div class="tab features" data-group="primary" data-tab="description">
-            isAmmo
-            <input type="checkbox" data-dtype="Boolean" name="system.isAmmo" value="{{system.isAmmo}}" {{checked
-                system.isAmmo}}>
 
-            type
-            <input type="text" data-dtype="text" name="system.type" value="{{system.type}}">
+            <div>
+                <strong>{{localize "RSK.Cost"}}: </strong>
+                {{system.cost}} gp
+            </div>
+            <div>
+                <strong>{{localize "RSK.AmmunitionType"}}:</strong>
+                {{system.type}}
+            </div>
 
-            material
-            <input type="text" data-dtype="text" name="system.material" value="{{system.material}}">
+            <div>
+                <strong>{{localize "RSK.Description"}}:</strong>
+                {{system.description}}
+            </div>
 
-            effectDescription
-            <input type="text" data-dtype="text" name="system.effectDescription" value="{{system.effectDescription}}">
+            <div>
+                <strong>{{localize "RSK.EffectDescription"}}:</strong>
+                {{system.effectDescription}}
+            </div>
 
-            qualities
-            damageEntries
+            <div>
+                <strong>{{localize "RSK.Material"}}:</strong>
+                {{system.material}}
+            </div>
+
+            {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
+
+            {{#if system.qualities}}
+            <div>
+                <strong>{{localize "RSK.Qualities"}}:</strong>
+                {{system.qualities}}
+            </div>
+            {{/if}}
+            {{#if system.effects}}
+            <div>
+                <strong>{{localize "RSK.Effects"}}:</strong>
+                {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
+            </div>
+            {{/if}}
         </div>
         <div class="tab features" data-group="primary" data-tab="edit">
+            <div>
+                <strong>{{localize "RSK.AmmunitionType"}}: </strong>
+                <select name="system.type">
+                    {{selectOptions config.ammunitionType selected=system.type}}
+                </select>
+            </div>
 
+            <div>
+                <strong>{{localize "RSK.Cost"}}: </strong>
+                <input type="number" data-dtype="number" name="system.cost" value="{{system.cost}}">
+            </div>
+
+            <strong>{{localize "RSK.Description"}}:</strong>
+            <input type="text" data-dtype="text" name="system.description" value="{{system.description}}">
+
+            <strong>{{localize "RSK.EffectDescription"}}:</strong>
+            <input type="text" data-dtype="text" name="system.effectDescription" value="{{system.effectDescription}}">
+
+            <div>
+                <strong>{{localize "RSK.Material"}}:</strong>
+                <select name="system.material">
+                    {{selectOptions config.materials selected=system.material}}
+                </select>
+            </div>
+
+            {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
+
+            <strong>{{localize "RSK.Qualities"}}:</strong>
+            <input type="text" data-dtype="text" name="system.qualities" value="{{system.qualities}}">
+
+            <strong>{{localize "RSK.Effects"}}:</strong>
+            {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
         </div>
     </section>
 </form>

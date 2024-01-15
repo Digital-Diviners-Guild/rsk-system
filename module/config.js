@@ -12,6 +12,12 @@ RSK.sizes = {
     colossal: "RSK.Colossal"
 };
 
+RSK.ammunitionType = {
+    arrow: "arrow",
+    bolt: "bolt",
+    dart: "dart"
+}
+
 RSK.runeType = {
     air: "RSK.AirRune",
     water: "RSK.WaterRune",
