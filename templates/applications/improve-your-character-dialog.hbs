@@ -1,0 +1,11 @@
+<div class="dialog-content">
+    <select class="skill-dropdown">
+        {{#each actor.system.skills |skill|}}
+            <option value="{{skill.level}}">{{skill.label}}: {{skill.level}}</option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="dialog-buttons">
+    <button class="confirm-button">Confirm</button>
+</div>
