@@ -6,8 +6,6 @@ export default class RSKCharacter extends RSKActor {
     maxInventorySlots = 28;
 
     _onCreate(data, options, userId) {
-        // Send the content of data to the console for debugging.
-        console.log(data);
         this.update({ "prototypeToken.actorLink": true });
         super._onCreate(data, options, userId)
     }
