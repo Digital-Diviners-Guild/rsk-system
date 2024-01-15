@@ -13,6 +13,15 @@ RSK.sizes = {
     colossal: "RSK.Colossal"
 };
 
+RSK.sizeModifiers = {
+    tiny: { attack: -1, defense: 2 },
+    small: { attack: 0, defense: 0 },
+    medium: { attack: 0, defense: 0 },
+    large: { attack: 1, defense: -1 },
+    giant: { attack: 2, defense: -1 },
+    colossal: { attack: 4, defense: -3 }
+};
+
 RSK.ammunitionType = {
     arrow: "arrow",
     bolt: "bolt",
