@@ -107,7 +107,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const item = await Item.fromDropData(data);
         // how do we want to identify something that can go in the inventory?
         if (item.system.hasOwnProperty("slotId")) {
-            await this.actor.addItem(item)
+            await this.actor.addItem(item, item.system.quantity);
         }
         else {
             await super._onDropItem(event, data);

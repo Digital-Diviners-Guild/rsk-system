@@ -100,7 +100,7 @@ export default class RSKCharacter extends RSKActor {
     }
 
     removeItem(itemToRemove, quantity = 1) {
-        const existingItem = this.items.find(i => i.flags.core.sourceId === itemToRemove.flags.core.sourceId)
+        const existingItem = this.items.find(i => i.flags.core.sourceId === itemToRemove.flags.core.sourceId);
         if (existingItem) {
             const newQuantity = existingItem.system.quantity - quantity;
             if (newQuantity < 1) {
