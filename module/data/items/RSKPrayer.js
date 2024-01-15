@@ -16,6 +16,10 @@ export default class RSKPrayer extends RSKAction {
         }
     }
 
+    prepareBaseData() {
+        this.type = "prayer";
+    }
+
     async use(actor) {
         if (actor.type === "npc") return;
 

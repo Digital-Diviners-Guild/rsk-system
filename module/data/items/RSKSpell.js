@@ -13,6 +13,10 @@ export default class RSKSpell extends RSKAction {
         }
     };
 
+    prepareBaseData() {
+        this.type = "spell";
+    }
+
     async use(actor) {
         if (actor.type === "npc") return;
         if (!this.canCast(actor)) return;
