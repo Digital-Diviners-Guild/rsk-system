@@ -4,6 +4,7 @@ import RSKSpell from "../../data/items/RSKSpell.js";
 import RSKSummonFamiliar from "../../data/items/RSKSummonFamiliar.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
+import { localizeList } from "../../rsk-localize.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
@@ -28,26 +29,12 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSkills(context) {
-        context.skills = Object.keys(context.system.skills)
-            .map(function (index) {
-                return {
-                    index: index,
-                    label: game.i18n.format(CONFIG.RSK.skills[index]),
-                    ...context.system.skills[index]
-                }
-            });
+        context.skills = localizeList(context.system.skills, CONFIG.RSK.skills,
+            (obj, index) => obj[index].level);
     }
 
-    //todo: this pattern is appearing a few times, probably something we can abstract
     _prepareAbilities(context) {
-        context.abilities = Object.keys(context.system.abilities)
-            .map(function (index) {
-                return {
-                    index: index,
-                    label: game.i18n.format(CONFIG.RSK.abilities[index]),
-                    level: context.system.abilities[index]
-                }
-            });
+        context.abilities = localizeList(context.system.abilities, CONFIG.RSK.abilities);
     }
 
     _prepareSpells(context) {

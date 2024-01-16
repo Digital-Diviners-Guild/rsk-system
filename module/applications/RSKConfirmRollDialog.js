@@ -1,3 +1,5 @@
+import { localizeList } from "../rsk-localize.js";
+
 export default class RSKConfirmRollDialog extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -36,8 +38,8 @@ export default class RSKConfirmRollDialog extends Application {
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.rollMode,
             context: this.context,
-            skills: this._localizeList(this.context.skills, CONFIG.RSK.skills, (obj, index) => obj[index].level),
-            abilities: this._localizeList(this.context.abilities, CONFIG.RSK.abilities),
+            skills: localizeList(this.context.skills, CONFIG.RSK.skills, (obj, index) => obj[index].level),
+            abilities: localizeList(this.context.abilities, CONFIG.RSK.abilities),
             selectedAbility: this.selectedAbility,
             selectedSkill: this.selectedSkill,
             advantageDisadvantageOptions: this.advantageDisadvantageOptions,
@@ -70,17 +72,4 @@ export default class RSKConfirmRollDialog extends Application {
             this.close();
         });
     }
-
-    _localizeList = (obj, lang, valueSelector = undefined) =>
-        Object.keys(obj)
-            .map((index) => {
-                return {
-                    index: index,
-                    label: this._localizeText(lang[index]),
-                    value: valueSelector ? valueSelector(obj, index) : obj[index]
-                }
-            });
-
-
-    _localizeText = (text) => game.i18n.format(text);
 }
