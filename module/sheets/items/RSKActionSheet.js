@@ -7,7 +7,7 @@ export default class RSKActionSheet extends RSKItemSheet {
 
     getData() {
         const context = super.getData();
-        context.usageCost = context.system.getUsageCostLabel()
+        context.usageCost = context.system.getUsageCostLabel();
         return context;
     }
 

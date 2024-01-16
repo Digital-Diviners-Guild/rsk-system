@@ -53,7 +53,7 @@
             <div>
                 <strong>{{localize "RSK.AmmunitionType"}}: </strong>
                 <select name="system.type">
-                    {{selectOptions config.ammunitionType selected=system.type}}
+                    {{selectOptions config.ammunitionType selected=system.type localize=true}}
                 </select>
             </div>
 
@@ -71,7 +71,7 @@
             <div>
                 <strong>{{localize "RSK.Material"}}:</strong>
                 <select name="system.material">
-                    {{selectOptions config.materials selected=system.material}}
+                    {{selectOptions config.materials selected=system.material localize=true}}
                 </select>
             </div>
 

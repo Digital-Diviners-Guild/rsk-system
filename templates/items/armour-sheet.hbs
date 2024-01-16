@@ -38,14 +38,14 @@
             <div class="form-group">
                 <label>{{localize "RSK.ActiveSlot"}}:</label>
                 <select name="system.equipped.slot">
-                    {{selectOptions config.activeSlotType selected=system.equipped.slot}}
+                    {{selectOptions config.activeSlotType selected=system.equipped.slot localize=true}}
                 </select>
             </div>
 
             <div class="form-group">
                 <label>{{localize "RSK.Material"}}</label>
                 <select name="system.values.material">
-                    {{selectOptions config.materials selected=system.values.material}}
+                    {{selectOptions config.materials selected=system.values.material localize=true}}
                 </select>
             </div>
             <div>
