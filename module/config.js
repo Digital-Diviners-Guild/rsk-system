@@ -82,7 +82,7 @@ RSK.materials = {
 }
 
 RSK.skills = {
-    archaelogy: "RSK.Archaelogy",
+    archaeology: "RSK.Archaeology",
     attack: "RSK.Attack",
     cooking: "RSK.Cooking",
     crafting: "RSK.Crafting",
