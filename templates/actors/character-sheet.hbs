@@ -228,6 +228,46 @@
               title="Remove Collection">{{localize "RSK.RemoveItem"}}</a>
           </div>
           {{/each}}
+
+          {{!-- todo: potentially can use the edit items part? --}}
+          {{!-- or maybe we need a new part specifically for managing actions? --}}
+          {{!-- though we probably do need a way to manage actions individually and in a collection --}}
+          {{!-- need to solve the inconsistency with _id and id --}}
+          <div>
+            <label>{{localize "RSK.Spells"}}</label>
+            {{#each spells as |spell|}}
+            <li class="item flexrow" data-item-id="{{spell.id}}">
+              <div class="item-name">
+                <strong>{{spell.label}}</strong>
+              </div>
+              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </li>
+            {{/each}}
+          </div>
+
+          <div>
+            <label>{{localize "RSK.Prayers"}}</label>
+            {{#each prayers as |prayer|}}
+            <li class="item flexrow" data-item-id="{{prayer.id}}">
+              <div class="item-name">
+                <strong>{{prayer.label}}</strong>
+              </div>
+              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </li>
+            {{/each}}
+          </div>
+
+          <div>
+            <label>{{localize "RSK.Familiars"}}</label>
+            {{#each familiars as |familiar|}}
+            <li class="item flexrow" data-item-id="{{familiar.id}}">
+              <div class="item-name">
+                <strong>{{familiar.label}}</strong>
+              </div>
+              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </li>
+            {{/each}}
+          </div>
         </div>
       </section>
 
