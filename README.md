@@ -12,12 +12,13 @@ A FoundryVTT system for playing [RuneScape Kingdoms](https://steamforged.com/pag
 #### Automation:
 In this pre-release state, a lot of game play mechanics will need to be manually tracked.    
 Though there are a few things that have automation already.
-- applying backgrounds during character creation
-- rolling various skill checks
-- spending runes when casting spells
-- spending prayer/summoning points when praying/summoning
-- applying damage (currently just armour soak, no margin bonus or qualities)
-- resting
+- Applying backgrounds during character creation
+- Rolling various skill checks
+- Spending runes when casting spells
+- Spending prayer/summoning points when praying/summoning
+- Applying damage (currently just armour soak, no margin bonus or qualities)
+- Resting
+- Improving your Character (leveling)
 
 ### Roadmap
 * Improved UI/UX
