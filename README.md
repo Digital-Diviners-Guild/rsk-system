@@ -20,6 +20,17 @@ Though there are a few things that have automation already.
 - Resting
 - Improving your Character (leveling)
 
+#### Tips for creating your content
+- Spells, Familiars, and Prayers need to be given to each character
+    - to help with this you can create an 'action collection' item for each group
+    - ie: a "Spell Book" action collection that contains all Spell Items each character should have
+      - first, create the spell items in your world
+      - next, create an action collection named "Standard Spell Book"
+      - then, drag and drop the spells into the "Standard Spell Book" sheet.
+      - lastly, drag and drop the "Standard Spell Book" item onto a character sheet and it will import all the Spell items into the character's sheet
+      - repeat for prayers, and familiars
+
+
 ### Roadmap
 * Improved UI/UX
 * More Automation
