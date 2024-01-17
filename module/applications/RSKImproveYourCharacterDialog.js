@@ -18,12 +18,19 @@ export default class RSKImproveYourCharacter extends Application {
 
     constructor(resolve, context, options) {
         super();
-        this.actor = context.actor;
+        this.resolve = resolve;
+        this.context = context;
+        this.skills = context.skills;
+    }
+
+    async close(options) {
+        if (!this.isResolved) this.resolve({ confirmed: false });
+        super.close(options);
     }
 
     async getData() {
         const data = super.getData();
-        const eligibleSkills = localizeObject(this.actor.system.skills, CONFIG.RSK.skills,
+        const eligibleSkills = localizeObject(this.skills, CONFIG.RSK.skills,
             (obj, i) => obj[i].level,
             (val) => val.used);
         data.skills = eligibleSkills;
@@ -32,11 +39,16 @@ export default class RSKImproveYourCharacter extends Application {
 
     activateListeners(html) {
         super.activateListeners(html);
-        html.find('#confirmButton').click(this._onConfirm.bind(this));
+        html.find('.confirm-button').click(this._onConfirm.bind(this));
     }
 
     async _onConfirm(event) {
-        const selectedSkill = html.find('#skillDropdown').val();
-        // Perform actions with the selected skill
+        const selectedSkill = $('.skill-dropdown').val();
+        this.resolve({
+            confirmed: true,
+            selectedSkill: selectedSkill,
+        });
+        this.isResolved = true;
+        this.close();
     }
 }

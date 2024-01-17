@@ -1,7 +1,7 @@
 <div class="dialog-content">
     <select class="skill-dropdown">
         {{#each skills as |skill|}}
-        <option value="{{skill.value}}">{{skill.label}}: {{skill.value}}</option>
+        <option value="{{skill.index}}">{{skill.label}}: {{skill.value}}</option>
         {{/each}}
     </select>
 </div>

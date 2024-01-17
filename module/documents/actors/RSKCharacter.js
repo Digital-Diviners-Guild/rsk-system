@@ -41,12 +41,12 @@ export default class RSKCharacter extends RSKActor {
             + targetNumberModifier;
     }
 
-    increaseSkillLevel(skill, amount) {
+    increaseSkillLevel(skill, amount = 1) {
         //todo: if this is now >= 5 award ability level
         this.actorUpdateSkillLevel(skill, this.system.skills[skill].level + amount);
     }
 
-    decreaseSkillLevel(skill, amount) {
+    decreaseSkillLevel(skill, amount = 1) {
         this.actorUpdateSkillLevel(skill, this.system.skills[skill].level - amount);
     }
 
@@ -62,6 +62,12 @@ export default class RSKCharacter extends RSKActor {
             const rollResult = await game.rsk.dice.skillCheck(targetNumber, rollType);
             return { ...rollResult, targetNumber };
         }
+    }
+
+    clearUsedSkills() {
+        Object.keys(this.system.skills)
+            .map(skill =>
+                this.update({ [`system.skills.${skill}.used`]: false }));
     }
 
     applyBackgrounds() {

@@ -30,8 +30,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSkills(context) {
-        context.skills = localizeObject(context.system.skills, CONFIG.RSK.skills,
-            (obj, index) => { return { ...obj[index] } });
+        context.skills = localizeObject(context.system.skills, CONFIG.RSK.skills);
     }
 
     _prepareAbilities(context) {
@@ -145,8 +144,12 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     async handleImproveYourCharacter() {
-        const dialog = RSKImproveYourCharacterDialog.create({ actor: this.actor });
-        await dialog();
+        const dialog = RSKImproveYourCharacterDialog.create({ skills: this.actor.system.skills });
+        const result = await dialog();
+        if (!result) return;
+
+        this.actor.clearUsedSkills();
+        this.actor.increaseSkillLevel(result.selectedSkill);
     }
 
     _mapToActionDictionary(factory, datas, data) {
