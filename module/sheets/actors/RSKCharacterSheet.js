@@ -5,7 +5,7 @@ import RSKSummonFamiliar from "../../data/items/RSKSummonFamiliar.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
-import { localizeList } from "../../rsk-localize.js";
+import { localizeObject } from "../../rsk-localize.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
@@ -30,12 +30,12 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSkills(context) {
-        context.skills = localizeList(context.system.skills, CONFIG.RSK.skills,
-            (obj, index) => obj[index].level);
+        context.skills = localizeObject(context.system.skills, CONFIG.RSK.skills,
+            (obj, index) => { return { ...obj[index] } });
     }
 
     _prepareAbilities(context) {
-        context.abilities = localizeList(context.system.abilities, CONFIG.RSK.abilities);
+        context.abilities = localizeObject(context.system.abilities, CONFIG.RSK.abilities);
     }
 
     _prepareSpells(context) {
@@ -145,7 +145,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     async handleImproveYourCharacter() {
-        const dialog = RSKImproveYourCharacterDialog.create(this.actor);
+        const dialog = RSKImproveYourCharacterDialog.create({ actor: this.actor });
         await dialog();
     }
 
