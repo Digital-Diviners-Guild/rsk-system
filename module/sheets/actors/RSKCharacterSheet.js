@@ -111,12 +111,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const dialog = RSKConfirmRollDialog.create(rollData, dialogOptions);
         const rollOptions = await dialog();
         if (!rollOptions.rolled) return false;
-        const result = await this.actor.useSkill(
-            rollOptions.skill,
-            rollOptions.ability,
-            rollOptions.targetNumberModifier,
-            rollOptions.rollType
-        );
+        const result = await this.actor.useSkill(rollOptions);
         //todo: could probably be in a template
         const flavor = `<strong>${rollOptions.skill} | ${rollOptions.ability}</strong> TN: ${result.targetNumber}
                   <p>${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>`;

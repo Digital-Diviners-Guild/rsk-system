@@ -44,7 +44,7 @@ export default class RSKSummonFamiliar extends RSKAction {
         const rollOptions = await dialog();
         if (!rollOptions.rolled) return false;
 
-        const result = await actor.useSkill(rollOptions.skill, rollOptions.ability);
+        const result = await actor.useSkill(rollOptions);
         const cost = result.isSuccess
             ? summoningPoints
             : 1;

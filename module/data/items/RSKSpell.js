@@ -59,7 +59,7 @@ export default class RSKSpell extends RSKAction {
         const rollOptions = await dialog();
         if (!rollOptions.rolled) return false;
 
-        const result = await actor.useSkill(rollOptions.skill, rollOptions.ability);
+        const result = await actor.useSkill(rollOptions);
         if (result.isSuccess) {
             for (const cost of this.usageCost) {
                 actor.spendRunes(cost.type, cost.amount);

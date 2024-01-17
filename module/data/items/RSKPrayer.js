@@ -59,7 +59,7 @@ export default class RSKPrayer extends RSKAction {
         const rollOptions = await dialog();
         if (!rollOptions.rolled) return false;
 
-        const result = await actor.useSkill(rollOptions.skill, rollOptions.ability);
+        const result = await actor.useSkill(rollOptions);
         const cost = result.isSuccess
             ? prayerPoints
             : 1;
