@@ -23,14 +23,6 @@ export default class RSKCharacterType extends foundry.abstract.TypeDataModel {
                 obj[ability] = new fields.NumberField({ min: 1, initial: 1, max: 8 });
                 return obj;
             }, {})),
-            // i'm not sure we need these fields
-            // spells and prayers are something everyone has access too
-            // though these fields would maybe be needed if you wanted
-            // to gate access to prayers/spells behind some condition
-            // and or add custom ones?
-            // prayers: new fields.ArrayField(new fields.ObjectField()),
-            // spells: new fields.ArrayField(new fields.ObjectField()),
-            // familiars: new fields.ArrayField(new fields.ObjectField()),
             skills: new fields.SchemaField(Object.keys(CONFIG.RSK.skills).reduce((obj, skill) => {
                 obj[skill] = new fields.SchemaField({
                     level: new fields.NumberField({ min: 1, initial: 1, max: 10 }),

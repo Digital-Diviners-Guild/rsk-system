@@ -22,7 +22,8 @@
             "prayer",
             "summonFamiliar",
             "rune",
-            "ammunition"
+            "ammunition",
+            "actionCollection"
         ],
         "material": {},
         "resource": {},
@@ -37,6 +38,7 @@
         "prayer": {},
         "summonFamiliar": {},
         "rune": {},
-        "ammunition": {}
+        "ammunition": {},
+        "actionCollection": {}
     }
 }

@@ -38,9 +38,11 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        this.spells = Object.values(CONFIG.RSK.standardSpellBook).reduce((ssb, s) => {
-            const spell = RSKSpell.fromSource(s);
-            spell["usageCostLabel"] = spell.getUsageCostLabel();
+        //todo: this needs some work can probably be more simple
+        this.spells = this.actor.items.filter(i => i.type === "spell").reduce((ssb, s) => {
+            const spell = RSKSpell.fromSource(s.toObject());
+            spell.id = s._id;
+            spell.label = s.name;
             ssb[spell.id] = spell;
             return ssb;
         }, {});

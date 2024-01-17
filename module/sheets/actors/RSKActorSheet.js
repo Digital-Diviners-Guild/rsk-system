@@ -162,4 +162,13 @@ export default class RSKActorSheet extends ActorSheet {
     async handleChatItem(itemType, itemId) {
         await chatItem(this.actor.items.find(i => i._id === itemId));
     }
+
+    async _onDropItem(event, data) {
+        const item = await Item.fromDropData(data);
+        if (item.type === "actionCollection") {
+            item.system.importActions(this.actor);
+        } else {
+            await super._onDropItem(event, data);
+        }
+    }
 }

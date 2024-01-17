@@ -15,7 +15,12 @@ export default class RSKAction extends foundry.abstract.TypeDataModel {
                 type: new fields.StringField(), // air / arrow / prayer
                 amount: new fields.NumberField()
             })),
+            usageCostLabel: new fields.StringField()
         };
+    }
+
+    prepareBaseData() {
+        this.usageCostLabel = this.getUsageCostLabel();
     }
 
     getUsageCostLabel() {

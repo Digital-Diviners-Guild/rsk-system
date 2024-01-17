@@ -1,0 +1,10 @@
+<form data-can-drop="true">
+    actionType: {{actionType}}
+    <ol class="items-list">
+        {{#each actions as |action|}}
+        <li class="item flexrow">
+            {{action.name}}
+        </li>
+        {{/each}}
+    </ol>
+</form>

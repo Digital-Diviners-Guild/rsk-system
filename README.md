@@ -1,4 +1,4 @@
-# rsk
+# rsk (alpha)
 A FoundryVTT system for playing [RuneScape Kingdoms](https://steamforged.com/pages/runescape-kingdoms#products).
 
 **Note: This system does not provide any content, you will need to populate the item and actor sheets within your foundry world.**
