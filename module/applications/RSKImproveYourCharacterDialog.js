@@ -1,7 +1,9 @@
+import { localizeObject } from "../rsk-localize.js";
+
 export default class RSKImproveYourCharacter extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: 'systems/rsk/templates/applications/improve-your-character.hbs',
+            template: 'systems/rsk/templates/applications/improve-your-character-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
             height: 250
@@ -14,14 +16,17 @@ export default class RSKImproveYourCharacter extends Application {
             dialog.render(true);
         });
 
-    constructor(actor) {
+    constructor(resolve, context, options) {
         super();
-        this.actor = actor;
+        this.actor = context.actor;
     }
 
     async getData() {
         const data = super.getData();
-        data.skills = this.actor.system.skills;
+        const eligibleSkills = localizeObject(this.actor.system.skills, CONFIG.RSK.skills,
+            (obj, i) => obj[i].level,
+            (val) => val.used);
+        data.skills = eligibleSkills;
         return data;
     }
 

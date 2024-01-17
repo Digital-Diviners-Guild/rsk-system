@@ -31,8 +31,8 @@
               <div class="stats-box">
                 <div class="stats-label">{{localize "RSK.Summoningpoints"}}</div>
                 <div class="stats-values">
-                  <input class="stats-value-left" data-stat="Summoning" type="number" name="system.summoningPoints.value"
-                    value="{{system.summoningPoints.value}}">
+                  <input class="stats-value-left" data-stat="Summoning" type="number"
+                    name="system.summoningPoints.value" value="{{system.summoningPoints.value}}">
                   <div class="stats-value-right">{{system.summoningPoints.max}}</div>
                 </div>
               </div>
@@ -79,10 +79,10 @@
               <span class="roll-check" data-type="skill" data-value="{{skill.index}}">
                 <i class="fas fa-dice"></i>
                 <strong>{{skill.label}}</strong>
-                {{skill.value}} {{#if skill.modifier}} (+{{skill.modifier}}){{/if}}
+                {{skill.value.level}} {{#if skill.value.modifier}} (+{{skill.value.modifier}}){{/if}}
               </span>
               <input type="checkbox" data-dtype="Boolean" name="system.skills.{{skill.index}}.used"
-                value="{{skill.used}}" {{checked skill.used}}>
+                value="{{skill.value.used}}" {{checked skill.value.used}}>
             </div>
             {{/each}}
           </div>
