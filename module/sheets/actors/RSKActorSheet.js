@@ -15,6 +15,8 @@ export default class RSKActorSheet extends ActorSheet {
         return `systems/rsk/templates/actors/${this.actor.type}-sheet.hbs`;
     }
 
+    actionCollections;
+
     getData() {
         const context = super.getData();
         const actorData = this.actor.toObject(false);
@@ -24,6 +26,7 @@ export default class RSKActorSheet extends ActorSheet {
         context.publicRoll = CONST.DICE_ROLL_MODES.PUBLIC;
         context.privateRoll = CONST.DICE_ROLL_MODES.PRIVATE;
         this._prepareItems(context);
+        this._prepareAppliedActionCollection(context);
         return context;
     }
 
@@ -106,6 +109,12 @@ export default class RSKActorSheet extends ActorSheet {
                 this.actor.sheet[applicationMethod]();
             }
         });
+
+        html.find('.remove-action-collection').click(async ev => {
+            const s = $(ev.currentTarget);
+            const itemId = s.data("itemId");
+            await this.handleRemoveActionCollection(itemId);
+        });
     }
 
     _prepareItems(context) {
@@ -128,6 +137,20 @@ export default class RSKActorSheet extends ActorSheet {
         context.backgrounds = backgrounds;
     }
 
+    _prepareAppliedActionCollection(context) {
+        //todo: can probably be refactored
+        const actionCollectionIds = this.actor.flags?.rsk?.actionCollectionIds ?? [];
+        this.actionCollections = actionCollectionIds
+            .map(i => Item.get(i))
+            .reduce((acc, curr) => {
+                acc[curr._id] = curr;
+                return acc;
+            }, {});
+        context.actionCollections = Object.keys(this.actionCollections)
+            .map(id => {
+                return { _id: id, name: this.actionCollections[id].name }
+            });
+    }
 
     async _onItemCreate(event) {
         event.preventDefault();
@@ -161,6 +184,14 @@ export default class RSKActorSheet extends ActorSheet {
 
     async handleChatItem(itemType, itemId) {
         await chatItem(this.actor.items.find(i => i._id === itemId));
+    }
+
+
+    handleRemoveActionCollection(collectionId) {
+        const collectionData = this.actionCollections[collectionId];
+        if (!collectionData) return;
+
+        collectionData.system.removeActions(this.actor);
     }
 
     async _onDropItem(event, data) {

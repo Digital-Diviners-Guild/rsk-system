@@ -216,9 +216,18 @@
           </div>
           <hr />
 
-          <strong>Effects</strong>
+          <strong>{{localize "RSK.Effects"}}</strong>
           {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
 
+          {{!-- todo: probably should be a 'part' --}}
+          <strong>Action Collections</strong>
+          {{#each actionCollections as |collection|}}
+          <div class="form-group">
+            {{collection.name}}
+            <a data-item-id="{{collection._id}}" class="item-control remove-action-collection"
+              title="Remove Collection">{{localize "RSK.RemoveItem"}}</a>
+          </div>
+          {{/each}}
         </div>
       </section>
 
