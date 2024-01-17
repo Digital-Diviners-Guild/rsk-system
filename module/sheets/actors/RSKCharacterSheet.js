@@ -151,7 +151,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
         const dialog = RSKImproveYourCharacterDialog.create({ skills: eligibleSkills });
         const result = await dialog();
-        if (!result) return;
+        if (!(result.confirmed || result.selectedSkill)) return;
 
         this.actor.clearUsedSkills();
         this.actor.increaseSkillLevel(result.selectedSkill);
