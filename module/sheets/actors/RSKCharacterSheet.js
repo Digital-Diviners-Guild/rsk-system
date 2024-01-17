@@ -38,34 +38,20 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        //todo: this needs some work can probably be more simple
-        this.spells = this.actor.items.filter(i => i.type === "spell").reduce((ssb, s) => {
-            const spell = RSKSpell.fromSource(s.toObject());
-            spell.id = s._id;
-            spell.label = s.name;
-            ssb[spell.id] = spell;
-            return ssb;
-        }, {});
+        this.spells = this.actor.items.filter(i => i.type === "spell")
+            .reduce((ss, s) => this._mapToActionDictionary(RSKSpell, ss, s), {});
         context.spells = this.spells;
     }
 
     _preparePrayers(context) {
-        this.prayers = Object.values(CONFIG.RSK.defaultPrayers).reduce((dp, p) => {
-            const prayer = RSKPrayer.fromSource(p);
-            prayer["usageCostLabel"] = prayer.getUsageCostLabel();
-            dp[prayer.id] = prayer;
-            return dp;
-        }, {});
+        this.prayers = this.actor.items.filter(i => i.type === "prayer")
+            .reduce((ps, p) => this._mapToActionDictionary(RSKPrayer, ps, p), {});
         context.prayers = this.prayers;
     }
 
     _prepareSummons(context) {
-        this.familiars = Object.values(CONFIG.RSK.defaultSummoningFamiliars).reduce((fs, f) => {
-            const familiar = RSKSummonFamiliar.fromSource(f);
-            familiar["usageCostLabel"] = familiar.getUsageCostLabel();
-            fs[familiar.id] = familiar;
-            return fs;
-        }, {});
+        this.familiars = this.actor.items.filter(i => i.type === "summonFamiliar")
+            .reduce((fs, f) => this._mapToActionDictionary(RSKSummonFamiliar, fs, f), {});
         context.familiars = this.familiars;
     }
 
@@ -151,6 +137,14 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         } else {
             await super.handleChatItem(itemType, itemId);
         }
+    }
+
+    _mapToActionDictionary(factory, datas, data) {
+        const action = factory.fromSource(data);
+        action.id = data._id;
+        action.label = data.name;
+        datas[action.id] = action;
+        return datas;
     }
 
     _getAction(type, id) {

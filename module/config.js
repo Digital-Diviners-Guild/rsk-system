@@ -1,7 +1,3 @@
-import { rskDefaultPrayers } from "./rsk-prayer.js";
-import { standardSpellBook } from "./rsk-magic.js";
-import { rskDefaultSummoningFamiliars } from "./rsk-summoning.js";
-
 const RSK = {};
 
 RSK.sizes = {
@@ -121,13 +117,4 @@ RSK.damageTypes = {
     fire: "RSK.Fire",
 }
 
-//all characters have all the prayers and spells
-// shouldn't need to be added to the character one at a time.
-// perhaps these should just be predefined objects?
-// is this how we want to detail default spell/prayer books?
-// perhaps the spell/prayer books should be items/actors?
-// we may have more spell books in the future, like the lunar spell book for lunar spells?
-RSK.standardSpellBook = standardSpellBook;
-RSK.defaultPrayers = rskDefaultPrayers;
-RSK.defaultSummoningFamiliars = rskDefaultSummoningFamiliars;
 export default RSK;
