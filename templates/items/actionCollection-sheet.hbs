@@ -1,5 +1,8 @@
 <form data-can-drop="true">
-    actionType: {{actionType}}
+    <div class="form-group">
+        <label>{{localize "RSK.ActionType"}}:</label>
+        <input type="text" name="system.actionType" value="{{actionType}}">
+    </div>
     <ol class="items-list">
         {{#each actions as |action|}}
         <li class="item flexrow">

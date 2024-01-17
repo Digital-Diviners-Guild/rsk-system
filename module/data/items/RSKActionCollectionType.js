@@ -32,9 +32,9 @@ export default class RSKActionCollection extends foundry.abstract.DataModel {
         const items = actor.items
             .filter(ai => ai.flags?.rsk?.actionCollectionId === this.parent._id)
             .map(i => i._id);
-        if (items.length < 1) return;
-
-        actor.deleteEmbeddedDocuments("Item", items);
+        if (items.length > 0) {
+            actor.deleteEmbeddedDocuments("Item", items);
+        }
         if (actor.flags?.rsk?.actionCollectionIds) {
             actor.update({ "flags.rsk.actionCollectionIds": actor.flags.rsk.actionCollectionIds.filter(i => i !== this.parent._id) });
         }
