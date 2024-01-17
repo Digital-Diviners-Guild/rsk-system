@@ -65,9 +65,12 @@ export default class RSKCharacter extends RSKActor {
     }
 
     clearUsedSkills() {
-        Object.keys(this.system.skills)
-            .map(skill =>
-                this.update({ [`system.skills.${skill}.used`]: false }));
+        const updates = Object.keys(this.system.skills)
+            .reduce((acc, curr) => {
+                acc[`system.skills.${curr}.used`] = false;
+                return acc;
+            }, {});
+        this.update(updates);
     }
 
     applyBackgrounds() {
