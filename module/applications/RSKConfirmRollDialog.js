@@ -1,4 +1,4 @@
-import { localizeList } from "../rsk-localize.js";
+import { localizeObject } from "../rsk-localize.js";
 
 export default class RSKConfirmRollDialog extends Application {
     static get defaultOptions() {
@@ -38,8 +38,8 @@ export default class RSKConfirmRollDialog extends Application {
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.rollMode,
             context: this.context,
-            skills: localizeList(this.context.skills, CONFIG.RSK.skills, (obj, index) => obj[index].level),
-            abilities: localizeList(this.context.abilities, CONFIG.RSK.abilities),
+            skills: localizeObject(this.context.skills, CONFIG.RSK.skills, (obj, index) => obj[index].level),
+            abilities: localizeObject(this.context.abilities, CONFIG.RSK.abilities),
             selectedAbility: this.selectedAbility,
             selectedSkill: this.selectedSkill,
             advantageDisadvantageOptions: this.advantageDisadvantageOptions,

@@ -1,5 +1,6 @@
-export const localizeList = (obj, lang, valueSelector = undefined) =>
+export const localizeObject = (obj, lang, valueSelector = undefined, valueFilter = undefined) =>
     Object.keys(obj)
+        .filter(i => valueFilter ? valueFilter(obj[i]) : true)
         .map((index) => {
             return {
                 index: index,
