@@ -1,10 +1,11 @@
 import RSKCreature from "./RSKCreature.js";
+import { fields, costField } from "../fields.js";
 
 export default class RSKCharacterType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
-        const fields = foundry.data.fields;
         return {
             ...RSKCreature.defineSchema(),
+            gold: new fields.NumberField({ ...costField }),
             catalyst: new fields.StringField(),
             motivation: new fields.StringField(),
             description: new fields.HTMLField(),

@@ -1,4 +1,4 @@
-import { fields } from "./fields.js";
+import { fields } from "../fields.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 
 export default class RSKCapeType extends foundry.abstract.TypeDataModel {

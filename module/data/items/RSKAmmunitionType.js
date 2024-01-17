@@ -1,4 +1,4 @@
-import { fields } from "./fields.js";
+import { fields } from "../fields.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 
 export default class RSKAmmunitionType extends foundry.abstract.TypeDataModel {

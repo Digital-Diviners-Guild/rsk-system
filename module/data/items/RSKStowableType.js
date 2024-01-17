@@ -1,4 +1,4 @@
-import { fields, costField } from "./fields.js";
+import { fields, costField } from "../fields.js";
 
 export default class RSKStowableType extends foundry.abstract.DataModel {
     static defineSchema() {

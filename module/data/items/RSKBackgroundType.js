@@ -1,4 +1,4 @@
-import { fields, positiveNumberField } from "./fields.js";
+import { fields, positiveNumberField } from "../fields.js";
 
 export default class RSKBackgroundType extends foundry.abstract.TypeDataModel {
     static defineSchema() {

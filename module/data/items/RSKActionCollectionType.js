@@ -1,4 +1,4 @@
-import { fields } from "./fields.js";
+import { fields } from "../fields.js";
 
 export default class RSKActionCollection extends foundry.abstract.DataModel {
     static defineSchema() {

@@ -1,6 +1,6 @@
 import RSKAction from "./RSKAction.js";
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
-import { fields } from "./fields.js";
+import { fields } from "../fields.js";
 
 export default class RSKSpell extends RSKAction {
     static defineSchema() {

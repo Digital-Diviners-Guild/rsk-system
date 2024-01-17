@@ -1,6 +1,6 @@
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKAction from "./RSKAction.js";
-import { fields } from "./fields.js";
+import { fields } from "../fields.js";
 
 //todo: refactor - literally the same thing as prayer, sub summoning for prayer
 export default class RSKSummonFamiliar extends RSKAction {

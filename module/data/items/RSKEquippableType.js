@@ -1,5 +1,5 @@
 import RSKStowableType from "./RSKStowableType.js"
-import { fields } from "./fields.js";
+import { fields } from "../fields.js";
 
 export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
     static defineSchema() {

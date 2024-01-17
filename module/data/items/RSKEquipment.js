@@ -1,4 +1,4 @@
-import { costField, fields, positiveNumberField } from "./fields.js";
+import { costField, fields, positiveNumberField } from "../fields.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 
 export default class RSKEquipment extends foundry.abstract.TypeDataModel {

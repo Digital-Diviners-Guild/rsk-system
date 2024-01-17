@@ -1,4 +1,4 @@
-import { fields } from "./fields.js";
+import { fields } from "../fields.js";
 import RSKStowableType from "./RSKStowableType.js";
 
 export default class RSKRuneType extends foundry.abstract.DataModel {

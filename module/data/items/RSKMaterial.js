@@ -1,4 +1,4 @@
-import { fields, costField } from "./fields.js";
+import { fields, costField } from "../fields.js";
 import RSKStowableType from "./RSKStowableType.js";
 
 export default class RSKMaterial extends foundry.abstract.TypeDataModel {
