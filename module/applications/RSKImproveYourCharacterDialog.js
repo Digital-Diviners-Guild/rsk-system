@@ -30,10 +30,7 @@ export default class RSKImproveYourCharacter extends Application {
 
     async getData() {
         const data = super.getData();
-        const eligibleSkills = localizeObject(this.skills, CONFIG.RSK.skills,
-            (obj, i) => obj[i].level,
-            (val) => val.used);
-        data.skills = eligibleSkills;
+        data.skills = this.skills;
         return data;
     }
 

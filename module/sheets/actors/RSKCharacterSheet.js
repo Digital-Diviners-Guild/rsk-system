@@ -144,7 +144,12 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     async handleImproveYourCharacter() {
-        const dialog = RSKImproveYourCharacterDialog.create({ skills: this.actor.system.skills });
+        const eligibleSkills = localizeObject(this.actor.system.skills, CONFIG.RSK.skills,
+            (obj, i) => obj[i].level,
+            (val) => val.used);
+        if (eligibleSkills.length < 1) return;
+
+        const dialog = RSKImproveYourCharacterDialog.create({ skills: eligibleSkills });
         const result = await dialog();
         if (!result) return;
 
