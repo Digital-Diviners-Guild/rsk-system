@@ -5,8 +5,9 @@
     </div>
     <ol class="items-list">
         {{#each actions as |action|}}
-        <li class="item flexrow">
+        <li class="item flexrow" data-item-id="{{action.itemId}}">
             {{action.name}}
+            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
         </li>
         {{/each}}
     </ol>

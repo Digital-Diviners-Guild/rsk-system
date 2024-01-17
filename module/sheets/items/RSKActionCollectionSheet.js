@@ -13,6 +13,17 @@ export default class RSKActionCollectionSheet extends ItemSheet {
         return `systems/rsk/templates/items/${this.item.type}-sheet.hbs`
     }
 
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find('.item-delete').click(ev => {
+            const li = $(ev.currentTarget).parents(".item");
+            const itemId = li.data("itemId");
+            this.item.update({
+                "system.actions": this.item.system.actions.filter(i => i.itemId !== itemId)
+            });
+        });
+    }
+
     getData() {
         const context = super.getData();
         this._prepareActions(context);
@@ -36,7 +47,8 @@ export default class RSKActionCollectionSheet extends ItemSheet {
 
     async _onDropItem(event, data) {
         const item = await Item.fromDropData(data);
-        if (item.type !== this.item.system.actionType) return;
+        if (item.type !== this.item.system.actionType
+            || this.item.system.actions.filter(a => a.itemId === item._id).length > 0) return;
 
         this.item.update({ "system.actions": [...this.item.system.actions, { itemId: item._id, name: item.name }] })
         this.render(true);
