@@ -36,6 +36,7 @@ import RSKActionSheet from "./sheets/items/RSKActionSheet.js";
 import RSKSummonFamiliar from "./data/items/RSKSummonFamiliar.js";
 import RSKActionCollection from "./data/items/RSKActionCollectionType.js";
 import RSKActionCollectionSheet from "./sheets/items/RSKActionCollectionSheet.js";
+import RSKRuneSheet from "./sheets/items/RSKRuneSheet.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -59,6 +60,7 @@ async function preloadHandlebarsTemplates() {
 
 Hooks.once("init", function () {
     console.log("initializing...");
+    // todo: map all of our api
     game.rsk = {
         item: Item,
         actor: RSKActor,
@@ -90,6 +92,7 @@ Hooks.once("init", function () {
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
     Items.registerSheet("rsk", RSKActionSheet, { types: ["action", "spell", "prayer", "summonFamiliar"], makeDefault: true });
     Items.registerSheet("rsk", RSKActionCollectionSheet, { types: ["actionCollection"], makeDefault: true });
+    Items.registerSheet("rsk", RSKRuneSheet, { types: ["rune"], makeDefault: true });
 
     CONFIG.Actor.documentClass = RSKActorProxy;
     CONFIG.Actor.dataModels = {

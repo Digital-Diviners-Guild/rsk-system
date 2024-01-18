@@ -142,6 +142,7 @@ export default class RSKActorSheet extends ActorSheet {
         const actionCollectionIds = this.actor.flags?.rsk?.actionCollectionIds ?? [];
         this.actionCollections = actionCollectionIds
             .map(i => Item.get(i))
+            .filter(i => i)
             .reduce((acc, curr) => {
                 acc[curr._id] = curr;
                 return acc;

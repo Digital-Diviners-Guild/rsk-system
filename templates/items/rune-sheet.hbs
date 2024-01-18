@@ -10,11 +10,10 @@
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
-            {{!-- todo: dropdown runetype --}}
             <div>
                 <h3>{{localize "RSK.RuneType"}}:</h3>
                 <p>
-                    {{system.type}}
+                    {{runeType}}
                 </p>
             </div>
             <div>
@@ -33,9 +32,12 @@
 
         <div class="tab features" data-group="primary" data-tab="edit">
             {{!-- editable? --}}
-            <label>{{localize "RSK.RuneType"}}</label>
-            {{!-- todo: dropdown runetype --}}
-            <input name="system.type" type="text" value="{{system.type}}">
+            <div class="form-group">
+                <label>{{localize "RSK.RuneType"}}</label>
+                <select name="system.type">
+                    {{selectOptions config.runeType selected=system.type localize=true}}
+                </select>
+            </div>
             <label>{{localize "RSK.Cost"}}</label>
             <input name="system.cost" type="text" value="{{system.cost}}">
             <label>{{localize "RSK.Description"}}</label>
