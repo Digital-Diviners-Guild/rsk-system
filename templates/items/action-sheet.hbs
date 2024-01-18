@@ -38,8 +38,8 @@
             </div>
             {{/if}}
 
-            {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
             {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
         </div>
         <div class="tab features" data-group="primary" data-tab="edit">
             {{#if system.spellType}}
@@ -72,18 +72,19 @@
                 {{/each}}
             </ol>
             <div class="form-group">
-                item:
+                <label>{{localize "RSK.Item"}}</label>
                 <select id="type">
                     {{selectOptions config.usageCostTypes localize=true}}
                 </select>
-                amount: <input id="amount" type="number">
+                <label>{{localize "RSK.Amount"}}</label>
+                <input id="amount" type="number">
                 <a class="item-control add-usage-cost" title="add cost">
-                    <i class="fas fa-plus"></i> add cost
+                    <i class="fas fa-plus"></i> {{localize "Add Cost"}}
                 </a>
             </div>
 
-            {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
             {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
         </div>
     </section>
 </form>
