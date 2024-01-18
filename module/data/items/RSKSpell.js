@@ -5,17 +5,13 @@ import { fields } from "../fields.js";
 export default class RSKSpell extends RSKAction {
     static defineSchema() {
         return {
-            spellType: new fields.StringField({ initial: "utility" }),
+            spellType: new fields.StringField({ initial: "utility", options: [...Object.keys(CONFIG.RSK.spellTypes)] }),
             ...RSKAction.defineSchema(),
             statuses: new fields.ArrayField(new fields.StringField()),
             qualities: new fields.StringField(),
             requiredEquipment: new fields.StringField(),
         }
     };
-
-    prepareBaseData() {
-        this.type = "spell";
-    }
 
     async use(actor) {
         if (actor.type === "npc") return;
@@ -30,24 +26,15 @@ export default class RSKSpell extends RSKAction {
                 showRollResult: true,
                 ...result
             });
-        const outcome = {
-            actorId: actor._id,
-            type: "spell",
-            action: this.toObject(),
-            result: result
-        };
         await result.rollResult.toMessage({
-            flavor: flavor,
-            flags: {
-                rsk: { outcome }
-            }
+            flavor: flavor
         });
     }
 
     canCast(actor) {
         if (this.usageCost.length < 1) return true;
         for (const cost of this.usageCost) {
-            const runes = actor.items.find(i => i.type === cost.itemType && i.system.type === cost.type);
+            const runes = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
             if (!runes || runes.system.quantity < cost.amount) return false;
         }
         return true;

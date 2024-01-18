@@ -10,4 +10,4 @@ export const localizeObject = (obj, lang, valueSelector = undefined, valueFilter
         });
 
 
-const localizeText = (text) => game.i18n.format(text);
+export const localizeText = (text) => game.i18n.format(text);

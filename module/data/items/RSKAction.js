@@ -1,18 +1,17 @@
+import { localizeText } from "../../rsk-localize.js";
 import { fields } from "../fields.js";
 
 export default class RSKAction extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             id: new fields.StringField(),
-            type: new fields.StringField(), // melee, magic, prayer
-            label: new fields.StringField(), // what to display on the button?
-            description: new fields.StringField(), // what it look like
-            effectDescription: new fields.StringField(), // what it does
+            label: new fields.StringField(),
+            description: new fields.StringField(),
+            effectDescription: new fields.StringField(),
             damageEntries: new fields.ObjectField(),
             range: new fields.StringField(),
             usageCost: new fields.ArrayField(new fields.SchemaField({
-                itemType: new fields.StringField(),// rune / ammo / points
-                type: new fields.StringField(), // air / arrow / prayer
+                type: new fields.StringField({ choices: [...Object.keys(CONFIG.RSK.usageCostTypes)] }),
                 amount: new fields.NumberField()
             })),
             usageCostLabel: new fields.StringField()
@@ -25,7 +24,7 @@ export default class RSKAction extends foundry.abstract.TypeDataModel {
 
     getUsageCostLabel() {
         return this.usageCost
-            .map(c => `${c.amount} ${c.type} ${c.itemType}${c.amount > 1 ? 's' : ''}`)
+            .map(c => `${c.amount} ${localizeText(CONFIG.RSK.usageCostTypes[c.type])}`)
             .join(", ");
     }
 }

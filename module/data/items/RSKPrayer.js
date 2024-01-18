@@ -14,10 +14,6 @@ export default class RSKPrayer extends RSKAction {
         }
     }
 
-    prepareBaseData() {
-        this.type = "prayer";
-    }
-
     async use(actor) {
         if (actor.type === "npc") return;
 
@@ -34,17 +30,7 @@ export default class RSKPrayer extends RSKAction {
                 ...result
             });
         await result.rollResult.toMessage({
-            flavor: flavor,
-            flags: {
-                rsk: {
-                    outcome: {
-                        actorId: actor._id,
-                        type: "prayer",
-                        action: this.toObject(),
-                        result: result
-                    }
-                }
-            }
+            flavor: flavor
         });
         return result;
     }
