@@ -19,9 +19,9 @@ RSK.sizeModifiers = {
 };
 
 RSK.ammunitionType = {
-    arrow: "arrow",
-    bolt: "bolt",
-    dart: "dart"
+    arrow: "Arrow",
+    bolt: "Bolt",
+    dart: "Dart"
 }
 
 RSK.runeType = {
@@ -39,6 +39,13 @@ RSK.runeType = {
     nature: "RSK.NatureRune",
     law: "RSK.LawRune",
     wrath: "RSK.WrathRune",
+}
+
+RSK.usageCostTypes = {
+    ...RSK.ammunitionType,
+    ...RSK.runeType,
+    prayerPoints: "RSK.PrayerPoints",
+    summoningPoints: "RSK.SummoningPoints"
 }
 
 RSK.spellTypes = {

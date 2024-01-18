@@ -153,7 +153,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _mapToActionDictionary(factory, datas, data) {
-        const action = factory.fromSource(data);
+        const action = factory.fromSource(data.system);
+        action.prepareBaseData();
         action.id = data._id;
         action.label = data.name;
         datas[action.id] = action;

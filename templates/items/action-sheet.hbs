@@ -9,13 +9,6 @@
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
-            <div>
-                <strong>{{localize "RSK.ActionType"}}:</strong>
-                <p>
-                    {{system.type}}
-                </p>
-            </div>
-
             {{#if system.spellType}}
             <div><strong>{{localize "RSK.SpellType"}}:</strong> {{system.spellType}}</div>
             {{/if}}
@@ -49,10 +42,6 @@
             {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
         </div>
         <div class="tab features" data-group="primary" data-tab="edit">
-            <div class="form-group">
-                <label>{{localize "RSK.ActionType"}}:</label>
-                <input type="text" name="system.type" value="{{system.type}}">
-            </div>
             {{#if system.spellType}}
             <div class="form-group">
                 <label>{{localize "RSK.SpellType"}}</label>
@@ -73,8 +62,7 @@
             <strong>{{localize "RSK.Cost"}}:</strong>
             <ol class="items-list">
                 {{#each system.usageCost as |cost|}}
-                <li class="item flexrow" data-item-type="{{cost.itemType}}" data-type="{{cost.type}}">
-                    {{cost.itemType}}
+                <li class="item flexrow" data-type="{{cost.type}}">
                     {{cost.type}}
                     {{cost.amount}}
                     <div class=" item-controls">
@@ -84,8 +72,10 @@
                 {{/each}}
             </ol>
             <div class="form-group">
-                itemType: <input id="itemType" type="text">
-                type: <input id="type" type="text">
+                item:
+                <select id="type">
+                    {{selectOptions config.usageCostTypes localize=true}}
+                </select>
                 amount: <input id="amount" type="number">
                 <a class="item-control add-usage-cost" title="add cost">
                     <i class="fas fa-plus"></i> add cost
