@@ -9,6 +9,11 @@
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
+            <div>
+                <strong>{{localize "RSK.ActiveSlot"}}:</strong>
+                {{activeSlot}}
+            </div>
+
             {{#if system.description}}
             <h3>{{localize "RSK.Description"}}</h3>
             <p>{{system.description}}</p>
@@ -26,9 +31,11 @@
             <strong>{{localize "RSK.Effects"}}:</strong>
             <p> {{system.effectDescription}}</p>
             {{/if}}
+
+            {{#if system.qualities}}
             <strong>{{localize "RSK.Qualities"}}:</strong>
             <div>{{system.qualities}}</div>
-
+            {{/if}}
 
             {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
             {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
@@ -50,9 +57,11 @@
                 <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
             </div>
 
-            <div>
-                <label>{{localize "RSK.Slot"}}</label>
-                <input type="text" name="system.equipped.slot" value="{{system.equipped.slot}}">
+            <div class="form-group">
+                <label>{{localize "RSK.ActiveSlot"}}</label>
+                <select name="system.equipped.slot">
+                    {{selectOptions config.activeSlotType selected=system.equipped.slot localize=true}}
+                </select>
             </div>
             <strong>{{localize "RSK.Qualities"}}:</strong>
             <input type="text" name="system.qualities" value="{{system.qualities}}">
