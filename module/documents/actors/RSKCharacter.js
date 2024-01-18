@@ -3,6 +3,9 @@ import RSKActor from "./RSKActor.js";
 export default class RSKCharacter extends RSKActor {
     minSkillLevel = 1;
     maxSkillLevel = 10;
+    minAbilityLevel = 1;
+    maxAbilityLevel = 8;
+    abilityAwardedAtLevel = 5;
     maxInventorySlots = 28;
 
     _onCreate(data, options, userId) {
@@ -42,8 +45,9 @@ export default class RSKCharacter extends RSKActor {
     }
 
     increaseSkillLevel(skill, amount = 1) {
-        //todo: if this is now >= 5 award ability level
-        this.actorUpdateSkillLevel(skill, this.system.skills[skill].level + amount);
+        const newLevel = this.system.skills[skill].level + amount;
+        this.actorUpdateSkillLevel(skill, newLevel);
+        return newLevel === this.abilityAwardedAtLevel;
     }
 
     decreaseSkillLevel(skill, amount = 1) {
@@ -53,6 +57,19 @@ export default class RSKCharacter extends RSKActor {
     actorUpdateSkillLevel(skill, newLevel) {
         const newSkillLevel = game.rsk.math.clamp_value(newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
         this.update({ [`system.skills.${skill}.level`]: newSkillLevel });
+    }
+
+    increaseAbilityLevel(ability, amount = 1) {
+        this.actorUpdateAbilityLevel(ability, this.system.abilities[ability] + amount);
+    }
+
+    decreaseAbilityLevel(ability, amount = 1) {
+        this.actorUpdateAbilityLevel(ability, this.system.abilities[ability] - amount);
+    }
+
+    actorUpdateAbilityLevel(ability, newLevel) {
+        const newAbilityLevel = game.rsk.math.clamp_value(newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
+        this.update({ [`system.abilities.${ability}`]: newAbilityLevel });
     }
 
     async useSkill(options) {

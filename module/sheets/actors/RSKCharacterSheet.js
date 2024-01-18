@@ -138,18 +138,30 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         }
     }
 
+    //todo: 
+    // - ensure we can't gain an ability point for a skill that started at level 5
+    // - see if we can do it in one dialog instead of two? or maybe this is fine
     async handleImproveYourCharacter() {
         const eligibleSkills = localizeObject(this.actor.system.skills, CONFIG.RSK.skills,
             (obj, i) => obj[i].level,
-            (val) => val.used);
+            (val) => val.used && val.level < 10);
         if (eligibleSkills.length < 1) return;
+        const eligibleAbilities = localizeObject(this.actor.system.abilities, CONFIG.RSK.abilities,
+            (obj, i) => obj[i],
+            (val) => val < 8);
 
-        const dialog = RSKImproveYourCharacterDialog.create({ skills: eligibleSkills });
-        const result = await dialog();
-        if (!(result.confirmed || result.selectedSkill)) return;
+        const skillDialog = RSKImproveYourCharacterDialog.create({ skills: eligibleSkills });
+        const skillResult = await skillDialog();
+        if (!(skillResult.confirmed || skillResult.selectedSkill)) return;
 
         this.actor.clearUsedSkills();
-        this.actor.increaseSkillLevel(result.selectedSkill);
+        const gainedAbility = this.actor.increaseSkillLevel(skillResult.selectedSkill);
+        if (!gainedAbility) return;
+
+        const abilityDialog = RSKImproveYourCharacterDialog.create({ abilities: eligibleAbilities }, { showSkillSelect: false, showAbilitySelect: true });
+        const abilityResult = await abilityDialog();
+        if (!(abilityResult.confirmed || abilityResult.selectedAbility)) return;
+        this.actor.increaseAbilityLevel(abilityResult.selectedAbility);
     }
 
     _mapToActionDictionary(factory, datas, data) {

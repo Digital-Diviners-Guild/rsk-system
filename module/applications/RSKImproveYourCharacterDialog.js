@@ -1,5 +1,3 @@
-import { localizeObject } from "../rsk-localize.js";
-
 export default class RSKImproveYourCharacter extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -16,11 +14,14 @@ export default class RSKImproveYourCharacter extends Application {
             dialog.render(true);
         });
 
-    constructor(resolve, context, options) {
+    constructor(resolve, context, options = {}) {
         super();
         this.resolve = resolve;
         this.context = context;
         this.skills = context.skills;
+        this.abilities = context.abilities;
+        this.showSkillSelect = options.showSkillSelect ?? true;
+        this.showAbilitySelect = options.showAbilitySelect ?? false;
     }
 
     async close(options) {
@@ -31,6 +32,9 @@ export default class RSKImproveYourCharacter extends Application {
     async getData() {
         const data = super.getData();
         data.skills = this.skills;
+        data.abilities = this.abilities;
+        data.showSkillSelect = this.showSkillSelect;
+        data.showAbilitySelect = this.showAbilitySelect;
         return data;
     }
 
@@ -41,9 +45,11 @@ export default class RSKImproveYourCharacter extends Application {
 
     async _onConfirm(event) {
         const selectedSkill = $('.skill-dropdown').val();
+        const selectedAbility = $('.ability-dropdown').val();
         this.resolve({
             confirmed: true,
             selectedSkill: selectedSkill,
+            selectedAbility: selectedAbility
         });
         this.isResolved = true;
         this.close();

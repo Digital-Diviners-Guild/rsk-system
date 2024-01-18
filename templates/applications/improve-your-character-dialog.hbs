@@ -1,11 +1,22 @@
 <div class="dialog-content">
+    {{#if showSkillSelect}}
     <select class="skill-dropdown">
         {{#each skills as |skill|}}
         <option value="{{skill.index}}">{{skill.label}}: {{skill.value}}</option>
         {{/each}}
     </select>
+    {{/if}}
+
+    {{#if showAbilitySelect}}
+    <select class="ability-dropdown">
+        {{#each abilities as |ability|}}
+        <option value="{{ability.index}}">{{ability.label}}: {{ability.value}}</option>
+        {{/each}}
+    </select>
+    {{/if}}
 </div>
 
+
 <div class="dialog-buttons">
-    <button class="confirm-button">Confirm</button>
+    <button class="confirm-button">{{localize "RSK.Confirm"}}</button>
 </div>
