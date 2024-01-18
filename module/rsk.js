@@ -94,7 +94,7 @@ Hooks.once("init", function () {
     Items.registerSheet("rsk", RSKActionSheet, { types: ["action", "spell", "prayer", "summonFamiliar"], makeDefault: true });
     Items.registerSheet("rsk", RSKActionCollectionSheet, { types: ["actionCollection"], makeDefault: true });
     Items.registerSheet("rsk", RSKRuneSheet, { types: ["rune"], makeDefault: true });
-    Items.registerSheet("rsk", RSKEquipmentSheet, { types: ["equipment"], makeDefault: true });
+    Items.registerSheet("rsk", RSKEquipmentSheet, { types: ["equipment", "armour"], makeDefault: true });
 
     CONFIG.Actor.documentClass = RSKActorProxy;
     CONFIG.Actor.dataModels = {
