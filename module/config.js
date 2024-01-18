@@ -54,6 +54,13 @@ RSK.spellTypes = {
     teleport: "RSK.Teleport"
 };
 
+RSK.actionTypes = {
+    action: "RSK.Action",
+    spell: "RSK.Spell",
+    prayer: "RSK.Prayer",
+    summonFamiliar: "RSK.SummonFamiliar"
+};
+
 RSK.ranges = {
     near: "RSK.Near",
     far: "RSK.Far",

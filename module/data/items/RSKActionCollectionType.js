@@ -3,8 +3,7 @@ import { fields } from "../fields.js";
 export default class RSKActionCollection extends foundry.abstract.DataModel {
     static defineSchema() {
         return {
-            //todo: drop down
-            actionType: new fields.StringField({ initial: "spell", options: ["prayer", "spell", "summonFamiliar"] }),
+            actionType: new fields.StringField({ initial: "spell", options: [...Object.keys(CONFIG.RSK.actionTypes)] }),
             actions: new fields.ArrayField(new fields.ObjectField())
         };
     }

@@ -1,14 +1,22 @@
 <form data-can-drop="true">
-    <div class="form-group">
-        <label>{{localize "RSK.ActionType"}}:</label>
-        <input type="text" name="system.actionType" value="{{actionType}}">
-    </div>
-    <ol class="items-list">
-        {{#each actions as |action|}}
-        <li class="item flexrow" data-item-id="{{action.itemId}}">
-            {{action.name}}
-            <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </li>
-        {{/each}}
-    </ol>
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
+    </header>
+    <section class="sheet-body">
+        <div class="form-group">
+            <label>{{localize "RSK.ActionType"}}:</label>
+            <select name="system.actionType">
+                {{selectOptions config.actionTypes selected=system.actionType localize=true}}
+            </select>
+        </div>
+        <ol class="items-list">
+            {{#each system.actions as |action|}}
+            <li class="item flexrow" data-item-id="{{action.itemId}}">
+                {{action.name}}
+                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </li>
+            {{/each}}
+        </ol>
+    </section>
 </form>

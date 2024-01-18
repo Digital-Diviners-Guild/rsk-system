@@ -1,17 +1,6 @@
-export default class RSKActionCollectionSheet extends ItemSheet {
-    static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
-            classes: ["rsk", "sheet", "item"],
-            width: 600,
-            height: 600,
-            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
-            dragDrop: [{ dropSelector: "[data-can-drop=true]" }],
-        });
-    }
+import RSKItemSheet from "./RSKItemSheet.js";
 
-    get template() {
-        return `systems/rsk/templates/items/${this.item.type}-sheet.hbs`
-    }
+export default class RSKActionCollectionSheet extends RSKItemSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
@@ -22,17 +11,6 @@ export default class RSKActionCollectionSheet extends ItemSheet {
                 "system.actions": this.item.system.actions.filter(i => i.itemId !== itemId)
             });
         });
-    }
-
-    getData() {
-        const context = super.getData();
-        this._prepareActions(context);
-        return context;
-    }
-
-    _prepareActions(context) {
-        context.actionType = this.item.system.actionType;
-        context.actions = this.item.system.actions; //todo:
     }
 
     _onDrop(event) {
