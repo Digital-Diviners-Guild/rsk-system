@@ -190,6 +190,14 @@
             <label>{{localize "RSK.Description"}}</label>
             {{editor system.description target="system.description" button=false engine="prosemirror"}}
           </div>
+          <div>
+            <label>{{localize "RSK.Catalyst"}}</label>
+            <input type="text" name="system.catalyst" value="{{system.catalyst}}">
+          </div>
+          <div>
+            <label>{{localize "RSK.Motivation"}}</label>
+            <input type="text" name="system.motivation" value="{{system.motivation}}">
+          </div>
           <label>{{localize "RSK.Backgrounds"}}</label>
           {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
           items=backgrounds
