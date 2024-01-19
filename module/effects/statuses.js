@@ -38,43 +38,43 @@ export const rskStatusEffects = [
     {
         id: "poisoned",
         label: "RSK.CustomStatus.poisoned",
-        icon: "icons/svg/poisoned.svg",
+        icon: "systems/rsk/icons/png/poisoned.png",
         changes: []
     },
     {
         id: "bleeding",
         label: "RSK.CustomStatus.bleeding",
-        icon: "icons/svg/bleeding.svg",
+        icon: "systems/rsk/icons/png/bleeding.png",
         changes: []
     },
     {
         id: "frozen",
         label: "RSK.CustomStatus.frozen",
-        icon: "icons/svg/frozen.svg",
+        icon: "systems/rsk/icons/png/frozen.png",
         changes: []
     },
     {
         id: "burning",
         label: "RSK.CustomStatus.burning",
-        icon: "icons/svg/burning.svg",
+        icon: "systems/rsk/icons/png/burning.png",
         changes: []
     },
     {
         id: "prone",
         label: "RSK.CustomStatus.prone",
-        icon: "icons/svg/prone.svg",
+        icon: "systems/rsk/icons/png/prone.png",
         changes: []
     },
     {
         id: "pinned",
         label: "RSK.CustomStatus.pinned",
-        icon: "icons/svg/pinned.svg",
+        icon: "systems/rsk/icons/png/pinned.png",
         changes: []
     },
     {
         id: "stunned",
         label: "RSK.CustomStatus.stunned",
-        icon: "icons/svg/stunned.svg",
+        icon: "systems/rsk/icons/png/stunned.png",
         changes: []
     },
 ];
@@ -83,145 +83,145 @@ export const rskPrayerStatusEffects = [
     {
         id: "improved_reflexes",
         label: "RSK.ImprovedReflexes",
-        icon: "icons/svg/improved_reflexes.svg",
+        icon: "systems/rsk/icons/png/improved_reflexes.png",
         changes: []
     },
     {
         id: "incredible_reflexes",
         label: "RSK.IncredibleReflexes",
-        icon: "icons/svg/incredible_reflexes.svg",
+        icon: "systems/rsk/icons/png/incredible_reflexes.png",
         changes: []
     },
     {
         id: "mystic_lore",
         label: "RSK.MysticLore",
-        icon: "icons/svg/mystic_lore.svg",
+        icon: "systems/rsk/icons/png/mystic_lore.png",
         changes: []
     },
     {
         id: "mystic_might",
         label: "RSK.MysticMight",
-        icon: "icons/svg/mystic_might.svg",
+        icon: "systems/rsk/icons/png/mystic_might.png",
         changes: []
     },
     {
         id: "mystic_will",
         label: "RSK.MysticWill",
-        icon: "icons/svg/mystic_will.svg",
+        icon: "systems/rsk/icons/png/mystic_will.png",
         changes: []
     },
     {
         id: "piety",
         label: "RSK.Piety",
-        icon: "icons/svg/piety.svg",
+        icon: "systems/rsk/icons/png/piety.png",
         changes: []
     },
     {
         id: "augury",
         label: "RSK.Augury",
-        icon: "icons/svg/augury.svg",
+        icon: "systems/rsk/icons/png/augury.png",
         changes: []
     },
     {
         id: "burst_of_strength",
         label: "RSK.burstOfStrength",
-        icon: "systems/rsk/icons/svg/burst_of_strength.svg",
+        icon: "systems/rsk/icons/png/burst_of_strength.png",
         changes: []
     },
     {
         id: "eagle_eye",
         label: "RSK.EagleEye",
-        icon: "icons/svg/eagle_eye.svg",
+        icon: "systems/rsk/icons/png/eagle_eye.png",
         changes: []
     },
     {
         id: "hawk_eye",
         label: "RSK.HawkEye",
-        icon: "icons/svg/hawk_eye.svg",
+        icon: "systems/rsk/icons/png/hawk_eye.png",
         changes: []
     },
     {
         id: "protect_from_melee",
         label: "RSK.ProtectFromMelee",
-        icon: "icons/svg/protect_from_melee.svg",
+        icon: "systems/rsk/icons/png/protect_from_melee.png",
         changes: []
     },
     {
-        id: "protect_from_range",
-        label: "RSK.ProtectFromRange",
-        icon: "icons/svg/protect_from_range.svg",
+        id: "protect_from_missiles",
+        label: "RSK.ProtectFromMissiles",
+        icon: "systems/rsk/icons/png/protect_from_missiles.png",
         changes: []
     },
     {
         id: "protect_from_magic",
         label: "RSK.ProtectFromMagic",
-        icon: "icons/svg/protect_from_magic.svg",
+        icon: "systems/rsk/icons/png/protect_from_magic.png",
         changes: []
     },
     {
         id: "protect_item",
         label: "RSK.ProtectItem",
-        icon: "icons/svg/protect_item.svg",
+        icon: "systems/rsk/icons/png/protect_item.png",
         changes: []
     },
     {
         id: "rapid_heal",
         label: "RSK.RapidHeal",
-        icon: "icons/svg/rapid_heal.svg",
+        icon: "systems/rsk/icons/png/rapid_heal.png",
         changes: []
     },
     {
         id: "redemption",
         label: "RSK.Redemption",
-        icon: "icons/svg/redemption.svg",
+        icon: "systems/rsk/icons/png/redemption.png",
         changes: []
     },
     {
         id: "retribution",
         label: "RSK.Retribution",
-        icon: "icons/svg/retribution.svg",
+        icon: "systems/rsk/icons/png/retribution.png",
         changes: []
     },
     {
         id: "rigour",
         label: "RSK.Rigour",
-        icon: "icons/svg/rigour.svg",
+        icon: "systems/rsk/icons/png/rigour.png",
         changes: []
     },
     {
         id: "rock_skin",
         label: "RSK.RockSkin",
-        icon: "icons/svg/rock_skin.svg",
+        icon: "systems/rsk/icons/png/rock_skin.png",
         changes: []
     },
     {
         id: "sharp_eye",
         label: "RSK.SharpEye",
-        icon: "icons/svg/sharp_eye.svg",
+        icon: "systems/rsk/icons/png/sharp_eye.png",
         changes: []
     },
     {
         id: "steel_skin",
         label: "RSK.SteelSkin",
-        icon: "icons/svg/steel_skin.svg",
+        icon: "systems/rsk/icons/png/steel_skin.png",
         changes: []
     },
     {
         id: "superhuman_strength",
         label: "RSK.SuperhumanStrength",
-        icon: "icons/svg/superhuman_strength.svg",
+        icon: "systems/rsk/icons/png/superhuman_strength.png",
         changes: []
     },
     {
         id: "thick_skin",
         label: "RSK.ThickSkin",
-        icon: "systems/rsk/icons/svg/thick_skin.svg",
+        icon: "systems/rsk/icons/png/thick_skin.png",
         changes: []
     },
     {
         id: "ultimate_strength",
         label: "RSK.UltimateStrength",
-        icon: "icons/svg/ultimate_strength.svg",
+        icon: "systems/rsk/icons/png/ultimate_strength.png",
         changes: []
     }
 ];
@@ -230,43 +230,43 @@ export const rskMagicStatusEffects = [
     {
         id: "confuse",
         label: "RSK.CustomStatus.confused",
-        icon: "icons/svg/confused.svg",
+        icon: "systems/rsk/icons/png/confused.png",
         changes: []
     },
     {
         id: "curse",
         label: "RSK.CustomStatus.cursed",
-        icon: "icons/svg/cursed.svg",
+        icon: "systems/rsk/icons/png/cursed.png",
         changes: []
     },
     {
         id: "enfeeble",
         label: "RSK.CustomStatus.enfeebled",
-        icon: "icons/svg/enfeebled.svg",
+        icon: "systems/rsk/icons/png/enfeebled.png",
         changes: []
     },
     {
         id: "vulnerability",
         label: "RSK.CustomStatus.vulnerable",
-        icon: "icons/svg/vulnerable.svg",
+        icon: "systems/rsk/icons/png/vulnerable.png",
         changes: []
     },
     {
         id: "weaken",
         label: "RSK.CustomSTatus.weakened",
-        icon: "icons/svg/weakened.svg",
+        icon: "systems/rsk/icons/png/weakened.png",
         changes: []
     },
     {
         id: "charge",
         label: "RSK.CustomSTatus.charged",
-        icon: "icons/svg/charged.svg",
+        icon: "systems/rsk/icons/png/charged.png",
         changes: []
     },
     {
         id: "claws_of_guthix",
         label: "RSK.CustomSTatus.claws_of_guthix",
-        icon: "icons/svg/claws_of_guthix.svg",
+        icon: "systems/rsk/icons/png/claws_of_guthix.png",
         changes: []
     }
 ];
