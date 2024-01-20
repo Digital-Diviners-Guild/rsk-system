@@ -81,65 +81,213 @@ export const rskStatusEffects = [
 
 export const rskPrayerStatusEffects = [
     {
+        id: "thick_skin",
+        label: "RSK.ThickSkin",
+        icon: "icons/png/thick_skin.png",
+        changes: [{
+            key: "system.skills.defense.modifier",
+            mode: changeModes.ADD,
+            value: 2
+        }]
+    },
+    {
+        id: "rock_skin",
+        label: "RSK.RockSkin",
+        icon: "icons/png/rock_skin.png",
+        changes: [{
+            key: "system.skills.defense.modifier",
+            mode: changeModes.ADD,
+            value: 4
+        }]
+    },
+    {
+        id: "steel_skin",
+        label: "RSK.SteelSkin",
+        icon: "icons/png/steel_skin.png",
+        changes: [{
+            key: "system.skills.defense.modifier",
+            mode: changeModes.ADD,
+            value: 6
+        }]
+    },
+    {
         id: "improved_reflexes",
         label: "RSK.ImprovedReflexes",
         icon: "icons/png/improved_reflexes.png",
-        changes: []
+        changes: [{
+            key: "system.skills.attack.modifier",
+            mode: changeModes.ADD,
+            value: 4
+        }]
     },
     {
         id: "incredible_reflexes",
         label: "RSK.IncredibleReflexes",
         icon: "icons/png/incredible_reflexes.png",
-        changes: []
+        changes: [{
+            key: "system.skills.attack.modifier",
+            mode: changeModes.ADD,
+            value: 6
+        }]
     },
-    {
-        id: "mystic_lore",
-        label: "RSK.MysticLore",
-        icon: "icons/png/mystic_lore.png",
-        changes: []
-    },
-    {
-        id: "mystic_might",
-        label: "RSK.MysticMight",
-        icon: "icons/png/mystic_might.png",
-        changes: []
-    },
-    {
-        id: "mystic_will",
-        label: "RSK.MysticWill",
-        icon: "icons/png/mystic_will.png",
-        changes: []
-    },
-    {
-        id: "piety",
-        label: "RSK.Piety",
-        icon: "icons/png/piety.png",
-        changes: []
-    },
-    {
-        id: "augury",
-        label: "RSK.Augury",
-        icon: "icons/png/augury.png",
-        changes: []
-    },
+
     {
         id: "burst_of_strength",
         label: "RSK.burstOfStrength",
         icon: "icons/png/burst_of_strength.png",
-        changes: []
+        changes: [{
+            key: "system.abilities.strength.modifier",
+            mode: changeModes.ADD,
+            value: 2
+        }]
     },
     {
-        id: "eagle_eye",
-        label: "RSK.EagleEye",
-        icon: "icons/png/eagle_eye.png",
-        changes: []
+        id: "superhuman_strength",
+        label: "RSK.SuperhumanStrength",
+        icon: "icons/png/superhuman_strength.png",
+        changes: [{
+            key: "system.abilities.strength.modifier",
+            mode: changeModes.ADD,
+            value: 4
+        }]
+    },
+    {
+        id: "ultimate_strength",
+        label: "RSK.UltimateStrength",
+        icon: "icons/png/ultimate_strength.png",
+        changes: [{
+            key: "system.abilities.strength.modifier",
+            mode: changeModes.ADD,
+            value: 6
+        }]
+    },
+    {
+        id: "sharp_eye",
+        label: "RSK.SharpEye",
+        icon: "icons/png/sharp_eye.png",
+        changes: [{
+            key: "system.skills.ranged.modifier",
+            mode: changeModes.ADD,
+            value: 2
+        }]
     },
     {
         id: "hawk_eye",
         label: "RSK.HawkEye",
         icon: "icons/png/hawk_eye.png",
-        changes: []
+        changes: [{
+            key: "system.skills.ranged.modifier",
+            mode: changeModes.ADD,
+            value: 4
+        }]
     },
+    {
+        id: "eagle_eye",
+        label: "RSK.EagleEye",
+        icon: "icons/png/eagle_eye.png",
+        changes: [{
+            key: "system.skills.ranged.modifier",
+            mode: changeModes.ADD,
+            value: 6
+        }]
+    },
+    {
+        id: "mystic_will",
+        label: "RSK.MysticWill",
+        icon: "icons/png/mystic_will.png",
+        changes: [{
+            key: "system.skills.magic.modifier",
+            mode: changeModes.ADD,
+            value: 2
+        }, {
+            key: "system.skills.defense.modifier",
+            mode: changeModes.ADD,
+            value: 2
+        }]
+    },
+    {
+        id: "mystic_lore",
+        label: "RSK.MysticLore",
+        icon: "icons/png/mystic_lore.png",
+        changes: [{
+            key: "system.skills.magic.modifier",
+            mode: changeModes.ADD,
+            value: 4
+        }, {
+            key: "system.skills.defense.modifier",
+            mode: changeModes.ADD,
+            value: 4
+        }]
+    },
+    {
+        id: "mystic_might",
+        label: "RSK.MysticMight",
+        icon: "icons/png/mystic_might.png",
+        changes: [{
+            key: "system.skills.magic.modifier",
+            mode: changeModes.ADD,
+            value: 6
+        }, {
+            key: "system.skills.defense.modifier",
+            mode: changeModes.ADD,
+            value: 6
+        }]
+    },
+    {
+        id: "augury",
+        label: "RSK.Augury",
+        icon: "icons/png/augury.png",
+        changes: [{
+            key: "system.skills.magic.modifier",
+            mode: changeModes.ADD,
+            value: 8
+        }, {
+            key: "system.skills.defense.modifier",
+            mode: changeModes.ADD,
+            value: 8
+        }, {
+            key: "system.abilities.intellect.modifier",
+            mode: changeModes.ADD,
+            value: 8
+        }]
+    },
+    {
+        id: "piety",
+        label: "RSK.Piety",
+        icon: "icons/png/piety.png",
+        changes: [{
+            key: "system.skills.attack.modifier",
+            mode: changeModes.ADD,
+            value: 8
+        }, {
+            key: "system.skills.defense.modifier",
+            mode: changeModes.ADD,
+            value: 8
+        }, {
+            key: "system.abilities.strength.modifier",
+            mode: changeModes.ADD,
+            value: 8
+        }]
+    },
+    {
+        id: "rigour",
+        label: "RSK.Rigour",
+        icon: "icons/png/rigour.png",
+        changes: [{
+            key: "system.skills.ranged.modifier",
+            mode: changeModes.ADD,
+            value: 8
+        }, {
+            key: "system.skills.defense.modifier",
+            mode: changeModes.ADD,
+            value: 8
+        }, {
+            key: "system.abilities.agility.modifier",
+            mode: changeModes.ADD,
+            value: 8
+        }]
+    },
+    //todo: need an armour soak property to modify per damage type
     {
         id: "protect_from_melee",
         label: "RSK.ProtectFromMelee",
@@ -158,12 +306,16 @@ export const rskPrayerStatusEffects = [
         icon: "icons/png/protect_from_magic.png",
         changes: []
     },
+    //end todo
+    //todo: not sure if this needs anything, maybe a flag? or death consequences can check active prayer
     {
         id: "protect_item",
         label: "RSK.ProtectItem",
         icon: "icons/png/protect_item.png",
         changes: []
     },
+    //end todo
+    //todo: not sure if this needs anything, it heals you on use, maybe there is something we can do though
     {
         id: "rapid_heal",
         label: "RSK.RapidHeal",
@@ -176,56 +328,18 @@ export const rskPrayerStatusEffects = [
         icon: "icons/png/redemption.png",
         changes: []
     },
+    //end todo
+    //todo: deals damage if you die while its active, no automation yet
     {
         id: "retribution",
         label: "RSK.Retribution",
         icon: "icons/png/retribution.png",
         changes: []
     },
-    {
-        id: "rigour",
-        label: "RSK.Rigour",
-        icon: "icons/png/rigour.png",
-        changes: []
-    },
-    {
-        id: "rock_skin",
-        label: "RSK.RockSkin",
-        icon: "icons/png/rock_skin.png",
-        changes: []
-    },
-    {
-        id: "sharp_eye",
-        label: "RSK.SharpEye",
-        icon: "icons/png/sharp_eye.png",
-        changes: []
-    },
-    {
-        id: "steel_skin",
-        label: "RSK.SteelSkin",
-        icon: "icons/png/steel_skin.png",
-        changes: []
-    },
-    {
-        id: "superhuman_strength",
-        label: "RSK.SuperhumanStrength",
-        icon: "icons/png/superhuman_strength.png",
-        changes: []
-    },
-    {
-        id: "thick_skin",
-        label: "RSK.ThickSkin",
-        icon: "icons/png/thick_skin.png",
-        changes: []
-    },
-    {
-        id: "ultimate_strength",
-        label: "RSK.UltimateStrength",
-        icon: "icons/png/ultimate_strength.png",
-        changes: []
-    }
+    //end todo
 ];
 
+//todo: 
 export const rskMagicStatusEffects = [
     {
         id: "confuse",
