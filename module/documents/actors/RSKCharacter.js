@@ -37,9 +37,9 @@ export default class RSKCharacter extends RSKActor {
         };
     }
 
-    calculateTargetNumber(skill, ability, targetNumberModifier) {
-        const ability = this.system.abilities[ability];
-        const skill = this.system.skills[skill];
+    calculateTargetNumber(selectedSkill, selectedAbility, targetNumberModifier) {
+        const ability = this.system.abilities[selectedAbility];
+        const skill = this.system.skills[selectedSkill];
         return skill.level + (skill.modifier ?? 0)
             + ability.level + (ability.modifier ?? 0)
             + targetNumberModifier;
