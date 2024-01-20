@@ -36,8 +36,10 @@ import RSKActionSheet from "./sheets/items/RSKActionSheet.js";
 import RSKSummonFamiliar from "./data/items/RSKSummonFamiliar.js";
 import RSKActionCollection from "./data/items/RSKActionCollectionType.js";
 import RSKActionCollectionSheet from "./sheets/items/RSKActionCollectionSheet.js";
+import RSKItemCollectionSheet from "./sheets/items/RSKItemCollectionSheet.js";
 import RSKRuneSheet from "./sheets/items/RSKRuneSheet.js";
 import RSKEquipmentSheet from "./sheets/items/RSKEquipmentSheet.js";
+import RSKItemCollection from "./data/items/RSKItemCollectionType.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -87,12 +89,14 @@ Hooks.once("init", function () {
         prayer: RSKPrayer,
         summonFamiliar: RSKSummonFamiliar,
         rune: RSKRuneType,
-        actionCollection: RSKActionCollection
+        actionCollection: RSKActionCollection,
+        itemCollection: RSKItemCollection
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
     Items.registerSheet("rsk", RSKActionSheet, { types: ["action", "spell", "prayer", "summonFamiliar"], makeDefault: true });
     Items.registerSheet("rsk", RSKActionCollectionSheet, { types: ["actionCollection"], makeDefault: true });
+    Items.registerSheet("rsk", RSKItemCollectionSheet, { types: ["itemCollection"], makeDefault: true });
     Items.registerSheet("rsk", RSKRuneSheet, { types: ["rune"], makeDefault: true });
     Items.registerSheet("rsk", RSKEquipmentSheet, { types: ["equipment", "armour"], makeDefault: true });
 

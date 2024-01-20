@@ -199,6 +199,8 @@ export default class RSKActorSheet extends ActorSheet {
         const item = await Item.fromDropData(data);
         if (item.type === "actionCollection") {
             item.system.importActions(this.actor);
+        } else if (item.type === "itemCollection") {
+            item.system.import(this.actor);
         } else {
             await super._onDropItem(event, data);
         }

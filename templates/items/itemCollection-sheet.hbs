@@ -1,0 +1,16 @@
+<form data-can-drop="true">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
+    </header>
+    <section class="sheet-body">
+        <ol class="items-list">
+            {{#each system.items as |i|}}
+            <li class="item flexrow" data-item-id="{{i.itemId}}">
+                {{i.name}}
+                <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </li>
+            {{/each}}
+        </ol>
+    </section>
+</form>

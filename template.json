@@ -23,7 +23,8 @@
             "summonFamiliar",
             "rune",
             "ammunition",
-            "actionCollection"
+            "actionCollection",
+            "itemCollection"
         ],
         "material": {},
         "resource": {},
@@ -39,6 +40,7 @@
         "summonFamiliar": {},
         "rune": {},
         "ammunition": {},
-        "actionCollection": {}
+        "actionCollection": {},
+        "itemCollection": {}
     }
 }
