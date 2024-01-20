@@ -47,26 +47,26 @@ export default class RSKCharacter extends RSKActor {
 
     increaseSkillLevel(skill, amount = 1) {
         const newLevel = this.system.skills[skill].level + amount;
-        this.actorUpdateSkillLevel("skills", skill, newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
+        this.updateLevel("skills", skill, newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
         return newLevel === this.abilityAwardedAtLevel;
     }
 
     decreaseSkillLevel(skill, amount = 1) {
         const newLevel = this.system.skills[skill].level - amount;
-        this.actorUpdateSkillLevel("skills", skill, newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
+        this.updateLevel("skills", skill, newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
     }
 
     increaseAbilityLevel(ability, amount = 1) {
         const newLevel = this.system.abilities[ability].level + amount;
-        this.actorLevelUpdate("abilities", ability, newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
+        this.updateLevel("abilities", ability, newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
     }
 
     decreaseAbilityLevel(ability, amount = 1) {
         const newLevel = this.system.abilities[ability].level - amount;
-        this.actorLevelUpdate("abilities", ability, newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
+        this.updateLevel("abilities", ability, newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
     }
 
-    actorLevelUpdate(category, type, requestedLevel, constraint) {
+    updateLevel(category, type, requestedLevel, constraint) {
         const newLevel = game.rsk.math.clamp_value(requestedLevel, constraint);
         this.update({ [`system.${category}.${type}.level`]: newLevel });
     }
