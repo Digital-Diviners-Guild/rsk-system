@@ -39,7 +39,7 @@ export default class RSKConfirmRollDialog extends Application {
             rollMode: this.rollMode,
             context: this.context,
             skills: localizeObject(this.context.skills, CONFIG.RSK.skills, (obj, index) => obj[index].level),
-            abilities: localizeObject(this.context.abilities, CONFIG.RSK.abilities),
+            abilities: localizeObject(this.context.abilities, CONFIG.RSK.abilities, (obj, index) => obj[index].level),
             selectedAbility: this.selectedAbility,
             selectedSkill: this.selectedSkill,
             advantageDisadvantageOptions: this.advantageDisadvantageOptions,

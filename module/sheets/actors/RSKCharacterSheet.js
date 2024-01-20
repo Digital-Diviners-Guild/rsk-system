@@ -147,8 +147,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             (val) => val.used && val.level < 10);
         if (eligibleSkills.length < 1) return;
         const eligibleAbilities = localizeObject(this.actor.system.abilities, CONFIG.RSK.abilities,
-            (obj, i) => obj[i],
-            (val) => val < 8);
+            (obj, i) => obj[i].level,
+            (val) => val.level < 8);
 
         const skillDialog = RSKImproveYourCharacterDialog.create({ skills: eligibleSkills });
         const skillResult = await skillDialog();

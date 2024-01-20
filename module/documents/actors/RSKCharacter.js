@@ -19,7 +19,7 @@ export default class RSKCharacter extends RSKActor {
 
         const systemData = this.system;
         systemData.lifePoints.max =
-            Object.keys(systemData.abilities).map(i => systemData.abilities[i]).reduce((acc, a, i) => acc += Number(a), 0)
+            Object.keys(systemData.abilities).map(i => systemData.abilities[i]).reduce((acc, a, i) => acc += Number(a.level), 0)
             + Object.keys(systemData.skills).map(i => systemData.skills[i]).reduce((acc, s, i) => acc += Number(s.level), 0);
 
         systemData.prayerPoints.max = systemData.skills.prayer.level * 3;
@@ -38,38 +38,37 @@ export default class RSKCharacter extends RSKActor {
     }
 
     calculateTargetNumber(skill, ability, targetNumberModifier) {
-        return this.system.skills[skill].level
-            + (this.system.skills[skill].modifier ?? 0)
-            + this.system.abilities[ability]
+        const ability = this.system.abilities[ability];
+        const skill = this.system.skills[skill];
+        return skill.level + (skill.modifier ?? 0)
+            + ability.level + (ability.modifier ?? 0)
             + targetNumberModifier;
     }
 
     increaseSkillLevel(skill, amount = 1) {
         const newLevel = this.system.skills[skill].level + amount;
-        this.actorUpdateSkillLevel(skill, newLevel);
+        this.actorUpdateSkillLevel("skills", skill, newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
         return newLevel === this.abilityAwardedAtLevel;
     }
 
     decreaseSkillLevel(skill, amount = 1) {
-        this.actorUpdateSkillLevel(skill, this.system.skills[skill].level - amount);
-    }
-
-    actorUpdateSkillLevel(skill, newLevel) {
-        const newSkillLevel = game.rsk.math.clamp_value(newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
-        this.update({ [`system.skills.${skill}.level`]: newSkillLevel });
+        const newLevel = this.system.skills[skill].level - amount;
+        this.actorUpdateSkillLevel("skills", skill, newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
     }
 
     increaseAbilityLevel(ability, amount = 1) {
-        this.actorUpdateAbilityLevel(ability, this.system.abilities[ability] + amount);
+        const newLevel = this.system.abilities[ability].level + amount;
+        this.actorLevelUpdate("abilities", ability, newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
     }
 
     decreaseAbilityLevel(ability, amount = 1) {
-        this.actorUpdateAbilityLevel(ability, this.system.abilities[ability] - amount);
+        const newLevel = this.system.abilities[ability].level - amount;
+        this.actorLevelUpdate("abilities", ability, newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
     }
 
-    actorUpdateAbilityLevel(ability, newLevel) {
-        const newAbilityLevel = game.rsk.math.clamp_value(newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
-        this.update({ [`system.abilities.${ability}`]: newAbilityLevel });
+    actorLevelUpdate(category, type, requestedLevel, constraint) {
+        const newLevel = game.rsk.math.clamp_value(requestedLevel, constraint);
+        this.update({ [`system.${category}.${type}.level`]: newLevel });
     }
 
     async useSkill(options) {

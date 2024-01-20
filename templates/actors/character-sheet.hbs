@@ -45,7 +45,9 @@
                 <span class="roll-check" data-type="ability" data-value="{{ability.index}}">
                   <div class="stats-label"><i class="fas fa-dice"></i> {{ability.label}}</div>
                   <div class="stats-values">
-                    <div class="stats-value-center">{{ability.value}}</div>
+                    <div class="stats-value-center">
+                      {{ability.value.level}} {{#if ability.value.modifier}} (+{{ability.value.modifier}}){{/if}}
+                    </div>
                   </div>
                 </span>
               </div>
@@ -209,8 +211,8 @@
             {{#each abilities as |ability|}}
             <span data-type="ability" data-value="{{ability.index}}">
               <strong>{{ability.label}}</strong>
-              <input name="system.abilities.{{ability.index}}" type="number" data-dtype="Number"
-                value="{{ability.value}}">
+              <input name="system.abilities.{{ability.index}}.level" type="number" data-dtype="Number"
+                value="{{ability.value.level}}">
             </span>
             {{/each}}
           </div>
