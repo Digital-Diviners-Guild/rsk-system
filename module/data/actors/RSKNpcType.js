@@ -5,7 +5,7 @@ export default class RSKNpcType extends foundry.abstract.TypeDataModel {
         const fields = foundry.data.fields;
         return {
             ...RSKCreature.defineSchema(),
-            description: new fields.HTMLField(),
+            description: new fields.StringField(),
             drops: new fields.StringField(),
             specialFeatures: new fields.StringField(),
             actions: new fields.ArrayField(new fields.ObjectField()),

@@ -190,7 +190,7 @@
         <div class="tab features" data-group="primary" data-tab="edit">
           <div>
             <label>{{localize "RSK.Description"}}</label>
-            {{editor system.description target="system.description" button=false engine="prosemirror"}}
+            <input type="text" name="system.description" value="{{system.description}}">
           </div>
           <div>
             <label>{{localize "RSK.Catalyst"}}</label>
