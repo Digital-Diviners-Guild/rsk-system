@@ -7,7 +7,14 @@
         <ol class="items-list">
             {{#each system.items as |i|}}
             <li class="item flexrow" data-item-id="{{i.itemId}}">
-                {{i.name}}
+                <div>
+                    {{i.name}}
+                    (
+                    <a class="item-control decrease-item-quantity" data-item-id="{{i.itemId}}">-</a>
+                    <em>qty: {{i.quantity}}</em>
+                    <a class="item-control increase-item-quantity" data-item-id="{{i.itemId}}">+</a>
+                    )
+                </div>
                 <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
             </li>
             {{/each}}

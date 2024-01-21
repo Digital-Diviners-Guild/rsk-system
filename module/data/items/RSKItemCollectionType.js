@@ -10,11 +10,12 @@ export default class RSKItemCollection extends foundry.abstract.DataModel {
     import(actor) {
         const items = this.items
             .map(i => {
-                const item = Item.get(i.itemId);
-                return foundry.utils.deepClone(item.toObject());
+                return { source: Item.get(i.itemId), quantity: i.quantity }
             });
         if (items.length < 1) return;
 
-        actor.createEmbeddedDocuments("Item", items);
+        for (const i of items) {
+            actor.addItem(i.source, i.quantity);
+        }
     }
 }
