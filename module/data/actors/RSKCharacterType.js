@@ -8,7 +8,7 @@ export default class RSKCharacterType extends foundry.abstract.TypeDataModel {
             gold: new fields.NumberField({ ...costField }),
             catalyst: new fields.StringField(),
             motivation: new fields.StringField(),
-            description: new fields.StringField(),
+            description: new fields.HTMLField(),
             backgrounds: new fields.ArrayField(new fields.ObjectField()),
             summoningPoints: new fields.SchemaField({
                 min: new fields.NumberField({ min: 0, initial: 0 }),

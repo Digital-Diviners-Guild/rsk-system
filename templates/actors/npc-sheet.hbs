@@ -70,7 +70,7 @@
                 <div class="tab features" data-group="primary" data-tab="edit">
                     <div>
                         <label>{{localize "RSK.Description"}}</label>
-                        <input type="text" name="system.description" value="{{system.description}}">
+                        {{editor system.description target="system.description" button=true engine="prosemirror"}}
                     </div>
 
                     <div class="form-group">

@@ -183,6 +183,9 @@
             <label>{{localize "RSK.Motivation"}}</label>
             <div>{{system.motivation}}</div>
           </div>
+          <div>
+            {{editor system.description target="system.description" editable=false engine="prosemirror"}}
+          </div>
           <label>{{localize "RSK.Backgrounds"}}</label>
           {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=backgrounds }}
         </div>
@@ -190,7 +193,7 @@
         <div class="tab features" data-group="primary" data-tab="edit">
           <div>
             <label>{{localize "RSK.Description"}}</label>
-            <input type="text" name="system.description" value="{{system.description}}">
+            {{editor system.description target="system.description" button=true engine="prosemirror"}}
           </div>
           <div>
             <label>{{localize "RSK.Catalyst"}}</label>
