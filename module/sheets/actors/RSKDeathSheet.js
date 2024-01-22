@@ -3,6 +3,7 @@ export default class RSKDeathSheet extends ActorSheet {
     isCombat = false;
     canResurrect = false;
     consequencesTaken = 0;
+    isAlive = false;
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -18,9 +19,11 @@ export default class RSKDeathSheet extends ActorSheet {
 
     getData() {
         const context = super.getData();
+        const char = game?.users?.current?.character;
         this.rollTable = RollTable.get(this.actor.system.rollTableId);
         context.isConfigured = !!this.rollTable
-        context.currentCharacterName = game?.users?.current?.character?.name ?? "Adventurer";
+        context.currentCharacterName = char?.name ?? "Adventurer";
+        context.isAlive = char?.isAlive ?? false;
         context.isCombat = this.isCombat;
         context.showConsequences = this.isCombat
             ? this.consequencesTaken < 2

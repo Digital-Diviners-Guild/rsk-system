@@ -3,6 +3,11 @@
         <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64" />
         <h1><input type="text" name="name" value="{{actor.name}}" placeholder="Name"></h1>
     </header>
+    {{#if isAlive}}
+    <div>
+        {{localize "RSK.DeathGreetingAlive"}}
+    </div>
+    {{else}}
     <div>
         <div>
             {{#if isConfigured}}
@@ -26,4 +31,5 @@
             {{/if}}
         </div>
     </div>
+    {{/if}}
 </form>
