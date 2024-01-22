@@ -48,6 +48,7 @@ export default class RSKDeathSheet extends ActorSheet {
             }
             this.consequencesTaken = 0;
             this.canResurrect = false;
+            this.isCombat = false;
             this.close();
         });
         html.find('.is-combat').change(ev => this.isCombat = !this.isCombat);
