@@ -2,10 +2,12 @@
     "Actor": {
         "types": [
             "character",
-            "npc"
+            "npc",
+            "death"
         ],
         "character": {},
-        "npc": {}
+        "npc": {},
+        "death": {}
     },
     "Item": {
         "types": [

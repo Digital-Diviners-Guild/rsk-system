@@ -12,6 +12,7 @@ import RSKSpell from "./data/items/RSKSpell.js";
 
 import RSKCharacterType from "./data/actors/RSKCharacterType.js";
 import RSKNpc from "./data/actors/RSKNpcType.js";
+import RSKDeath from "./data/actors/RSKDeath.js";
 
 import RSKActiveEffect from "./documents/items/RSKActiveEffect.js";
 import { RSKItemProxy } from "./documents/items/RSKItemProxy.js";
@@ -40,6 +41,7 @@ import RSKItemCollectionSheet from "./sheets/items/RSKItemCollectionSheet.js";
 import RSKRuneSheet from "./sheets/items/RSKRuneSheet.js";
 import RSKEquipmentSheet from "./sheets/items/RSKEquipmentSheet.js";
 import RSKItemCollection from "./data/items/RSKItemCollectionType.js";
+import RSKDeathSheet from "./sheets/actors/RSKDeathSheet.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -103,12 +105,14 @@ Hooks.once("init", function () {
     CONFIG.Actor.documentClass = RSKActorProxy;
     CONFIG.Actor.dataModels = {
         character: RSKCharacterType,
-        npc: RSKNpc
+        npc: RSKNpc,
+        death: RSKDeath
     };
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true });
     Actors.registerSheet("rsk", RSKCharacterSheet, { types: ["character"], makeDefault: true });
     Actors.registerSheet("rsk", RSKNpcSheet, { types: ["npc"], makeDefault: true });
+    Actors.registerSheet("rsk", RSKDeathSheet, { types: ["death"], makeDefault: true });
 
     CONFIG.ActiveEffect.legacyTransferral = false;
     CONFIG.ActiveEffect.documentClass = RSKActiveEffect;
@@ -120,12 +124,6 @@ Hooks.once("init", function () {
     customizeStatusEffects();
 
     console.log("rsk ready");
-});
-
-Hooks.once("renderActorSheet", function (sheet, html, data) {
-    sheet.activateTab(data.actor.type === "character"
-        ? "skills"
-        : "description");
 });
 
 Hooks.once("ready", function () {

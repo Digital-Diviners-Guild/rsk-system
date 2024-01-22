@@ -17,6 +17,7 @@ export default class RSKActor extends Actor {
   }
 
   _clampActorValues() {
+    if (this.type === "death") return;
     this.system.lifePoints.value = game.rsk.math.clamp_value(this.system.lifePoints.value, this.system.lifePoints);
   }
 

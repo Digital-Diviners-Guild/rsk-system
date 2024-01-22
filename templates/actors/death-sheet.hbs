@@ -1,0 +1,29 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{actor.name}}" placeholder="Name"></h1>
+    </header>
+    <div>
+        <div>
+            {{#if isConfigured}}
+            {{localize "RSK.DeathGreetingPreName"}}, {{currentCharacterName}}.
+            {{localize "RSK.DeathGreetingPostName"}}
+            <hr />
+            <input type="checkbox" class="is-combat" name="isCombat" value="isCombat" {{checked isCombat}}>
+            {{localize "RSK.IsCombatResurrection"}}
+            {{#if showConsequences}}
+            <button type="button" class="roll-death-consequence">{{localize "RSK.RollDeathConsequence"}}</button>
+            {{/if}}
+            {{else}}
+            {{localize "RSK.DeathsRollTableNotConfigured"}}
+            <input type="text" name="system.rollTableId" value="{{system.rollTableId}}">
+            {{/if}}
+        </div>
+        <div>
+            {{#if canResurrect}}
+            <hr />
+            <button type="button" class="resurrect">{{localize "RSK.Resurrect"}}</button>
+            {{/if}}
+        </div>
+    </div>
+</form>

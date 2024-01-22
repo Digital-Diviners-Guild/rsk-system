@@ -81,6 +81,20 @@ export default class RSKCharacter extends RSKActor {
         }
     }
 
+    rest() {
+        this.update({
+            "system.lifePoints.value": this.system.lifePoints.max,
+            "system.prayerPoints.value": this.system.prayerPoints.max,
+            "system.summoningPoints.value": this.system.summoningPoints.max
+        });
+    }
+
+    async acceptResurrection() {
+        const statusesToRemove = this.effects.map(e => e._id) ?? [];
+        await this.deleteEmbeddedDocuments("ActiveEffect", statusesToRemove);
+        this.rest();
+    }
+
     clearUsedSkills() {
         const updates = Object.keys(this.system.skills)
             .reduce((acc, curr) => {
