@@ -9,6 +9,7 @@
 // spell, prayer data models, like a weapon
 // actions could be separate and require the spell/prayer/weapon as an argument to create the action during data prep?
 // this might work out better than modeling the prayer/spells as actions
+// will this require a separate 'npc action' model then? maybe not, though npc actions are a little different.
 
 /*
 models:
