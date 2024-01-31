@@ -4,6 +4,7 @@ import { fields } from "../fields.js";
 export default class RSKAction extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
+            actionType: new fields.StringField(), // melee, magic, ranged, etc...?
             id: new fields.StringField(),
             label: new fields.StringField(),
             description: new fields.StringField(),

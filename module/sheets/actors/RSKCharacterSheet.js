@@ -153,7 +153,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const skillDialog = RSKImproveYourCharacterDialog.create({ skills: eligibleSkills });
         const skillResult = await skillDialog();
         if (!(skillResult.confirmed || skillResult.selectedSkill)) return;
-
+        // thought: stuff like this should probably be handled reactively
+        // the more we do stuff reactively, the easier it will to extend through modules later
         this.actor.clearUsedSkills();
         const gainedAbility = this.actor.increaseSkillLevel(skillResult.selectedSkill);
         if (!gainedAbility) return;
