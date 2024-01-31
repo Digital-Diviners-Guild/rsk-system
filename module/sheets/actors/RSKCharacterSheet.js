@@ -1,11 +1,11 @@
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKPrayer from "../../data/items/RSKPrayer.js";
-import RSKSpell from "../../data/items/RSKSpell.js";
 import RSKSummonFamiliar from "../../data/items/RSKSummonFamiliar.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject } from "../../rsk-localize.js";
+import RSKCastSpellAction from "../../data/items/RSKCastSpellAction.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
@@ -39,7 +39,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _prepareSpells(context) {
         this.spells = this.actor.items.filter(i => i.type === "spell")
-            .reduce((ss, s) => this._mapToActionDictionary(RSKSpell, ss, s), {});
+            .reduce((ss, s) => this._mapToActionDictionary2(RSKCastSpellAction, ss, s), {});
         context.spells = this.spells;
     }
 
@@ -167,6 +167,25 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _mapToActionDictionary(factory, datas, data) {
         const action = factory.fromSource(data.system);
+        action.prepareBaseData();
+        action.id = data._id;
+        action.label = data.name;
+        datas[action.id] = action;
+        return datas;
+    }
+
+    //todo: this is a temp adapter, this whole thing may start to change and thats ok.
+    // we need to separate actions, from components of actions
+    // ie) a spell is not an action, it is what the cast action uses
+    // a prayer is not an action, it is what pray uses
+    // this will make range and melee actions easier to implement
+    // since it is the same pattern, swing/shoot uses a weapon for its damage/effects
+    //question: where should the use action button show up? on the item or in a list of actions?
+    // we only want to be able to 'attack' if you sword or bow is equipped. 
+    // and it makes sense to click cast on in the list of spells
+    // - this is what lead to having a spell be an action. not that it was the way to go.
+    _mapToActionDictionary2(factory, datas, data) {
+        const action = factory.fromSource({ actionType: "magic", actionData: data.system });
         action.prepareBaseData();
         action.id = data._id;
         action.label = data.name;

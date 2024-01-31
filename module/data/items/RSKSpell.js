@@ -1,57 +1,35 @@
-import RSKAction from "./RSKAction.js";
-import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import { fields } from "../fields.js";
+import { localizeText } from "../../rsk-localize.js";
 
-export default class RSKSpell extends RSKAction {
+export default class RSKSpell extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
+            // what should this block be referred to as? it is common across things that can be used with an action
+            id: new fields.StringField(),
+            label: new fields.StringField(),
+            description: new fields.StringField(),
+            effectDescription: new fields.StringField(),
+            damageEntries: new fields.ObjectField(),
+            range: new fields.StringField(),
+            usageCost: new fields.ArrayField(new fields.SchemaField({
+                type: new fields.StringField({ choices: [...Object.keys(CONFIG.RSK.usageCostTypes)] }),
+                amount: new fields.NumberField()
+            })),
+            usageCostLabel: new fields.StringField(),
             spellType: new fields.StringField({ initial: "utility", options: [...Object.keys(CONFIG.RSK.spellTypes)] }),
-            ...RSKAction.defineSchema(),
             statuses: new fields.ArrayField(new fields.StringField()),
             qualities: new fields.StringField(),
             requiredEquipment: new fields.StringField(),
         }
     };
 
-    async use(actor) {
-        if (actor.type === "npc") return;
-        if (!this.canCast(actor)) return;
-
-        const result = await this.useSpell(actor);
-        if (!result) return;
-
-        const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
-            {
-                ...this,
-                showRollResult: true,
-                ...result
-            });
-        await result.rollResult.toMessage({
-            flavor: flavor
-        });
+    prepareBaseData() {
+        this.usageCostLabel = this.getUsageCostLabel();
     }
 
-    canCast(actor) {
-        if (this.usageCost.length < 1) return true;
-        for (const cost of this.usageCost) {
-            const runes = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
-            if (!runes || runes.system.quantity < cost.amount) return false;
-        }
-        return true;
-    }
-
-    async useSpell(actor) {
-        const rollData = actor.getRollData();
-        const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "magic", defaultAbility: "intellect" });
-        const rollOptions = await dialog();
-        if (!rollOptions.rolled) return false;
-
-        const result = await actor.useSkill(rollOptions);
-        if (result.isSuccess) {
-            for (const cost of this.usageCost) {
-                actor.spendRunes(cost.type, cost.amount);
-            }
-        }
-        return result;
+    getUsageCostLabel() {
+        return this.usageCost
+            .map(c => `${c.amount} ${localizeText(CONFIG.RSK.usageCostTypes[c.type])}`)
+            .join(", ");
     }
 }
