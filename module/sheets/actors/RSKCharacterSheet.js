@@ -1,11 +1,11 @@
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
-import RSKPrayer from "../../data/items/RSKPrayer.js";
 import RSKSummonFamiliar from "../../data/items/RSKSummonFamiliar.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject } from "../../rsk-localize.js";
 import RSKCastSpellAction from "../../data/items/RSKCastSpellAction.js";
+import RSKPrayAction from "../../data/items/RSKPrayAction.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
@@ -45,7 +45,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _preparePrayers(context) {
         this.prayers = this.actor.items.filter(i => i.type === "prayer")
-            .reduce((ps, p) => this._mapToActionDictionary(RSKPrayer, ps, p), {});
+            .reduce((ps, p) => this._mapToActionDictionary2(RSKPrayAction, ps, p), {});
         context.prayers = this.prayers;
     }
 
@@ -185,7 +185,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     // and it makes sense to click cast on in the list of spells
     // - this is what lead to having a spell be an action. not that it was the way to go.
     _mapToActionDictionary2(factory, datas, data) {
-        const action = factory.fromSource({ actionType: "magic", actionData: data.system });
+        const action = factory.fromSource({ actionData: data.system });
         action.prepareBaseData();
         action.id = data._id;
         action.label = data.name;
