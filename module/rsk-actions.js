@@ -30,7 +30,7 @@ async function useAction(actor, action) {
     switch (action.type) {
         case "prayer":
             return await pray(actor, action);
-        case "spell":
+        case "magic":
             return await cast(actor, action);
         case "ranged":
             return await rangedAttack(actor, action);
