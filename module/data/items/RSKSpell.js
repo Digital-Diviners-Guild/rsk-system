@@ -5,8 +5,6 @@ export default class RSKSpell extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             // what should this block be referred to as? it is common across things that can be used with an action
-            id: new fields.StringField(),
-            label: new fields.StringField(),
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
             damageEntries: new fields.ObjectField(),

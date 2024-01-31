@@ -6,6 +6,7 @@ import { fields } from "../fields.js";
 export default class RSKPrayAction extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
+            id: new fields.StringField(),
             label: new fields.StringField(),
             actionType: new fields.StringField({ initial: "prayer" }),
             actionData: new fields.ObjectField()
@@ -23,7 +24,8 @@ export default class RSKPrayAction extends foundry.abstract.TypeDataModel {
 
         const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
             {
-                ...this,
+                label: this.label,
+                ...this.actionData,
                 showRollResult: true,
                 ...result
             });

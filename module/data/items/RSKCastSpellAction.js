@@ -6,6 +6,7 @@ import { fields } from "../fields.js";
 export default class RSKCastSpellAction extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
+            id: new fields.StringField(),
             label: new fields.StringField(),
             actionType: new fields.StringField({ initial: "magic" }),
             actionData: new fields.ObjectField()
@@ -18,10 +19,10 @@ export default class RSKCastSpellAction extends foundry.abstract.TypeDataModel {
 
         const result = await this.useSpell(actor);
         if (!result) return;
-
         // do we want an action template where the action can add to the label and description
         const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
             {
+                label: this.label,
                 ...this.actionData,
                 showRollResult: true,
                 ...result

@@ -8,8 +8,6 @@ import { localizeText } from "../../rsk-localize.js";
 export default class RSKPrayer extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            id: new fields.StringField(),
-            label: new fields.StringField(),
             effectDescription: new fields.StringField(),
             range: new fields.StringField(),
             usageCost: new fields.ArrayField(new fields.SchemaField({
