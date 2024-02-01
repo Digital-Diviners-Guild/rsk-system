@@ -1,18 +1,14 @@
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
-import RSKAction from "./RSKAction.js";
 import { fields } from "../fields.js";
 
-//todo: refactor - literally the same thing as prayer, sub summoning for prayer
-export default class RSKSummonFamiliar extends RSKAction {
+export default class RSKSummonFamiliarAction extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            ...RSKAction.defineSchema(),
-            statuses: new fields.ArrayField(new fields.StringField()),
-        }
-    }
-
-    prepareBaseData() {
-        this.type = "summonFamiliar";
+            id: new fields.StringField(),
+            label: new fields.StringField(),
+            actionType: new fields.StringField({ initial: "summonFamiliar" }),
+            actionData: new fields.ObjectField()
+        };
     }
 
     async use(actor) {
@@ -26,11 +22,23 @@ export default class RSKSummonFamiliar extends RSKAction {
 
         const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
             {
-                ...this,
+                label: this.label,
+                ...this.actionData,
                 showRollResult: true,
                 ...result
             });
-        await result.rollResult.toMessage({ flavor: flavor });
+        await result.rollResult.toMessage({
+            flavor: flavor,
+            flags: {
+                // not sure how we want to send this information to be applied yet
+                // probably will have a button to apply in the chat, so sending it
+                // with the message seems to make sense.
+                rsk: {
+                    actionType: this.actionType,
+                    actionData: { ...this.actionData }
+                }
+            }
+        });
         return result;
     }
 
