@@ -3,9 +3,7 @@ import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject } from "../../rsk-localize.js";
-import RSKCastSpellAction from "../../data/items/RSKCastSpellAction.js";
-import RSKPrayAction from "../../data/items/RSKPrayAction.js";
-import RSKSummonFamiliarAction from "../../data/items/RSKSummonFamiliarAction.js";
+import { RSKCastSpellAction, RSKPrayAction, RSKSummonFamiliarAction } from "../../rsk-actions.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     prayers;
@@ -39,19 +37,19 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _prepareSpells(context) {
         this.spells = this.actor.items.filter(i => i.type === "spell")
-            .reduce((ss, s) => this._mapToActionDictionary2(RSKCastSpellAction, ss, s), {});
+            .reduce((ss, s) => this._mapToActionDictionary(RSKCastSpellAction, ss, s), {});
         context.spells = this.spells;
     }
 
     _preparePrayers(context) {
         this.prayers = this.actor.items.filter(i => i.type === "prayer")
-            .reduce((ps, p) => this._mapToActionDictionary2(RSKPrayAction, ps, p), {});
+            .reduce((ps, p) => this._mapToActionDictionary(RSKPrayAction, ps, p), {});
         context.prayers = this.prayers;
     }
 
     _prepareSummons(context) {
         this.familiars = this.actor.items.filter(i => i.type === "summoning")
-            .reduce((fs, f) => this._mapToActionDictionary2(RSKSummonFamiliarAction, fs, f), {});
+            .reduce((fs, f) => this._mapToActionDictionary(RSKSummonFamiliarAction, fs, f), {});
         context.familiars = this.familiars;
     }
 
@@ -92,18 +90,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         html.find('.improve-your-character').click(async ev => {
             await this.handleImproveYourCharacter();
         });
-    }
-
-    //inventory rules poc
-    async _onDropItem(event, data) {
-        const item = await Item.fromDropData(data);
-        // how do we want to identify something that can go in the inventory?
-        if (item.system.hasOwnProperty("slotId")) {
-            await this.actor.addItem(item, item.system.quantity);
-        }
-        else {
-            await super._onDropItem(event, data);
-        }
     }
 
     async handleSkillCheck(dialogOptions = {}) {
@@ -165,11 +151,20 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         this.actor.increaseAbilityLevel(abilityResult.selectedAbility);
     }
 
-    _mapToActionDictionary2(factory, datas, data) {
-        const action = factory.fromSource({ actionData: data.system });
-        action.prepareBaseData();
-        action.id = data._id;
-        action.label = data.name;
+    //inventory rules poc
+    async _onDropItem(event, data) {
+        const item = await Item.fromDropData(data);
+        // how do we want to identify something that can go in the inventory?
+        if (item.system.hasOwnProperty("slotId")) {
+            await this.actor.addItem(item, item.system.quantity);
+        }
+        else {
+            await super._onDropItem(event, data);
+        }
+    }
+
+    _mapToActionDictionary(factory, datas, data) {
+        const action = factory.create(data._id, data.name, data.system);
         datas[action.id] = action;
         return datas;
     }
