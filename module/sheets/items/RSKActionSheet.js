@@ -9,6 +9,9 @@ export default class RSKActionSheet extends RSKItemSheet {
         const context = super.getData();
         context.config = CONFIG.RSK;
         context.usageCost = context.system.getUsageCostLabel();
+        context.hasTargetNumberModifierField = context.system.hasOwnProperty("targetNumberModifier");
+        context.hasDescriptionField = context.system.hasOwnProperty("description");
+        context.hasEffectDescriptionField = context.system.hasOwnProperty("effectDescription");
         return context;
     }
 

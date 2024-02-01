@@ -1,9 +1,10 @@
 import { fields } from "../fields.js";
+import { localizeText } from "../../rsk-localize.js";
 
 export default class RSKSummoning extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            label: new fields.StringField(),
+            description: new fields.StringField(),
             targetNumberModifier: new fields.NumberField({ initial: 0 }),
             usageCost: new fields.ArrayField(new fields.SchemaField({
                 type: new fields.StringField({ choices: [...Object.keys(CONFIG.RSK.usageCostTypes)] }),

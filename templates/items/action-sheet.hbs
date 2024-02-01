@@ -53,15 +53,19 @@
                 </select>
             </div>
             {{/if}}
+            {{#if hasDescriptionField}}
             <div class="form-group">
                 <label>{{localize "RSK.Description"}}:</label>
                 <input type="text" name="system.description" value="{{system.description}}">
             </div>
+            {{/if}}
+            {{#if hasEffectDescriptionField}}
             <div class="form-group">
                 <label>{{localize "RSK.EffectDescription"}}:</label>
                 <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
             </div>
-            {{#if system.targetNumberModifier}}
+            {{/if}}
+            {{#if hasTargetNumberModifierField}}
             <div class="form-group">
                 <label>{{localize "RSK.TargetNumberModifier"}}:</label>
                 <input type="number" name="system.targetNumberModifier" value="{{system.targetNumberModifier}}">
@@ -90,9 +94,12 @@
                     <i class="fas fa-plus"></i> {{localize "Add Cost"}}
                 </a>
             </div>
-
+            {{#if system.range}}
             {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
+            {{/if}}
+            {{#if system.damageEntries}}
             {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
+            {{/if}}
         </div>
     </section>
 </form>

@@ -14,7 +14,7 @@ export default class RSKSummonFamiliarAction extends foundry.abstract.TypeDataMo
     async use(actor) {
         if (actor.type === "npc") return;
 
-        const cost = this.usageCost[0]?.amount ?? 0;
+        const cost = this.actionData.usageCost[0]?.amount ?? 0;
         if (!this.canSummon(actor, cost)) return;
 
         const result = await this.summonFamiliar(actor, cost);
