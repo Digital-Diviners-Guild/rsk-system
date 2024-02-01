@@ -60,7 +60,7 @@ RSK.actionTypes = {
     action: "RSK.Action",
     spell: "RSK.Spell",
     prayer: "RSK.Prayer",
-    summonFamiliar: "RSK.SummonFamiliar"
+    summoning: "RSK.SummonFamiliar"
 };
 
 RSK.ranges = {

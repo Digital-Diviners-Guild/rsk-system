@@ -29,6 +29,9 @@
                 </p>
             </div>
             {{/if}}
+            {{#if system.targetNumberModifier}}
+            <div><strong>{{localize "RSK.TargetNumberModifier"}}:</strong> {{system.targetNumberModifier}}</div>
+            {{/if}}
             {{#if system.usageCost}}
             <div>
                 <strong>{{localize "RSK.Cost"}}:</strong>
@@ -58,7 +61,12 @@
                 <label>{{localize "RSK.EffectDescription"}}:</label>
                 <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
             </div>
-
+            {{#if system.targetNumberModifier}}
+            <div class="form-group">
+                <label>{{localize "RSK.TargetNumberModifier"}}:</label>
+                <input type="number" name="system.targetNumberModifier" value="{{system.targetNumberModifier}}">
+            </div>
+            {{/if}}
             <strong>{{localize "RSK.Cost"}}:</strong>
             <ol class="items-list">
                 {{#each system.usageCost as |cost|}}

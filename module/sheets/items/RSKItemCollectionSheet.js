@@ -7,7 +7,7 @@ import RSKItemSheet from "./RSKItemSheet.js";
 // into something that can be reused here. 
 //todo: refac to use inventory logic
 export default class RSKItemCollectionSheet extends RSKItemSheet {
-    invalidTypes = ["action", "spell", "prayer", "summonFamiliar"];
+    invalidTypes = ["action", "spell", "prayer", "summoning"];
 
     activateListeners(html) {
         super.activateListeners(html);

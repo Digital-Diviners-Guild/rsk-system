@@ -6,7 +6,7 @@ export default class RSKSummonFamiliarAction extends foundry.abstract.TypeDataMo
         return {
             id: new fields.StringField(),
             label: new fields.StringField(),
-            actionType: new fields.StringField({ initial: "summonFamiliar" }),
+            actionType: new fields.StringField({ initial: "summoning" }),
             actionData: new fields.ObjectField()
         };
     }

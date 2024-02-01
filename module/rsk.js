@@ -41,7 +41,7 @@ import RSKRuneSheet from "./sheets/items/RSKRuneSheet.js";
 import RSKEquipmentSheet from "./sheets/items/RSKEquipmentSheet.js";
 import RSKItemCollection from "./data/items/RSKItemCollectionType.js";
 import RSKDeathSheet from "./sheets/actors/RSKDeathSheet.js";
-import RSKFamiliar from "./data/items/RSKFamiliar.js";
+import RSKSummoning from "./data/items/RSKSummoning.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -89,14 +89,14 @@ Hooks.once("init", function () {
         background: RSKBackgroundType,
         spell: RSKSpell,
         prayer: RSKPrayer,
-        familiar: RSKFamiliar,
+        summoning: RSKSummoning,
         rune: RSKRuneType,
         actionCollection: RSKActionCollection,
         itemCollection: RSKItemCollection
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
-    Items.registerSheet("rsk", RSKActionSheet, { types: ["action", "spell", "prayer", "familiar"], makeDefault: true });
+    Items.registerSheet("rsk", RSKActionSheet, { types: ["action", "spell", "prayer", "summoning"], makeDefault: true });
     Items.registerSheet("rsk", RSKActionCollectionSheet, { types: ["actionCollection"], makeDefault: true });
     Items.registerSheet("rsk", RSKItemCollectionSheet, { types: ["itemCollection"], makeDefault: true });
     Items.registerSheet("rsk", RSKRuneSheet, { types: ["rune"], makeDefault: true });

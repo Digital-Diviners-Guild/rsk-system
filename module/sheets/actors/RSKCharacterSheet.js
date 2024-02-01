@@ -50,7 +50,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSummons(context) {
-        this.familiars = this.actor.items.filter(i => i.type === "familiar")
+        this.familiars = this.actor.items.filter(i => i.type === "summoning")
             .reduce((fs, f) => this._mapToActionDictionary2(RSKSummonFamiliarAction, fs, f), {});
         context.familiars = this.familiars;
     }
@@ -180,7 +180,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 return this.prayers[id];
             case "spell":
                 return this.spells[id];
-            case "summonFamiliar":
+            case "summoning":
                 return this.familiars[id];
             default:
                 return false;
