@@ -123,10 +123,11 @@ Hooks.once("init", function () {
     preloadHandlebarsTemplates()
     customizeStatusEffects();
 
+
     console.log("rsk ready");
 });
 
-Hooks.once("ready", function () {
+Hooks.once("ready", async function () {
     RSKDice.addClickListener($("i.fa-dice-d20"), async (ev) => {
         const currentCharacter = game.users?.current?.character;
         if (currentCharacter) {
@@ -135,4 +136,17 @@ Hooks.once("ready", function () {
             RSKDice.handleBasicRoll();
         }
     });
+
+    await ChatMessage.create({
+        content: `
+    <h3>Welcome to RSK!</h3>
+    <p>
+    This system is <em>very early</em> in development. This means there are likely bugs, and missing features.
+    Additionally, we have not yet hit a stable version. This means that each update may break things, 
+    or be incompatible with the previous version. We apologize for the inconvenience.
+    </p>
+    <p>
+    Please submit feedback, bugs, and feature requests here: <a href=https://github.com/qmarsala/rsk-system/issues target="_blank">GitHub: RSK</a>
+    </p>
+    ` });
 });
