@@ -146,7 +146,7 @@ Hooks.once("ready", async function () {
     or be incompatible with the previous version. We apologize for the inconvenience.
     </p>
     <p>
-    Please submit feedback, bugs, and feature requests here: <a href=https://github.com/qmarsala/rsk-system/issues target="_blank">GitHub: RSK</a>
+    Please submit feedback, bugs, and feature requests <a href=https://github.com/qmarsala/rsk-system/issues target="_blank">here.</a>
     </p>
     ` });
 });
