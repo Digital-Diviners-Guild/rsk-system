@@ -15,5 +15,6 @@ export default class RSKAmmunitionType extends foundry.abstract.TypeDataModel {
 
     prepareBaseData() {
         this.isAmmo = true;
+        this.equipped.slot = "weapon";
     }
 }
