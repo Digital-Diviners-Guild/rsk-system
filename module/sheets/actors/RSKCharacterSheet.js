@@ -3,12 +3,15 @@ import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject } from "../../rsk-localize.js";
-import { RSKCastSpellAction, RSKPrayAction, RSKSummonFamiliarAction } from "../../rsk-actions.js";
+import { RSKCastSpellAction, RSKMeleeAction, RSKPrayAction, RSKRangedAction, RSKSummonFamiliarAction } from "../../rsk-actions.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
+    //todo: actions list instead?
     prayers;
     spells;
     familiars;
+    meleeAttacks;
+    rangedAttacks;
 
     getData() {
         const context = super.getData();
@@ -57,6 +60,21 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const equipped = context.items.filter(i => i.system?.equipped && i.system.equipped.isEquipped);
         context.worn = {};
         equipped.map((e) => context.worn[e.system.equipped.slot] = e.name);
+
+        // do we want to also look for shields with block quality to add
+        // a block action here?
+        const isWeapon = (e) => e.system.equipped.slot === "weapon"
+            || e.system.equipped.slot === "arm";
+        const meleeWeapons = equipped.filter(e =>
+            isWeapon(e) && e.system.usageType === "melee");
+        const rangedWeapons = equipped.filter(e =>
+            isWeapon(e) && e.system.usageType === "ranged");
+
+        this.meleeAttacks = meleeWeapons.reduce((ws, w) => this._mapToActionDictionary(RSKMeleeAction, ws, w), {});
+        context.meleeAttacks = this.meleeAttacks;
+
+        this.rangedAttacks = rangedWeapons.reduce((ws, w) => this._mapToActionDictionary(RSKRangedAction, ws, w), {});
+        context.rangedAttacks = this.rangedAttacks;
     }
 
     activateListeners(html) {
@@ -177,6 +195,10 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 return this.spells[id];
             case "summoning":
                 return this.familiars[id];
+            case "melee":
+                return this.meleeAttacks[id];
+            case "ranged":
+                return this.rangedAttacks[id];
             default:
                 return false;
         }

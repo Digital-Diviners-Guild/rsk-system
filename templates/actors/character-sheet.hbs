@@ -146,7 +146,7 @@
               <a class="item-control chat-item" data-item-type="summoning" data-item-id="{{familiar.id}}"
                 title="Chat Item">{{localize "RSK.ChatItem"}}</a>
               <a class="item-control use-action" data-action-type="summoning" data-action-id="{{familiar.id}}"
-                title="Chat Item">{{localize "RSK.UseAction"}}</a>
+                title="Use Item">{{localize "RSK.UseAction"}}</a>
             </li>
             {{/each}}
           </ol>
@@ -170,7 +170,17 @@
             <label>{{localize "RSK.Arm"}}</label>
             <div>{{worn.arm}}</div>
             <label>{{localize "RSK.Weapon"}}</label>
-            <div>{{worn.weapon}}</div>
+            <div>
+              {{worn.weapon}}
+              {{#each meleeAttacks as |meleeAttack|}}
+              <a class="use-action" data-action-type="{{meleeAttack.actionType}}" data-action-id="{{meleeAttack.id}}"
+                title="Use Item">{{localize "RSK.UseAction"}}</a>
+              {{/each}}
+              {{#each rangedAttacks as |rangedAttack|}}
+              <a class="use-action" data-action-type="{{rangedAttack.actionType}}" data-action-id="{{rangedAttack.id}}"
+                title="Use Item">{{localize "RSK.UseAction"}}</a>
+              {{/each}}
+            </div>
             <label>{{localize "RSK.Cape"}}</label>
             <div>{{worn.cape}}</div>
           </div>
