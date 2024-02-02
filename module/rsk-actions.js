@@ -13,31 +13,16 @@ export class RSKCastSpellAction {
     }
 
     async use(actor) {
-        if (actor.type === "npc") return;
         if (!this.canCast(actor)) return;
 
-        const result = await this.useSpell(actor);
+        const result = await useAction(actor, "magic", "intellect");
         if (!result) return;
-        // do we want an action template where the action can add to the label and description
-        const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
-            {
-                label: this.label,
-                ...this.actionData,
-                showRollResult: true,
-                ...result
-            });
-        await result.rollResult.toMessage({
-            flavor: flavor,
-            flags: {
-                // not sure how we want to send this information to be applied yet
-                // probably will have a button to apply in the chat, so sending it
-                // with the message seems to make sense.
-                rsk: {
-                    actionType: this.actionType,
-                    actionData: { ...this.actionData }
-                }
-            }
-        });
+
+        for (const cost of this.actionData.usageCost) {
+            actor.spendRunes(cost.type, cost.amount);
+        }
+        await sendChat(this.label, this.actionType, this.actionData, result);
+        return result;
     }
 
     canCast(actor) {
@@ -47,21 +32,6 @@ export class RSKCastSpellAction {
             if (!runes || runes.system.quantity < cost.amount) return false;
         }
         return true;
-    }
-
-    async useSpell(actor) {
-        const rollData = actor.getRollData();
-        const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "magic", defaultAbility: "intellect" });
-        const rollOptions = await dialog();
-        if (!rollOptions.rolled) return false;
-
-        const result = await actor.useSkill(rollOptions);
-        if (result.isSuccess) {
-            for (const cost of this.actionData.usageCost) {
-                actor.spendRunes(cost.type, cost.amount);
-            }
-        }
-        return result;
     }
 }
 
@@ -78,52 +48,22 @@ export class RSKSummonFamiliarAction {
     }
 
     async use(actor) {
-        if (actor.type === "npc") return;
-
         const cost = this.actionData.usageCost[0]?.amount ?? 0;
         if (!this.canSummon(actor, cost)) return;
 
-        const result = await this.summonFamiliar(actor, cost);
+        const result = await useAction(actor, "summoning", "intellect");
         if (!result) return;
 
-        const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
-            {
-                label: this.label,
-                ...this.actionData,
-                showRollResult: true,
-                ...result
-            });
-        await result.rollResult.toMessage({
-            flavor: flavor,
-            flags: {
-                // not sure how we want to send this information to be applied yet
-                // probably will have a button to apply in the chat, so sending it
-                // with the message seems to make sense.
-                rsk: {
-                    actionType: this.actionType,
-                    actionData: { ...this.actionData }
-                }
-            }
-        });
+        const summoningPointsUsed = result.isSuccess
+            ? cost
+            : 1;
+        actor.spendPoints("summoning", summoningPointsUsed);
+        await sendChat(this.label, this.actionType, this.actionData, result);
         return result;
     }
 
     canSummon(actor, summoningPoints) {
         return actor.system.summoningPoints.value >= summoningPoints;
-    }
-
-    async summonFamiliar(actor, summoningPoints) {
-        const rollData = actor.getRollData();
-        const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "summoning", defaultAbility: "intellect" });
-        const rollOptions = await dialog();
-        if (!rollOptions.rolled) return false;
-
-        const result = await actor.useSkill(rollOptions);
-        const cost = result.isSuccess
-            ? summoningPoints
-            : 1;
-        actor.spendPoints("summoning", cost);
-        return result;
     }
 }
 
@@ -140,78 +80,50 @@ export class RSKPrayAction {
     }
 
     async use(actor) {
-        if (actor.type === "npc") return;
-
         const cost = this.actionData.usageCost[0]?.amount ?? 0;
         if (!this.canPray(actor, cost)) return;
 
-        const result = await this.usePrayer(actor, cost);
+        const result = await useAction(actor, "prayer", "intellect");
         if (!result) return;
 
-        const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
-            {
-                label: this.label,
-                ...this.actionData,
-                showRollResult: true,
-                ...result
-            });
-        await result.rollResult.toMessage({
-            flavor: flavor,
-            flags: {
-                // not sure how we want to send this information to be applied yet
-                // probably will have a button to apply in the chat, so sending it
-                // with the message seems to make sense.
-                rsk: {
-                    actionType: this.actionType,
-                    actionData: { ...this.actionData }
-                }
-            }
-        });
+        const prayerPointsUsed = result.isSuccess
+            ? cost
+            : 1;
+        actor.spendPoints("prayer", prayerPointsUsed);
+        await sendChat(this.label, this.actionType, this.actionData, result);
         return result;
     }
 
     canPray(actor, prayerPoints) {
         return actor.system.prayerPoints.value >= prayerPoints;
     }
-
-    async usePrayer(actor, prayerPoints) {
-        const rollData = actor.getRollData();
-        const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: "prayer", defaultAbility: "intellect" });
-        const rollOptions = await dialog();
-        if (!rollOptions.rolled) return false;
-
-        const result = await actor.useSkill(rollOptions);
-        const cost = result.isSuccess
-            ? prayerPoints
-            : 1;
-        actor.spendPoints("prayer", cost);
-        return result;
-    }
 }
 
-// async function useAction(actor, action) {
-//     switch (action.type) {
-//         case "prayer":
-//             return await pray(actor, action);
-//         case "magic":
-//             return await cast(actor, action);
-//         case "ranged":
-//             return await rangedAttack(actor, action);
-//         case "melee":
-//             return await meleeAttack(actor, action);
-//         default:
-//             throw `Unknown action type: ${action.type}`;
-//     }
-// }
+const useAction = async (actor, skill, ability) => {
+    const rollData = actor.getRollData();
+    const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: skill, defaultAbility: ability });
+    const rollResult = await dialog();
+    if (!rollResult.rolled) return false;
 
-// async function pray(actor, action) {
-// }
+    const actionResult = await actor.useSkill(rollResult);
+    return actionResult;
+}
 
-// async function cast(actor, action) {
-// }
-
-// async function meleeAttack(actor, action) {
-// }
-
-// async function rangedAttack(actor, action) {
-// }
+const sendChat = async (label, actionType, actionData, result) => {
+    const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
+        {
+            label,
+            ...actionData,
+            ...result,
+            showRollResult: true,
+        });
+    await result.rollResult.toMessage({
+        flavor: flavor,
+        flags: {
+            rsk: {
+                actionType: actionType,
+                actionData: { ...actionData }
+            }
+        }
+    });
+}

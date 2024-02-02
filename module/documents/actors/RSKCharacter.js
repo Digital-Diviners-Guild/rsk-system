@@ -131,7 +131,8 @@ export default class RSKCharacter extends RSKActor {
         const existingItem = itemToAdd.system.isAmmo
             ? this.items.find(i => i.system.isAmmo && i.flags.core.sourceId === itemToAdd.flags.core.sourceId)
             : this.items.find(i =>
-                i.flags.core.sourceId === itemToAdd.flags.core.sourceId
+                i.flags.core
+                && i.flags.core.sourceId === itemToAdd.flags.core.sourceId
                 && i.system.isStackable
                 && i.system.quantity + quantity <= 3);
         if (existingItem) {
@@ -147,7 +148,7 @@ export default class RSKCharacter extends RSKActor {
     }
 
     removeItem(itemToRemove, quantity = 1) {
-        const existingItem = this.items.find(i => i.flags.core.sourceId === itemToRemove.flags.core.sourceId);
+        const existingItem = this.items.find(i => i.flags.core && i.flags.core.sourceId === itemToRemove.flags.core.sourceId);
         if (existingItem) {
             const newQuantity = existingItem.system.quantity - quantity;
             if (newQuantity < 1) {
