@@ -4,6 +4,7 @@ import RSKEquippableType from "./RSKEquippableType.js";
 export default class RSKEquipment extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
+            usageType: new fields.StringField({ initial: "melee" }), // how do we want to id things like bow/melee/staff/etc.
             description: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
             uses: new fields.StringField(),

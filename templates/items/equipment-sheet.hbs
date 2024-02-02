@@ -10,6 +10,10 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
+                <strong>{{localize "RSK.UsageType"}}:</strong>
+                {{system.usageType}}
+            </div>
+            <div>
                 <strong>{{localize "RSK.ActiveSlot"}}:</strong>
                 {{activeSlot}}
             </div>
@@ -51,7 +55,8 @@
 
             <label>{{localize "RSK.Uses"}}:</label>
             <input type="text" name="system.uses" value="{{system.uses}}">
-
+            <label>{{localize "RSK.UsageType"}}:</label>
+            <input type="text" name="system.usageType" value="{{system.usageType}}">
             <div>
                 <label>{{localize "RSK.Effect"}}</label>
                 <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
