@@ -99,6 +99,57 @@ export class RSKPrayAction {
     }
 }
 
+export class RSKRangedAction {
+    static create(id, label, actionData) {
+        return new this(id, label, actionData);
+    }
+
+    constructor(id, label, actionData) {
+        this.id = id;
+        this.label = label;
+        this.actionData = actionData;
+        this.actionType = "ranged";
+    }
+
+    async use(actor) {
+        //todo: based on actionData pick strength or agility (ie normal ranged is str, martial is agil.  same for melee attack)
+        const result = await useAction(actor, "ranged", "strength");
+        if (!result) return;
+        //todo: reduce ammo
+        await sendChat(this.label, this.actionType, this.actionData, result);
+        return result;
+    }
+
+    canShootOrThrow(actor) {
+        if (this.actionData.usageCost.length < 1) return true;
+        //todo: need to look for arrows if its a bow (but which arrows if we have several types?)
+        //todo: need to look for bolts if its a crossbow (but which arrows if we have several types?)
+        //todo: handle darts
+        return true;
+    }
+}
+
+export class RSKMeleeAction {
+    static create(id, label, actionData) {
+        return new this(id, label, actionData);
+    }
+
+    constructor(id, label, actionData) {
+        this.id = id;
+        this.label = label;
+        this.actionData = actionData;
+        this.actionType = "melee";
+    }
+
+    async use(actor) {
+        //todo: based on actionData pick strength or agility (ie normal ranged is str, martial is agil.  same for ranged attack)
+        const result = await useAction(actor, "attack", "strength");
+        if (!result) return;
+        await sendChat(this.label, this.actionType, this.actionData, result);
+        return result;
+    }
+}
+
 const useAction = async (actor, skill, ability) => {
     const rollData = actor.getRollData();
     const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: skill, defaultAbility: ability });
