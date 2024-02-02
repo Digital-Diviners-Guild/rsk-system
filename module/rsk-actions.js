@@ -99,6 +99,13 @@ export class RSKPrayAction {
     }
 }
 
+/*
+probably need to start splitting 'equipment' out into
+rangedWeapon - the current model has no way to indicate we need to spend some arrows/bolts on usage
+meleeWeapon - two handed? one handed?
+and equipment? - this is misc stuff like fishing rod, woodcutting axe, pickaxe, etc.. 
+*/
+
 export class RSKRangedAction {
     static create(id, label, actionData) {
         return new this(id, label, actionData);
@@ -123,7 +130,7 @@ export class RSKRangedAction {
     canShootOrThrow(actor) {
         if (this.actionData.usageCost.length < 1) return true;
         //todo: need to look for arrows if its a bow (but which arrows if we have several types?)
-        //todo: need to look for bolts if its a crossbow (but which arrows if we have several types?)
+        //todo: need to look for bolts if its a crossbow (but which bolts if we have several types?)
         //todo: handle darts
         return true;
     }
