@@ -119,20 +119,30 @@ export class RSKRangedAction {
     }
 
     async use(actor) {
+        const ammoSelection = this.selectAmmo(actor);
+        if (ammoSelection.quantity < 1) return;
         //todo: based on actionData pick strength or agility (ie normal ranged is str, martial is agil.  same for melee attack)
         const result = await useAction(actor, "ranged", "strength");
         if (!result) return;
-        //todo: reduce ammo
+
+        actor.removeItem(ammoSelection);
         await sendChat(this.label, this.actionType, this.actionData, result);
         return result;
     }
 
-    canShootOrThrow(actor) {
-        if (this.actionData.usageCost.length < 1) return true;
-        //todo: need to look for arrows if its a bow (but which arrows if we have several types?)
-        //todo: need to look for bolts if its a crossbow (but which bolts if we have several types?)
-        //todo: handle darts
-        return true;
+    selectAmmo(actor) {
+        // todo: if action is not a throw, dialog for ammo selection.
+        if (this.actionData.category === "bow") {
+            return actor.items.find(x =>
+                x.type === "ammunition"
+                && x.system.type === "arrow");
+        } else if (this.actionData.category === "crossbow") {
+            return actor.items.find(x =>
+                x.type === "ammunition"
+                && x.system.type === "bolt");
+        } else {
+            return actor.items.find(x => x.system.equipped?.isEquipped && x.system.isAmmo);
+        }
     }
 }
 

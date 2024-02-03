@@ -68,7 +68,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const meleeWeapons = equipped.filter(e =>
             isWeapon(e) && e.system.usageType === "melee");
         const rangedWeapons = equipped.filter(e =>
-            isWeapon(e) && e.system.usageType === "ranged");
+            isWeapon(e) && e.system.type === "dart" || e.system.usageType === "ranged");
 
         this.meleeAttacks = meleeWeapons.reduce((ws, w) => this._mapToActionDictionary(RSKMeleeAction, ws, w), {});
         context.meleeAttacks = this.meleeAttacks;
