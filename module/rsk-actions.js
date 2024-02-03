@@ -146,6 +146,14 @@ export class RSKRangedAction {
     }
 }
 
+// I think it would be better if we look at the actor using the action when executed
+// so rather than a command pattern, maybe more of a macro?
+// ie, when we melee, grab the current equipped item or make unarmed attack.
+// I think actions such as ranged/cast/pray/summon/melee could all work this way
+// and be a bit more consistent.  
+// ultimately the difference in actions is what skills to roll.
+// and then what follows the success. but using the action, and determining the outcome is very similar
+// damage/effects etc come from somwhere (prayer, spell, weapon (and ammo when ranged attack), )
 export class RSKMeleeAction {
     static create(id, label, actionData) {
         return new this(id, label, actionData);
