@@ -25,7 +25,7 @@
             "summoning",
             "rune",
             "ammunition",
-            "actionCollection",
+            "codex",
             "itemCollection"
         ],
         "material": {},
@@ -42,7 +42,7 @@
         "summoning": {},
         "rune": {},
         "ammunition": {},
-        "actionCollection": {},
+        "codex": {},
         "itemCollection": {}
     }
 }

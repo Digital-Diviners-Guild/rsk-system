@@ -136,7 +136,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     async handleChatItem(itemType, itemId) {
         const action = this._getAction(itemType, itemId);
         if (action) {
-            await chatItem(action);
+            await chatItem({ name: action.label, system: action.actionData });
         } else {
             await super.handleChatItem(itemType, itemId);
         }

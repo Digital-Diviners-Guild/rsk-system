@@ -1,6 +1,6 @@
 import RSKItemSheet from "./RSKItemSheet.js";
 
-export default class RSKActionCollectionSheet extends RSKItemSheet {
+export default class RSKCodexSheet extends RSKItemSheet {
 
     activateListeners(html) {
         super.activateListeners(html);

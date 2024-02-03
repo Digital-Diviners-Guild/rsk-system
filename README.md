@@ -5,6 +5,7 @@ A FoundryVTT system for playing [RuneScape Kingdoms](https://steamforged.com/pag
 
 ### Roadmap
 * Improved UI/UX
+* Character Creator
 * Automation
     * Combat Action automation
         * range, dots, qualities and effects, margin bonuses, and more
@@ -21,23 +22,23 @@ A FoundryVTT system for playing [RuneScape Kingdoms](https://steamforged.com/pag
 In this pre-release state, a lot of game play mechanics will need to be manually tracked.    
 Though there are a few things that have automation already:
 - Applying backgrounds during character creation
+- Calculating max life, prayer, and summoning points
 - Rolling various skill checks
-- Spending runes when casting spells
-- Spending prayer/summoning points when praying/summoning
-- Applying damage
+- Resting
+- Improving your Character (leveling)
+- Spending 'Ammo' when an action requires it (prayer/summoning points, runes, arrows/bolts/darts)
+- Applying damage (partial automation)
     - Death status will automatically be applied
     - Base Armour Soak will be calculated and subtracted from Damage to take
         - no margin bonus, qualities, damage/attack type automation yet
-- Resting
-- Improving your Character (leveling)
 - Death/Resurrection
 
 #### Tips for creating your content
 - Spells, Familiars, and Prayers need to be given to each character
-    - to help with this you can create an 'actionCollection' item for each group
-    - ie: a "Spell Book" action collection that contains all Spell Items each character should have
+    - to help with this you can create a 'codex' item for each group
+    - ie: a "Spell Book" codex that contains all Spell Items each character should have
       - first, create the spell items in your world
-      - next, create an action collection named "Standard Spell Book"
+      - next, create an codex named "Standard Spell Book"
       - then, drag and drop the spells into the "Standard Spell Book" sheet.
       - lastly, drag and drop the "Standard Spell Book" item onto the character sheets and it will import all the Spell items into the character's sheet
       - repeat for prayers, and familiars

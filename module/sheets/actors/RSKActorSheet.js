@@ -15,7 +15,7 @@ export default class RSKActorSheet extends ActorSheet {
         return `systems/rsk/templates/actors/${this.actor.type}-sheet.hbs`;
     }
 
-    actionCollections;
+    codexs;
 
     getData() {
         const context = super.getData();
@@ -26,7 +26,7 @@ export default class RSKActorSheet extends ActorSheet {
         context.publicRoll = CONST.DICE_ROLL_MODES.PUBLIC;
         context.privateRoll = CONST.DICE_ROLL_MODES.PRIVATE;
         this._prepareItems(context);
-        this._prepareAppliedActionCollection(context);
+        this._prepareCodex(context);
         return context;
     }
 
@@ -110,10 +110,10 @@ export default class RSKActorSheet extends ActorSheet {
             }
         });
 
-        html.find('.remove-action-collection').click(async ev => {
+        html.find('.remove-codex').click(async ev => {
             const s = $(ev.currentTarget);
             const itemId = s.data("itemId");
-            await this.handleRemoveActionCollection(itemId);
+            await this.handleRemoveCodex(itemId);
         });
     }
 
@@ -137,19 +137,19 @@ export default class RSKActorSheet extends ActorSheet {
         context.backgrounds = backgrounds;
     }
 
-    _prepareAppliedActionCollection(context) {
+    _prepareCodex(context) {
         //todo: can probably be refactored
-        const actionCollectionIds = this.actor.flags?.rsk?.actionCollectionIds ?? [];
-        this.actionCollections = actionCollectionIds
+        const codexIds = this.actor.flags?.rsk?.codexIds ?? [];
+        this.codexs = codexIds
             .map(i => Item.get(i))
             .filter(i => i)
             .reduce((acc, curr) => {
                 acc[curr._id] = curr;
                 return acc;
             }, {});
-        context.actionCollections = Object.keys(this.actionCollections)
+        context.codexs = Object.keys(this.codexs)
             .map(id => {
-                return { _id: id, name: this.actionCollections[id].name }
+                return { _id: id, name: this.codexs[id].name }
             });
     }
 
@@ -185,8 +185,8 @@ export default class RSKActorSheet extends ActorSheet {
     }
 
 
-    handleRemoveActionCollection(collectionId) {
-        const collectionData = this.actionCollections[collectionId];
+    handleRemoveCodex(collectionId) {
+        const collectionData = this.codexs[collectionId];
         if (!collectionData) return;
 
         collectionData.system.removeActions(this.actor);
@@ -194,7 +194,7 @@ export default class RSKActorSheet extends ActorSheet {
 
     async _onDropItem(event, data) {
         const item = await Item.fromDropData(data);
-        if (item.type === "actionCollection") {
+        if (item.type === "codex") {
             item.system.importActions(this.actor);
         } else if (item.type === "itemCollection") {
             item.system.import(this.actor);

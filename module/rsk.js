@@ -34,8 +34,8 @@ import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 import RSKCapeType from "./data/items/RSKCapeType.js";
 import RSKActionSheet from "./sheets/items/RSKActionSheet.js";
-import RSKActionCollection from "./data/items/RSKActionCollectionType.js";
-import RSKActionCollectionSheet from "./sheets/items/RSKActionCollectionSheet.js";
+import RSKCodexType from "./data/items/RSKCodexType.js";
+import RSKCodexSheet from "./sheets/items/RSKCodexSheet.js";
 import RSKItemCollectionSheet from "./sheets/items/RSKItemCollectionSheet.js";
 import RSKRuneSheet from "./sheets/items/RSKRuneSheet.js";
 import RSKEquipmentSheet from "./sheets/items/RSKEquipmentSheet.js";
@@ -91,13 +91,13 @@ Hooks.once("init", function () {
         prayer: RSKPrayer,
         summoning: RSKSummoning,
         rune: RSKRuneType,
-        actionCollection: RSKActionCollection,
+        codex: RSKCodexType,
         itemCollection: RSKItemCollection
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
     Items.registerSheet("rsk", RSKActionSheet, { types: ["action", "spell", "prayer", "summoning"], makeDefault: true });
-    Items.registerSheet("rsk", RSKActionCollectionSheet, { types: ["actionCollection"], makeDefault: true });
+    Items.registerSheet("rsk", RSKCodexSheet, { types: ["codex"], makeDefault: true });
     Items.registerSheet("rsk", RSKItemCollectionSheet, { types: ["itemCollection"], makeDefault: true });
     Items.registerSheet("rsk", RSKRuneSheet, { types: ["rune"], makeDefault: true });
     Items.registerSheet("rsk", RSKEquipmentSheet, { types: ["equipment", "armour"], makeDefault: true });
@@ -139,14 +139,15 @@ Hooks.once("ready", async function () {
 
     await ChatMessage.create({
         content: `
-    <h3>Welcome to RSK!</h3>
-    <p>
-    This system is <em>very early</em> in development. This means there are likely bugs, and missing features.
-    Additionally, we have not yet hit a stable version. This means that each update may break things, 
-    or be incompatible with the previous version. We apologize for the inconvenience.
-    </p>
-    <p>
-    Please submit feedback, bugs, and feature requests <a href=https://github.com/qmarsala/rsk-system/issues target="_blank">here.</a>
-    </p>
+        <h3>Welcome to RSK!</h3>
+        <p>
+        Thank you for exploring the RSK system. We're currently in the <strong>early stages of development</strong>, which is an exciting time filled with rapid changes and updates. As we work towards a stable release, you might encounter bugs and notice features that are still under construction.
+        </p>
+        <p>
+        Due to the nature of our development process, updates may occasionally disrupt compatibility with earlier versions. While we strive to minimize these occurrences, some disruptions are inevitable. We appreciate your understanding and patience during this phase.
+        </p>
+        <p>
+        Your input is invaluable to us. For feedback, bug reports, or feature suggestions, please contribute through our <a href="https://github.com/qmarsala/rsk-system/issues" target="_blank">GitHub issues page</a>. Your insights will help us improve and refine RSK.
+        </p>
     ` });
 });

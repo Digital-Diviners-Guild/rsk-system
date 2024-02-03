@@ -92,11 +92,11 @@
 
                     {{!-- todo: probably should be a 'part' --}}
                     <strong>Action Collections</strong>
-                    {{#each actionCollections as |collection|}}
+                    {{#each codexs as |codex|}}
                     <div class="form-group">
-                        {{collection.name}}
-                        <a data-item-id="{{collection._id}}" class="item-control remove-action-collection"
-                            title="Remove Collection">{{localize "RSK.RemoveItem"}}</a>
+                        {{codex.name}}
+                        <a data-item-id="{{codex._id}}" class="item-control remove-codex"
+                            title="Remove Codex">{{localize "RSK.RemoveItem"}}</a>
                     </div>
                     {{/each}}
                 </div>
