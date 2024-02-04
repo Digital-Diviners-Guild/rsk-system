@@ -29,9 +29,12 @@ Though there are a few things that have automation already:
 - Spending 'Ammo' when an action requires it (prayer/summoning points, runes, arrows/bolts/darts)
 - Applying damage (partial automation)
     - Death status will automatically be applied
-    - Base Armour Soak will be calculated and subtracted from Damage to take
-        - no margin bonus, qualities, damage/attack type automation yet
+    - Armour Soak, Attack and Damage Type specific strength/weaknesses will be taken into account when calculating damage taken
+    - Button in chat for easy access to damage application from an action
+    - No qualities or effects have automation yet
 - Death/Resurrection
+    - remove statuses 
+    - restore health/prayer/summoning points
 
 #### Tips for creating your content
 - Spells, Familiars, and Prayers need to be given to each character
