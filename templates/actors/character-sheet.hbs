@@ -274,9 +274,9 @@
           <div>
             <label>{{localize "RSK.Prayers"}}</label>
             {{#each prayers as |prayer|}}
-            <li class="item flexrow" data-item-id="{{prayer.id}}">
+            <li class="item flexrow" data-item-id="{{prayer._id}}">
               <div class="item-name">
-                <strong>{{prayer.label}}</strong>
+                <strong>{{prayer.name}}</strong>
               </div>
               <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
             </li>
@@ -286,9 +286,9 @@
           <div>
             <label>{{localize "RSK.Familiars"}}</label>
             {{#each familiars as |familiar|}}
-            <li class="item flexrow" data-item-id="{{familiar.id}}">
+            <li class="item flexrow" data-item-id="{{familiar._id}}">
               <div class="item-name">
-                <strong>{{familiar.label}}</strong>
+                <strong>{{familiar.name}}</strong>
               </div>
               <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
             </li>
