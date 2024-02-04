@@ -36,7 +36,7 @@ export const rangedAttackAction = async (actor) => {
             if (ammos.length > 1) {
                 const ammoSelectionDialog = RSKItemSelectionDialog.create({ items: ammos });
                 const selectResult = await ammoSelectionDialog();
-                if (!selectResult) return false;
+                if (!(selectResult && selectResult.confirmed)) return false;
 
                 return actor.items.find(x => x._id === selectResult.id);
             } else {
@@ -93,7 +93,7 @@ export const castAction = async (actor, castType) => {
 
     const selectCastable = RSKItemSelectionDialog.create({ items: castables });
     const selectCastableResult = await selectCastable();
-    if (!selectCastableResult) return false;
+    if (!(selectCastableResult && selectCastableResult.confirmed)) return false;
 
     const castable = actor.items.find(x => x._id === selectCastableResult.id);
     const result = await useAction(actor, castType, "intellect");
