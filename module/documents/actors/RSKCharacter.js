@@ -109,6 +109,14 @@ export default class RSKCharacter extends RSKActor {
             .map(b => b.applyBackgroundSkillImprovements(this))
     }
 
+    handleUsageCost(type, amount) {
+        if (type === "rune") {
+            return this.spendRunes(type, amount);
+        } else {
+            return this.spendPoints(type, amount);
+        }
+    }
+
     spendRunes(type, amount) {
         const rune = this.items.find(i => i.type === "rune" && i.system.type === type);
         const newAmount = rune.system.quantity - amount;
@@ -121,9 +129,9 @@ export default class RSKCharacter extends RSKActor {
     }
 
     spendPoints(type, amount) {
-        const points = this.system[`${type}Points`];
+        const points = this.system[type];
         const newAmount = game.rsk.math.clamp_value(points.value - amount, points);
-        this.update({ [`system.${type}Points.value`]: newAmount });
+        this.update({ [`system.${type}.value`]: newAmount });
     }
 
     addItem(itemToAdd, quantity = 1) {

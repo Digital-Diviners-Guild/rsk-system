@@ -1,7 +1,7 @@
-export default class RSKSpellSelectionDialog extends Application {
+export default class RSKCastableSelectionDialog extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: 'systems/rsk/templates/applications/spell-selection-dialog.hbs',
+            template: 'systems/rsk/templates/applications/castable-selection-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
             height: 250
@@ -10,7 +10,7 @@ export default class RSKSpellSelectionDialog extends Application {
 
     static create = (context, options) =>
         () => new Promise((resolve) => {
-            const dialog = new RSKSpellSelectionDialog(resolve, context, options);
+            const dialog = new RSKCastableSelectionDialog(resolve, context, options);
             dialog.render(true);
         });
 
@@ -27,7 +27,7 @@ export default class RSKSpellSelectionDialog extends Application {
 
     async getData() {
         const data = super.getData();
-        data.spells = this.context.spells;
+        data.castables = this.context.castables;
         return data;
     }
 
@@ -37,10 +37,10 @@ export default class RSKSpellSelectionDialog extends Application {
     }
 
     async _onConfirm(event) {
-        const selectedSpell = $('.spell-dropdown').val();
+        const id = $('.castable-dropdown').val();
         this.resolve({
             confirmed: true,
-            selectedSpell,
+            id
         });
         this.isResolved = true;
         this.close();

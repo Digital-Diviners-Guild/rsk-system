@@ -91,25 +91,24 @@
         </div>
 
         <div class="tab features" data-group="primary" data-tab="prayer">
+          <a class="item-control use-action" data-action-type="prayer" title="Pray">{{localize "RSK.PrayAction"}}</a>
           <ol class="items-list">
             {{#each prayers as |prayer|}}
             <li class="item flexrow">
               <div class="item-name">
-                <strong>{{prayer.label}}</strong>
+                <strong>{{prayer.name}}</strong>
               </div>
-              <div class="item-content">{{prayer.usageCostLabel}}</div>
-              <div class="item-content">{{prayer.effectDescription}}</div>
-              <a class="item-control chat-item" data-item-type="prayer" data-item-id="{{prayer.id}}"
+              <div class="item-content">{{prayer.system.usageCostLabel}}</div>
+              <div class="item-content">{{prayer.system.effectDescription}}</div>
+              <a class="item-control chat-item" data-item-type="prayer" data-item-id="{{prayer._id}}"
                 title="Chat Item">{{localize "RSK.ChatItem"}}</a>
-              <a class="item-control use-action" data-action-type="prayer" data-action-id="{{prayer.id}}"
-                title="Use Item">{{localize "RSK.UseAction"}}</a>
             </li>
             {{/each}}
           </ol>
         </div>
 
         <div class="tab features" data-group="primary" data-tab="magic">
-          <a class="item-control use-action" data-action-type="spell" title="Cast Spell">{{localize
+          <a class="item-control use-action" data-action-type="magic" title="Cast Spell">{{localize
             "RSK.CastAction"}}</a>
           <ol class="items-list">
             {{#each spells as |spell|}}

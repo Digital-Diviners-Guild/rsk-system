@@ -1,5 +1,5 @@
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
-import RSKSpellSelectionDialog from "./applications/RSKSpellSelectionDialog.js";
+import RSKCastableSelectionDialog from "./applications/RSKCastableSelectionDialog.js";
 
 
 export const meleeAttackAction = (actor) => {
@@ -10,32 +10,37 @@ export const rangedAttackAction = (actor) => {
 
 }
 // todo: explore if this could be a macro handler we drag and drop onto the hotbar
-export const castSpellAction = async (actor) => {
+export const castAction = async (actor, castType) => {
     const canCast = (usageCost) => {
         if (usageCost.length < 1) return true;
         for (const cost of usageCost) {
-            const runes = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
-            if (!runes || runes.system.quantity < cost.amount) return false;
+            if (castType === "magic") {
+                const ammo = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
+                if (!ammo || ammo.system.quantity < cost.amount) return false;
+            } else {
+                const points = actor.system[cost.type];
+                if (!points || points.value < cost.amount) return false;
+            }
         }
         return true;
     }
-    const castableSpells = actor.items
-        .filter(i => i.type === "spell")
+    const castables = actor.items
+        .filter(i => i.type === castType)
         .filter(s => canCast(s.system.usageCost));
-    if (castableSpells.length < 1) return false;
+    if (castables.length < 1) return false;
 
-    const selectSpellDialog = RSKSpellSelectionDialog.create({ spells: castableSpells });
-    const selectSpellResult = await selectSpellDialog();
-    if (!selectSpellResult) return false;
+    const selectCastable = RSKCastableSelectionDialog.create({ castables });
+    const selectCastableResult = await selectCastable();
+    if (!selectCastableResult) return false;
 
-    const spell = actor.items.find(x => x._id === selectSpellResult.selectedSpell);
-    const result = await useAction(actor, "magic", "intellect");
+    const castable = actor.items.find(x => x._id === selectCastableResult.id);
+    const result = await useAction(actor, castType, "intellect");
     if (!result) return false;
 
-    for (const cost of spell.system.usageCost) {
-        actor.spendRunes(cost.type, cost.amount);
+    for (const cost of castable.system.usageCost) {
+        actor.handleUsageCost(cost.type, cost.amount);
     }
-    await sendChat(spell.name, "magic", spell.system, result);
+    await sendChat(castable.name, castType, castable.system, result);
     return result;
 }
 

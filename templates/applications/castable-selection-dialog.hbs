@@ -1,7 +1,7 @@
 <div class="dialog-content">
-    <select class="spell-dropdown">
-        {{#each spells as |spell|}}
-        <option value="{{spell._id}}">{{spell.name}}</option>
+    <select class="castable-dropdown">
+        {{#each castables as |castable|}}
+        <option value="{{castable._id}}">{{castable.name}}</option>
         {{/each}}
     </select>
 </div>

@@ -3,7 +3,7 @@ import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject } from "../../rsk-localize.js";
-import { RSKMeleeAction, RSKPrayAction, RSKRangedAction, RSKSummonFamiliarAction, castSpellAction } from "../../rsk-actions.js";
+import { RSKMeleeAction, RSKRangedAction, RSKSummonFamiliarAction, castAction } from "../../rsk-actions.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     //todo: actions list instead?
@@ -44,8 +44,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _preparePrayers(context) {
-        this.prayers = this.actor.items.filter(i => i.type === "prayer")
-            .reduce((ps, p) => this._mapToActionDictionary(RSKPrayAction, ps, p), {});
+        this.prayers = this.actor.items.filter(i => i.type === "prayer");
         context.prayers = this.prayers;
     }
 
@@ -89,8 +88,9 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         html.find('.use-action').click(async ev => {
             const s = $(ev.currentTarget);
             const actionType = s.data("actionType");
-            if (actionType === "spell") {//start migrating spells out of the action dictionary
-                await castSpellAction(this.actor);
+            if (["magic", "prayer"].includes(actionType)) {//start migrating spells and prayer out of the action dictionary
+                debugger;
+                await castAction(this.actor, actionType);
             } else {
                 const actionId = s.data("actionId");
                 await this._getAction(actionType, actionId).use(this.actor)
@@ -192,8 +192,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _getAction(type, id) {
         switch (type) {
-            case "prayer":
-                return this.prayers[id];
             case "summoning":
                 return this.familiars[id];
             case "melee":
