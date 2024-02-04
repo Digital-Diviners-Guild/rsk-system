@@ -1,8 +1,11 @@
-import { localizeObject } from "../rsk-localize.js";
+import { localizeObject, localizeText } from "../rsk-localize.js";
 
 export default class RSKConfirmRollDialog extends Application {
+    static isActive;
+
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
+            title: localizeText("RSK.ConfirmRoll"),
             template: 'systems/rsk/templates/applications/roll-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
@@ -12,6 +15,8 @@ export default class RSKConfirmRollDialog extends Application {
 
     static create = (context, options) =>
         () => new Promise((resolve) => {
+            if (RSKConfirmRollDialog.isActive) return;
+            RSKConfirmRollDialog.isActive = true;
             const dialog = new RSKConfirmRollDialog(resolve, context, options);
             dialog.render(true);
         });
@@ -50,6 +55,7 @@ export default class RSKConfirmRollDialog extends Application {
 
     async close(options) {
         if (!this.isResolved) this.resolve({ rolled: false });
+        RSKConfirmRollDialog.isActive = false;
         super.close(options);
     }
 

@@ -1,6 +1,11 @@
+import { localizeText } from "../rsk-localize.js";
+
 export default class RSKItemSelectionDialog extends Application {
+    static isActive;
+
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
+            title: localizeText("RSK.ItemSelection"), //todo: could this title be more dynamic to match the item type?
             template: 'systems/rsk/templates/applications/item-selection-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
@@ -10,6 +15,8 @@ export default class RSKItemSelectionDialog extends Application {
 
     static create = (context, options) =>
         () => new Promise((resolve) => {
+            if (RSKItemSelectionDialog.isActive) return;
+            RSKItemSelectionDialog.isActive = true;
             const dialog = new RSKItemSelectionDialog(resolve, context, options);
             dialog.render(true);
         });
@@ -22,6 +29,7 @@ export default class RSKItemSelectionDialog extends Application {
 
     async close(options) {
         if (!this.isResolved) this.resolve({ confirmed: false });
+        RSKItemSelectionDialog.isActive = false;
         super.close(options);
     }
 

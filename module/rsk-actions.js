@@ -1,11 +1,14 @@
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
+
 /*
-probably need to start splitting 'equipment' out into
-rangedWeapon - the current model has no way to indicate we need to spend some arrows/bolts on usage
-meleeWeapon - two handed? one handed?
-and equipment? - this is misc stuff like fishing rod, woodcutting axe, pickaxe, etc.. 
+equipment model needs rework, and maybe needs to be split into ranged weapons/melee weapons
+tools and such that can be used as melee weapons would be modeled as melee weapons,
+then darts could be a ranged weapon instead of an ammo hack? though we still would need to 
+handle stacking? which needs a rework anyways (all of inventory/item collects needs one)
 */
+
+// TODO: new action functions need refactoring.
 
 export const meleeAttackAction = async (actor) => {
     //todo: better way to select equipped weapon from actor from within actor

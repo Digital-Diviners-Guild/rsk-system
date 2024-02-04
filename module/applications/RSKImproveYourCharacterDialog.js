@@ -1,6 +1,11 @@
+import { localizeText } from "../rsk-localize.js";
+
 export default class RSKImproveYourCharacter extends Application {
+    static isActive;
+
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
+            title: localizeText("RSK.ImproveYourCharacter"),
             template: 'systems/rsk/templates/applications/improve-your-character-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
@@ -10,6 +15,8 @@ export default class RSKImproveYourCharacter extends Application {
 
     static create = (context, options) =>
         () => new Promise((resolve) => {
+            if (RSKImproveYourCharacter.isActive) return;
+            RSKImproveYourCharacter.isActive = true;
             const dialog = new RSKImproveYourCharacter(resolve, context, options);
             dialog.render(true);
         });
@@ -26,6 +33,7 @@ export default class RSKImproveYourCharacter extends Application {
 
     async close(options) {
         if (!this.isResolved) this.resolve({ confirmed: false });
+        RSKImproveYourCharacter.isActive = false;
         super.close(options);
     }
 

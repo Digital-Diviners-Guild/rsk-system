@@ -1,6 +1,11 @@
+import { localizeText } from "../rsk-localize.js";
+
 export default class RSKApplyDamageDialog extends Application {
+    static isActive;
+
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
+            title: localizeText("RSK.ApplyDamage"),
             template: 'systems/rsk/templates/applications/apply-damage-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
@@ -10,6 +15,8 @@ export default class RSKApplyDamageDialog extends Application {
 
     static create = (context, options) =>
         () => new Promise((resolve) => {
+            if (RSKApplyDamageDialog.isActive) return;
+            RSKApplyDamageDialog.isActive = true;
             const dialog = new RSKApplyDamageDialog(resolve, context, options);
             dialog.render(true);
         });
@@ -34,6 +41,7 @@ export default class RSKApplyDamageDialog extends Application {
 
     async close(options) {
         if (!this.isResolved) this.resolve({ confirmed: false, damage: 0 });
+        RSKApplyDamageDialog.isActive = false;
         super.close(options);
     }
 
