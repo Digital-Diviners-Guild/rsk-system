@@ -22,7 +22,7 @@ export function onRenderChatMessage(app, html, data) {
             const target = getTarget(currentCharacter);
             const message = data.message;
             if (target && message?.flags?.rsk?.actionType) {
-                const dialog = RSKApplyDamageDialog.create({ ...message.flags.rsk });
+                const dialog = RSKApplyDamageDialog.create(foundry.utils.deepClone(message.flags.rsk));
                 const result = await dialog();
                 if (!(result && result.confirmed)) return;
                 target.receiveDamage({ ...result });
