@@ -1,6 +1,5 @@
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKActorSheet from "./RSKActorSheet.js";
-import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject } from "../../rsk-localize.js";
 import { castAction, meleeAttackAction, rangedAttackAction } from "../../rsk-actions.js";
@@ -60,18 +59,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 const dialogOptions = type === "skill" ? { defaultSkill: value } : { defaultAbility: value };
                 await this.handleSkillCheck(dialogOptions);
             });
-        html.find('.use-action').click(async ev => {
-            const s = $(ev.currentTarget);
-            const actionType = s.data("actionType");
-            //todo: move this logic into rsk-actions?
-            if (["magic", "prayer", "summoning"].includes(actionType)) {
-                await castAction(this.actor, actionType);
-            } else if (actionType === "melee") {
-                await meleeAttackAction(this.actor);
-            } else {
-                await rangedAttackAction(this.actor)
-            }
-        });
 
         html.find('.increase-item-quantity').click(async ev => {
             const s = $(ev.currentTarget);
@@ -137,6 +124,26 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const abilityResult = await abilityDialog();
         if (!(abilityResult.confirmed || abilityResult.selectedAbility)) return;
         this.actor.increaseAbilityLevel(abilityResult.selectedAbility);
+    }
+
+    async characterMeleeAttack() {
+        await meleeAttackAction(this.actor);
+    }
+
+    async characterRangedAttack() {
+        await rangedAttackAction(this.actor)
+    }
+
+    async characterCastSpell() {
+        await castAction(this.actor, "magic");
+    }
+
+    async characterCastPrayer() {
+        await castAction(this.actor, "prayer");
+    }
+
+    async characterCastSummons() {
+        await castAction(this.actor, "summoning");
     }
 
     //inventory rules poc

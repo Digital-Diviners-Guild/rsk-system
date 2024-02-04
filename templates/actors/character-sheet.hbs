@@ -4,10 +4,25 @@
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
       <div class="rsk stats-abilities">
         <div class="actor-toolbar">
+          {{!-- todo: localize --}}
           <div class="actor-application" application-method="characterRest" effect-label="Rest" glow-color="green"><i
               class="fas fa-bed"></i></div>
           <div class="actor-application" application-method="characterDamage" effect-label="Take Damage"
-            glow-color="red"><i class="fas fa-sword"></i></div>
+            glow-color="red"><i class="fas fa-heart"></i></div>
+          <div class="actor-application" application-method="characterMeleeAttack" effect-label="Melee Attack"
+            glow-color="orange"><i class="fas fa-sword"></i></div>
+          <div class="actor-application" application-method="characterRangedAttack" effect-label="Ranged Attack"
+            glow-color="brown"><i class="fas fa-bow-arrow"></i></div>
+          <div class="actor-application" application-method="characterCastSpell" effect-label="Cast Spell"
+            glow-color="blue"><i class="fas fa-wand-sparkles"></i></div>
+          <div class="actor-application" application-method="characterCastPrayer" effect-label="Pray"
+            glow-color="white">
+            <i class="fas fa-hands-praying"></i>
+          </div>
+          <div class="actor-application" application-method="characterCastSummons" effect-label="Summon Familiar"
+            glow-color="yellow">
+            <i class="fas fa-paw-claws"></i>
+          </div>
         </div>
         <div class="rsk stats-abilities-container">
           <div class="rsk stats">
@@ -62,25 +77,25 @@
         <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
       </header>
       <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="skills" data-tooltip={{localize "RSK.Skills"}}>
+        <a class="item" data-tab="skills" data-tooltip={{localize "RSK.Skills" }}>
           <i class="fas fa-location-crosshairs"></i>
         </a>
-        <a class="item" data-tab="inventory" data-tooltip={{localize "RSK.Inventory"}}>
+        <a class="item" data-tab="inventory" data-tooltip={{localize "RSK.Inventory" }}>
           <i class="fas fa-sack"></i>
         </a>
-        <a class="item" data-tab="magic" data-tooltip={{localize "RSK.SpellBook"}}>
-          <i class="fas fa-wand-magic-sparkles"></i>
+        <a class="item" data-tab="magic" data-tooltip={{localize "RSK.SpellBook" }}>
+          <i class="fas fa-hat-wizard"></i>
         </a>
-        <a class="item" data-tab="prayer" data-tooltip={{localize "RSK.Prayers"}}>
-          <i class="fas fa-hands-praying"></i>
+        <a class="item" data-tab="prayer" data-tooltip={{localize "RSK.Prayers" }}>
+          <i class="fas fa-sparkles"></i>
         </a>
-        <a class="item" data-tab="summoning" data-tooltip={{localize "RSK.Familiars"}}>
+        <a class="item" data-tab="summoning" data-tooltip={{localize "RSK.Familiars" }}>
           <i class="fas fa-cloud-bolt-moon"></i>
         </a>
-        <a class="item" data-tab="description" data-tooltip={{localize "RSK.Details"}}>
+        <a class="item" data-tab="description" data-tooltip={{localize "RSK.Details" }}>
           <i class="fas fa-id-card"></i>
         </a>
-        <a class="item" data-tab="edit" data-tooltip={{localize "RSK.Edit"}}>
+        <a class="item" data-tab="edit" data-tooltip={{localize "RSK.Edit" }}>
           <i class="fas fa-pen-to-square"></i>
         </a>
       </nav>
@@ -109,7 +124,12 @@
         </div>
 
         <div class="tab features" data-group="primary" data-tab="prayer">
-          <a class="item-control use-action" data-action-type="prayer" title="Pray">{{localize "RSK.PrayAction"}}</a>
+          <div class="actor-toolbar">
+            <div class="actor-application" application-method="characterCastPrayer" effect-label="Pray"
+              glow-color="white">
+              <i class="fas fa-hands-praying"></i>
+            </div>
+          </div>
           <ol class="items-list">
             {{#each prayers as |prayer|}}
             <li class="item flexrow">
@@ -126,11 +146,13 @@
         </div>
 
         <div class="tab features" data-group="primary" data-tab="magic">
-          <a class="item-control use-action" data-action-type="magic" title="Cast Spell">{{localize
-            "RSK.CastAction"}}</a>
+          <div class="actor-toolbar">
+            <div class="actor-application" application-method="characterCastSpell" effect-label="Cast Spell"
+              glow-color="blue"><i class="fas fa-wand-sparkles"></i>
+            </div>
+          </div>
           <ol class="items-list">
             {{#each spells as |spell|}}
-            {{log spell}}
             <li class="item flexrow">
               <div class="item-name">
                 <strong>{{spell.name}}</strong>
@@ -149,8 +171,12 @@
         </div>
         {{!-- todo: probably time for a template to use for actions --}}
         <div class="tab features" data-group="primary" data-tab="summoning">
-          <a class="item-control use-action" data-action-type="summoning" data-action-id="{{familiar.id}}"
-            title="Summon">{{localize "RSK.SummonAction"}}</a>
+          <div class="actor-toolbar">
+            <div class="actor-application" application-method="characterCastSummons" effect-label="Summon Familiar"
+              glow-color="yellow">
+              <i class="fas fa-paw-claws"></i>
+            </div>
+          </div>
           <ol class="items-list">
             {{#each familiars as |familiar|}}
             <li class="item flexrow">
@@ -176,9 +202,17 @@
             <label>{{localize "RSK.Gold"}}</label>
             <input name="system.gold" type="number" data-dtype="Number" value="{{system.gold}}">
           </div>
-          {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
-          <strong>{{localize "RSK.ActiveSlots"}}</strong>
+          <div class="actor-toolbar">
+            {{#if equippedIsRanged}}
+            <div class="actor-application" application-method="characterRangedAttack" effect-label="Ranged Attack"
+              glow-color="brown"><i class="fas fa-bow-arrow"></i></div>
+            {{else}}
+            <div class="actor-application" application-method="characterMeleeAttack" effect-label="Melee Attack"
+              glow-color="orange"><i class="fas fa-sword"></i></div>
+            {{/if}}
+          </div>
           <div>
+            <strong>{{localize "RSK.ActiveSlots"}}</strong>
             <label>{{localize "RSK.Head"}}</label>
             <div>{{worn.head}}</div>
             <label>{{localize "RSK.Body"}}</label>
@@ -190,131 +224,125 @@
             <label>{{localize "RSK.Weapon"}}</label>
             <div>
               {{worn.weapon}}
-              {{!-- this probably should be here: need an action list (maybe use the side bar? for casting too) --}}
-              {{#if equippedIsRanged}}
-              <a class="use-action" data-action-type="ranged" title="Attack">{{localize
-                "RSK.RangedAttackAction"}}</a>
-              {{else}}
-              <a class="use-action" data-action-type="melee" title="Attack">{{localize
-                "RSK.AttackAction"}}</a>
-              {{/if}}
             </div>
             <label>{{localize "RSK.Cape"}}</label>
             <div>{{worn.cape}}</div>
           </div>
+          {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
         </div>
-
-        <div class="tab features" data-group="primary" data-tab="description">
-          <div class="form-group">
-            <label>{{localize "RSK.Catalyst"}}</label>
-            <div>{{system.catalyst}}</div>
-            <label>{{localize "RSK.Motivation"}}</label>
-            <div>{{system.motivation}}</div>
-          </div>
-          <div>
-            {{editor system.description target="system.description" editable=false engine="prosemirror"}}
-          </div>
-          <label>{{localize "RSK.Backgrounds"}}</label>
-          {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=backgrounds }}
-        </div>
-
-        <div class="tab features" data-group="primary" data-tab="edit">
-          <div>
-            <label>{{localize "RSK.Description"}}</label>
-            {{editor system.description target="system.description" button=true engine="prosemirror"}}
-          </div>
-          <div>
-            <label>{{localize "RSK.Catalyst"}}</label>
-            <input type="text" name="system.catalyst" value="{{system.catalyst}}">
-          </div>
-          <div>
-            <label>{{localize "RSK.Motivation"}}</label>
-            <input type="text" name="system.motivation" value="{{system.motivation}}">
-          </div>
-          <label>{{localize "RSK.Backgrounds"}}</label>
-          {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
-          items=backgrounds
-          addType="background"
-          addLabel="Add Background"}}
-          <button class="apply-backgrounds">{{localize "RSK.ApplyBackgrounds"}}</button>
-
-          <div class="form-group">
-            {{#each abilities as |ability|}}
-            <span data-type="ability" data-value="{{ability.index}}">
-              <strong>{{ability.label}}</strong>
-              <input name="system.abilities.{{ability.index}}.level" type="number" data-dtype="Number"
-                value="{{ability.value.level}}">
-            </span>
-            {{/each}}
-          </div>
-          <div class="rsk skill-container">
-            {{#each skills as |skill|}}
-            <div class="form-group">
-              <span data-type="skill" data-value="{{skill.index}}">
-                <strong>{{skill.label}}</strong>
-                <input name="system.skills.{{skill.index}}.level" type="number" data-dtype="Number"
-                  value="{{skill.value.level}}">
-              </span>
-            </div>
-            {{/each}}
-          </div>
-          <hr />
-
-          <strong>{{localize "RSK.Effects"}}</strong>
-          {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
-
-          {{!-- todo: probably should be a 'part' --}}
-          <strong>Action Collections</strong>
-          {{#each codexs as |codex|}}
-          <div class="form-group">
-            {{codex.name}}
-            <a data-item-id="{{codex._id}}" class="item-control remove-codex" title="Remove Codex">{{localize
-              "RSK.RemoveItem"}}</a>
-          </div>
-          {{/each}}
-
-          {{!-- todo: potentially can use the edit items part? --}}
-          {{!-- or maybe we need a new part specifically for managing actions? --}}
-          {{!-- though we probably do need a way to manage actions individually and in a collection --}}
-          {{!-- need to solve the inconsistency with _id and id --}}
-          <div>
-            <label>{{localize "RSK.Spells"}}</label>
-            {{#each spells as |spell|}}
-            <li class="item flexrow" data-item-id="{{spell._id}}">
-              <div class="item-name">
-                <strong>{{spell.name}}</strong>
-              </div>
-              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-            </li>
-            {{/each}}
-          </div>
-
-          <div>
-            <label>{{localize "RSK.Prayers"}}</label>
-            {{#each prayers as |prayer|}}
-            <li class="item flexrow" data-item-id="{{prayer._id}}">
-              <div class="item-name">
-                <strong>{{prayer.name}}</strong>
-              </div>
-              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-            </li>
-            {{/each}}
-          </div>
-
-          <div>
-            <label>{{localize "RSK.Familiars"}}</label>
-            {{#each familiars as |familiar|}}
-            <li class="item flexrow" data-item-id="{{familiar._id}}">
-              <div class="item-name">
-                <strong>{{familiar.name}}</strong>
-              </div>
-              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-            </li>
-            {{/each}}
-          </div>
-        </div>
-      </section>
-
     </div>
+
+    <div class="tab features" data-group="primary" data-tab="description">
+      <div class="form-group">
+        <label>{{localize "RSK.Catalyst"}}</label>
+        <div>{{system.catalyst}}</div>
+        <label>{{localize "RSK.Motivation"}}</label>
+        <div>{{system.motivation}}</div>
+      </div>
+      <div>
+        {{editor system.description target="system.description" editable=false engine="prosemirror"}}
+      </div>
+      <label>{{localize "RSK.Backgrounds"}}</label>
+      {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=backgrounds }}
+    </div>
+
+    <div class="tab features" data-group="primary" data-tab="edit">
+      <div>
+        <label>{{localize "RSK.Description"}}</label>
+        {{editor system.description target="system.description" button=true engine="prosemirror"}}
+      </div>
+      <div>
+        <label>{{localize "RSK.Catalyst"}}</label>
+        <input type="text" name="system.catalyst" value="{{system.catalyst}}">
+      </div>
+      <div>
+        <label>{{localize "RSK.Motivation"}}</label>
+        <input type="text" name="system.motivation" value="{{system.motivation}}">
+      </div>
+      <label>{{localize "RSK.Backgrounds"}}</label>
+      {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
+      items=backgrounds
+      addType="background"
+      addLabel="Add Background"}}
+      <button class="apply-backgrounds">{{localize "RSK.ApplyBackgrounds"}}</button>
+
+      <div class="form-group">
+        {{#each abilities as |ability|}}
+        <span data-type="ability" data-value="{{ability.index}}">
+          <strong>{{ability.label}}</strong>
+          <input name="system.abilities.{{ability.index}}.level" type="number" data-dtype="Number"
+            value="{{ability.value.level}}">
+        </span>
+        {{/each}}
+      </div>
+      <div class="rsk skill-container">
+        {{#each skills as |skill|}}
+        <div class="form-group">
+          <span data-type="skill" data-value="{{skill.index}}">
+            <strong>{{skill.label}}</strong>
+            <input name="system.skills.{{skill.index}}.level" type="number" data-dtype="Number"
+              value="{{skill.value.level}}">
+          </span>
+        </div>
+        {{/each}}
+      </div>
+      <hr />
+
+      <strong>{{localize "RSK.Effects"}}</strong>
+      {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+
+      {{!-- todo: probably should be a 'part' --}}
+      <strong>Action Collections</strong>
+      {{#each codexs as |codex|}}
+      <div class="form-group">
+        {{codex.name}}
+        <a data-item-id="{{codex._id}}" class="item-control remove-codex" title="Remove Codex">{{localize
+          "RSK.RemoveItem"}}</a>
+      </div>
+      {{/each}}
+
+      {{!-- todo: potentially can use the edit items part? --}}
+      {{!-- or maybe we need a new part specifically for managing actions? --}}
+      {{!-- though we probably do need a way to manage actions individually and in a collection --}}
+      {{!-- need to solve the inconsistency with _id and id --}}
+      <div>
+        <label>{{localize "RSK.Spells"}}</label>
+        {{#each spells as |spell|}}
+        <li class="item flexrow" data-item-id="{{spell._id}}">
+          <div class="item-name">
+            <strong>{{spell.name}}</strong>
+          </div>
+          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </li>
+        {{/each}}
+      </div>
+
+      <div>
+        <label>{{localize "RSK.Prayers"}}</label>
+        {{#each prayers as |prayer|}}
+        <li class="item flexrow" data-item-id="{{prayer._id}}">
+          <div class="item-name">
+            <strong>{{prayer.name}}</strong>
+          </div>
+          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </li>
+        {{/each}}
+      </div>
+
+      <div>
+        <label>{{localize "RSK.Familiars"}}</label>
+        {{#each familiars as |familiar|}}
+        <li class="item flexrow" data-item-id="{{familiar._id}}">
+          <div class="item-name">
+            <strong>{{familiar.name}}</strong>
+          </div>
+          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+        </li>
+        {{/each}}
+      </div>
+    </div>
+    </section>
+
+  </div>
   </div>
 </form>
