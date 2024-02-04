@@ -109,22 +109,23 @@
         </div>
 
         <div class="tab features" data-group="primary" data-tab="magic">
+          <a class="item-control use-action" data-action-type="spell" title="Cast Spell">{{localize
+            "RSK.CastAction"}}</a>
           <ol class="items-list">
             {{#each spells as |spell|}}
+            {{log spell}}
             <li class="item flexrow">
               <div class="item-name">
-                <strong>{{spell.label}}</strong>
+                <strong>{{spell.name}}</strong>
               </div>
               <div class="item-content">
-                {{spell.usageCostLabel}}
+                {{spell.system.usageCostLabel}}
               </div>
               <div class="item-content">
-                {{spell.description}}
+                {{spell.system.description}}
               </div>
-              <a class="item-control chat-item" data-item-type="spell" data-item-id="{{spell.id}}"
+              <a class="item-control chat-item" data-item-type="spell" data-item-id="{{spell._id}}"
                 title="Chat Item">{{localize "RSK.ChatItem"}}</a>
-              <a class="item-control use-action" data-action-type="spell" data-action-id="{{spell.id}}"
-                title="Use Item">{{localize "RSK.UseAction"}}</a>
             </li>
             {{/each}}
           </ol>
@@ -250,8 +251,8 @@
           {{#each codexs as |codex|}}
           <div class="form-group">
             {{codex.name}}
-            <a data-item-id="{{codex._id}}" class="item-control remove-codex"
-              title="Remove Codex">{{localize "RSK.RemoveItem"}}</a>
+            <a data-item-id="{{codex._id}}" class="item-control remove-codex" title="Remove Codex">{{localize
+              "RSK.RemoveItem"}}</a>
           </div>
           {{/each}}
 
@@ -262,9 +263,9 @@
           <div>
             <label>{{localize "RSK.Spells"}}</label>
             {{#each spells as |spell|}}
-            <li class="item flexrow" data-item-id="{{spell.id}}">
+            <li class="item flexrow" data-item-id="{{spell._id}}">
               <div class="item-name">
-                <strong>{{spell.label}}</strong>
+                <strong>{{spell.name}}</strong>
               </div>
               <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
             </li>

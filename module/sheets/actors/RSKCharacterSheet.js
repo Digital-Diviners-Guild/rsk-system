@@ -3,7 +3,7 @@ import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject } from "../../rsk-localize.js";
-import { RSKCastSpellAction, RSKMeleeAction, RSKPrayAction, RSKRangedAction, RSKSummonFamiliarAction } from "../../rsk-actions.js";
+import { RSKMeleeAction, RSKPrayAction, RSKRangedAction, RSKSummonFamiliarAction, castSpellAction } from "../../rsk-actions.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     //todo: actions list instead?
@@ -39,8 +39,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        this.spells = this.actor.items.filter(i => i.type === "spell")
-            .reduce((ss, s) => this._mapToActionDictionary(RSKCastSpellAction, ss, s), {});
+        this.spells = this.actor.items.filter(i => i.type === "spell");
         context.spells = this.spells;
     }
 
@@ -90,8 +89,12 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         html.find('.use-action').click(async ev => {
             const s = $(ev.currentTarget);
             const actionType = s.data("actionType");
-            const actionId = s.data("actionId");
-            await this._getAction(actionType, actionId).use(this.actor)
+            if (actionType === "spell") {//start migrating spells out of the action dictionary
+                await castSpellAction(this.actor);
+            } else {
+                const actionId = s.data("actionId");
+                await this._getAction(actionType, actionId).use(this.actor)
+            }
         });
 
         html.find('.increase-item-quantity').click(async ev => {
@@ -191,8 +194,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         switch (type) {
             case "prayer":
                 return this.prayers[id];
-            case "spell":
-                return this.spells[id];
             case "summoning":
                 return this.familiars[id];
             case "melee":

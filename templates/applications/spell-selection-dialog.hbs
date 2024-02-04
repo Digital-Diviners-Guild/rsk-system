@@ -1,0 +1,12 @@
+<div class="dialog-content">
+    <select class="spell-dropdown">
+        {{#each spells as |spell|}}
+        <option value="{{spell._id}}">{{spell.name}}</option>
+        {{/each}}
+    </select>
+</div>
+
+
+<div class="dialog-buttons">
+    <button class="confirm-button">{{localize "RSK.Confirm"}}</button>
+</div>
