@@ -3,12 +3,9 @@ import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject } from "../../rsk-localize.js";
-import { RSKMeleeAction, RSKRangedAction, castAction } from "../../rsk-actions.js";
+import { castAction, meleeAttackAction, rangedAttackAction } from "../../rsk-actions.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
-    meleeAttacks;
-    rangedAttacks;
-
     getData() {
         const context = super.getData();
         this._prepareInventory(context);
@@ -50,21 +47,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const equipped = context.items.filter(i => i.system?.equipped && i.system.equipped.isEquipped);
         context.worn = {};
         equipped.map((e) => context.worn[e.system.equipped.slot] = e.name);
-
-        // do we want to also look for shields with block quality to add
-        // a block action here?
-        const isWeapon = (e) => e.system.equipped.slot === "weapon"
-            || e.system.equipped.slot === "arm";
-        const meleeWeapons = equipped.filter(e =>
-            isWeapon(e) && e.system.usageType === "melee");
-        const rangedWeapons = equipped.filter(e =>
-            isWeapon(e) && e.system.type === "dart" || e.system.usageType === "ranged");
-
-        this.meleeAttacks = meleeWeapons.reduce((ws, w) => this._mapToActionDictionary(RSKMeleeAction, ws, w), {});
-        context.meleeAttacks = this.meleeAttacks;
-
-        this.rangedAttacks = rangedWeapons.reduce((ws, w) => this._mapToActionDictionary(RSKRangedAction, ws, w), {});
-        context.rangedAttacks = this.rangedAttacks;
+        context.equippedIsRanged = equipped.filter(x => x.system.usageType === "ranged").length > 0;
     }
 
     activateListeners(html) {
@@ -80,11 +63,13 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         html.find('.use-action').click(async ev => {
             const s = $(ev.currentTarget);
             const actionType = s.data("actionType");
+            //todo: move this logic into rsk-actions?
             if (["magic", "prayer", "summoning"].includes(actionType)) {
                 await castAction(this.actor, actionType);
+            } else if (actionType === "melee") {
+                await meleeAttackAction(this.actor);
             } else {
-                const actionId = s.data("actionId");
-                await this._getAction(actionType, actionId).use(this.actor)
+                await rangedAttackAction(this.actor)
             }
         });
 
@@ -127,15 +112,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         this.actor.removeItem(item)
     }
 
-    async handleChatItem(itemType, itemId) {
-        const action = this._getAction(itemType, itemId);
-        if (action) {
-            await chatItem({ name: action.label, system: action.actionData });
-        } else {
-            await super.handleChatItem(itemType, itemId);
-        }
-    }
-
     //todo: 
     // - ensure we can't gain an ability point for a skill that started at level 5
     // - see if we can do it in one dialog instead of two? or maybe this is fine
@@ -172,25 +148,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         }
         else {
             await super._onDropItem(event, data);
-        }
-    }
-
-    //todo: finish killing this
-    _mapToActionDictionary(factory, datas, data) {
-        const action = factory.create(data._id, data.name, data.system);
-        datas[action.id] = action;
-        return datas;
-    }
-
-    //todo: finish killing this
-    _getAction(type, id) {
-        switch (type) {
-            case "melee":
-                return this.meleeAttacks[id];
-            case "ranged":
-                return this.rangedAttacks[id];
-            default:
-                return false;
         }
     }
 }

@@ -172,14 +172,14 @@
             <label>{{localize "RSK.Weapon"}}</label>
             <div>
               {{worn.weapon}}
-              {{#each meleeAttacks as |meleeAttack|}}
-              <a class="use-action" data-action-type="{{meleeAttack.actionType}}" data-action-id="{{meleeAttack.id}}"
-                title="Use Item">{{localize "RSK.UseAction"}}</a>
-              {{/each}}
-              {{#each rangedAttacks as |rangedAttack|}}
-              <a class="use-action" data-action-type="{{rangedAttack.actionType}}" data-action-id="{{rangedAttack.id}}"
-                title="Use Item">{{localize "RSK.UseAction"}}</a>
-              {{/each}}
+              {{!-- this probably should be here: need an action list (maybe use the side bar? for casting too) --}}
+              {{#if equippedIsRanged}}
+              <a class="use-action" data-action-type="ranged" title="Attack">{{localize
+                "RSK.RangedAttackAction"}}</a>
+              {{else}}
+              <a class="use-action" data-action-type="melee" title="Attack">{{localize
+                "RSK.AttackAction"}}</a>
+              {{/if}}
             </div>
             <label>{{localize "RSK.Cape"}}</label>
             <div>{{worn.cape}}</div>

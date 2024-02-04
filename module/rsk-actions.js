@@ -1,14 +1,70 @@
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
-import RSKCastableSelectionDialog from "./applications/RSKCastableSelectionDialog.js";
+import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
+/*
+probably need to start splitting 'equipment' out into
+rangedWeapon - the current model has no way to indicate we need to spend some arrows/bolts on usage
+meleeWeapon - two handed? one handed?
+and equipment? - this is misc stuff like fishing rod, woodcutting axe, pickaxe, etc.. 
+*/
 
+export const meleeAttackAction = async (actor) => {
+    //todo: better way to select equipped weapon from actor from within actor
+    //todo: dual wielding? if there are 2 weapons, maybe a dialog to select which one and if it is the second attack to add disadvantage?
+    const weapons = actor.items.filter(x => x.system.equipped?.isEquipped && ["weapon", "arm"].includes(x.system.equipped.slot));
+    const weapon = weapons.length > 0 ? weapons[0] : { name: "unarmed", system: { damageEntries: { crush: 1 } } } //todo: unarmed damage?
+    const result = await useAction(actor, "attack", "strength");
+    if (!result) return;
 
-export const meleeAttackAction = (actor) => {
-
+    await sendChat(weapon.name, "melee", weapon.system, result);
+    return result;
 }
 
-export const rangedAttackAction = (actor) => {
+export const rangedAttackAction = async (actor) => {
+    const selectAmmo = async (actor, weapon) => {
+        const ammoTypes = {
+            "bow": "arrow",
+            "crossbow": "bolt"
+        }
+        const ammoType = ammoTypes[weapon.system.category];
+        if (ammoType) {
+            const ammos = actor.items.filter(x =>
+                x.type === "ammunition"
+                && x.system.type === ammoType);
+            if (ammos.length > 1) {
+                const ammoSelectionDialog = RSKItemSelectionDialog.create({ items: ammos });
+                const selectResult = await ammoSelectionDialog();
+                if (!selectResult) return false;
 
+                return actor.items.find(x => x._id === selectResult.id);
+            } else {
+                return ammos[0];
+            }
+        } else {
+            return actor.items.find(x => x.system.equipped?.isEquipped && x.system.isAmmo);
+        }
+    }
+
+    const weapons = actor.items.filter(x => x.system.equipped?.isEquipped
+        && x.system.equipped.slot === "weapon"
+        && x.system.usageType === "ranged");
+    if (weapons.length < 1) return false;
+
+    const weapon = weapons[0];//todo: off hand darts? or dual wield crossbows?
+    const ammoSelection = await selectAmmo(actor, weapon);
+    if (!ammoSelection || ammoSelection.quantity < 1) return;
+
+    //todo: based on actionData pick strength or agility (ie normal ranged is str, martial is agil.  same for melee attack)
+    const result = await useAction(actor, "ranged", "strength");
+    if (!result) return;
+
+    actor.removeItem(ammoSelection);
+
+    //todo: ranged attacks are a combo of the weapon and ammo used.
+    // this needs to be reflected in the outcome and messaging
+    await sendChat(weapon.name, "ranged", weapon.system, result);
+    return result;
 }
+
 // todo: explore if this could be a macro handler we drag and drop onto the hotbar
 // - it may be a bit much to include spell/summon/prayer together.  but the general usage idea is very similar
 // - this might get clarified when handling outcomes
@@ -32,7 +88,7 @@ export const castAction = async (actor, castType) => {
         .filter(s => canCast(s.system.usageCost));
     if (castables.length < 1) return false;
 
-    const selectCastable = RSKCastableSelectionDialog.create({ castables });
+    const selectCastable = RSKItemSelectionDialog.create({ items: castables });
     const selectCastableResult = await selectCastable();
     if (!selectCastableResult) return false;
 
@@ -52,82 +108,6 @@ export const castAction = async (actor, castType) => {
     }
     await sendChat(castable.name, castType, castable.system, result);
     return result;
-}
-
-/*
-probably need to start splitting 'equipment' out into
-rangedWeapon - the current model has no way to indicate we need to spend some arrows/bolts on usage
-meleeWeapon - two handed? one handed?
-and equipment? - this is misc stuff like fishing rod, woodcutting axe, pickaxe, etc.. 
-*/
-
-export class RSKRangedAction {
-    static create(id, label, actionData) {
-        return new this(id, label, actionData);
-    }
-
-    constructor(id, label, actionData) {
-        this.id = id;
-        this.label = label;
-        this.actionData = actionData;
-        this.actionType = "ranged";
-    }
-
-    async use(actor) {
-        const ammoSelection = this.selectAmmo(actor);
-        if (ammoSelection.quantity < 1) return;
-        //todo: based on actionData pick strength or agility (ie normal ranged is str, martial is agil.  same for melee attack)
-        const result = await useAction(actor, "ranged", "strength");
-        if (!result) return;
-
-        actor.removeItem(ammoSelection);
-        await sendChat(this.label, this.actionType, this.actionData, result);
-        return result;
-    }
-
-    selectAmmo(actor) {
-        // todo: if action is not a throw, dialog for ammo selection.
-        if (this.actionData.category === "bow") {
-            return actor.items.find(x =>
-                x.type === "ammunition"
-                && x.system.type === "arrow");
-        } else if (this.actionData.category === "crossbow") {
-            return actor.items.find(x =>
-                x.type === "ammunition"
-                && x.system.type === "bolt");
-        } else {
-            return actor.items.find(x => x.system.equipped?.isEquipped && x.system.isAmmo);
-        }
-    }
-}
-
-// I think it would be better if we look at the actor using the action when executed
-// so rather than a command pattern, maybe more of a macro?
-// ie, when we melee, grab the current equipped item or make unarmed attack.
-// I think actions such as ranged/cast/pray/summon/melee could all work this way
-// and be a bit more consistent.  
-// ultimately the difference in actions is what skills to roll.
-// and then what follows the success. but using the action, and determining the outcome is very similar
-// damage/effects etc come from somwhere (prayer, spell, weapon (and ammo when ranged attack), )
-export class RSKMeleeAction {
-    static create(id, label, actionData) {
-        return new this(id, label, actionData);
-    }
-
-    constructor(id, label, actionData) {
-        this.id = id;
-        this.label = label;
-        this.actionData = actionData;
-        this.actionType = "melee";
-    }
-
-    async use(actor) {
-        //todo: based on actionData pick strength or agility (ie normal ranged is str, martial is agil.  same for ranged attack)
-        const result = await useAction(actor, "attack", "strength");
-        if (!result) return;
-        await sendChat(this.label, this.actionType, this.actionData, result);
-        return result;
-    }
 }
 
 const useAction = async (actor, skill, ability) => {

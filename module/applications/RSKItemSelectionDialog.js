@@ -1,7 +1,7 @@
-export default class RSKCastableSelectionDialog extends Application {
+export default class RSKItemSelectionDialog extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            template: 'systems/rsk/templates/applications/castable-selection-dialog.hbs',
+            template: 'systems/rsk/templates/applications/item-selection-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
             height: 250
@@ -10,7 +10,7 @@ export default class RSKCastableSelectionDialog extends Application {
 
     static create = (context, options) =>
         () => new Promise((resolve) => {
-            const dialog = new RSKCastableSelectionDialog(resolve, context, options);
+            const dialog = new RSKItemSelectionDialog(resolve, context, options);
             dialog.render(true);
         });
 
@@ -27,7 +27,7 @@ export default class RSKCastableSelectionDialog extends Application {
 
     async getData() {
         const data = super.getData();
-        data.castables = this.context.castables;
+        data.items = this.context.items;
         return data;
     }
 
@@ -37,7 +37,7 @@ export default class RSKCastableSelectionDialog extends Application {
     }
 
     async _onConfirm(event) {
-        const id = $('.castable-dropdown').val();
+        const id = $('.item-dropdown').val();
         this.resolve({
             confirmed: true,
             id
