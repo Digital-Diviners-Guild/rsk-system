@@ -227,122 +227,120 @@
             </div>
             <label>{{localize "RSK.Cape"}}</label>
             <div>{{worn.cape}}</div>
+            {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
           </div>
-          {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
         </div>
-    </div>
-
-    <div class="tab features" data-group="primary" data-tab="description">
-      <div class="form-group">
-        <label>{{localize "RSK.Catalyst"}}</label>
-        <div>{{system.catalyst}}</div>
-        <label>{{localize "RSK.Motivation"}}</label>
-        <div>{{system.motivation}}</div>
-      </div>
-      <div>
-        {{editor system.description target="system.description" editable=false engine="prosemirror"}}
-      </div>
-      <label>{{localize "RSK.Backgrounds"}}</label>
-      {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=backgrounds }}
-    </div>
-
-    <div class="tab features" data-group="primary" data-tab="edit">
-      <div>
-        <label>{{localize "RSK.Description"}}</label>
-        {{editor system.description target="system.description" button=true engine="prosemirror"}}
-      </div>
-      <div>
-        <label>{{localize "RSK.Catalyst"}}</label>
-        <input type="text" name="system.catalyst" value="{{system.catalyst}}">
-      </div>
-      <div>
-        <label>{{localize "RSK.Motivation"}}</label>
-        <input type="text" name="system.motivation" value="{{system.motivation}}">
-      </div>
-      <label>{{localize "RSK.Backgrounds"}}</label>
-      {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
-      items=backgrounds
-      addType="background"
-      addLabel="Add Background"}}
-      <button class="apply-backgrounds">{{localize "RSK.ApplyBackgrounds"}}</button>
-
-      <div class="form-group">
-        {{#each abilities as |ability|}}
-        <span data-type="ability" data-value="{{ability.index}}">
-          <strong>{{ability.label}}</strong>
-          <input name="system.abilities.{{ability.index}}.level" type="number" data-dtype="Number"
-            value="{{ability.value.level}}">
-        </span>
-        {{/each}}
-      </div>
-      <div class="rsk skill-container">
-        {{#each skills as |skill|}}
-        <div class="form-group">
-          <span data-type="skill" data-value="{{skill.index}}">
-            <strong>{{skill.label}}</strong>
-            <input name="system.skills.{{skill.index}}.level" type="number" data-dtype="Number"
-              value="{{skill.value.level}}">
-          </span>
+        <div class="tab features" data-group="primary" data-tab="description">
+          <div class="form-group">
+            <label>{{localize "RSK.Catalyst"}}</label>
+            <div>{{system.catalyst}}</div>
+            <label>{{localize "RSK.Motivation"}}</label>
+            <div>{{system.motivation}}</div>
+          </div>
+          <div>
+            {{editor system.description target="system.description" editable=false engine="prosemirror"}}
+          </div>
+          <label>{{localize "RSK.Backgrounds"}}</label>
+          {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=backgrounds }}
         </div>
-        {{/each}}
-      </div>
-      <hr />
 
-      <strong>{{localize "RSK.Effects"}}</strong>
-      {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
-
-      {{!-- todo: probably should be a 'part' --}}
-      <strong>Action Collections</strong>
-      {{#each codexs as |codex|}}
-      <div class="form-group">
-        {{codex.name}}
-        <a data-item-id="{{codex._id}}" class="item-control remove-codex" title="Remove Codex">{{localize
-          "RSK.RemoveItem"}}</a>
-      </div>
-      {{/each}}
-
-      {{!-- todo: potentially can use the edit items part? --}}
-      {{!-- or maybe we need a new part specifically for managing actions? --}}
-      {{!-- though we probably do need a way to manage actions individually and in a collection --}}
-      {{!-- need to solve the inconsistency with _id and id --}}
-      <div>
-        <label>{{localize "RSK.Spells"}}</label>
-        {{#each spells as |spell|}}
-        <li class="item flexrow" data-item-id="{{spell._id}}">
-          <div class="item-name">
-            <strong>{{spell.name}}</strong>
+        <div class="tab features" data-group="primary" data-tab="edit">
+          <div>
+            <label>{{localize "RSK.Description"}}</label>
+            {{editor system.description target="system.description" button=true engine="prosemirror"}}
           </div>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </li>
-        {{/each}}
-      </div>
-
-      <div>
-        <label>{{localize "RSK.Prayers"}}</label>
-        {{#each prayers as |prayer|}}
-        <li class="item flexrow" data-item-id="{{prayer._id}}">
-          <div class="item-name">
-            <strong>{{prayer.name}}</strong>
+          <div>
+            <label>{{localize "RSK.Catalyst"}}</label>
+            <input type="text" name="system.catalyst" value="{{system.catalyst}}">
           </div>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </li>
-        {{/each}}
-      </div>
-
-      <div>
-        <label>{{localize "RSK.Familiars"}}</label>
-        {{#each familiars as |familiar|}}
-        <li class="item flexrow" data-item-id="{{familiar._id}}">
-          <div class="item-name">
-            <strong>{{familiar.name}}</strong>
+          <div>
+            <label>{{localize "RSK.Motivation"}}</label>
+            <input type="text" name="system.motivation" value="{{system.motivation}}">
           </div>
-          <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-        </li>
-        {{/each}}
-      </div>
+          <label>{{localize "RSK.Backgrounds"}}</label>
+          {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
+          items=backgrounds
+          addType="background"
+          addLabel="Add Background"}}
+          <button class="apply-backgrounds">{{localize "RSK.ApplyBackgrounds"}}</button>
+
+          <div class="form-group">
+            {{#each abilities as |ability|}}
+            <span data-type="ability" data-value="{{ability.index}}">
+              <strong>{{ability.label}}</strong>
+              <input name="system.abilities.{{ability.index}}.level" type="number" data-dtype="Number"
+                value="{{ability.value.level}}">
+            </span>
+            {{/each}}
+          </div>
+          <div class="rsk skill-container">
+            {{#each skills as |skill|}}
+            <div class="form-group">
+              <span data-type="skill" data-value="{{skill.index}}">
+                <strong>{{skill.label}}</strong>
+                <input name="system.skills.{{skill.index}}.level" type="number" data-dtype="Number"
+                  value="{{skill.value.level}}">
+              </span>
+            </div>
+            {{/each}}
+          </div>
+          <hr />
+
+          <strong>{{localize "RSK.Effects"}}</strong>
+          {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+
+          {{!-- todo: probably should be a 'part' --}}
+          <strong>Action Collections</strong>
+          {{#each codexs as |codex|}}
+          <div class="form-group">
+            {{codex.name}}
+            <a data-item-id="{{codex._id}}" class="item-control remove-codex" title="Remove Codex">{{localize
+              "RSK.RemoveItem"}}</a>
+          </div>
+          {{/each}}
+
+          {{!-- todo: potentially can use the edit items part? --}}
+          {{!-- or maybe we need a new part specifically for managing actions? --}}
+          {{!-- though we probably do need a way to manage actions individually and in a collection --}}
+          {{!-- need to solve the inconsistency with _id and id --}}
+          <div>
+            <label>{{localize "RSK.Spells"}}</label>
+            {{#each spells as |spell|}}
+            <li class="item flexrow" data-item-id="{{spell._id}}">
+              <div class="item-name">
+                <strong>{{spell.name}}</strong>
+              </div>
+              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </li>
+            {{/each}}
+          </div>
+
+          <div>
+            <label>{{localize "RSK.Prayers"}}</label>
+            {{#each prayers as |prayer|}}
+            <li class="item flexrow" data-item-id="{{prayer._id}}">
+              <div class="item-name">
+                <strong>{{prayer.name}}</strong>
+              </div>
+              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </li>
+            {{/each}}
+          </div>
+
+          <div>
+            <label>{{localize "RSK.Familiars"}}</label>
+            {{#each familiars as |familiar|}}
+            <li class="item flexrow" data-item-id="{{familiar._id}}">
+              <div class="item-name">
+                <strong>{{familiar.name}}</strong>
+              </div>
+              <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+            </li>
+            {{/each}}
+          </div>
+        </div>
+      </section>
+
     </div>
-    </section>
-
-  </div>
   </div>
 </form>

@@ -1,8 +1,46 @@
 <div autocomplete="off" spellcheck="off">
+    <h3>{{localize "RSK.DamageType"}}</h3>
     <div class="form-group">
-        <label>{{localize "RSK.Damage"}}</label>
-        <input id="damage-value" type="number" name="damage" value="{{damage}}">
+        <label>{{localize "RSK.Stab"}}</label>
+        <input type="number" id="stab" name="damageEntries.stab" value="{{damageEntries.stab}}">
+    </div>
+    <div class="form-group">
+        <label>{{localize "RSK.Slash"}}</label>
+        <input type="number" id="slash" name="damageEntries.slash" value="{{damageEntries.slash}}">
+    </div>
+    <div class="form-group">
+        <label>{{localize "RSK.Crush"}}</label>
+        <input type="number" id="crush" name="damageEntries.crush" value="{{damageEntries.crush}}">
+    </div>
+    <div class="form-group">
+        <label>{{localize "RSK.Air"}}</label>
+        <input type="number" id="air" name="damageEntries.air" value="{{damageEntries.air}}">
+    </div>
+    <div class="form-group">
+        <label>{{localize "RSK.Water"}}</label>
+        <input type="number" id="water" name="damageEntries.water" value="{{damageEntries.water}}">
+    </div>
+    <div class="form-group">
+        <label>{{localize "RSK.Earth"}}</label>
+        <input type="number" id="earth" name="damageEntries.earth" value="{{damageEntries.earth}}">
+    </div>
+    <div class="form-group">
+        <label>{{localize "RSK.Fire"}}</label>
+        <input type="number" id="fire" name="damageEntries.fire" value="{{damageEntries.fire}}">
     </div>
     <hr />
+    <div class="form-group">
+        <label>{{localize "RSK.AttackType"}}</label>
+        <input type="text" id="attackType" name="attackType" value="{{attackType}}">
+    </div>
+    <div class="form-group">
+        <label>{{localize "RSK.Puncture"}}</label>
+        <input type="number" id="puncture" name="puncture" value="{{puncture}}">
+    </div>
+    {{!-- need to be able to roll this --}}
+    <div class="form-group">
+        <label>{{localize "RSK.DefenseRoll"}}</label>
+        <input type="number" id="defenseRoll" name="defenseRoll" value="{{defenseRoll}}">
+    </div>
     <button class="apply" type="button">{{localize "RSK.Apply"}}</button>
 </div>

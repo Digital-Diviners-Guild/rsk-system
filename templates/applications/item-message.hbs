@@ -19,4 +19,7 @@
     TN: {{targetNumber}} | {{#if isCritical}}<em>critical</em>{{/if}} {{#if isSuccess}} success {{else}} fail{{/if}}
     ({{margin}})
 </p>
+{{#if isSuccess}}
+<button class="apply-outcome">{{localize "RSK.Apply"}}</button>
+{{/if}}
 {{/if}}
