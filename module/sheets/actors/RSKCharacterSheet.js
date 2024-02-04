@@ -3,13 +3,9 @@ import RSKActorSheet from "./RSKActorSheet.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject } from "../../rsk-localize.js";
-import { RSKMeleeAction, RSKRangedAction, RSKSummonFamiliarAction, castAction } from "../../rsk-actions.js";
+import { RSKMeleeAction, RSKRangedAction, castAction } from "../../rsk-actions.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
-    //todo: actions list instead?
-    prayers;
-    spells;
-    familiars;
     meleeAttacks;
     rangedAttacks;
 
@@ -39,19 +35,15 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        this.spells = this.actor.items.filter(i => i.type === "spell");
-        context.spells = this.spells;
+        context.spells = this.actor.items.filter(i => i.type === "spell");
     }
 
     _preparePrayers(context) {
-        this.prayers = this.actor.items.filter(i => i.type === "prayer");
-        context.prayers = this.prayers;
+        context.prayers = this.actor.items.filter(i => i.type === "prayer");
     }
 
     _prepareSummons(context) {
-        this.familiars = this.actor.items.filter(i => i.type === "summoning")
-            .reduce((fs, f) => this._mapToActionDictionary(RSKSummonFamiliarAction, fs, f), {});
-        context.familiars = this.familiars;
+        context.familiars = this.actor.items.filter(i => i.type === "summoning");
     }
 
     _prepareEquipment(context) {
@@ -88,8 +80,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         html.find('.use-action').click(async ev => {
             const s = $(ev.currentTarget);
             const actionType = s.data("actionType");
-            if (["magic", "prayer"].includes(actionType)) {//start migrating spells and prayer out of the action dictionary
-                debugger;
+            if (["magic", "prayer", "summoning"].includes(actionType)) {
                 await castAction(this.actor, actionType);
             } else {
                 const actionId = s.data("actionId");
@@ -184,16 +175,16 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         }
     }
 
+    //todo: finish killing this
     _mapToActionDictionary(factory, datas, data) {
         const action = factory.create(data._id, data.name, data.system);
         datas[action.id] = action;
         return datas;
     }
 
+    //todo: finish killing this
     _getAction(type, id) {
         switch (type) {
-            case "summoning":
-                return this.familiars[id];
             case "melee":
                 return this.meleeAttacks[id];
             case "ranged":

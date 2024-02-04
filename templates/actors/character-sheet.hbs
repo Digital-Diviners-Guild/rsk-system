@@ -131,22 +131,22 @@
         </div>
         {{!-- todo: probably time for a template to use for actions --}}
         <div class="tab features" data-group="primary" data-tab="summoning">
+          <a class="item-control use-action" data-action-type="summoning" data-action-id="{{familiar.id}}"
+            title="Summon">{{localize "RSK.SummonAction"}}</a>
           <ol class="items-list">
             {{#each familiars as |familiar|}}
             <li class="item flexrow">
               <div class="item-name">
-                <strong>{{familiar.label}}</strong>
+                <strong>{{familiar.name}}</strong>
               </div>
               <div class="item-content">
-                {{familiar.usageCostLabel}}
+                {{familiar.system.usageCostLabel}}
               </div>
               <div class="item-content">
-                {{familiar.description}}
+                {{familiar.system.description}}
               </div>
-              <a class="item-control chat-item" data-item-type="summoning" data-item-id="{{familiar.id}}"
+              <a class="item-control chat-item" data-item-type="summoning" data-item-id="{{familiar._id}}"
                 title="Chat Item">{{localize "RSK.ChatItem"}}</a>
-              <a class="item-control use-action" data-action-type="summoning" data-action-id="{{familiar.id}}"
-                title="Use Item">{{localize "RSK.UseAction"}}</a>
             </li>
             {{/each}}
           </ol>
