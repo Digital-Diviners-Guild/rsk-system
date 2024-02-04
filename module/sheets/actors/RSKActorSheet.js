@@ -89,7 +89,7 @@ export default class RSKActorSheet extends ActorSheet {
                     .map(x => x._id));
         });
 
-        html.find('.actor-application').click(ev => {
+        html.find('.actor-application').click(async ev => {
             const actorApp = $(ev.currentTarget);
             actorApp.addClass('clicked');
             setTimeout(function () {
@@ -104,9 +104,8 @@ export default class RSKActorSheet extends ActorSheet {
                 actorApp[0].style.setProperty('--glow-color', "white");
             }
             var applicationMethod = actorApp[0].getAttribute('application-method');
-
             if (applicationMethod) {
-                this.actor.sheet[applicationMethod]();
+                await this.actor.sheet[applicationMethod]();
             }
         });
 
