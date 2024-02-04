@@ -10,13 +10,15 @@ export const rangedAttackAction = (actor) => {
 
 }
 // todo: explore if this could be a macro handler we drag and drop onto the hotbar
+// - it may be a bit much to include spell/summon/prayer together.  but the general usage idea is very similar
+// - this might get clarified when handling outcomes
 export const castAction = async (actor, castType) => {
     const canCast = (usageCost) => {
         if (usageCost.length < 1) return true;
         for (const cost of usageCost) {
             if (castType === "magic") {
-                const ammo = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
-                if (!ammo || ammo.system.quantity < cost.amount) return false;
+                const runes = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
+                if (!runes || runes.system.quantity < cost.amount) return false;
             } else {
                 const points = actor.system[cost.type];
                 if (!points || points.value < cost.amount) return false;
@@ -24,8 +26,9 @@ export const castAction = async (actor, castType) => {
         }
         return true;
     }
+    const castableType = castType === "magic" ? "spell" : castType; //bleh
     const castables = actor.items
-        .filter(i => i.type === castType)
+        .filter(i => i.type === castableType)
         .filter(s => canCast(s.system.usageCost));
     if (castables.length < 1) return false;
 
@@ -36,9 +39,16 @@ export const castAction = async (actor, castType) => {
     const castable = actor.items.find(x => x._id === selectCastableResult.id);
     const result = await useAction(actor, castType, "intellect");
     if (!result) return false;
-
-    for (const cost of castable.system.usageCost) {
-        actor.handleUsageCost(cost.type, cost.amount);
+    if (result.isSuccess) {
+        for (const cost of castable.system.usageCost) {
+            if (castType === "magic") {
+                actor.spendRunes(cost.type, cost.amount);
+            } else {
+                actor.spendPoints(castType, cost.amount);
+            }
+        }
+    } else if (!(result.isSuccess && castType === magic)) {
+        actor.spendPoints(castType, 1);
     }
     await sendChat(castable.name, castType, castable.system, result);
     return result;
