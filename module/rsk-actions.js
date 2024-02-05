@@ -113,6 +113,10 @@ export const castAction = async (actor, castType) => {
     return result;
 }
 
+export const dealsDamage = (data) => data.damageEntries
+    && Object.values(data.damageEntries)
+        .filter(x => x > 0).length > 0
+
 const useAction = async (actor, skill, ability) => {
     const rollData = actor.getRollData();
     const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: skill, defaultAbility: ability });
@@ -130,7 +134,7 @@ const sendChat = async (label, actionType, actionData, result) => {
             ...actionData,
             ...result,
             showRollResult: true,
-            showApplyDamage: result.isSuccess
+            showApplyDamage: result.isSuccess && dealsDamage(actionData)
         });
     await result.rollResult.toMessage({
         flavor: flavor,

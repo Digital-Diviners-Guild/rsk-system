@@ -1,4 +1,5 @@
 import RSKActorSheet from "./RSKActorSheet.js";
+import { dealsDamage } from "../../rsk-actions.js";
 
 export default class RSKNpcSheet extends RSKActorSheet {
     // I don't like that we have like 4 spots we "chat" an item.
@@ -10,8 +11,7 @@ export default class RSKNpcSheet extends RSKActorSheet {
                 {
                     name: item.name,
                     ...item.system,
-                    showApplyDamage: item.system.damageEntries && Object.values(item.system.damageEntries)
-                        .filter(x => x > 0).length > 0
+                    showApplyDamage: dealsDamage(item.system)
                 });
             await ChatMessage.create({
                 content,
