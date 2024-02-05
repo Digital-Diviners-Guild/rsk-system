@@ -2,6 +2,7 @@ import RSKAction from "./data/items/RSKAction.js";
 import RSKArmourType from "./data/items/RSKArmourType.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
 import RSKEquipment from "./data/items/RSKEquipment.js";
+import RSKEquipment2 from "./data/items/RSKEquipment2.js";
 import RSKMaterial from "./data/items/RSKMaterial.js";
 import RSKAmmunitionType from "./data/items/RSKAmmunitionType.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
@@ -38,7 +39,6 @@ import RSKCodexType from "./data/items/RSKCodexType.js";
 import RSKCodexSheet from "./sheets/items/RSKCodexSheet.js";
 import RSKItemCollectionSheet from "./sheets/items/RSKItemCollectionSheet.js";
 import RSKRuneSheet from "./sheets/items/RSKRuneSheet.js";
-import RSKEquipmentSheet from "./sheets/items/RSKEquipmentSheet.js";
 import RSKItemCollection from "./data/items/RSKItemCollectionType.js";
 import RSKDeathSheet from "./sheets/actors/RSKDeathSheet.js";
 import RSKSummoning from "./data/items/RSKSummoning.js";
@@ -87,7 +87,7 @@ Hooks.once("init", function () {
         ammunition: RSKAmmunitionType,
         resource: RSKResource,
         armour: RSKArmourType,
-        equipment: RSKEquipment,
+        equipment: RSKEquipment2,
         background: RSKBackgroundType,
         spell: RSKSpell,
         prayer: RSKPrayer,
@@ -104,7 +104,6 @@ Hooks.once("init", function () {
     Items.registerSheet("rsk", RSKCodexSheet, { types: ["codex"], makeDefault: true });
     Items.registerSheet("rsk", RSKItemCollectionSheet, { types: ["itemCollection"], makeDefault: true });
     Items.registerSheet("rsk", RSKRuneSheet, { types: ["rune"], makeDefault: true });
-    Items.registerSheet("rsk", RSKEquipmentSheet, { types: ["equipment", "armour"], makeDefault: true });
 
     CONFIG.Actor.documentClass = RSKActorProxy;
     CONFIG.Actor.dataModels = {
