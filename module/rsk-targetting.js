@@ -5,9 +5,7 @@ export const rangeDistance = {
 }
 
 export function isInRange(actorToken, targetToken, range) {
-    const distance = canvas.grid.measureDistance(
-        { x: actorToken.x, y: actorToken.y },
-        { x: targetToken.x, y: targetToken.y });
+    const distance = canvas.grid.measureDistance(actorToken.center, targetToken.center);
     const maxDistance = rangeDistance[range];
     return distance < maxDistance;
 }
@@ -15,7 +13,6 @@ export function isInRange(actorToken, targetToken, range) {
 export function getTarget(actor = {}) {
     const targets = game.users.current.targets;
     let target = actor;
-
     for (const t of targets) {
         //--- should we default to self target, or throw since we cannot do what they wanted?
         //if we go with the updated outcome that doesn't yet have targets assigned, then this logic

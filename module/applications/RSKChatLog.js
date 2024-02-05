@@ -1,17 +1,9 @@
 import RSKApplyDamageDialog from "./RSKApplyDamageDialog.js";
+import { getTarget } from "../rsk-targetting.js";
 
 
 export default class RSKChatLog extends ChatLog {
 
-}
-
-const getTarget = (actor = {}) => {
-    const targets = game.users.current.targets;
-    let target = actor;
-    for (const t of targets) {
-        target = t.actor;
-    }
-    return target;
 }
 
 export function onRenderChatMessage(app, html, data) {
