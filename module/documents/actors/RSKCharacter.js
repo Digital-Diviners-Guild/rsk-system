@@ -200,7 +200,7 @@ export default class RSKCharacter extends RSKActor {
             return;
         }
         //todo: better way to identify items that can be in inventory
-        const inventorySlotsReclaimed = documents.filter(d => d.system && d.system.hasOwnProperty("slotId")).length;
+        const inventorySlotsReclaimed = documents.filter(d => d.system && d.system.hasOwnProperty("slotId") || d.system.hasOwnProperty("maxStackSize")).length;
         const newInventorySlotsUsed = game.rsk.math.clamp_value(this.flags.rsk.inventorySlotsUsed - inventorySlotsReclaimed, { min: 0 });
         this.update({ "flags.rsk.inventorySlotsUsed": newInventorySlotsUsed });
         super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);

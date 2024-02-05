@@ -14,7 +14,11 @@ export default class RSKMeleeWeapon extends foundry.abstract.TypeDataModel {
             damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes).reduce((obj, damageType) => {
                 obj[damageType] = new fields.NumberField({ ...positiveNumberField, max: 150 });
                 return obj;
-            }, {}))
+            }, {})),
+            activeSlot: new fields.SchemaField({ initial: "weapon", options: ["weapon", "arm"] }),
+            isEquipped: new fields.BooleanField({ initial: false }),
+            maxStackSize: new fields.NumberField({ initial: 1 }),
+            quantity: new fields.NumberField({ initial: 1 })
         }
     };
 }

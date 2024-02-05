@@ -18,7 +18,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareInventory(context) {
-        context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("slotId"));
+        context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("slotId") || i.system.hasOwnProperty("maxStackSize"));
         context.usedSlots = this.actor.flags?.rsk?.inventorySlotsUsed ?? 0;
     }
 
@@ -150,7 +150,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     async _onDropItem(event, data) {
         const item = await Item.fromDropData(data);
         // how do we want to identify something that can go in the inventory?
-        if (item.system.hasOwnProperty("slotId")) {
+        // list is temp, probably want to use some prop they all have, like 'maxStackSize' or something.
+        if (item.system.hasOwnProperty("slotId") || item.system.hasOwnProperty("maxStackSize")) {
             await this.actor.addItem(item, item.system.quantity);
         }
         else {

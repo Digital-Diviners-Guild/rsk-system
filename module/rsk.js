@@ -42,6 +42,8 @@ import RSKEquipmentSheet from "./sheets/items/RSKEquipmentSheet.js";
 import RSKItemCollection from "./data/items/RSKItemCollectionType.js";
 import RSKDeathSheet from "./sheets/actors/RSKDeathSheet.js";
 import RSKSummoning from "./data/items/RSKSummoning.js";
+import RSKRangedWeapon from "./data/items/RSKRangedWeapon.js";
+import RSKMeleeWeapon from "./data/items/RSKMeleeWeapon.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -92,7 +94,9 @@ Hooks.once("init", function () {
         summoning: RSKSummoning,
         rune: RSKRuneType,
         codex: RSKCodexType,
-        itemCollection: RSKItemCollection
+        itemCollection: RSKItemCollection,
+        rangedWeapon: RSKRangedWeapon,
+        meleeWeapon: RSKMeleeWeapon
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
