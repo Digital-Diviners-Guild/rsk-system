@@ -77,25 +77,25 @@
         <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
       </header>
       <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="skills" data-tooltip="{{localize "RSK.Skills" }}">
+        <a class="item" data-tab="skills" data-tooltip='{{localize "RSK.Skills" }}'>
           <i class="fas fa-location-crosshairs"></i>
         </a>
-        <a class="item" data-tab="inventory" data-tooltip="{{localize "RSK.Inventory" }}">
+        <a class="item" data-tab="inventory" data-tooltip='{{localize "RSK.Inventory" }}'>
           <i class="fas fa-sack"></i>
         </a>
-        <a class="item" data-tab="magic" data-tooltip="{{localize "RSK.SpellBook" }}">
+        <a class="item" data-tab="magic" data-tooltip='{{localize "RSK.SpellBook" }}'>
           <i class="fas fa-hat-wizard"></i>
         </a>
-        <a class="item" data-tab="prayer" data-tooltip="{{localize "RSK.Prayers" }}">
+        <a class="item" data-tab="prayer" data-tooltip='{{localize "RSK.Prayers" }}'>
           <i class="fas fa-sparkles"></i>
         </a>
-        <a class="item" data-tab="summoning" data-tooltip="{{localize "RSK.Familiars" }}">
+        <a class="item" data-tab="summoning" data-tooltip='{{localize "RSK.Familiars" }}'>
           <i class="fas fa-cloud-bolt-moon"></i>
         </a>
-        <a class="item" data-tab="description" data-tooltip="{{localize "RSK.Details" }}">
+        <a class="item" data-tab="description" data-tooltip='{{localize "RSK.Details" }}'>
           <i class="fas fa-id-card"></i>
         </a>
-        <a class="item" data-tab="edit" data-tooltip="{{localize "RSK.Edit" }}">
+        <a class="item" data-tab="edit" data-tooltip='{{localize "RSK.Edit" }}'>
           <i class="fas fa-pen-to-square"></i>
         </a>
       </nav>
@@ -144,7 +144,6 @@
             {{/each}}
           </ol>
         </div>
-
         <div class="tab features" data-group="primary" data-tab="magic">
           <div class="actor-toolbar">
             <div class="actor-application" application-method="characterCastSpell" effect-label="Cast Spell"
@@ -195,9 +194,7 @@
             {{/each}}
           </ol>
         </div>
-
         <div class="tab features" data-group="primary" data-tab="inventory">
-          <div><strong>{{localize "RSK.Inventory"}}</strong> ({{usedSlots}} / 28)</div>
           <div>
             <label>{{localize "RSK.Gold"}}</label>
             <input name="system.gold" type="number" data-dtype="Number" value="{{system.gold}}">
@@ -227,6 +224,7 @@
             </div>
             <label>{{localize "RSK.Cape"}}</label>
             <div>{{worn.cape}}</div>
+            <div><strong>{{localize "RSK.Inventory"}}</strong> ({{usedSlots}} / 28)</div>
             {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
           </div>
         </div>
@@ -340,7 +338,6 @@
           </div>
         </div>
       </section>
-
     </div>
   </div>
 </form>
