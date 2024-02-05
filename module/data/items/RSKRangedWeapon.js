@@ -12,7 +12,7 @@ export default class RSKRangedWeapon extends foundry.abstract.TypeDataModel {
             description: new fields.StringField(),
             range: new fields.StringField(),
             uses: new fields.StringField(),
-            effects: new fields.StringField(),
+            effectDescription: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
             damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes).reduce((obj, damageType) => {
                 obj[damageType] = new fields.NumberField({ ...positiveNumberField, max: 150 });

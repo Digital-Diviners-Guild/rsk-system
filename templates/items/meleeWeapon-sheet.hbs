@@ -1,0 +1,79 @@
+<form class="{{cssClass}}" autocomplete="off" data-can-drop="true">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
+    </header>
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab features" data-group="primary" data-tab="description">
+            <div>
+                <strong>{{localize "RSK.Type"}}:</strong>
+                {{system.type}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.Material"}}:</strong>
+                {{system.material}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.ActiveSlot"}}:</strong>
+                {{system.activeSlot}}
+            </div>
+
+            {{#if system.description}}
+            <h3>{{localize "RSK.Description"}}</h3>
+            <p>{{system.description}}</p>
+            {{/if}}
+
+            {{#if system.uses}}
+            <p><strong>{{localize "RSK.Uses"}}: </strong> {{system.uses}}</p>
+            {{/if}}
+
+            {{#if system.cost}}
+            <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}} gp</p>
+            {{/if}}
+
+            {{#if system.effectDescription}}
+            <strong>{{localize "RSK.Effects"}}:</strong>
+            <p> {{system.effectDescription}}</p>
+            {{/if}}
+
+            {{#if system.qualities}}
+            <strong>{{localize "RSK.Qualities"}}:</strong>
+            <div>{{system.qualities}}</div>
+            {{/if}}
+
+            {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
+        </div>
+
+        <div class="tab features" data-group="primary" data-tab="edit">
+            <div>
+                <strong>{{localize "RSK.Cost"}}: </strong>
+                <input type="number" data-dtype="number" name="system.cost" value="{{system.cost}}">
+            </div>
+            <label>{{localize "RSK.Description"}}:</label>
+            <input type="text" name="system.description" value="{{system.description}}">
+
+            <label>{{localize "RSK.Uses"}}:</label>
+            <input type="text" name="system.uses" value="{{system.uses}}">
+            <label>{{localize "RSK.Category"}}:</label>
+            <input type="text" name="system.category" value="{{system.category}}">
+            <div>
+                <label>{{localize "RSK.Effect"}}</label>
+                <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
+            </div>
+
+            <div class="form-group">
+                <label>{{localize "RSK.ActiveSlot"}}</label>
+                <input type="text" name="system.activeSlot" value="{{system.activeSlot}}">
+            </div>
+            <strong>{{localize "RSK.Qualities"}}:</strong>
+            <input type="text" name="system.qualities" value="{{system.qualities}}">
+            <strong>{{localize "RSK.Effects"}}:</strong>
+            {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
+        </div>
+    </section>
+</form>
