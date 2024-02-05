@@ -30,12 +30,13 @@ export function onRenderChatMessage(app, html, data) {
         });
 }
 
-export async function chatItem(item) {
+export async function chatItem(item, options = {}) {
     const data = item.hasOwnProperty("system") ? { name: item.name, ...item.system } : item;
     const content = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
         {
             ...data,
             showRollResult: false,
+            ...options
         });
     await ChatMessage.create({ content });
 }

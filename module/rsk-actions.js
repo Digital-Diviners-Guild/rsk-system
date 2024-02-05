@@ -130,6 +130,7 @@ const sendChat = async (label, actionType, actionData, result) => {
             ...actionData,
             ...result,
             showRollResult: true,
+            showApplyDamage: result.isSuccess
         });
     await result.rollResult.toMessage({
         flavor: flavor,
