@@ -1,3 +1,4 @@
+import { canAddItem } from "../../rsk-inventory.js";
 import RSKActor from "./RSKActor.js";
 
 export default class RSKCharacter extends RSKActor {
@@ -127,25 +128,22 @@ export default class RSKCharacter extends RSKActor {
     }
 
     addItem(itemToAdd, quantity = 1) {
-        const inventorySlotsUsed = this.flags.rsk?.inventorySlotsUsed || 0;
-        const existingItem = this.items.find(i =>
-            i.flags?.core?.sourceId === itemToAdd.flags.core.sourceId
-            && i.system.hasOwnProperty("quantity")
-            && i.system.quantity + quantity <= i.system.maxStackSize);
-        if (existingItem) {
+        const canAddResult = canAddItem(this.items, itemToAdd);
+        if (canAddResult.canAdd && canAddResult.usesExistingSlot) {
+            const existingItem = canAddResult.existingItem;
             let update = { _id: existingItem.id };
             update["system.quantity"] = existingItem.system.quantity + quantity
             this.updateEmbeddedDocuments("Item", [update]);
-        } else if (inventorySlotsUsed < this.maxInventorySlots) {
+        } else if (canAddResult.canAdd) {
             let newItem = foundry.utils.deepClone(itemToAdd.toObject());
             newItem.system.quantity = quantity;
             this.createEmbeddedDocuments("Item", [newItem]);
-            this.update({ "flags.rsk.inventorySlotsUsed": inventorySlotsUsed + 1 });
         }
     }
 
     removeItem(itemToRemove, quantity = 1) {
-        const existingItem = this.items.find(i => i.flags?.core?.sourceId === itemToRemove.flags.core.sourceId);
+        //todo: name may not be good?
+        const existingItem = this.items.find(i => i.name === itemToRemove.name);
         if (existingItem) {
             const newQuantity = existingItem.system.quantity - quantity;
             if (newQuantity < 1) {
@@ -189,17 +187,5 @@ export default class RSKCharacter extends RSKActor {
                 this.system.skills[skill].level,
                 { min: this.minSkillLevel, max: this.maxSkillLevel });
         }
-    }
-
-    _onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId) {
-        if (!this.flags?.rsk?.inventorySlotsUsed) {
-            super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
-            return;
-        }
-        //todo: better way to identify items that can be in inventory
-        const inventorySlotsReclaimed = documents.filter(d => d.system?.hasOwnProperty("maxStackSize")).length;
-        const newInventorySlotsUsed = game.rsk.math.clamp_value(this.flags.rsk.inventorySlotsUsed - inventorySlotsReclaimed, { min: 0 });
-        this.update({ "flags.rsk.inventorySlotsUsed": newInventorySlotsUsed });
-        super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);
     }
 }
