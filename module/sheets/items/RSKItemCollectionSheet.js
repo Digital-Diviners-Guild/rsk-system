@@ -1,4 +1,5 @@
 import RSKItemSheet from "./RSKItemSheet.js";
+import { calculateUsedSlots, canAddItem } from "../../rsk-inventory.js";
 
 //this is very similar to inventory. I wonder if a 'container' abstraction is hiding somewhere
 // in this and the inventory
@@ -32,14 +33,13 @@ export default class RSKItemCollectionSheet extends RSKItemSheet {
 
     async handleIncreaseItemQuantity(itemId) {
         const item = this.item.system.items.find(i => i.itemId === itemId);
-        item.quantity++;
-        this.item.update({ "system.items": this.item.system.items });
+        this.addItem(item);
     }
 
     async handleDecreaseItemQuantity(itemId) {
         const item = this.item.system.items.find(i => i.itemId === itemId);
-        item.quantity--;
-        if (item.quantity < 1) {
+        item.system.quantity--;
+        if (item.system.quantity < 1) {
             this.item.update({ "system.items": this.item.system.items.filter(i => i.itemId !== itemId) });
         } else {
             this.item.update({ "system.items": this.item.system.items });
@@ -56,22 +56,35 @@ export default class RSKItemCollectionSheet extends RSKItemSheet {
         }
     }
 
+    //todo: a little better, we can use some of the inventory logic 
+    // to enforce an item collection doesn't exceed an inventory
+    // though there is still a lot in this sheet that is 'inventory' like
+    // I wonder what else we can move out that is similiar with character inventory.
+    // both 'add/remove/stack' based on 'items'.  
+    // both need to modify the system quantity
     async _onDropItem(event, data) {
         const item = await Item.fromDropData(data);
         if (this.invalidTypes.includes(item.type)) return;
+        this.addItem(item);
+    }
 
-        const existingItem = this.item.system.items.find(i => i.sourceId === item.flags.core.sourceId);
-        if (existingItem) {
-            existingItem.quantity++;
+    addItem(item) {
+        const canAddResult = canAddItem(this.item.system.items, item);
+        if (canAddResult.canAdd && canAddResult.usesExistingSlot) {
+            canAddResult.existingItem.system.quantity++;
             this.item.update({
                 "system.items": this.item.system.items
             });
-        } else {
+        } else if (canAddResult.canAdd) {
             this.item.update({
                 "system.items": [...this.item.system.items, {
-                    itemId: item._id,
+                    itemId: item._id || item.itemId,
                     name: item.name,
-                    quantity: item.system.quantity,
+                    type: item.type,
+                    system: {
+                        quantity: item.system.quantity,
+                        maxStackSize: item.system.maxStackSize
+                    },
                     sourceId: item.flags?.core?.sourceId ?? item.uuid
                 }]
             });
