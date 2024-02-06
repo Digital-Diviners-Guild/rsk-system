@@ -193,7 +193,7 @@ export default class RSKCharacterType extends RSKActorType {
         const currentEquipped = this.parent.items.filter(i => i.system.isEquipped
             && i.system.activeSlot === item.system.activeSlot);
         if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
-            currentEquipped[0].equip();
+            currentEquipped[0].system.equip();
         }
         item.system.equip();
     }

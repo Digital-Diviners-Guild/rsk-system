@@ -15,7 +15,7 @@ export default class RSKItemCollection extends foundry.abstract.DataModel {
         if (items.length < 1) return;
 
         for (const i of items) {
-            actor.addItem(i.source, i.quantity);
+            actor.system.addItem(i.source, i.quantity);
         }
     }
 }
