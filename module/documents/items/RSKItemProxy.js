@@ -8,7 +8,8 @@ const handler = {
         switch (args[0]?.type) {
             case "background":
                 return new RSKBackground(...args);
-            case "equipment":
+            case "rangedWeapon":
+            case "meleeWeapon":
             case "cape":
                 return new RSKEquippable(...args);
             case "armour":

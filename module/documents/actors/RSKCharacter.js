@@ -73,7 +73,7 @@ export default class RSKCharacter extends RSKActor {
 
     async useSkill(options) {
         const { skill, ability, targetNumberModifier, rollType } = { ...options }
-        if (this.system.skills && this.system.skills.hasOwnProperty(skill)) {
+        if (this.system.skills?.hasOwnProperty(skill)) {
             this.update({ [`system.skills.${skill}.used`]: true });
             const targetNumber = this.getRollData().calculateTargetNumber(skill, ability, targetNumberModifier);
             const rollResult = await game.rsk.dice.skillCheck(targetNumber, rollType);
@@ -128,13 +128,10 @@ export default class RSKCharacter extends RSKActor {
 
     addItem(itemToAdd, quantity = 1) {
         const inventorySlotsUsed = this.flags.rsk?.inventorySlotsUsed || 0;
-        const existingItem = itemToAdd.system.isAmmo
-            ? this.items.find(i => i.system.isAmmo && i.flags.core.sourceId === itemToAdd.flags.core.sourceId)
-            : this.items.find(i =>
-                i.flags.core
-                && i.flags.core.sourceId === itemToAdd.flags.core.sourceId
-                && i.system.isStackable
-                && i.system.quantity + quantity <= 3);
+        const existingItem = this.items.find(i =>
+            i.flags?.core?.sourceId === itemToAdd.flags.core.sourceId
+            && i.system.hasOwnProperty("quantity")
+            && i.system.quantity + quantity <= i.system.maxStackSize);
         if (existingItem) {
             let update = { _id: existingItem.id };
             update["system.quantity"] = existingItem.system.quantity + quantity
@@ -148,7 +145,7 @@ export default class RSKCharacter extends RSKActor {
     }
 
     removeItem(itemToRemove, quantity = 1) {
-        const existingItem = this.items.find(i => i.flags.core && i.flags.core.sourceId === itemToRemove.flags.core.sourceId);
+        const existingItem = this.items.find(i => i.flags?.core?.sourceId === itemToRemove.flags.core.sourceId);
         if (existingItem) {
             const newQuantity = existingItem.system.quantity - quantity;
             if (newQuantity < 1) {
@@ -162,12 +159,12 @@ export default class RSKCharacter extends RSKActor {
     }
 
     getActiveItems() {
-        return this.items.filter(i => i.isEquipped);
+        return this.items.filter(i => i.system.isEquipped);
     }
 
     equip(item) {
-        const currentEquipped = this.items.filter(i => i.isEquipped
-            && i.inSlot === item.inSlot);
+        const currentEquipped = this.items.filter(i => i.system.isEquipped
+            && i.system.activeSlot === item.system.activeSlot);
         if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
             currentEquipped[0].equip();
         }
@@ -200,7 +197,7 @@ export default class RSKCharacter extends RSKActor {
             return;
         }
         //todo: better way to identify items that can be in inventory
-        const inventorySlotsReclaimed = documents.filter(d => d.system && d.system.hasOwnProperty("slotId") || d.system.hasOwnProperty("maxStackSize")).length;
+        const inventorySlotsReclaimed = documents.filter(d => d.system?.hasOwnProperty("maxStackSize")).length;
         const newInventorySlotsUsed = game.rsk.math.clamp_value(this.flags.rsk.inventorySlotsUsed - inventorySlotsReclaimed, { min: 0 });
         this.update({ "flags.rsk.inventorySlotsUsed": newInventorySlotsUsed });
         super._onDeleteDescendantDocuments(parent, collection, documents, ids, options, userId);

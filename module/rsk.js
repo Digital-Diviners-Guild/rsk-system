@@ -2,7 +2,6 @@ import RSKAction from "./data/items/RSKAction.js";
 import RSKArmourType from "./data/items/RSKArmourType.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
 import RSKEquipment from "./data/items/RSKEquipment.js";
-import RSKEquipment2 from "./data/items/RSKEquipment2.js";
 import RSKMaterial from "./data/items/RSKMaterial.js";
 import RSKAmmunitionType from "./data/items/RSKAmmunitionType.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
@@ -87,7 +86,7 @@ Hooks.once("init", function () {
         ammunition: RSKAmmunitionType,
         resource: RSKResource,
         armour: RSKArmourType,
-        equipment: RSKEquipment2,
+        equipment: RSKEquipment,
         background: RSKBackgroundType,
         spell: RSKSpell,
         prayer: RSKPrayer,

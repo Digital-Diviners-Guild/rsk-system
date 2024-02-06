@@ -174,9 +174,8 @@ export default class RSKActorSheet extends ActorSheet {
     async characterDamage() {
         const dialog = RSKApplyDamageDialog.create();
         const result = await dialog();
-        if (result && result.confirmed) {
-            this.actor.receiveDamage({ ...result });
-        }
+        if (!result?.confirmed) return;
+        this.actor.receiveDamage({ ...result });
     }
 
     async handleChatItem(itemType, itemId) {

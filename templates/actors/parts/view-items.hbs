@@ -4,7 +4,7 @@
         <div class="item-name flexrow">
             <div>
                 <strong>{{item.name}}</strong>
-                {{#if item.system.isStackable}}
+                {{#if item.system.quantity}}
                 (
                 <a class="item-control decrease-item-quantity" data-item-id="{{item.id}}">-</a>
                 <em>qty: {{item.system.quantity}}</em>
@@ -18,7 +18,7 @@
             {{item.system.description}}
         </div>
         {{/if}}
-        {{#if item.system.equipped}}
+        {{#if item.system.activeSlot}}
         <a class="item-control item-equip" title="Equip Item">{{localize "RSK.EquipItem"}}</a>
         {{/if}}
         {{!-- todo reduce quantity, don't remove all --}}

@@ -10,12 +10,14 @@ handle stacking? which needs a rework anyways (all of inventory/item collects ne
 
 // TODO: new action functions need refactoring.
 
+const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
+
 export const meleeAttackAction = async (actor) => {
     //todo: better way to select equipped weapon from actor from within actor
     //todo: dual wielding? if there are 2 weapons, maybe a dialog to select which one and if it is the second attack to add disadvantage?
-    const weapons = actor.items.filter(x => x.system.equipped?.isEquipped && ["weapon", "arm"].includes(x.system.equipped.slot));
-    const weapon = weapons.length > 0 ? weapons[0] : { name: "unarmed", system: { damageEntries: { crush: 1 } } } //todo: unarmed damage?
-    const result = await useAction(actor, "attack", "strength");
+    const weapons = actor.getActiveItems().filter(i => i.type === "meleeWeapon");
+    const weapon = weapons.length > 0 ? weapons[0] : { name: "unarmed", system: { type: "simple", damageEntries: { crush: 1 } } } //todo: unarmed damage?
+    const result = await useAction(actor, "attack", getAbility(weapon));
     if (!result) return;
 
     await sendChat(weapon.name, "melee", weapon.system, result);
@@ -24,11 +26,7 @@ export const meleeAttackAction = async (actor) => {
 
 export const rangedAttackAction = async (actor) => {
     const selectAmmo = async (actor, weapon) => {
-        const ammoTypes = {
-            "bow": "arrow",
-            "crossbow": "bolt"
-        }
-        const ammoType = ammoTypes[weapon.system.category];
+        const ammoType = weapon.system.ammoType;
         if (ammoType) {
             const ammos = actor.items.filter(x =>
                 x.type === "ammunition"
@@ -43,26 +41,24 @@ export const rangedAttackAction = async (actor) => {
                 return ammos[0];
             }
         } else {
-            return actor.items.find(x => x.system.equipped?.isEquipped && x.system.isAmmo);
+            //return actor.items.find(x => x.system.isEquipped);
+            return { quantity: 0 }; //todo: darts?
         }
     }
 
-    const weapons = actor.items.filter(x => x.system.equipped?.isEquipped
-        && x.system.equipped.slot === "weapon"
-        && x.system.usageType === "ranged");
+    const weapons = actor.getActiveItems().filter(i => i.type === "rangedWeapon");
     if (weapons.length < 1) return false;
 
     const weapon = weapons[0];//todo: off hand darts? or dual wield crossbows?
     const ammoSelection = await selectAmmo(actor, weapon);
     if (!ammoSelection || ammoSelection.quantity < 1) return;
 
-    //todo: based on actionData pick strength or agility (ie normal ranged is str, martial is agil.  same for melee attack)
-    const result = await useAction(actor, "ranged", "strength");
+    const result = await useAction(actor, "ranged", getAbility(weapon));
     if (!result) return;
 
     actor.removeItem(ammoSelection);
-
     //todo: ranged attacks are a combo of the weapon and ammo used.
+    // weapon give damage, ammo gives qualities
     // this needs to be reflected in the outcome and messaging
     await sendChat(weapon.name, "ranged", weapon.system, result);
     return result;

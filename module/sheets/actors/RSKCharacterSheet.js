@@ -18,7 +18,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareInventory(context) {
-        context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("slotId") || i.system.hasOwnProperty("maxStackSize"));
+        context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("maxStackSize"));
         context.usedSlots = this.actor.flags?.rsk?.inventorySlotsUsed ?? 0;
     }
 
@@ -43,10 +43,10 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareEquipment(context) {
-        const equipped = context.items.filter(i => i.system?.equipped && i.system.equipped.isEquipped);
+        const equipped = context.items.filter(i => i.system.activeSlot && i.system.isEquipped);
         context.worn = {};
-        equipped.map((e) => context.worn[e.system.equipped.slot] = e.name);
-        context.equippedIsRanged = equipped.filter(x => x.system.usageType === "ranged").length > 0;
+        equipped.map((e) => context.worn[e.system.activeSlot] = e.name);
+        context.equippedIsRanged = equipped.filter(x => x.type === "rangedWeapon").length > 0;
     }
 
     activateListeners(html) {
