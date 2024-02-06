@@ -15,6 +15,6 @@ export default class RSKNpcType extends RSKActorType {
     }
 
     getArmourValue() {
-        return this.system.armourValue;
+        return this.armourValue;
     }
 }

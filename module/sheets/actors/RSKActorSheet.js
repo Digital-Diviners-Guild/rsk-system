@@ -55,11 +55,11 @@ export default class RSKActorSheet extends ActorSheet {
         html.find('.item-equip').click(ev => {
             const li = $(ev.currentTarget).parents(".item");
             const item = this.actor.items.get(li.data("itemId"));
-            this.actor.equip(item);
+            this.actor.system.equip(item);
         });
 
         html.find('.apply-backgrounds').click(ev => {
-            this.actor.applyBackgrounds();
+            this.actor.system.applyBackgrounds();
         });
 
         html.find('.item-delete').click(ev => {
@@ -168,14 +168,14 @@ export default class RSKActorSheet extends ActorSheet {
     }
 
     async characterRest() {
-        this.actor.rest();
+        this.actor.system.rest();
     };
 
     async characterDamage() {
         const dialog = RSKApplyDamageDialog.create();
         const result = await dialog();
         if (!result?.confirmed) return;
-        this.actor.receiveDamage({ ...result });
+        await this.actor.system.receiveDamage({ ...result });
     }
 
     async handleChatItem(itemType, itemId) {

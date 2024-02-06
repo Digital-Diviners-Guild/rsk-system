@@ -98,13 +98,13 @@ export default class RSKCharacterType extends RSKActorType {
 
     updateLevel(category, type, requestedLevel, constraint) {
         const newLevel = game.rsk.math.clamp_value(requestedLevel, constraint);
-        this.update({ [`${category}.${type}.level`]: newLevel });
+        this.parent.update({ [`system.${category}.${type}.level`]: newLevel });
     }
 
     async useSkill(options) {
         const { skill, ability, targetNumberModifier, rollType } = { ...options }
         if (this.skills?.hasOwnProperty(skill)) {
-            this.update({ [`skills.${skill}.used`]: true });
+            this.parent.update({ [`system.skills.${skill}.used`]: true });
             const targetNumber = this.getRollData().calculateTargetNumber(skill, ability, targetNumberModifier);
             const rollResult = await game.rsk.dice.skillCheck(targetNumber, rollType);
             return { ...rollResult, targetNumber };
@@ -112,10 +112,10 @@ export default class RSKCharacterType extends RSKActorType {
     }
 
     rest() {
-        this.update({
-            "lifePoints.value": this.lifePoints.max,
-            "prayerPoints.value": this.prayerPoints.max,
-            "summoningPoints.value": this.summoningPoints.max
+        this.parent.update({
+            "system.lifePoints.value": this.lifePoints.max,
+            "system.prayerPoints.value": this.prayerPoints.max,
+            "system.summoningPoints.value": this.summoningPoints.max
         });
     }
 
@@ -128,10 +128,10 @@ export default class RSKCharacterType extends RSKActorType {
     clearUsedSkills() {
         const updates = Object.keys(this.skills)
             .reduce((acc, curr) => {
-                acc[`skills.${curr}.used`] = false;
+                acc[`system.skills.${curr}.used`] = false;
                 return acc;
             }, {});
-        this.update(updates);
+        this.parent.update(updates);
     }
 
     applyBackgrounds() {
@@ -153,7 +153,7 @@ export default class RSKCharacterType extends RSKActorType {
     spendPoints(type, amount) {
         const points = this[`${type}Points`];
         const newAmount = game.rsk.math.clamp_value(points.value - amount, points);
-        this.update({ [`${type}Points.value`]: newAmount });
+        this.parent.update({ [`system.${type}Points.value`]: newAmount });
     }
 
     addItem(itemToAdd, quantity = 1) {
@@ -210,9 +210,9 @@ export default class RSKCharacterType extends RSKActorType {
 
     _clampActorValues() {
         super._clampActorValues();
-        for (let skill in this.system.skills) {
-            this.system.skills[skill].level = game.rsk.math.clamp_value(
-                this.system.skills[skill].level,
+        for (let skill in this.skills) {
+            this.skills[skill].level = game.rsk.math.clamp_value(
+                this.skills[skill].level,
                 { min: this.minSkillLevel, max: this.maxSkillLevel });
         }
     }

@@ -1,5 +1,4 @@
-import RSKApplyDamageDialog from "./RSKApplyDamageDialog.js";
-import { getTarget } from "../rsk-targetting.js";
+import { applyOutcome } from "../rsk-actions.js";
 
 export default class RSKChatLog extends ChatLog {
 
@@ -9,14 +8,9 @@ export function onRenderChatMessage(app, html, data) {
     html.find(".apply-outcome")
         .click(async e => {
             //todo apply outcomes: Bonus damage from good rolls?
-            const target = getTarget(currentCharacter);
             const message = data.message;
-            if (target && message?.flags?.rsk?.actionType) {
-                const dialog = RSKApplyDamageDialog.create(foundry.utils.deepClone(message.flags.rsk));
-                const result = await dialog();
-                if (!result?.confirmed) return;
-                await target.receiveDamage({ ...result });
-            }
+            if (!(message?.flags?.rsk?.targetUuid && message?.flags?.rsk?.actionType)) return;
+            applyOutcome(foundry.utils.deepClone(message.flags.rsk));
         });
 }
 
