@@ -10,4 +10,38 @@ export default class RSKBackgroundType extends foundry.abstract.TypeDataModel {
             }, {}))
         }
     };
+
+    applyBackgroundSkillImprovements = (actor) => {
+        if (this.flags.rsk?.appliedBackground || this.getBackgroundSkillImprovementTotal() === 0) return;
+        this.mapSkillImprovementOperation((skill, improvement) =>
+            actor.increaseSkillLevel(skill, improvement));
+        this.parent.update({ "flags.rsk.appliedBackground": true });
+    };
+
+    removeBackgroundSkillImprovements = (actor) => {
+        this.mapSkillImprovementOperation((skill, improvement) =>
+            actor.decreaseSkillLevel(skill, improvement));
+        this.parent.update({ "flags.rsk.appliedBackground": false });
+    };
+
+    mapSkillImprovementOperation = (op) => {
+        const improvements = this.skillImprovements;
+        for (let skill in improvements) {
+            const improvement = improvements[skill];
+            op(skill, improvement);
+        }
+    };
+
+    getBackgroundSkillImprovementTotal = () => Object
+        .keys(this.skillImprovements)
+        .map(si => this.skillImprovements[si])
+        .reduce((acc, x) => acc += x, 0)
+        ?? 0;
+
+    delete() {
+        if (this.parent.actor) {
+            this.removeBackgroundSkillImprovements(this.parent.actor);
+        }
+        super.delete();
+    }
 }

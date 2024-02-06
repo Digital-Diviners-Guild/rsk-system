@@ -1,6 +1,7 @@
 import RSKCreature from "./RSKCreature.js";
 import { fields, costField } from "../fields.js";
 import RSKActorType from "./RSKActorType.js";
+import { canAddItem } from "../../rsk-inventory.js";
 
 export default class RSKCharacterType extends RSKActorType {
     static defineSchema() {
@@ -161,7 +162,7 @@ export default class RSKCharacterType extends RSKActorType {
         if (canAddResult.canAdd && canAddResult.usesExistingSlot) {
             const existingItem = canAddResult.existingItem;
             let update = { _id: existingItem.id };
-            update["system.quantity"] = existingItem.quantity + quantity
+            update["system.quantity"] = existingItem.system.quantity + quantity
             this.parent.updateEmbeddedDocuments("Item", [update]);
         } else if (canAddResult.canAdd) {
             let newItem = foundry.utils.deepClone(itemToAdd.toObject());
@@ -194,7 +195,7 @@ export default class RSKCharacterType extends RSKActorType {
         if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
             currentEquipped[0].equip();
         }
-        item.equip();
+        item.system.equip();
     }
 
     // todo: armour soak may be good to put in 

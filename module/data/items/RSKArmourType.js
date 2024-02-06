@@ -1,6 +1,7 @@
 import { fields, costField, positiveNumberField } from "../fields.js";
+import RSKEquippableType from "./RSKEquippableType.js";
 
-export default class RSKArmourType extends foundry.abstract.TypeDataModel {
+export default class RSKArmourType extends RSKEquippableType {
     static defineSchema() {
         return {
             description: new fields.StringField(),
@@ -18,4 +19,9 @@ export default class RSKArmourType extends foundry.abstract.TypeDataModel {
             activeSlot: new fields.StringField({ required: true, initial: "body", choices: [...Object.keys(CONFIG.RSK.activeSlotType)] })
         }
     }
+
+    getArmourValue = () =>
+        typeof this.values?.soak !== "undefined"
+            ? this.values.soak
+            : 0;
 }

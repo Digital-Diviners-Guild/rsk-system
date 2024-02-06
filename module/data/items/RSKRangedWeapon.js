@@ -1,8 +1,9 @@
 import { costField, fields, positiveNumberField } from "../fields.js";
+import RSKEquippableType from "./RSKEquippableType.js";
 
 // things that can use ammo to shoot like a bow, or crossbow
 //todo: darts? they can be ammo and weapon
-export default class RSKRangedWeapon extends foundry.abstract.TypeDataModel {
+export default class RSKRangedWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
             type: new fields.StringField({ initial: "simple", options: ["simple", "martial", "unique"] }),

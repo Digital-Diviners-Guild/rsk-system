@@ -1,7 +1,8 @@
 import { costField, fields, positiveNumberField } from "../fields.js";
+import RSKEquippableType from "./RSKEquippableType.js";
 
 //things that can be used in a melee attack action, such as an axe, or pitchfork, or sword
-export default class RSKMeleeWeapon extends foundry.abstract.TypeDataModel {
+export default class RSKMeleeWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
             type: new fields.StringField({ initial: "simple", options: ["simple", "martial", "unique"] }),

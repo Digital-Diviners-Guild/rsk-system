@@ -92,12 +92,12 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     async handleIncreaseItemQuantity(itemId) {
         const item = this.actor.items.find(i => i.id === itemId);
-        this.actor.addItem(item)
+        this.actor.system.addItem(item)
     }
 
     async handleDecreaseItemQuantity(itemId) {
         const item = this.actor.items.find(i => i.id === itemId);
-        this.actor.removeItem(item)
+        this.actor.system.removeItem(item)
     }
 
     //todo: 
@@ -117,14 +117,14 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         if (!(skillResult.confirmed || skillResult.selectedSkill)) return;
         // thought: stuff like this should probably be handled reactively
         // the more we do stuff reactively, the easier it will to extend through modules later
-        this.actor.clearUsedSkills();
-        const gainedAbility = this.actor.increaseSkillLevel(skillResult.selectedSkill);
+        this.actor.system.clearUsedSkills();
+        const gainedAbility = this.actor.system.increaseSkillLevel(skillResult.selectedSkill);
         if (!gainedAbility) return;
 
         const abilityDialog = RSKImproveYourCharacterDialog.create({ abilities: eligibleAbilities }, { showSkillSelect: false, showAbilitySelect: true });
         const abilityResult = await abilityDialog();
         if (!(abilityResult.confirmed || abilityResult.selectedAbility)) return;
-        this.actor.increaseAbilityLevel(abilityResult.selectedAbility);
+        this.actor.system.increaseAbilityLevel(abilityResult.selectedAbility);
     }
 
     async characterMeleeAttack() {
@@ -152,7 +152,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const item = await Item.fromDropData(data);
         // how do we want to identify something that can go in the inventory?
         if (item.system.hasOwnProperty("maxStackSize")) {
-            await this.actor.addItem(item, item.system.quantity);
+            await this.actor.system.addItem(item, item.system.quantity);
         }
         else {
             await super._onDropItem(event, data);

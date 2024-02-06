@@ -15,7 +15,6 @@ import RSKNpc from "./data/actors/RSKNpcType.js";
 import RSKDeath from "./data/actors/RSKDeath.js";
 
 import RSKActiveEffect from "./documents/items/RSKActiveEffect.js";
-import { RSKItemProxy } from "./documents/items/RSKItemProxy.js";
 
 import RSKActor from "./documents/actors/RSKActor.js";
 import RSKActorSheet from "./sheets/actors/RSKActorSheet.js";
@@ -71,8 +70,6 @@ Hooks.once("init", function () {
     };
 
     CONFIG.RSK = RSK;
-
-    CONFIG.Item.documentClass = RSKItemProxy;
     CONFIG.Item.dataModels = {
         quality: RSKQualityType,
         action: RSKAction,
