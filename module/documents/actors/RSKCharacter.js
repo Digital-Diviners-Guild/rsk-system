@@ -142,8 +142,7 @@ export default class RSKCharacter extends RSKActor {
     }
 
     removeItem(itemToRemove, quantity = 1) {
-        //todo: name may not be good?
-        const existingItem = this.items.find(i => i.name === itemToRemove.name);
+        const existingItem = this.items.find(i => i.name === itemToRemove.name && i.type === itemToRemove.type);
         if (existingItem) {
             const newQuantity = existingItem.system.quantity - quantity;
             if (newQuantity < 1) {
