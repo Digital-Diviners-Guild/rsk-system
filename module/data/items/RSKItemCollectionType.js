@@ -10,7 +10,7 @@ export default class RSKItemCollection extends foundry.abstract.DataModel {
     import(actor) {
         const items = this.items
             .map(i => {
-                return { source: Item.get(i.itemId), quantity: i.quantity }
+                return { source: Item.get(i.itemId), quantity: i.system.quantity }
             });
         if (items.length < 1) return;
 
