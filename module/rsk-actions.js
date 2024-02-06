@@ -104,7 +104,7 @@ export const castAction = async (actor, castType) => {
                 actor.system.spendPoints(castType, cost.amount);
             }
         }
-    } else if (!(result.isSuccess && castType === magic)) {
+    } else if (castType !== "magic" && !result.isSuccess) {
         actor.system.spendPoints(castType, 1);
     }
     await sendChat(castable.name, castType, castable.system, result);
