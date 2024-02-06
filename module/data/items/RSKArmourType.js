@@ -1,5 +1,4 @@
 import { fields, costField, positiveNumberField } from "../fields.js";
-import RSKEquippableType from "./RSKEquippableType.js";
 
 export default class RSKArmourType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -11,7 +10,12 @@ export default class RSKArmourType extends foundry.abstract.TypeDataModel {
                 material: new fields.StringField({ initial: "cloth", options: [...Object.keys(CONFIG.RSK.materials)] }),
                 soak: new fields.NumberField({ required: true, ...positiveNumberField, max: 100 })
             }),
-            ...RSKEquippableType.defineSchema()
+            qualities: new fields.StringField(),
+            isEquipped: new fields.BooleanField(),
+            maxStackSize: new fields.NumberField({ initial: 1 }), //todo: is armour stackable except when "heavy"?
+            quantity: new fields.NumberField({ initial: 1 }),
+            //todo: only armour applicable slots
+            activeSlot: new fields.StringField({ required: true, initial: "body", choices: [...Object.keys(CONFIG.RSK.activeSlotType)] })
         }
     }
 }
