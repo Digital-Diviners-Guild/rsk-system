@@ -1,4 +1,4 @@
-import { fields } from "../fields.js";
+import { fields, costField } from "../fields.js";
 
 export default class RSKRuneType extends foundry.abstract.DataModel {
     static defineSchema() {
