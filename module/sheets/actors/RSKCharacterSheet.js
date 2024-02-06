@@ -136,7 +136,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     async characterCastSpell() {
-        debugger;
         await castAction(this.actor, "magic");
     }
 
