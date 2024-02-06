@@ -18,12 +18,8 @@ import RSKActiveEffect from "./documents/items/RSKActiveEffect.js";
 import { RSKItemProxy } from "./documents/items/RSKItemProxy.js";
 
 import RSKActor from "./documents/actors/RSKActor.js";
-import { RSKActorProxy } from "./documents/actors/RSKActorProxy.js";
-
-import RSKItemSheet from "./sheets/items/RSKItemSheet.js";
-
 import RSKActorSheet from "./sheets/actors/RSKActorSheet.js";
-
+import RSKItemSheet from "./sheets/items/RSKItemSheet.js";
 import RSKChatLog, { onRenderChatMessage } from "./applications/RSKChatLog.js";
 import RSK from "./config.js";
 import RSKRuneType from "./data/items/RSKRune.js";
@@ -104,7 +100,7 @@ Hooks.once("init", function () {
     Items.registerSheet("rsk", RSKItemCollectionSheet, { types: ["itemCollection"], makeDefault: true });
     Items.registerSheet("rsk", RSKRuneSheet, { types: ["rune"], makeDefault: true });
 
-    CONFIG.Actor.documentClass = RSKActorProxy;
+    CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Actor.dataModels = {
         character: RSKCharacterType,
         npc: RSKNpc,

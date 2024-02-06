@@ -1,6 +1,7 @@
+import RSKActorType from "./RSKActorType.js";
 import RSKCreature from "./RSKCreature.js";
 
-export default class RSKNpcType extends foundry.abstract.TypeDataModel {
+export default class RSKNpcType extends RSKActorType {
     static defineSchema() {
         const fields = foundry.data.fields;
         return {
@@ -11,5 +12,9 @@ export default class RSKNpcType extends foundry.abstract.TypeDataModel {
             actions: new fields.ArrayField(new fields.ObjectField()),
             armourValue: new fields.NumberField({ min: 0, initial: 0, max: 20 }),
         };
+    }
+
+    getArmourValue() {
+        return this.system.armourValue;
     }
 }

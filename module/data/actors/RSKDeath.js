@@ -1,4 +1,4 @@
-export default class RSKNpcType extends foundry.abstract.DataModel {
+export default class RSKDeathType extends foundry.abstract.DataModel {
     static defineSchema() {
         const fields = foundry.data.fields;
         return {

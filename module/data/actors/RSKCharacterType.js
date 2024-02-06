@@ -1,7 +1,8 @@
 import RSKCreature from "./RSKCreature.js";
 import { fields, costField } from "../fields.js";
+import RSKActorType from "./RSKActorType.js";
 
-export default class RSKCharacterType extends foundry.abstract.TypeDataModel {
+export default class RSKCharacterType extends RSKActorType {
     static defineSchema() {
         return {
             ...RSKCreature.defineSchema(),
@@ -36,5 +37,183 @@ export default class RSKCharacterType extends foundry.abstract.TypeDataModel {
                 return obj;
             }, {}))
         };
+    }
+
+    minSkillLevel = 1;
+    maxSkillLevel = 10;
+    minAbilityLevel = 1;
+    maxAbilityLevel = 8;
+    abilityAwardedAtLevel = 5;
+    maxInventorySlots = 28;
+
+    prepareBaseData() {
+        super.prepareBaseData();
+        this.lifePoints.max =
+            Object.keys(this.abilities).map(i => this.abilities[i]).reduce((acc, a, i) => acc += Number(a.level), 0)
+            + Object.keys(this.skills).map(i => this.skills[i]).reduce((acc, s, i) => acc += Number(s.level), 0);
+
+        this.prayerPoints.max = this.skills.prayer.level * 3;
+        this.prayerPoints.value = game.rsk.math.clamp_value(this.prayerPoints.value, this.prayerPoints)
+        this.summoningPoints.max = this.skills.summoning.level * 5;
+        this.summoningPoints.value = game.rsk.math.clamp_value(this.summoningPoints.value, this.summoningPoints)
+    }
+
+    getRollData() {
+        const systemData = this.toObject();
+        return {
+            skills: { ...systemData.skills },
+            abilities: { ...systemData.abilities },
+            calculateTargetNumber: (skill, ability, targetNumberModifier) => this.calculateTargetNumber(skill, ability, targetNumberModifier)
+        };
+    }
+
+    calculateTargetNumber(selectedSkill, selectedAbility, targetNumberModifier) {
+        const ability = this.abilities[selectedAbility];
+        const skill = this.skills[selectedSkill];
+        return skill.level + (skill.modifier ?? 0)
+            + ability.level + (ability.modifier ?? 0)
+            + targetNumberModifier;
+    }
+
+    increaseSkillLevel(skill, amount = 1) {
+        const newLevel = this.skills[skill].level + amount;
+        this.updateLevel("skills", skill, newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
+        return newLevel === this.abilityAwardedAtLevel;
+    }
+
+    decreaseSkillLevel(skill, amount = 1) {
+        const newLevel = this.skills[skill].level - amount;
+        this.updateLevel("skills", skill, newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
+    }
+
+    increaseAbilityLevel(ability, amount = 1) {
+        const newLevel = this.abilities[ability].level + amount;
+        this.updateLevel("abilities", ability, newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
+    }
+
+    decreaseAbilityLevel(ability, amount = 1) {
+        const newLevel = this.abilities[ability].level - amount;
+        this.updateLevel("abilities", ability, newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
+    }
+
+    updateLevel(category, type, requestedLevel, constraint) {
+        const newLevel = game.rsk.math.clamp_value(requestedLevel, constraint);
+        this.update({ [`${category}.${type}.level`]: newLevel });
+    }
+
+    async useSkill(options) {
+        const { skill, ability, targetNumberModifier, rollType } = { ...options }
+        if (this.skills?.hasOwnProperty(skill)) {
+            this.update({ [`skills.${skill}.used`]: true });
+            const targetNumber = this.getRollData().calculateTargetNumber(skill, ability, targetNumberModifier);
+            const rollResult = await game.rsk.dice.skillCheck(targetNumber, rollType);
+            return { ...rollResult, targetNumber };
+        }
+    }
+
+    rest() {
+        this.update({
+            "lifePoints.value": this.lifePoints.max,
+            "prayerPoints.value": this.prayerPoints.max,
+            "summoningPoints.value": this.summoningPoints.max
+        });
+    }
+
+    async acceptResurrection() {
+        const statusesToRemove = this.parent.effects.map(e => e._id) ?? [];
+        await this.parent.deleteEmbeddedDocuments("ActiveEffect", statusesToRemove);
+        this.rest();
+    }
+
+    clearUsedSkills() {
+        const updates = Object.keys(this.skills)
+            .reduce((acc, curr) => {
+                acc[`skills.${curr}.used`] = false;
+                return acc;
+            }, {});
+        this.update(updates);
+    }
+
+    applyBackgrounds() {
+        this.parent.items.filter(i => i.type === "background")
+            .map(b => b.applyBackgroundSkillImprovements(this.parent));
+    }
+
+    spendRunes(type, amount) {
+        const rune = this.parent.items.find(i => i.type === "rune" && i.system.type === type);
+        const newAmount = rune.system.quantity - amount;
+        if (newAmount < 1) {
+            this.parent.deleteEmbeddedDocuments("Item", [rune.id]);
+        } else {
+            let update = { _id: rune.id, "system.quantity": newAmount };
+            this.parent.updateEmbeddedDocuments("Item", [update]);
+        }
+    }
+
+    spendPoints(type, amount) {
+        const points = this[`${type}Points`];
+        const newAmount = game.rsk.math.clamp_value(points.value - amount, points);
+        this.update({ [`${type}Points.value`]: newAmount });
+    }
+
+    addItem(itemToAdd, quantity = 1) {
+        const canAddResult = canAddItem(this.parent.items, itemToAdd);
+        if (canAddResult.canAdd && canAddResult.usesExistingSlot) {
+            const existingItem = canAddResult.existingItem;
+            let update = { _id: existingItem.id };
+            update["system.quantity"] = existingItem.quantity + quantity
+            this.parent.updateEmbeddedDocuments("Item", [update]);
+        } else if (canAddResult.canAdd) {
+            let newItem = foundry.utils.deepClone(itemToAdd.toObject());
+            newItem.system.quantity = quantity;
+            this.parent.createEmbeddedDocuments("Item", [newItem]);
+        }
+    }
+
+    removeItem(itemToRemove, quantity = 1) {
+        const existingItem = this.parent.items.find(i => i.name === itemToRemove.name && i.type === itemToRemove.type);
+        if (existingItem) {
+            const newQuantity = existingItem.system.quantity - quantity;
+            if (newQuantity < 1) {
+                this.parent.deleteEmbeddedDocuments("Item", [existingItem.id]);
+            } else {
+                let update = { _id: existingItem.id };
+                update["system.quantity"] = newQuantity
+                this.parent.updateEmbeddedDocuments("Item", [update]);
+            }
+        }
+    }
+
+    getActiveItems() {
+        return this.parent.items.filter(i => i.system.isEquipped);
+    }
+
+    equip(item) {
+        const currentEquipped = this.parent.items.filter(i => i.system.isEquipped
+            && i.system.activeSlot === item.system.activeSlot);
+        if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
+            currentEquipped[0].equip();
+        }
+        item.equip();
+    }
+
+    // todo: armour soak may be good to put in 
+    // one of the prepare data methods and displayed somewhere on the char
+    // sheet, to give feedback about the current soak values based on 
+    // the current character/equipment.
+    getArmourValue() {
+        return this.parent.items
+            .filter(i => i.isEquipped)
+            .reduce((acc, w, i) => acc +=
+                typeof w.getArmourValue === "function" ? w.getArmourValue() : 0, 0)
+    }
+
+    _clampActorValues() {
+        super._clampActorValues();
+        for (let skill in this.system.skills) {
+            this.system.skills[skill].level = game.rsk.math.clamp_value(
+                this.system.skills[skill].level,
+                { min: this.minSkillLevel, max: this.maxSkillLevel });
+        }
     }
 }

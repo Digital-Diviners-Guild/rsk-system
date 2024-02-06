@@ -11,7 +11,7 @@ export function isInRange(actorToken, targetToken, range) {
 }
 
 export function getTarget(actor = {}) {
-    const targets = game.users.current.targets;
+    const targets = game.user.targets;
     let target = actor;
     for (const t of targets) {
         //--- should we default to self target, or throw since we cannot do what they wanted?
@@ -23,5 +23,5 @@ export function getTarget(actor = {}) {
         target = t.actor;
         //}
     }
-    return target;
+    return target.uuid;
 }

@@ -1,5 +1,6 @@
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
+import { getTarget } from "./rsk-targetting.js";
 
 /*
 equipment model needs rework, and maybe needs to be split into ranged weapons/melee weapons
@@ -15,7 +16,7 @@ const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "s
 export const meleeAttackAction = async (actor) => {
     //todo: better way to select equipped weapon from actor from within actor
     //todo: dual wielding? if there are 2 weapons, maybe a dialog to select which one and if it is the second attack to add disadvantage?
-    const weapons = actor.getActiveItems().filter(i => i.type === "meleeWeapon");
+    const weapons = actor.system.getActiveItems().filter(i => i.type === "meleeWeapon");
     const weapon = weapons.length > 0 ? weapons[0] : { name: "unarmed", system: { type: "simple", damageEntries: { crush: 1 } } } //todo: unarmed damage?
     const result = await useAction(actor, "attack", getAbility(weapon));
     if (!result) return;
@@ -46,7 +47,7 @@ export const rangedAttackAction = async (actor) => {
         }
     }
 
-    const weapons = actor.getActiveItems().filter(i => i.type === "rangedWeapon");
+    const weapons = actor.system.getActiveItems().filter(i => i.type === "rangedWeapon");
     if (weapons.length < 1) return false;
 
     const weapon = weapons[0];//todo: off hand darts? or dual wield crossbows?
@@ -56,7 +57,7 @@ export const rangedAttackAction = async (actor) => {
     const result = await useAction(actor, "ranged", getAbility(weapon));
     if (!result) return;
 
-    actor.removeItem(ammoSelection);
+    actor.system.removeItem(ammoSelection);
     //todo: ranged attacks are a combo of the weapon and ammo used.
     // weapon give damage, ammo gives qualities
     // this needs to be reflected in the outcome and messaging
@@ -97,13 +98,13 @@ export const castAction = async (actor, castType) => {
     if (result.isSuccess) {
         for (const cost of castable.system.usageCost) {
             if (castType === "magic") {
-                actor.spendRunes(cost.type, cost.amount);
+                actor.system.spendRunes(cost.type, cost.amount);
             } else {
-                actor.spendPoints(castType, cost.amount);
+                actor.system.spendPoints(castType, cost.amount);
             }
         }
     } else if (!(result.isSuccess && castType === magic)) {
-        actor.spendPoints(castType, 1);
+        actor.system.spendPoints(castType, 1);
     }
     await sendChat(castable.name, castType, castable.system, result);
     return result;
@@ -114,13 +115,14 @@ export const dealsDamage = (data) => data.damageEntries
         .filter(x => x > 0).length > 0
 
 const useAction = async (actor, skill, ability) => {
-    const rollData = actor.getRollData();
+    const rollData = actor.system.getRollData();
     const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: skill, defaultAbility: ability });
     const rollResult = await dialog();
     if (!rollResult.rolled) return false;
 
-    const actionResult = await actor.useSkill(rollResult);
-    return actionResult;
+    const actionResult = await actor.system.useSkill(rollResult);
+    //todo: probably want to grab targets here?
+    return actionResult
 }
 
 const sendChat = async (label, actionType, actionData, result) => {
