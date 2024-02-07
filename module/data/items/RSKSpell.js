@@ -8,7 +8,7 @@ export default class RSKSpell extends foundry.abstract.TypeDataModel {
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
             damageEntries: new fields.ObjectField(),
-            range: new fields.StringField(),
+            range: new fields.StringField({ initial: "far", options: [...Object.keys(CONFIG.RSK.ranges)] }),
             //todo: what is the diff between choices and options?
             usageCost: new fields.ArrayField(new fields.SchemaField({
                 type: new fields.StringField({ choices: [...Object.keys(CONFIG.RSK.runeType)] }),

@@ -9,7 +9,7 @@ export default class RSKPrayer extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
             effectDescription: new fields.StringField(),
-            range: new fields.StringField(),
+            range: new fields.StringField({ initial: "near", options: ["near"] }),
             usageCost: new fields.ArrayField(new fields.SchemaField({
                 type: new fields.StringField({ choices: ["prayerPoints"] }),
                 amount: new fields.NumberField({ min: 0, max: 30 })

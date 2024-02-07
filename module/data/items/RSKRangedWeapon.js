@@ -10,7 +10,7 @@ export default class RSKRangedWeapon extends RSKEquippableType {
             material: new fields.StringField({ initial: "bronze", options: [Object.keys(CONFIG.RSK.weaponMaterials)] }),
             ammoType: new fields.StringField({ initial: "arrow", options: [Object.keys(CONFIG.RSK.ammunitionType)] }),
             description: new fields.StringField(),
-            range: new fields.StringField(),
+            range: new fields.StringField({ initial: "far", options: [...Object.keys(CONFIG.RSK.ranges)] }),
             uses: new fields.StringField(),
             effectDescription: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
