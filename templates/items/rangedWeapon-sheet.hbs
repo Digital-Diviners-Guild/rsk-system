@@ -79,7 +79,9 @@
             <input name="system.maxStackSize" type="number" value="{{system.maxStackSize}}">
             <div class="form-group">
                 <label>{{localize "RSK.AmmoType"}}</label>
-                <input type="text" name="system.ammoType" value="{{system.ammoType}}">
+                <select name="system.ammoType">
+                    {{selectOptions config.ammunitionType selected=system.ammoType localize=true}}
+                </select>
             </div>
             <strong>{{localize "RSK.Qualities"}}:</strong>
             <input type="text" name="system.qualities" value="{{system.qualities}}">
