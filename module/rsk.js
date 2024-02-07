@@ -98,7 +98,7 @@ Hooks.once("init", function () {
     Items.registerSheet("rsk", RSKActionSheet, { types: ["action"], makeDefault: true });
     Items.registerSheet("rsk", RSKSpellSheet, { types: ["spell"], makeDefault: true });
     Items.registerSheet("rsk", RSKSummoningSheet, { types: ["summoning"], makeDefault: true });
-    Items.registerSheet("rsk", RSKPrayerSheet, { types: ["spell"], makeDefault: true });
+    Items.registerSheet("rsk", RSKPrayerSheet, { types: ["prayer"], makeDefault: true });
     Items.registerSheet("rsk", RSKCodexSheet, { types: ["codex"], makeDefault: true });
     Items.registerSheet("rsk", RSKItemCollectionSheet, { types: ["itemCollection"], makeDefault: true });
     Items.registerSheet("rsk", RSKRuneSheet, { types: ["rune"], makeDefault: true });

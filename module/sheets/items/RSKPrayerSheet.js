@@ -19,7 +19,7 @@ export default class RSKPrayerSheet extends RSKItemSheet {
             const amount = $("#amount");
             const amountVal = Number(amount.val());
 
-            const usageCost = this.item.system.usageCost;
+            const usageCost = this.item.system.usageCost.filter(c => c.type !== "prayerPoints");
             usageCost.push({ type: "prayerPoints", amount: amountVal });
             this.item.update({ "system.usageCost": usageCost });
             amount.value = 0;

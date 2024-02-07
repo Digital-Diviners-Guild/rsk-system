@@ -19,7 +19,7 @@ export default class RSKSummoningSheet extends RSKItemSheet {
             const amount = $("#amount");
             const amountVal = Number(amount.val());
 
-            const usageCost = this.item.system.usageCost;
+            const usageCost = this.item.system.usageCost.filter(c => c.type !== "summoningPoints");
             usageCost.push({ type: "summoningPoints", amount: amountVal });
             this.item.update({ "system.usageCost": usageCost });
             amount.value = 0;
