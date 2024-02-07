@@ -7,7 +7,7 @@ export default class RSKEquipment extends foundry.abstract.TypeDataModel {
             description: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
             uses: new fields.StringField(),
-            maxStackSize: new fields.NumberField({ initial: 1 }),
+            maxStackSize: new fields.NumberField({ required: true, initial: 1, min: 1 }),
             quantity: new fields.NumberField({ initial: 1 })
         }
     };
