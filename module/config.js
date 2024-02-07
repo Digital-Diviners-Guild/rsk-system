@@ -123,19 +123,19 @@ RSK.clothMaterials = {
 }
 
 RSK.materials = {
-    ...woodMaterials,
-    ...metalMaterials,
-    ...clothMaterials
+    ...RSK.woodMaterials,
+    ...RSK.metalMaterials,
+    ...RSK.clothMaterials
 }
 
 RSK.weaponMaterials = {
-    ...woodMaterials,
-    ...metalMaterials
+    ...RSK.woodMaterials,
+    ...RSK.metalMaterials
 }
 
 RSK.armourMaterials = {
-    ...clothMaterials,
-    ...metalMaterials
+    ...RSK.clothMaterials,
+    ...RSK.metalMaterials
 }
 
 RSK.skills = {
