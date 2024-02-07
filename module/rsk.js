@@ -40,6 +40,8 @@ import RSKItemCollection from "./data/items/RSKItemCollectionType.js";
 import RSKSummoning from "./data/items/RSKSummoning.js";
 import RSKRangedWeapon from "./data/items/RSKRangedWeapon.js";
 import RSKMeleeWeapon from "./data/items/RSKMeleeWeapon.js";
+import RSKNpcAction from "./data/items/RSKNpcAction.js";
+import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -75,7 +77,7 @@ Hooks.once("init", function () {
     CONFIG.Item.documentClass = RSKItem;
     CONFIG.Item.dataModels = {
         quality: RSKQualityType,
-        npcAction: RSKNpcActionSheet,
+        npcAction: RSKNpcAction,
         specialFeature: RSKSpecialFeature,
         cape: RSKCapeType,
         material: RSKMaterial,
@@ -112,6 +114,7 @@ Hooks.once("init", function () {
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true });
     Actors.registerSheet("rsk", RSKCharacterSheet, { types: ["character"], makeDefault: true });
+    Actors.registerSheet("rsk", RSKNpcSheet, { types: ["npc"], makeDefault: true });
     Actors.registerSheet("rsk", RSKDeathSheet, { types: ["death"], makeDefault: true });
 
     CONFIG.ActiveEffect.legacyTransferral = false;

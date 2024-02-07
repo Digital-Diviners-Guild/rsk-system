@@ -58,8 +58,28 @@
                     <hr />
                     <div>
                         <strong>{{localize "RSK.Actions"}}: </strong>
-                        {{> "/systems/rsk/templates/actors/parts/view-items.hbs"
-                        items=actions }}
+                        <ol class="items-list">
+                            {{#each actions as |action|}}
+                            <li class="item flexrow" data-item-id="{{action._id}}">
+                                <div class="item-name flexrow">
+                                    <div>
+                                        <strong>{{action.name}}</strong>
+                                    </div>
+                                    {{#if action.system.description}}
+                                    <div class="item-content">
+                                        {{action.system.description}}
+                                    </div>
+                                    {{/if}}
+                                </div>
+                                <a class="item-control use-action" data-item-id="{{action._id}}"
+                                    title="Use Action">{{localize "RSK.UseAction"}}</a>
+                                <a class="item-control chat-item" data-item-type="{{action.type}}"
+                                    data-item-id="{{action._id}}" title="Chat Item">{{localize "RSK.ChatItem"}}</a>
+                                <a class="item-control item-delete" title="Remove Item">{{localize
+                                    "RSK.RemoveItem"}}</a>
+                            </li>
+                            {{/each}}
+                        </ol>
                     </div>
                     <div>
                         <strong>{{localize "RSK.Specials"}}: </strong>

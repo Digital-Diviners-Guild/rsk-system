@@ -122,7 +122,7 @@ export default class RSKActorSheet extends ActorSheet {
         const backgrounds = [];
 
         for (let i of context.items) {
-            if (i.type === 'action') {
+            if (i.type === 'npcAction') {
                 actions.push(i);
             } else if (i.type === 'specialFeature') {
                 specialFeatures.push(i);

@@ -60,7 +60,13 @@ RSK.spellTypes = {
 
 //this may just be needed for npc at this point
 RSK.actionTypes = {
-    action: "RSK.Action",
+    magic: "RSK.Magic",
+    melee: "RSK.Melee",
+    ranged: "RSK.Ranged"
+};
+
+RSK.codexTypes = {
+    npcAction: "RSK.NpcAction",
     spell: "RSK.Spell",
     prayer: "RSK.Prayer",
     summoning: "RSK.SummonFamiliar"

@@ -11,6 +11,29 @@ handle stacking? which needs a rework anyways (all of inventory/item collects ne
 */
 
 // TODO: new action functions need refactoring.
+//todo: allow multi targetting
+
+export const npcAction = async (actor, action) => {
+    const actionData = { ...action.system };
+    const content = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
+        {
+            label: action.name,
+            actionData,
+            showApplyDamage: true
+        });
+    const targetUuid = getTarget(actor);
+    await ChatMessage.create({
+        content: content,
+        flags: {
+            rsk: {
+                targetUuid: targetUuid,
+                actionType: actionData.type,
+                actionData
+            }
+        }
+    });
+}
+
 
 const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
 
@@ -145,7 +168,7 @@ const sendChat = async (label, actionType, actionData, result) => {
             ...actionData,
             ...result,
             showRollResult: true,
-            showApplyDamage: result.isSuccess && dealsDamage(actionData)
+            showApplyDamage: result?.isSuccess && dealsDamage(actionData)
         });
     await result.rollResult.toMessage({
         flavor: flavor,

@@ -7,6 +7,7 @@ export default class RSKChatLog extends ChatLog {
 export function onRenderChatMessage(app, html, data) {
     html.find(".apply-outcome")
         .click(async e => {
+            debugger;
             //todo apply outcomes: Bonus damage from good rolls?
             const message = data.message;
             if (!(message?.flags?.rsk?.targetUuid && message?.flags?.rsk?.actionType)) return;
