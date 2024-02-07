@@ -95,6 +95,7 @@ RSK.armourActiveSlotType = {
         .reduce((ks, k) => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
 };
 
+
 RSK.rawMaterialType = {
     wood: "RSK.Wood",
     fish: "RSK.Fish",
@@ -168,6 +169,13 @@ RSK.metalType = {
 RSK.resourceTier = {
     ...RSK.leatherType,
     ...RSK.metalType
+}
+
+RSK.tierOption = {
+    wood: { ...RSK.woodType },
+    mineral: { ...RSK.mineralType },
+    leather: { ...RSK.leatherType },
+    metal: { ...RSK.metalType },
 }
 
 RSK.weaponTypes = {

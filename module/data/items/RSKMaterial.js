@@ -5,6 +5,7 @@ export default class RSKMaterial extends foundry.abstract.TypeDataModel {
         return {
             type: new fields.StringField({
                 required: true,
+                initial: "wood",
                 options: [...Object.keys(CONFIG.RSK.rawMaterialType)]
             }),
             tier: new fields.StringField({

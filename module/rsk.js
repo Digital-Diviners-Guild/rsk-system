@@ -18,6 +18,7 @@ import RSKActiveEffect from "./documents/items/RSKActiveEffect.js";
 
 import RSKActor from "./documents/actors/RSKActor.js";
 import RSKActorSheet from "./sheets/actors/RSKActorSheet.js";
+import RSKItem from "./documents/items/RSKItem.js";
 import RSKItemSheet from "./sheets/items/RSKItemSheet.js";
 import RSKChatLog, { onRenderChatMessage } from "./applications/RSKChatLog.js";
 import RSK from "./config.js";
@@ -66,13 +67,14 @@ Hooks.once("init", function () {
     console.log("initializing...");
     // todo: map all of our api
     game.rsk = {
-        item: Item,
+        item: RSKItem,
         actor: RSKActor,
         math: RSKMath,
         dice: RSKDice
     };
 
     CONFIG.RSK = RSK;
+    CONFIG.Item.documentClass = RSKItem;
     CONFIG.Item.dataModels = {
         quality: RSKQualityType,
         action: RSKAction,

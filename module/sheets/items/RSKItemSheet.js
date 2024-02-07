@@ -23,6 +23,8 @@ export default class RSKItemSheet extends ItemSheet {
             && Object.values(itemData.system.damageEntries)
                 .filter(x => x > 0).length > 0;
         context.effects = itemData.effects;
+        debugger;
+        context.tierOptions = CONFIG.RSK.tierOption?.[itemData.system.type] ?? false;
         return context;
     }
 
