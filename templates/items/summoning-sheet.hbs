@@ -1,0 +1,78 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
+    </header>
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab features" data-group="primary" data-tab="description">
+            {{#if system.description}}
+            <div>
+                <strong>{{localize "RSK.Description"}}:</strong>
+                <p>
+                    {{system.description}}
+                </p>
+            </div>
+            {{/if}}
+            {{#if system.effectDescription}}
+            <div>
+                <strong>{{localize "RSK.EffectDescription"}}:</strong>
+                <p>
+                    {{system.effectDescription}}
+                </p>
+            </div>
+            {{/if}}
+            {{#if system.targetNumberModifier}}
+            <div><strong>{{localize "RSK.TargetNumberModifier"}}:</strong> {{system.targetNumberModifier}}</div>
+            {{/if}}
+            {{#if system.usageCost}}
+            <div>
+                <strong>{{localize "RSK.Cost"}}:</strong>
+                <p>
+                    {{usageCost}}
+                </p>
+            </div>
+            {{/if}}
+        </div>
+        <div class="tab features" data-group="primary" data-tab="edit">
+            <div class="form-group">
+                <label>{{localize "RSK.Description"}}:</label>
+                <input type="text" name="system.description" value="{{system.description}}">
+            </div>
+
+            <div class="form-group">
+                <label>{{localize "RSK.EffectDescription"}}:</label>
+                <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
+            </div>
+
+            <div class="form-group">
+                <label>{{localize "RSK.TargetNumberModifier"}}:</label>
+                <input type="number" name="system.targetNumberModifier" value="{{system.targetNumberModifier}}">
+            </div>
+
+            <strong>{{localize "RSK.Cost"}}:</strong>
+            <ol class="items-list">
+                {{#each system.usageCost as |cost|}}
+                <li class="item flexrow" data-type="{{cost.type}}">
+                    {{cost.type}}
+                    {{cost.amount}}
+                    <div class=" item-controls">
+                        <a class="item-control remove-usage-cost" title="Delete cost"><i class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+
+            <div class="form-group">
+                <label>{{localize "RSK.SummoningPoints"}}</label>
+                <input id="amount" type="number">
+                <a class="item-control add-usage-cost" title="add cost">
+                    <i class="fas fa-plus"></i> {{localize "Add Cost"}}
+                </a>
+            </div>
+        </div>
+    </section>
+</form>
