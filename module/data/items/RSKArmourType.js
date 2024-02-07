@@ -9,15 +9,23 @@ export default class RSKArmourType extends RSKEquippableType {
             cost: new fields.NumberField({ ...costField }),
             upgrades: new fields.StringField(),
             values: new fields.SchemaField({
-                material: new fields.StringField({ initial: "cloth", options: [...Object.keys(CONFIG.RSK.armourMaterials)] }),
+                material: new fields.StringField({
+                    required: true,
+                    initial: "cloth",
+                    options: [...Object.keys(CONFIG.RSK.armourMaterials)]
+                }),
                 soak: new fields.NumberField({ required: true, ...positiveNumberField, max: 100 })
             }),
             qualities: new fields.StringField(),
             isEquipped: new fields.BooleanField(),
-            maxStackSize: new fields.NumberField({ initial: 1 }), //todo: is armour stackable except when "heavy"?
+            //todo: is armour stackable except when "heavy"?
+            maxStackSize: new fields.NumberField({ required: true, initial: 1, min: 1 }),
             quantity: new fields.NumberField({ initial: 1 }),
-            //todo: only armour applicable slots
-            activeSlot: new fields.StringField({ required: true, initial: "body", choices: [...Object.keys(CONFIG.RSK.activeSlotType)] })
+            activeSlot: new fields.StringField({
+                required: true,
+                initial:
+                    "body", choices: [...Object.keys(CONFIG.RSK.armourActiveSlotType)]
+            })
         }
     }
 
