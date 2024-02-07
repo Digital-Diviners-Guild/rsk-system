@@ -1,4 +1,3 @@
-import RSKAction from "./data/items/RSKAction.js";
 import RSKArmourType from "./data/items/RSKArmourType.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
 import RSKEquipment from "./data/items/RSKEquipment.js";
@@ -14,7 +13,7 @@ import RSKCharacterType from "./data/actors/RSKCharacterType.js";
 import RSKNpc from "./data/actors/RSKNpcType.js";
 import RSKDeath from "./data/actors/RSKDeath.js";
 
-import RSKActiveEffect from "./documents/items/RSKActiveEffect.js";
+import RSKActiveEffect from "./documents/effects/RSKActiveEffect.js";
 
 import RSKActor from "./documents/actors/RSKActor.js";
 import RSKActorSheet from "./sheets/actors/RSKActorSheet.js";
@@ -27,10 +26,9 @@ import { customizeStatusEffects } from "./effects/statuses.js";
 import RSKDice from "./rsk-dice.js";
 import RSKMath from "./rsk-math.js";
 import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
-import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 import RSKDeathSheet from "./sheets/actors/RSKDeathSheet.js";
 import RSKCapeType from "./data/items/RSKCapeType.js";
-import RSKActionSheet from "./sheets/items/RSKActionSheet.js";
+import RSKNpcActionSheet from "./sheets/items/RSKNpcActionSheet.js";
 import RSKSummoningSheet from "./sheets/items/RSKSummoningSheet.js";
 import RSKPrayerSheet from "./sheets/items/RSKPrayerSheet.js";
 import RSKSpellSheet from "./sheets/items/RSKSpellSheet.js";
@@ -77,7 +75,7 @@ Hooks.once("init", function () {
     CONFIG.Item.documentClass = RSKItem;
     CONFIG.Item.dataModels = {
         quality: RSKQualityType,
-        action: RSKAction,
+        npcAction: RSKNpcActionSheet,
         specialFeature: RSKSpecialFeature,
         cape: RSKCapeType,
         material: RSKMaterial,
@@ -97,7 +95,7 @@ Hooks.once("init", function () {
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
-    Items.registerSheet("rsk", RSKActionSheet, { types: ["action"], makeDefault: true });
+    Items.registerSheet("rsk", RSKNpcActionSheet, { types: ["npcAction"], makeDefault: true });
     Items.registerSheet("rsk", RSKSpellSheet, { types: ["spell"], makeDefault: true });
     Items.registerSheet("rsk", RSKSummoningSheet, { types: ["summoning"], makeDefault: true });
     Items.registerSheet("rsk", RSKPrayerSheet, { types: ["prayer"], makeDefault: true });
@@ -114,7 +112,6 @@ Hooks.once("init", function () {
     Actors.unregisterSheet("core", ActorSheet);
     Actors.registerSheet("rsk", RSKActorSheet, { makeDefault: true });
     Actors.registerSheet("rsk", RSKCharacterSheet, { types: ["character"], makeDefault: true });
-    Actors.registerSheet("rsk", RSKNpcSheet, { types: ["npc"], makeDefault: true });
     Actors.registerSheet("rsk", RSKDeathSheet, { types: ["death"], makeDefault: true });
 
     CONFIG.ActiveEffect.legacyTransferral = false;

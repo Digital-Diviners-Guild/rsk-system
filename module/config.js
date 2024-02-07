@@ -58,9 +58,7 @@ RSK.spellTypes = {
     teleport: "RSK.Teleport"
 };
 
-//todo: may need to instead be something like: magic, range, melee, other
-// this info is usually important for protection prayers that need to know if the attack is magic or not
-//todo: not sure if we need this anymore?
+//this may just be needed for npc at this point
 RSK.actionTypes = {
     action: "RSK.Action",
     spell: "RSK.Spell",
