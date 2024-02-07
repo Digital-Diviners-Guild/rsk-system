@@ -41,11 +41,15 @@ RSK.runeType = {
     wrath: "RSK.WrathRune",
 }
 
+RSK.pointCostType = {
+    prayerPoints: "RSK.PrayerPoints",
+    summoningPoints: "RSK.SummoningPoints"
+}
+
 RSK.usageCostTypes = {
     ...RSK.ammunitionType,
     ...RSK.runeType,
-    prayerPoints: "RSK.PrayerPoints",
-    summoningPoints: "RSK.SummoningPoints"
+    ...RSK.pointCostType
 }
 
 RSK.spellTypes = {
@@ -56,6 +60,7 @@ RSK.spellTypes = {
 
 //todo: may need to instead be something like: magic, range, melee, other
 // this info is usually important for protection prayers that need to know if the attack is magic or not
+//todo: not sure if we need this anymore?
 RSK.actionTypes = {
     action: "RSK.Action",
     spell: "RSK.Spell",
@@ -78,19 +83,59 @@ RSK.activeSlotType = {
     cape: "RSK.Cape",
 };
 
-RSK.materials = {
-    cloth: "RSK.Cloth",
-    leather: "RSK.Leather",
+RSK.weaponActiveSlotType = {
+    ...Object.keys(RSK.activeSlotType)
+        .filter(k => k === "weapon" || k === "arm")
+        .reduce(ks, k => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
+}
+
+RSK.armourActiveSlotType = {
+    ...Object.keys(RSK.activeSlotType)
+        .filter(k => k !== "weapon")
+        .reduce(ks, k => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
+};
+
+RSK.woodMaterials = {
+    wood: "RSK.Wood",
+    oak: "RSK.Oak",
+    willow: "RSK.Willow",
+    maple: "RSK.Maple",
+    yew: "RSK.Yew",
+    magic: "RSK.Magic"
+}
+
+RSK.metalMaterials = {
     bronze: "RSK.Bronze",
     iron: "RSK.Iron",
     steel: "RSK.Steel",
     mithril: "RSK.Mithril",
     adamant: "RSK.Adamant",
     rune: "RSK.Rune",
+}
+
+RSK.clothMaterials = {
+    cloth: "RSK.Cloth",
+    leather: "RSK.Leather",
     green_dragonhide: "RSK.Green_Dragonhide",
     blue_dragonhide: "RSK.Blue_Dragonhide",
     red_dragonhide: "RSK.Red_Dragonhide",
     black_dragonhide: "RSK.Black_Dragonhide"
+}
+
+RSK.materials = {
+    ...woodMaterials,
+    ...metalMaterials,
+    ...clothMaterials
+}
+
+RSK.weaponMaterials = {
+    ...woodMaterials,
+    ...metalMaterials
+}
+
+RSK.armourMaterials = {
+    ...clothMaterials,
+    ...metalMaterials
 }
 
 RSK.skills = {
@@ -123,14 +168,22 @@ RSK.abilities = {
     intellect: "RSK.Intellect"
 }
 
-RSK.damageTypes = {
+RSK.physicalDamageTypes = {
     stab: "RSK.Stab",
     slash: "RSK.Slash",
-    crush: "RSK.Crush",
+    crush: "RSK.Crush"
+}
+
+RSK.elementalDamageTypes = {
     air: "RSK.Air",
     water: "RSK.Water",
     earth: "RSK.Earth",
     fire: "RSK.Fire",
+}
+
+RSK.damageTypes = {
+    ...RSK.physicalDamageTypes,
+    ...RSK.elementalDamageTypes,
 }
 
 export default RSK;
