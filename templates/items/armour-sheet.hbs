@@ -11,15 +11,20 @@
         <div class="tab features" data-group="primary" data-tab="description">
             <h3>{{localize "RSK.Description"}}</h3>
             <p>{{system.description}}</p>
+            <p>{{system.effectDescription}}</p>
             <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}} gp</p>
-            <p><strong>{{localize "RSK.ArmourType"}}:</strong> {{activeSlot}}</p>
-
+            <p><strong>{{localize "RSK.ActiveSlot"}}:</strong> {{activeSlot}}</p>
             <h3>{{localize "RSK.Values"}}</h3>
             <p><strong>{{localize "RSK.Material"}}:</strong> {{system.values.material}}</p>
             <p><strong>{{localize "RSK.Soak"}}:</strong> {{system.values.soak}}</p>
             <div>
                 <strong>{{localize "RSK.Qualities"}}:</strong>
                 <div>{{system.qualities}}</div>
+            </div>
+
+            <div>
+                <strong>{{localize "RSK.Upgrades"}}:</strong>
+                <div>{{system.upgrades}}</div>
             </div>
 
             <div>
@@ -37,11 +42,14 @@
 
             <div class="form-group">
                 <label>{{localize "RSK.ActiveSlot"}}:</label>
-                <select name="system.equipped.slot">
-                    {{selectOptions config.activeSlotType selected=system.equipped.slot localize=true}}
+                <select name="system.activeSlot">
+                    {{selectOptions config.activeSlotType selected=system.activeSlot localize=true}}
                 </select>
             </div>
-
+            <div>
+                <strong>{{localize "RSK.Upgrades"}}:</strong>
+                <input type="text" name="system.upgrades" value="{{system.upgrades}}">
+            </div>
             <div class="form-group">
                 <label>{{localize "RSK.Material"}}</label>
                 <select name="system.values.material">
@@ -53,11 +61,15 @@
                 <input type="number" name="system.values.soak" value="{{system.values.soak}}">
             </div>
 
+            <strong>{{localize "RSK.MaxStackSize"}}: </strong>
+            <input type="number" data-dtype="number" name="system.maxStackSize" value="{{system.maxStackSize}}">
+
             <strong>{{localize "RSK.Qualities"}}:</strong>
             <input type="text" name="system.qualities" value="{{system.qualities}}">
 
             <strong>{{localize "RSK.Effects"}}:</strong>
             {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+
         </div>
     </section>
 </form>

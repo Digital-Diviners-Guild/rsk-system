@@ -15,6 +15,7 @@
                     {{system.description}}
                 </p>
             </div>
+
             <div>
                 <h3>{{localize "RSK.AwardedFor"}}:</h3>
                 <p>
@@ -22,6 +23,10 @@
                 </p>
             </div>
 
+            <strong>{{localize "RSK.Qualities"}}</strong>
+            <p>
+                {{system.qualities}}
+            </p>
             <strong>{{localize "RSK.Effects"}}:</strong>
             {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
         </div>
@@ -32,6 +37,9 @@
 
             <label>{{localize "RSK.AwardedFor"}}</label>
             <input name="system.awardedFor" type="text" value="{{system.awardedFor}}">
+
+            <label>{{localize "RSK.Qualities"}}</label>
+            <input name="system.qualities" type="text" value="{{system.qualities}}">
 
             <strong>{{localize "RSK.Effects"}}:</strong>
             {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}

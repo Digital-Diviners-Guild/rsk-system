@@ -5,6 +5,7 @@ export default class RSKArmourType extends RSKEquippableType {
     static defineSchema() {
         return {
             description: new fields.StringField(),
+            effectDescription: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
             upgrades: new fields.StringField(),
             values: new fields.SchemaField({

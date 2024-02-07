@@ -31,7 +31,7 @@
             {{/if}}
 
             {{#if system.cost}}
-            <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}} gp</p>
+            <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}} {{localize "RSK.GP"}}</p>
             {{/if}}
 
             {{#if system.effectDescription}}
@@ -75,6 +75,8 @@
                 <label>{{localize "RSK.ActiveSlot"}}</label>
                 <input type="text" name="system.activeSlot" value="{{system.activeSlot}}">
             </div>
+            <label>{{localize "RSK.MaxStackSize"}}</label>
+            <input name="system.maxStackSize" type="number" value="{{system.maxStackSize}}">
             <div class="form-group">
                 <label>{{localize "RSK.AmmoType"}}</label>
                 <input type="text" name="system.ammoType" value="{{system.ammoType}}">

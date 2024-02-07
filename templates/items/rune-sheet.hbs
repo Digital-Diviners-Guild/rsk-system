@@ -25,7 +25,7 @@
             <div>
                 <h3>{{localize "RSK.Cost"}}:</h3>
                 <p>
-                    {{system.cost}} gp
+                    {{system.cost}} {{localize "RSK.GP"}}
                 </p>
             </div>
         </div>
@@ -42,6 +42,8 @@
             <input name="system.cost" type="text" value="{{system.cost}}">
             <label>{{localize "RSK.Description"}}</label>
             <input name="system.description" type="text" value="{{system.description}}">
+            <label>{{localize "RSK.MaxStackSize"}}</label>
+            <input name="system.maxStackSize" type="number" value="{{system.maxStackSize}}">
         </div>
     </section>
 </form>
