@@ -11,6 +11,12 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
+                <p>
+                    {{system.type}}
+                </p>
+                <p>
+                    {{system.tier}}
+                </p>
                 <h3>{{localize "RSK.Description"}}:</h3>
                 <p>
                     {{system.description}}
@@ -26,9 +32,17 @@
 
         <div class="tab features" data-group="primary" data-tab="edit">
             {{!-- editable? --}}
+            <label>{{localize "RSK.Type"}}</label>
+            <select name="system.type">
+                {{selectOptions config.materialType selected=system.type localize=true}}
+            </select>
+            <label>{{localize "RSK.Tier"}}</label>
+            <select name="system.tier">
+                {{selectOptions config.materialTier selected=system.tier localize=true}}
+            </select>
             <label>{{localize "RSK.Cost"}}</label>
             <input name="system.cost" type="number" value="{{system.cost}}">
-            
+
             <label>{{localize "RSK.Description"}}</label>
             <input name="system.description" type="text" value="{{system.description}}">
 

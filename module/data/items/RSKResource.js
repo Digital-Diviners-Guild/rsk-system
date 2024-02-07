@@ -3,6 +3,17 @@ import { fields, costField } from "../fields.js";
 export default class RSKResource extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
+            type: new fields.StringField({
+                required: true,
+                options: [...Object.keys(CONFIG.RSK.resourceType)]
+            }),
+            tier: new fields.StringField({
+                required: false,
+                options: [
+                    ...Object.keys(CONFIG.RSK.leatherType),
+                    ...Object.keys(CONFIG.RSK.metalType),
+                ]
+            }),
             description: new fields.StringField(),
             uses: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),

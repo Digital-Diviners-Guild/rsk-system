@@ -9,7 +9,7 @@ export default class RSKArmourType extends RSKEquippableType {
             cost: new fields.NumberField({ ...costField }),
             upgrades: new fields.StringField(),
             values: new fields.SchemaField({
-                material: new fields.StringField({ initial: "cloth", options: [...Object.keys(CONFIG.RSK.materials)] }),
+                material: new fields.StringField({ initial: "cloth", options: [...Object.keys(CONFIG.RSK.armourMaterials)] }),
                 soak: new fields.NumberField({ required: true, ...positiveNumberField, max: 100 })
             }),
             qualities: new fields.StringField(),

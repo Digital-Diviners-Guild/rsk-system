@@ -6,10 +6,9 @@ import RSKEquippableType from "./RSKEquippableType.js";
 export default class RSKRangedWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
-            type: new fields.StringField({ initial: "simple", options: ["simple", "martial", "unique"] }),
-            //todo: maybe want to split out materials into a few lists... a dragonhide melee weapon isn't a thing.
-            material: new fields.StringField({ initial: "bronze", options: [Object.keys(CONFIG.RSK.materials)] }),
-            ammoType: new fields.StringField({ initial: "arrow", options: ["bolt", "arrow", "dart"] }),
+            type: new fields.StringField({ initial: "simple", options: [Object.keys(CONFIG.RSK.weaponTypes)] }),
+            material: new fields.StringField({ initial: "bronze", options: [Object.keys(CONFIG.RSK.weaponMaterials)] }),
+            ammoType: new fields.StringField({ initial: "arrow", options: [Object.keys(CONFIG.RSK.ammunitionType)] }),
             description: new fields.StringField(),
             range: new fields.StringField(),
             uses: new fields.StringField(),
