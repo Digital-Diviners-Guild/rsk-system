@@ -9,7 +9,9 @@ export default class RSKResource extends foundry.abstract.TypeDataModel {
             }),
             tier: new fields.StringField({
                 required: false,
+                initial: "",
                 options: [
+                    "",
                     ...Object.keys(CONFIG.RSK.leatherType),
                     ...Object.keys(CONFIG.RSK.metalType),
                 ]

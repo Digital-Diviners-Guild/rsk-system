@@ -36,11 +36,11 @@
             {{!-- editable? --}}
             <label>{{localize "RSK.Type"}}</label>
             <select name="system.type">
-                {{selectOptions config.materialType selected=system.type localize=true}}
+                {{selectOptions config.resourceType selected=system.type localize=true}}
             </select>
             <label>{{localize "RSK.Tier"}}</label>
             <select name="system.tier">
-                {{selectOptions config.materialTier selected=system.tier localize=true}}
+                {{selectOptions config.resourceTier selected=system.tier localize=true}}
             </select>
             <label>{{localize "RSK.Description"}}</label>
             <input name="system.description" type="text" value="{{system.description}}">
