@@ -5,19 +5,32 @@ import RSKEquippableType from "./RSKEquippableType.js";
 export default class RSKMeleeWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
-            type: new fields.StringField({ initial: "simple", options: [Object.keys(CONFIG.RSK.weaponTypes)] }),
-            material: new fields.StringField({ initial: "bronze", options: [Object.keys(CONFIG.RSK.weaponMaterials)] }),
+            type: new fields.StringField({
+                required: true,
+                initial: "simple",
+                options: [...Object.keys(CONFIG.RSK.weaponTypes)]
+            }),
+            material: new fields.StringField({
+                required: true,
+                initial: "bronze",
+                options: [...Object.keys(CONFIG.RSK.weaponMaterials)]
+            }),
             description: new fields.StringField(),
             uses: new fields.StringField(),
             effectDescription: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
-            damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes).reduce((obj, damageType) => {
-                obj[damageType] = new fields.NumberField({ ...positiveNumberField, max: 150 });
-                return obj;
-            }, {})),
-            activeSlot: new fields.StringField({ initial: "weapon", options: ["weapon", "arm"] }),
+            damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes)
+                .reduce((obj, damageType) => {
+                    obj[damageType] = new fields.NumberField({ ...positiveNumberField, max: 500 });
+                    return obj;
+                }, {})),
+            activeSlot: new fields.StringField({
+                required: true,
+                initial: "weapon",
+                options: [...Object.keys(CONFIG.RSK.weaponActiveSlotType)]
+            }),
             isEquipped: new fields.BooleanField({ initial: false }),
-            maxStackSize: new fields.NumberField({ initial: 1 }),
+            maxStackSize: new fields.NumberField({ initial: 1, min: 1 }),
             quantity: new fields.NumberField({ initial: 1 })
         }
     };
