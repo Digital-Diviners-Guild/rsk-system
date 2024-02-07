@@ -1,0 +1,53 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
+    </header>
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab features" data-group="primary" data-tab="description">
+            <div><strong>{{localize "RSK.ActionType"}}:</strong> {{system.type}}</div>
+
+            {{#if system.description}}
+            <div>
+                <strong>{{localize "RSK.Description"}}:</strong>
+                <p>
+                    {{system.description}}
+                </p>
+            </div>
+            {{/if}}
+            {{#if system.effectDescription}}
+            <div>
+                <strong>{{localize "RSK.EffectDescription"}}:</strong>
+                <p>
+                    {{system.effectDescription}}
+                </p>
+            </div>
+            {{/if}}
+
+            {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
+        </div>
+        <div class="tab features" data-group="primary" data-tab="edit">
+            <div class="form-group">
+                <label>{{localize "RSK.ActionType"}}</label>
+                <select name="system.type">
+                    {{selectOptions config.actionTypes selected=system.type localize=true}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>{{localize "RSK.Description"}}:</label>
+                <input type="text" name="system.description" value="{{system.description}}">
+            </div>
+            <div class="form-group">
+                <label>{{localize "RSK.EffectDescription"}}:</label>
+                <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
+            </div>
+            {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
+            {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
+        </div>
+    </section>
+</form>
