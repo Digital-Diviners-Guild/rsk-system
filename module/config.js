@@ -95,26 +95,60 @@ RSK.armourActiveSlotType = {
         .reduce((ks, k) => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
 };
 
-RSK.woodMaterials = {
+RSK.rawMaterialType = {
+    wood: "RSK.Wood",
+    fish: "RSK.Fish",
+    rawMeat: "RSK.RawMeat",
+    skin: "RSK.Skin",
+    feathers: "RSK.Feathers",
+    mineral: "RSK.Mineral",
+    seed: "RSK.Seed",
+    produce: "RSK.Produce",
+    herb: "RSK.Herb",
+    water: "RSK.Water",
+    blood: "RSK.Blood"
+}
+
+RSK.woodType = {
     wood: "RSK.Wood",
     oak: "RSK.Oak",
     willow: "RSK.Willow",
     maple: "RSK.Maple",
     yew: "RSK.Yew",
-    magic: "RSK.Magic"
+    redwood: "RSK.RedWood",
+    magic: "RSK.Magic",
 }
 
-RSK.metalMaterials = {
-    bronze: "RSK.Bronze",
-    iron: "RSK.Iron",
-    steel: "RSK.Steel",
-    mithril: "RSK.Mithril",
-    adamant: "RSK.Adamant",
-    rune: "RSK.Rune",
+RSK.mineralType = {
+    tin: "RSK.TinOre",
+    copper: "RSK.CopperOre",
+    iron: "RSK.IronOre",
+    silver: "RSK.SilverOre",
+    coal: "RSK.Coal",
+    gold: "RSK.GoldOre",
+    mithril: "RSK.MithrilOre",
+    adamant: "RSK.AdamantOre",
+    rune: "RSK.RuniteOre",
+    clay: "RSK.Clay",
+    sand: "RSK.Sand"
 }
 
-RSK.clothMaterials = {
+RSK.materialTier = {
+    ...RSK.woodType,
+    ...RSK.mineralType
+}
+
+RSK.resourceType = {
+    metal: "RSK.Metal",
+    glass: "RSK.Glass",
+    mineral: "RSK.Mineral",
+    food: "RSK.Food",
+    potion: "RSK.Potion",
     cloth: "RSK.Cloth",
+    leather: "RSK.Leather"
+}
+
+RSK.leatherType = {
     leather: "RSK.Leather",
     green_dragonhide: "RSK.Green_Dragonhide",
     blue_dragonhide: "RSK.Blue_Dragonhide",
@@ -122,20 +156,41 @@ RSK.clothMaterials = {
     black_dragonhide: "RSK.Black_Dragonhide"
 }
 
+RSK.metalType = {
+    bronze: "RSK.Bronze",
+    iron: "RSK.Iron",
+    steel: "RSK.Steel",
+    mithril: "RSK.Mithril",
+    adamant: "RSK.Adamant",
+    runite: "RSK.Runite",
+}
+
+RSK.resourceTier = {
+    ...RSK.leatherType,
+    ...RSK.metalType
+}
+
+RSK.weaponTypes = {
+    simple: "RSK.Simple",
+    martial: "RSK.Martial",
+    unique: "RSK.Unique"
+}
+
 RSK.materials = {
-    ...RSK.woodMaterials,
-    ...RSK.metalMaterials,
-    ...RSK.clothMaterials
+    ...RSK.woodType,
+    ...RSK.metalType,
+    ...RSK.leatherType
 }
 
 RSK.weaponMaterials = {
-    ...RSK.woodMaterials,
-    ...RSK.metalMaterials
+    ...RSK.woodType,
+    ...RSK.metalType
 }
 
 RSK.armourMaterials = {
-    ...RSK.clothMaterials,
-    ...RSK.metalMaterials
+    cloth: "RSK.Cloth",
+    ...RSK.leatherType,
+    ...RSK.metalType
 }
 
 RSK.skills = {
