@@ -175,6 +175,13 @@ RSK.resourceTier = {
     ...RSK.metalType
 }
 
+// maybe other things like bone?
+// dragon? what material is dargon?
+// we need dragon material somewhere!!!
+RSK.ammunitionMaterialType = {
+    ...RSK.metalType
+}
+
 RSK.tierOption = {
     wood: { ...RSK.woodType },
     mineral: { ...RSK.mineralType },
