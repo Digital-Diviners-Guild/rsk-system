@@ -14,7 +14,7 @@ export default class RSKSpellSheet extends RSKItemSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
-        html.find(".add-usage-cost").click((ev) => {
+        html.find(".add-usage-cost").click(async (ev) => {
             const type = $("#type");
             const amount = $("#amount");
             const typeVal = type.val();
@@ -22,7 +22,7 @@ export default class RSKSpellSheet extends RSKItemSheet {
 
             const usageCost = this.item.system.usageCost.filter(c => c.type !== typeVal);
             usageCost.push({ type: typeVal, amount: amountVal });
-            this.item.update({ "system.usageCost": usageCost });
+            await this.item.update({ "system.usageCost": usageCost });
 
             type.value = "";
             amount.value = 0;

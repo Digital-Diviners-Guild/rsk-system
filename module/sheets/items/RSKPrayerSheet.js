@@ -15,13 +15,13 @@ export default class RSKPrayerSheet extends RSKItemSheet {
     //todo this could be a module that takes type as a param
     activateListeners(html) {
         super.activateListeners(html);
-        html.find(".add-usage-cost").click((ev) => {
+        html.find(".add-usage-cost").click(async (ev) => {
             const amount = $("#amount");
             const amountVal = Number(amount.val());
 
             const usageCost = this.item.system.usageCost.filter(c => c.type !== "prayerPoints");
             usageCost.push({ type: "prayerPoints", amount: amountVal });
-            this.item.update({ "system.usageCost": usageCost });
+            await this.item.update({ "system.usageCost": usageCost });
             amount.value = 0;
         });
 
