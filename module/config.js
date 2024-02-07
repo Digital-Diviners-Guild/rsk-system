@@ -86,13 +86,13 @@ RSK.activeSlotType = {
 RSK.weaponActiveSlotType = {
     ...Object.keys(RSK.activeSlotType)
         .filter(k => k === "weapon" || k === "arm")
-        .reduce(ks, k => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
+        .reduce((ks, k) => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
 }
 
 RSK.armourActiveSlotType = {
     ...Object.keys(RSK.activeSlotType)
         .filter(k => k !== "weapon")
-        .reduce(ks, k => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
+        .reduce((ks, k) => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
 };
 
 RSK.woodMaterials = {
