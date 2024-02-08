@@ -1,7 +1,7 @@
 import RSKApplyDamageDialog from "./applications/RSKApplyDamageDialog.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
-import { getTarget } from "./rsk-targetting.js";
+import { getTargets } from "./rsk-targetting.js";
 
 /*
 equipment model needs rework, and maybe needs to be split into ranged weapons/melee weapons
@@ -11,7 +11,9 @@ handle stacking? which needs a rework anyways (all of inventory/item collects ne
 */
 
 // TODO: new action functions need refactoring.
-//todo: allow multi targetting
+//todo: allow multi targetting - we should put together a list of all 
+// applicable actors, and show them the button
+// ie "in range" etc..
 
 export const npcAction = async (actor, action) => {
     const actionData = { ...action.system };
@@ -21,12 +23,12 @@ export const npcAction = async (actor, action) => {
             actionData,
             showApplyDamage: true
         });
-    const targetUuid = getTarget(actor);
+    const targetUuids = getTargets(actor);
     await ChatMessage.create({
         content: content,
         flags: {
             rsk: {
-                targetUuid: targetUuid,
+                targetUuids: targetUuids,
                 actionType: actionData.type,
                 actionData
             }
@@ -138,9 +140,8 @@ export const dealsDamage = (data) => data.damageEntries
     && Object.values(data.damageEntries)
         .filter(x => x > 0).length > 0
 
-export const applyOutcome = async (outcome) => {
-    const target = fromUuidSync(outcome.targetUuid)
-    if (target) {
+export const applyOutcome = async (targets, outcome) => {
+    for (let target of targets) {
         const dialog = RSKApplyDamageDialog.create(outcome);
         const result = await dialog();
         if (!result?.confirmed) return;
@@ -157,8 +158,8 @@ const useAction = async (actor, skill, ability) => {
     const actionResult = await actor.system.useSkill(rollResult);
     //todo: improve targetting communication?
     // it isn't really part of the result. just here to help with transition away from proxy
-    const targetUuid = getTarget(actor);
-    return { ...actionResult, targetUuid }
+    const targetUuids = getTargets(actor);
+    return { ...actionResult, targetUuids }
 }
 
 const sendChat = async (label, actionType, actionData, result) => {
@@ -174,7 +175,7 @@ const sendChat = async (label, actionType, actionData, result) => {
         flavor: flavor,
         flags: {
             rsk: {
-                targetUuid: result.targetUuid,
+                targetUuids: [...result.targetUuids],
                 actionType: actionType,
                 actionData: { ...actionData }
             }

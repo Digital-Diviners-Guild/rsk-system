@@ -10,12 +10,8 @@ export function isInRange(actorToken, targetToken, range) {
     return distance < maxDistance;
 }
 
-//todo: multi targetting, range checking
-export function getTarget(actor) {
+//todo: only valid targets / potentially self targeting?
+export function getTargets(actor) {
     const targets = game.user.targets;
-    let target = actor;
-    for (const t of targets) {
-        target = t.actor;
-    }
-    return target.uuid;
+    return targets.map(t => t.actor.uuid);
 }
