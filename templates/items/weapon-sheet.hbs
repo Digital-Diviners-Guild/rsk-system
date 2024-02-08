@@ -39,9 +39,16 @@ quantity: number
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
-                {{!-- todo render list in a csv? --}}
+                {{!-- todo: display better --}}
                 <strong>{{localize "RSK.AttackTypes"}}</strong>
-                {{system.attackTypes}}
+                <label>{{localize "RSK.IsMelee"}}</label>
+                {{system.isMelee}}
+                <label>{{localize "RSK.IsRanged"}}</label>
+                {{system.isRanged}}
+                <label>{{localize "RSK.IsThrown"}}</label>
+                {{system.isThrown}}
+                <label>{{localize "RSK.IsAmmo"}}</label>
+                {{system.isAmmo}}
             </div>
             <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
@@ -60,16 +67,14 @@ quantity: number
                 {{system.description}}
             </div>
             <div>
-                <strong>{{localize "RSK.Range"}}</strong>
-                {{system.range}}
+                {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
             </div>
             <div>
                 <strong>{{localize "RSK.Cost"}}</strong>
                 {{system.cost}}
             </div>
             <div>
-                <strong>{{localize "RSK.DamageEntries"}}</strong>
-                {{system.damageEntries}}
+                {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
             </div>
             <div>
                 <strong>{{localize "RSK.SpecialEffects"}}</strong>
@@ -91,9 +96,25 @@ quantity: number
 
         <div class="tab features" data-group="primary" data-tab="edit">
             <div>
-                {{!-- todo: attackTypes input --}}
+                {{!-- todo: attackTypes validations and sheet reactions (hiding fields) --}}
+                {{!-- if its melee, it can't be ranged thrown or ammo
+                if its ranged, it can be thrown and ammo as well --}}
                 <strong>{{localize "RSK.AttackTypes"}}</strong>
-                {{system.attackTypes}}
+                <label>{{localize "RSK.IsMelee"}}</label>
+                <input type="checkbox" data-dtype="Boolean" name="system.isMelee" value="{{system.isMelee}}" {{checked
+                    system.isMelee}}>
+
+                <label>{{localize "RSK.IsRanged"}}</label>
+                <input type="checkbox" data-dtype="Boolean" name="system.isRanged" value="{{system.isRanged}}" {{checked
+                    system.isRanged}}>
+
+                <label>{{localize "RSK.IsThrown"}}</label>
+                <input type="checkbox" data-dtype="Boolean" name="system.isThrown" value="{{system.isThrown}}" {{checked
+                    system.isThrown}}>
+
+                <label>{{localize "RSK.IsAmmo"}}</label>
+                <input type="checkbox" data-dtype="Boolean" name="system.isAmmo" value="{{system.isAmmo}}" {{checked
+                    system.isAmmo}}>
             </div>
             <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
@@ -102,9 +123,6 @@ quantity: number
                 </select>
             </div>
             <div>
-                {{!-- todo these options will be dynamic
-                depending on if its ammo type, or weapon type for available material options
-                but maybe not? darts... f in darts man --}}
                 <strong>{{localize "RSK.Material"}}</strong>
                 <select name="system.material">
                     {{selectOptions config.weaponMaterials selected=system.material localize=true}}
@@ -135,18 +153,15 @@ quantity: number
                 <input type="text" name="system.specialEffects" value="{{system.specialEffects}}">
             </div>
             <div>
+                {{!-- todo: do we really need `label:` in config structure? we can grab the label directly already --}}
                 <strong>{{localize "RSK.ActiveSlot"}}</strong>
                 <select name="system.activeSlot">
-                    {{selectOptions config.weaponActiveSlotType selected=system.activeSlot localize=true}}
+                    {{selectOptions config.weaponActiveSlotType.values selected=system.activeSlot localize=true}}
                 </select>
             </div>
             <div>
                 <strong>{{localize "RSK.MaxStackSize"}}</strong>
                 <input type="number" name="system.maxStackSize" value="{{system.maxStackSize}}">
-            </div>
-            <div>
-                <strong>{{localize "RSK.Quantity"}}</strong>
-                <input type="number" name="system.quantity" value="{{system.quantity}}">
             </div>
         </div>
     </section>

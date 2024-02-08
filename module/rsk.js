@@ -40,6 +40,7 @@ import RSKSummoning from "./data/items/RSKSummoning.js";
 import RSKWeapon from "./data/items/RSKWeapon.js";
 import RSKNpcAction from "./data/items/RSKNpcAction.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
+import RSKWeaponSheet from "./sheets/items/RSKWeaponSheet.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -93,6 +94,7 @@ Hooks.once("init", function () {
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
+    Items.registerSheet("rsk", RSKWeaponSheet, { types: ["weapon"], makeDefault: true });
     Items.registerSheet("rsk", RSKNpcActionSheet, { types: ["npcAction"], makeDefault: true });
     Items.registerSheet("rsk", RSKSpellSheet, { types: ["spell"], makeDefault: true });
     Items.registerSheet("rsk", RSKSummoningSheet, { types: ["summoning"], makeDefault: true });

@@ -4,13 +4,12 @@ import RSKEquippableType from "./RSKEquippableType.js";
 export default class RSKWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
-            //todo: config values for localization like others
-            attackTypes: new fields.ArrayField(new fields.StringField(
-                // not sure if magic even applies here.  
-                // a staff is actually a melee weapon if you don't cast a spell
-                // ammo and thrown still need to resolve to 'ranged' during the usage. (which is actionType encapsulated by action logic)
-                { initial: "melee", options: ["melee", "ranged", "magic", "thrown", "ammo"] }
-            )),
+            // todo: custom data model validation. at least one or all of these needs to be selected
+            // there is a way to add a 'validate' method to these models
+            isMelee: new fields.BooleanField(),
+            isRanged: new fields.BooleanField(),
+            isThrown: new fields.BooleanField(),
+            isAmmo: new fields.BooleanField(),
             weaponType: new fields.StringField({
                 required: true,
                 initial: "simple",
