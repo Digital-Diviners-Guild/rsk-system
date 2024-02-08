@@ -3,17 +3,7 @@ import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
 import { getTargets } from "./rsk-targetting.js";
 
-/*
-equipment model needs rework, and maybe needs to be split into ranged weapons/melee weapons
-tools and such that can be used as melee weapons would be modeled as melee weapons,
-then darts could be a ranged weapon instead of an ammo hack? though we still would need to 
-handle stacking? which needs a rework anyways (all of inventory/item collects needs one)
-*/
-
 // TODO: new action functions need refactoring.
-//todo: allow multi targetting - we should put together a list of all 
-// applicable actors, and show them the button
-// ie "in range" etc..
 
 export const npcAction = async (actor, action) => {
     const actionData = { ...action.system };
@@ -46,7 +36,7 @@ export const meleeAttackAction = async (actor) => {
     const result = await useAction(actor, "attack", getAbility(weapon));
     if (!result) return;
 
-    await sendChat(weapon.name, "melee", weapon.system, result);
+    await chatAction(weapon.name, "melee", weapon.system, result);
     return result;
 }
 
@@ -92,7 +82,7 @@ export const rangedAttackAction = async (actor) => {
     //todo: ranged attacks are a combo of the weapon and ammo used.
     // weapon give damage, ammo gives qualities
     // this needs to be reflected in the outcome and messaging
-    await sendChat(weapon.name, "ranged", weapon.system, result);
+    await chatAction(weapon.name, "ranged", weapon.system, result);
     return result;
 }
 
@@ -137,7 +127,7 @@ export const castAction = async (actor, castType) => {
     } else if (castType !== "magic" && !result.isSuccess) {
         actor.system.spendPoints(castType, 1);
     }
-    await sendChat(castable.name, castType, castable.system, result);
+    await chatAction(castable.name, castType, castable.system, result);
     return result;
 }
 
@@ -167,7 +157,7 @@ const useAction = async (actor, skill, ability) => {
     return { ...actionResult, targetUuids }
 }
 
-const sendChat = async (label, actionType, actionData, result) => {
+const chatAction = async (label, actionType, actionData, result) => {
     const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
         {
             label,
