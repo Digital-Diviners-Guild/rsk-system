@@ -43,6 +43,11 @@
                 <strong>{{localize "RSK.Description"}}</strong>
                 {{system.description}}
             </div>
+            {{!-- only ammo --}}
+            <div>
+                <strong>{{localize "RSK.Effects"}}</strong>
+                {{system.effectDescription}}
+            </div>
             <div>
                 {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
             </div>
@@ -114,6 +119,10 @@
             <div>
                 <strong>{{localize "RSK.Description"}}</strong>
                 <input type="text" name="system.description" value="{{system.description}}">
+            </div>
+            <div>
+                <strong>{{localize "RSK.Effects"}}</strong>
+                <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
             </div>
             <div>
                 <strong>{{localize "RSK.Cost"}}</strong>

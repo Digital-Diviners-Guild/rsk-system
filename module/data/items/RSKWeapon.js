@@ -26,6 +26,7 @@ export default class RSKWeapon extends RSKEquippableType {
                 options: ["", ...Object.keys(CONFIG.RSK.ammunitionType)]
             }),
             description: new fields.StringField(),
+            effectDescription: new fields.StringField(),
             range: new fields.StringField({
                 required: true,
                 initial: "near",

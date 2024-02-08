@@ -41,8 +41,7 @@ const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "s
 export const meleeAttackAction = async (actor) => {
     //todo: better way to select equipped weapon from actor from within actor
     //todo: dual wielding? if there are 2 weapons, maybe a dialog to select which one and if it is the second attack to add disadvantage?
-    //todo: distinguish between ranged and melee
-    const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon");
+    const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon" && i.system.isMelee);
     const weapon = weapons.length > 0 ? weapons[0] : { name: "unarmed", system: { type: "simple", damageEntries: { crush: 1 } } }
     const result = await useAction(actor, "attack", getAbility(weapon));
     if (!result) return;
@@ -52,14 +51,11 @@ export const meleeAttackAction = async (actor) => {
 }
 
 export const rangedAttackAction = async (actor) => {
+    //todo: use active slot to pick ammo, need an active slot to put it in
     const selectAmmo = async (actor, weapon) => {
         const ammoType = weapon.system.ammoType;
         if (ammoType) {
-            //handling a thrown weapon used as ammo by another ranged weapon
-            //it all needs work, but specifically this throwables stuff...
-            const ammos = actor.items.filter(x =>
-                (x.type === "ammunition" && x.system.type === ammoType)
-                || (ammoType === "darts" && x.type === "thrownWeapon"));
+            const ammos = actor.items.filter(x => x.system.isAmmo && x.system.ammoType === ammoType);
             if (ammos.length > 1) {
                 const ammoSelectionDialog = RSKItemSelectionDialog.create({ items: ammos });
                 const selectResult = await ammoSelectionDialog();
@@ -76,11 +72,12 @@ export const rangedAttackAction = async (actor) => {
 
     //not sure I like the current throwable approach
     //todo: distinguish between ranged and melee and thrown
-    const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon");
+    const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon" && (i.system.isRanged || i.system.isThrown));
     if (weapons.length < 1) return false;
 
-    const weapon = weapons[0];//todo: off hand darts? or dual wield crossbows?
-    const ammoSelection = weapon.type === "thrownWeapon"
+    //todo: off hand darts? or dual wield crossbows?
+    const weapon = weapons[0];
+    const ammoSelection = weapon.system.isThrown
         ? weapon
         : await selectAmmo(actor, weapon);
     if (!ammoSelection || ammoSelection.quantity < 1) return;
@@ -92,7 +89,7 @@ export const rangedAttackAction = async (actor) => {
     actor.system.removeItem(ammoSelection);
     //todo: need to improve the output of ranged attacks
     const rangedAttack =
-        weapon.type === "thrownWeapon"
+        weapon.system.isThrown
             ? {
                 name: weapon.name,
                 ...weapon.system
