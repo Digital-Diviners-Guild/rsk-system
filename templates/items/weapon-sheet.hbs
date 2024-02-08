@@ -1,31 +1,8 @@
 {{!-- todo: hide ammo fields when not ammo --}}
 {{!-- todo: hide melee fields when not melee --}}
 {{!-- todo: hide ranged fields when not ranged --}}
-{{!-- todo: material options change when it is ammo, melee, ranged weapon.
-ie. bows can be wood, swords metal, etc. --}}
 {{!-- probably could be done better in logic in the sheet in getData --}}
-{{!-- need to not show qualities when ranged, etc. --}}
-
-{{!--
-//todo: config values for localization like others
-attackTypes: set of ["melee", "ranged", "magic", "thrown", "ammo"]
-)),
-weaponType: [...Object.keys(CONFIG.RSK.weaponTypes)]
-}),
-material:[...Object.keys(CONFIG.RSK.weaponMaterials)]
-}),
-ammoType: ["", ...Object.keys(CONFIG.RSK.ammunitionType)]
-description: new fields.StringField(),
-range: [...Object.keys(CONFIG.RSK.ranges)]
-cost: new fields.NumberField({ ...costField }),
-damageEntries: {}
-specialEffects: string
-activeSlot: ["weapon", "arm"]
-}),
-isEquipped: bool,
-maxStackSize: number
-quantity: number
---}}
+{{!-- need to not show special effects when ranged, etc. --}}
 
 <form class="{{cssClass}}" autocomplete="off" data-can-drop="true">
     <header class="sheet-header">
