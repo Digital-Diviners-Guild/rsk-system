@@ -58,7 +58,6 @@ RSK.spellTypes = {
     teleport: "RSK.Teleport"
 };
 
-//this may just be needed for npc at this point
 RSK.actionTypes = {
     magic: "RSK.Magic",
     melee: "RSK.Melee",
