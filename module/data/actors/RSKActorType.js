@@ -1,6 +1,8 @@
 import { rskStatusEffects, statusToEffect } from "../../effects/statuses.js";
 
 export default class RSKActorType extends foundry.abstract.TypeDataModel {
+    //todo: defense roll is only applicable when applying to a character
+    // this could be refactored a bit
     async receiveDamage(damage) {
         const { puncture, damageEntries, attackType, defenseRoll } = { ...damage };
         const damageTaken = this.calculateDamageTaken(damageEntries, attackType, puncture, defenseRoll);
@@ -11,12 +13,9 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
             const death = rskStatusEffects.find(x => x.id === "dead");
             await this.parent.createEmbeddedDocuments("ActiveEffect", [statusToEffect(death)]);
         }
-        //todo: should method that update the actor still be on the actor?
-        // and we can call system.calculate damage?
         this.parent.update({ "system.lifePoints.value": remainingLifePoints });
     }
 
-    //todo: success margin?
     calculateDamageTaken(damageEntries, attackType = "melee", puncture = 0, defenseRoll = 0) {
         const armour = this.getArmourValue();
         const applicablePuncture = game.rsk.math.clamp_value(puncture, { min: 0, max: armour });
@@ -32,6 +31,6 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
     }
 
     getArmourValue() { return 0; }
-    //todo: check for 'strengths' and 'weaknesses' to damageType/attackType
-    getBonusArmourValue(type) { return 0; }
+
+    getBonusArmourValue(type) { return this.resistance[type] ?? 0; }
 }
