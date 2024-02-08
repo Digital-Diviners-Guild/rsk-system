@@ -20,8 +20,7 @@ export const npcAction = async (actor, action) => {
     const content = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
         {
             label: action.name,
-            actionData,
-            showApplyDamage: true
+            actionData
         });
     const targetUuids = getTargets(actor);
     await ChatMessage.create({
@@ -174,8 +173,7 @@ const sendChat = async (label, actionType, actionData, result) => {
             label,
             ...actionData,
             ...result,
-            showRollResult: true,
-            showApplyDamage: result?.isSuccess && dealsDamage(actionData)
+            showRollResult: true
         });
     await result.rollResult.toMessage({
         flavor: flavor,

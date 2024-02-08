@@ -13,19 +13,19 @@ export function onRenderChatMessage(app, html, data) {
 
     const possibleTargets = message.flags.rsk.targetUuids;
     const canClickButton = isGM || possibleTargets?.includes(currentCharacterUuid)
-    if (canClickButton) {
-        html.find(".apply-outcome")
-            .click(async e => {
-                const targets = isGM
-                    ? [...game.user.targets.map(t => t.actor)]
-                    : [game.user.character]
-                applyOutcome(
-                    targets,
-                    foundry.utils.deepClone(message.flags.rsk));
-            });
-    } else {
-        html.find(".apply-outcome").remove();
-    }
+    if (!canClickButton) return;
+    // might need to pre localize here
+    html.find(".message-controls")
+        .html(`<button class="apply-outcome">{{localize "RSK.ApplyDamage"}}</button>`)
+    html.find(".apply-outcome")
+        .click(async e => {
+            const targets = isGM
+                ? [...game.user.targets.map(t => t.actor)]
+                : [game.user.character]
+            applyOutcome(
+                targets,
+                foundry.utils.deepClone(message.flags.rsk));
+        });
 }
 
 export async function chatItem(item, options = {}) {
