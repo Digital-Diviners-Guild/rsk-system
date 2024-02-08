@@ -13,7 +13,12 @@ export default class RSKCreature extends foundry.abstract.TypeDataModel {
                     value: new fields.NumberField({ initial: 1 }),
                     max: new fields.NumberField({ initial: 1 })
                 }
-            )
+            ),
+            resistance: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes)
+                .reduce((obj, damageType) => {
+                    obj[damageType] = new fields.NumberField({ initial: 0, min: -500, max: 500 });
+                    return obj;
+                }, {}))
         };
     }
 }

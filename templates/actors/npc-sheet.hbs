@@ -85,6 +85,17 @@
                         <strong>{{localize "RSK.Specials"}}: </strong>
                         {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=specialFeatures }}
                     </div>
+                    <div>
+                        <div>
+                            <strong>{{localize "RSK.Resistance"}}: </strong>
+                            {{#each system.resistance as |res type|}}
+                            {{!-- todo: how to localize? --}}
+                            {{#if res}}
+                            <span>{{res}} ({{type}}) </span>
+                            {{/if}}
+                            {{/each}}
+                        </div>
+                    </div>
                 </div>
 
                 <div class="tab features" data-group="primary" data-tab="edit">
@@ -109,6 +120,15 @@
                     items=specialFeatures
                     addType="specialFeature"
                     addLabel="Add Special"}}
+
+                    <label>{{localize "RSK.Resistance"}}</label>
+                    {{#each system.resistance as |res type|}}
+                    <div class="form-group">
+                        {{!-- todo: localize --}}
+                        <label>{{type}}</label>
+                        <input type="number" name="system.resistance.{{type}}" value="{{res}}">
+                    </div>
+                    {{/each}}
 
                     {{!-- todo: probably should be a 'part' --}}
                     <strong>Action Collections</strong>
