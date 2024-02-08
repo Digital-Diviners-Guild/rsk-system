@@ -6,6 +6,27 @@ ie. bows can be wood, swords metal, etc. --}}
 {{!-- probably could be done better in logic in the sheet in getData --}}
 {{!-- need to not show qualities when ranged, etc. --}}
 
+{{!--
+//todo: config values for localization like others
+attackTypes: set of ["melee", "ranged", "magic", "thrown", "ammo"]
+)),
+weaponType: [...Object.keys(CONFIG.RSK.weaponTypes)]
+}),
+material:[...Object.keys(CONFIG.RSK.weaponMaterials)]
+}),
+ammoType: ["", ...Object.keys(CONFIG.RSK.ammunitionType)]
+description: new fields.StringField(),
+range: [...Object.keys(CONFIG.RSK.ranges)]
+cost: new fields.NumberField({ ...costField }),
+damageEntries: {}
+specialEffects: string
+activeSlot: ["weapon", "arm"]
+}),
+isEquipped: bool,
+maxStackSize: number
+quantity: number
+--}}
+
 <form class="{{cssClass}}" autocomplete="off" data-can-drop="true">
     <header class="sheet-header">
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
@@ -18,106 +39,114 @@ ie. bows can be wood, swords metal, etc. --}}
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
-                <strong>{{localize "RSK.Type"}}:</strong>
-                {{system.type}}
+                {{!-- todo render list in a csv? --}}
+                <strong>{{localize "RSK.AttackTypes"}}</strong>
+                {{system.attackTypes}}
             </div>
             <div>
-                <strong>{{localize "RSK.Material"}}:</strong>
+                <strong>{{localize "RSK.WeaponType"}}</strong>
+                {{system.weaponType}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.Material"}}</strong>
                 {{system.material}}
             </div>
             <div>
-                <strong>{{localize "RSK.ActiveSlot"}}:</strong>
-                {{system.activeSlot}}
-            </div>
-            {{#if system.description}}
-            <h3>{{localize "RSK.Description"}}</h3>
-            <p>{{system.description}}</p>
-            {{/if}}
-
-            {{#if system.uses}}
-            <p><strong>{{localize "RSK.Uses"}}: </strong> {{system.uses}}</p>
-            {{/if}}
-
-            {{#if system.cost}}
-            <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}} {{localize "RSK.GP"}}</p>
-            {{/if}}
-
-            {{#if system.effectDescription}}
-            <strong>{{localize "RSK.Effects"}}:</strong>
-            <p> {{system.effectDescription}}</p>
-            {{/if}}
-
-            {{#if system.specialEffects}}
-            <strong>{{localize "RSK.SpecialEffects"}}:</strong>
-            <div>{{system.specialEffects}}</div>
-            {{/if}}
-            <div>
-                <strong>{{localize "RSK.AmmoType"}}:</strong>
+                <strong>{{localize "RSK.AmmoType"}}</strong>
                 {{system.ammoType}}
             </div>
             <div>
-                <strong>{{localize "RSK.IsAmmo"}}:</strong>
-                {{system.isAmmo}}
+                <strong>{{localize "RSK.Description"}}</strong>
+                {{system.description}}
             </div>
-            {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
-            {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
+            <div>
+                <strong>{{localize "RSK.Range"}}</strong>
+                {{system.range}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.Cost"}}</strong>
+                {{system.cost}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.DamageEntries"}}</strong>
+                {{system.damageEntries}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.SpecialEffects"}}</strong>
+                {{system.specialEffects}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.ActiveSlot"}}</strong>
+                {{system.activeSlot}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.IsEquipped"}}</strong>
+                {{system.isEquipped}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.MaxStackSize"}}</strong>
+                {{system.maxStackSize}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.Quantity"}}</strong>
+                {{system.quantity}}
+            </div>
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
             <div>
-                <strong>{{localize "RSK.Type"}}:</strong>
-                <select name="system.type">
-                    {{selectOptions config.weaponTypes selected=system.type localize=true}}
-                </select>
+                {{!-- todo render list in a csv? --}}
+                <strong>{{localize "RSK.AttackTypes"}}</strong>
+                {{system.attackTypes}}
             </div>
             <div>
-                <strong>{{localize "RSK.Cost"}}: </strong>
-                <input type="number" data-dtype="number" name="system.cost" value="{{system.cost}}">
-            </div>
-            <label>{{localize "RSK.Description"}}:</label>
-            <input type="text" name="system.description" value="{{system.description}}">
-
-            <label>{{localize "RSK.Uses"}}:</label>
-            <input type="text" name="system.uses" value="{{system.uses}}">
-            <div>
-                <label>{{localize "RSK.Effect"}}</label>
-                <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
+                <strong>{{localize "RSK.WeaponType"}}</strong>
+                {{system.weaponType}}
             </div>
             <div>
-                <strong>{{localize "RSK.Material"}}:</strong>
-                <select name="system.material">
-                    {{selectOptions config.ammunitionMaterialType selected=system.material localize=true}}
-                </select>
+                <strong>{{localize "RSK.Material"}}</strong>
+                {{system.material}}
             </div>
-            <div class="form-group">
-                <label>{{localize "RSK.ActiveSlot"}}</label>
-                <select name="system.activeSlot">
-                    {{selectOptions config.weaponActiveSlotType selected=system.activeSlot localize=true}}
-                </select>
+            <div>
+                <strong>{{localize "RSK.AmmoType"}}</strong>
+                {{system.ammoType}}
             </div>
-            <label>{{localize "RSK.MaxStackSize"}}</label>
-            <input name="system.maxStackSize" type="number" value="{{system.maxStackSize}}">
-            <strong>{{localize "RSK.SpecialEffects"}}:</strong>
-            <input type="text" name="system.specialEffects" value="{{system.specialEffects}}">
-            <strong>{{localize "RSK.Effects"}}:</strong>
-            {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
-
-            {{!-- todo: this is really 'can be ammo?' not that it will be used as such per say --}}
-            {{!-- ie. darts. they can be ammo, but are also thrown --}}
-            <label>{{localize "RSK.IsAmmo"}}</label>
-            <input name="system.isAmmo" type="boolean" value="{{system.isAmmo}}">
-            {{!-- todo: ammo type, is ammo, active slot, weapon type. all trying to communicate the same thing really
-            can this be more simple? --}}
-            <div class="form-group">
-                <label>{{localize "RSK.AmmoType"}}</label>
-                <select name="system.ammoType">
-                    {{selectOptions config.ammunitionType selected=system.ammoType localize=true}}
-                </select>
+            <div>
+                <strong>{{localize "RSK.Description"}}</strong>
+                {{system.description}}
             </div>
-
-            {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
-            {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
-
+            <div>
+                <strong>{{localize "RSK.Range"}}</strong>
+                {{system.range}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.Cost"}}</strong>
+                {{system.cost}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.DamageEntries"}}</strong>
+                {{system.damageEntries}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.SpecialEffects"}}</strong>
+                {{system.specialEffects}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.ActiveSlot"}}</strong>
+                {{system.activeSlot}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.IsEquipped"}}</strong>
+                {{system.isEquipped}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.MaxStackSize"}}</strong>
+                {{system.maxStackSize}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.Quantity"}}</strong>
+                {{system.quantity}}
+            </div>
         </div>
     </section>
 </form>
