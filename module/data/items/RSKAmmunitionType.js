@@ -7,7 +7,7 @@ export default class RSKAmmunitionType extends foundry.abstract.TypeDataModel {
             type: new fields.StringField({ required: true, initial: "arrow", options: [...Object.keys(CONFIG.RSK.ammunitionType)] }), // how do we want to handle darts?
             material: new fields.StringField({
                 required: true,
-                initial: "cloth",
+                initial: "bronze",
                 options: [...Object.keys(CONFIG.RSK.ammunitionMaterialType)]
             }),
             description: new fields.StringField(),
