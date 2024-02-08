@@ -19,6 +19,7 @@ export default class RSKMeleeWeapon extends RSKEquippableType {
             uses: new fields.StringField(),
             effectDescription: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
+            qualities: new fields.StringField(),
             damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes)
                 .reduce((obj, damageType) => {
                     obj[damageType] = new fields.NumberField({ ...positiveNumberField, max: 500 });

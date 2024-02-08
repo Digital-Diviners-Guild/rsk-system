@@ -33,7 +33,7 @@ export const meleeAttackAction = async (actor) => {
     //todo: better way to select equipped weapon from actor from within actor
     //todo: dual wielding? if there are 2 weapons, maybe a dialog to select which one and if it is the second attack to add disadvantage?
     const weapons = actor.system.getActiveItems().filter(i => i.type === "meleeWeapon");
-    const weapon = weapons.length > 0 ? weapons[0] : { name: "unarmed", system: { type: "simple", damageEntries: { crush: 1 } } } //todo: unarmed damage?
+    const weapon = weapons.length > 0 ? weapons[0] : { name: "unarmed", system: { type: "simple", damageEntries: { crush: 1 } } }
     const result = await useAction(actor, "attack", getAbility(weapon));
     if (!result) return;
 
@@ -76,6 +76,7 @@ export const rangedAttackAction = async (actor) => {
         : await selectAmmo(actor, weapon);
     if (!ammoSelection || ammoSelection.quantity < 1) return;
 
+    //todo: use validation here rather than on equip
     const result = await useAction(actor, "ranged", getAbility(weapon));
     if (!result) return;
 
@@ -148,6 +149,8 @@ export const dealsDamage = (data) => data.damageEntries
     && Object.values(data.damageEntries)
         .filter(x => x > 0).length > 0
 
+//todo: apply margin so we can skip dialog.
+//todo: apply margin.... from defense roll.
 export const applyOutcome = async (targets, outcome) => {
     for (let target of targets) {
         const dialog = RSKApplyDamageDialog.create(outcome);

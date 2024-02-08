@@ -1,5 +1,6 @@
 import { fields } from "../fields.js";
 
+//todo: SpecialEffectType
 export default class RSKQualityType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {

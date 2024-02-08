@@ -5,6 +5,8 @@ import RSKEquippableType from "./RSKEquippableType.js";
 export default class RSKRangedWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
+            
+
             type: new fields.StringField({
                 required: true,
                 initial: "simple",
@@ -45,6 +47,7 @@ export default class RSKRangedWeapon extends RSKEquippableType {
         }
     };
 
+    //todo: on the use not on equip!
     meetsEquipRequirements(actor) {
         return actor.type !== "character" || this.type === "simple"
             ? true
