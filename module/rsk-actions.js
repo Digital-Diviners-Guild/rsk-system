@@ -63,8 +63,6 @@ export const rangedAttackAction = async (actor) => {
         }
     }
 
-    //not sure I like the current throwable approach
-    //todo: distinguish between ranged and melee and thrown
     const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon" && (i.system.isRanged || i.system.isThrown));
     if (weapons.length < 1) return false;
 
