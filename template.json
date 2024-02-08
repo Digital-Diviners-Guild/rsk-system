@@ -15,9 +15,7 @@
             "resource",
             "background",
             "equipment",
-            "rangedWeapon",
-            "thrownWeapon",
-            "meleeWeapon",
+            "weapon",
             "armour",
             "cape",
             "specialFeature",
@@ -27,7 +25,6 @@
             "prayer",
             "summoning",
             "rune",
-            "ammunition",
             "codex",
             "itemCollection"
         ],
@@ -47,8 +44,6 @@
         "ammunition": {},
         "codex": {},
         "itemCollection": {},
-        "rangedWeapon": {},
-        "meleeWeapon": {},
-        "thrownWeapon": {}
+        "weapon": {}
     }
 }

@@ -2,9 +2,8 @@ import RSKArmourType from "./data/items/RSKArmourType.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
 import RSKEquipment from "./data/items/RSKEquipment.js";
 import RSKMaterial from "./data/items/RSKMaterial.js";
-import RSKAmmunitionType from "./data/items/RSKAmmunitionType.js";
 import RSKPrayer from "./data/items/RSKPrayer.js";
-import RSKQualityType from "./data/items/RSKQualityType.js";
+import RSKSpecialEffect from "./data/items/RSKSpecialEffect.js";
 import RSKResource from "./data/items/RSKResource.js";
 import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
 import RSKSpell from "./data/items/RSKSpell.js";
@@ -38,9 +37,7 @@ import RSKItemCollectionSheet from "./sheets/items/RSKItemCollectionSheet.js";
 import RSKRuneSheet from "./sheets/items/RSKRuneSheet.js";
 import RSKItemCollection from "./data/items/RSKItemCollectionType.js";
 import RSKSummoning from "./data/items/RSKSummoning.js";
-import RSKRangedWeapon from "./data/items/RSKRangedWeapon.js";
-import RSKThrownWeapon from "./data/items/RSKThrownWeapon.js";
-import RSKMeleeWeapon from "./data/items/RSKMeleeWeapon.js";
+import RSKWeapon from "./data/items/RSKWeapon.js";
 import RSKNpcAction from "./data/items/RSKNpcAction.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 
@@ -77,12 +74,11 @@ Hooks.once("init", function () {
     CONFIG.RSK = RSK;
     CONFIG.Item.documentClass = RSKItem;
     CONFIG.Item.dataModels = {
-        quality: RSKQualityType,
+        specialEffect: RSKSpecialEffect,
         npcAction: RSKNpcAction,
         specialFeature: RSKSpecialFeature,
         cape: RSKCapeType,
         material: RSKMaterial,
-        ammunition: RSKAmmunitionType,
         resource: RSKResource,
         armour: RSKArmourType,
         equipment: RSKEquipment,
@@ -93,9 +89,7 @@ Hooks.once("init", function () {
         rune: RSKRuneType,
         codex: RSKCodexType,
         itemCollection: RSKItemCollection,
-        rangedWeapon: RSKRangedWeapon,
-        meleeWeapon: RSKMeleeWeapon,
-        thrownWeapon: RSKThrownWeapon
+        weapon: RSKWeapon,
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });

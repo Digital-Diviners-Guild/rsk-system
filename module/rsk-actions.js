@@ -40,7 +40,8 @@ const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "s
 export const meleeAttackAction = async (actor) => {
     //todo: better way to select equipped weapon from actor from within actor
     //todo: dual wielding? if there are 2 weapons, maybe a dialog to select which one and if it is the second attack to add disadvantage?
-    const weapons = actor.system.getActiveItems().filter(i => i.type === "meleeWeapon");
+    //todo: distinguish between ranged and melee
+    const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon");
     const weapon = weapons.length > 0 ? weapons[0] : { name: "unarmed", system: { type: "simple", damageEntries: { crush: 1 } } }
     const result = await useAction(actor, "attack", getAbility(weapon));
     if (!result) return;
@@ -73,9 +74,8 @@ export const rangedAttackAction = async (actor) => {
     }
 
     //not sure I like the current throwable approach
-    const weapons = actor.system.getActiveItems().filter(i =>
-        i.type === "rangedWeapon"
-        || i.type === "thrownWeapon");
+    //todo: distinguish between ranged and melee and thrown
+    const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon");
     if (weapons.length < 1) return false;
 
     const weapon = weapons[0];//todo: off hand darts? or dual wield crossbows?
