@@ -13,22 +13,3 @@
 {{#if qualities}}
 <p>{{qualities}}</p>
 {{/if}}
-{{#if showRollResult}}
-<p>
-    {{localize "RSK.TargetNumberChatLabel"}}: {{targetNumber}} | {{#if isCritical}}
-    <em>
-        {{localize "RSK.Critical"}}
-    </em>
-    {{/if}}
-    {{#if isSuccess}}
-    {{localize "RSK.Success"}}
-    {{else}}
-    {{localize "RSK.Fail"}}
-    {{/if}}
-    ({{margin}})
-</p>
-{{/if}}
-
-<div class="message-controls">
-
-</div>
