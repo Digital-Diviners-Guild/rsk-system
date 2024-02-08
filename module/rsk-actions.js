@@ -4,6 +4,7 @@ import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
 import { getTargets } from "./rsk-targetting.js";
 
 // TODO: new action functions need refactoring.
+// probably strategy pattern? pass in the correct operation for the situation?
 
 export const npcAction = async (actor, action) => {
     const actionData = { ...action.system };

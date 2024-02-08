@@ -1,53 +1,5 @@
 const RSK = {};
 
-RSK.skills = {
-    archaeology: "RSK.Archaeology",
-    attack: "RSK.Attack",
-    cooking: "RSK.Cooking",
-    crafting: "RSK.Crafting",
-    defense: "RSK.Defense",
-    dungeoneering: "RSK.Dungeoneering",
-    farming: "RSK.Farming",
-    fishing: "RSK.Fishing",
-    fletching: "RSK.Fletching",
-    herblore: "RSK.Herblore",
-    hunter: "RSK.Hunter",
-    magic: "RSK.Magic",
-    mining: "RSK.Mining",
-    prayer: "RSK.Prayer",
-    ranged: "RSK.Ranged",
-    runecrafting: "RSK.Runecrafting",
-    slayer: "RSK.Slayer",
-    smithing: "RSK.Smithing",
-    summoning: "RSK.Summoning",
-    thieving: "RSK.Thieving",
-    woodcutting: "RSK.Woodcutting"
-};
-
-RSK.abilities = {
-    strength: "RSK.Strength",
-    agility: "RSK.Agility",
-    intellect: "RSK.Intellect"
-}
-
-RSK.physicalDamageTypes = {
-    stab: "RSK.Stab",
-    slash: "RSK.Slash",
-    crush: "RSK.Crush"
-}
-
-RSK.elementalDamageTypes = {
-    air: "RSK.Air",
-    water: "RSK.Water",
-    earth: "RSK.Earth",
-    fire: "RSK.Fire",
-}
-
-RSK.damageTypes = {
-    ...RSK.physicalDamageTypes,
-    ...RSK.elementalDamageTypes,
-}
-
 RSK.sizes = {
     tiny: "RSK.Tiny",
     small: "RSK.Small",
@@ -165,18 +117,82 @@ RSK.activeSlotType = {
 };
 
 RSK.weaponActiveSlotType = {
-    ...Object.keys(RSK.activeSlotType)
-        .filter(k => k === "weapon" || k === "arm")
-        .reduce((ks, k) => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
+    label: "RSK.WeaponActiveSlotTypes",
+    values: {
+        ...Object.keys(RSK.activeSlotType)
+            .filter(k => k === "weapon" || k === "arm")
+            .reduce((ks, k) => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
+    }
 }
 
 RSK.armourActiveSlotType = {
-    ...Object.keys(RSK.activeSlotType)
-        .filter(k => k !== "weapon")
-        .reduce((ks, k) => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
+    label: "RSK.AmourActiveSlotTypes",
+    values: {
+        ...Object.keys(RSK.activeSlotType)
+            .filter(k => k !== "weapon")
+            .reduce((ks, k) => { ks[k] = RSK.activeSlotType[k]; return ks }, {})
+    }
 };
 
+RSK.weaponTypes = {
+    simple: "RSK.Simple",
+    martial: "RSK.Martial",
+    unique: "RSK.Unique"
+}
 
+RSK.material = {
+    organic: {
+        refined: {
+            values: {
+                food: "RSK.Food",
+                potion: "RSK.Potion",
+                produce: "RSK.Produce",
+            }
+        },
+        unrefined: {
+            wood: {
+                ...RSK.woodType
+            },
+            fish: "RSK.Fish",
+            rawMeat: "RSK.RawMeat",
+            skin: "RSK.Skin",
+            feathers: "RSK.Feathers",
+            herb: "RSK.Herb",
+            water: "RSK.Water",
+            blood: "RSK.Blood",
+            seed: "RSK.Seed",
+        }
+    },
+    inorganic: {
+        refined: {
+            metal: "RSK.Metal",
+            glass: "RSK.Glass",
+            cloth: "RSK.Cloth",
+            leather: "RSK.Leather"
+        },
+        unrefined: {
+            mineral: {
+                tin: "RSK.TinOre",
+                copper: "RSK.CopperOre",
+                iron: "RSK.IronOre",
+                silver: "RSK.SilverOre",
+                coal: "RSK.Coal",
+                gold: "RSK.GoldOre",
+                mithril: "RSK.MithrilOre",
+                adamant: "RSK.AdamantOre",
+                rune: "RSK.RuniteOre",
+                clay: "RSK.Clay",
+                sand: "RSK.Sand"
+            }
+        }
+    }
+}
+
+
+//todo: are these type of lists actually more convinient to work with than the master list?
+// the below lines are the old lists
+// we need to decide if this is the approach we want to go, or move these values
+// into the above 'master' map, that we can create selector funcs for like with activeArmourSlots
 RSK.rawMaterialType = {
     wood: "RSK.Wood",
     fish: "RSK.Fish",
@@ -220,7 +236,7 @@ RSK.materialTier = {
     ...RSK.mineralType
 }
 
-RSK.resourceType = {
+RSK.resource = {
     metal: "RSK.Metal",
     glass: "RSK.Glass",
     mineral: "RSK.Mineral",
@@ -264,18 +280,6 @@ RSK.tierOption = {
     mineral: { ...RSK.mineralType },
     leather: { ...RSK.leatherType },
     metal: { ...RSK.metalType },
-}
-
-RSK.weaponTypes = {
-    simple: "RSK.Simple",
-    martial: "RSK.Martial",
-    unique: "RSK.Unique"
-}
-
-RSK.materials = {
-    ...RSK.woodType,
-    ...RSK.metalType,
-    ...RSK.leatherType
 }
 
 RSK.weaponMaterials = {

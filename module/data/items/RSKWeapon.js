@@ -18,7 +18,8 @@ export default class RSKWeapon extends RSKEquippableType {
             material: new fields.StringField({
                 required: true,
                 initial: "bronze",
-                options: [...Object.keys(CONFIG.RSK.ammunitionMaterialType)]
+                options: [
+                    ...Object.keys(CONFIG.RSK.ammunitionMaterialType)
             }),
             ammoType: new fields.StringField({
                 initial: "",
