@@ -33,10 +33,10 @@
                 {{system.material}}
             </div>
 
-            {{#if system.qualities}}
+            {{#if system.specialEffects}}
             <div>
-                <strong>{{localize "RSK.Qualities"}}:</strong>
-                {{system.qualities}}
+                <strong>{{localize "SpecialEffectsEffects"}}:</strong>
+                {{system.specialEffects}}
             </div>
             {{/if}}
             {{#if system.effects}}
@@ -72,8 +72,8 @@
                 </select>
             </div>
 
-            <strong>{{localize "RSK.Qualities"}}:</strong>
-            <input type="text" data-dtype="text" name="system.qualities" value="{{system.qualities}}">
+            <strong>{{localize "SpecialEffectsEffects"}}:</strong>
+            <input type="text" data-dtype="text" name="system.specialEffects" value="{{system.specialEffects}}">
 
             <strong>{{localize "RSK.Effects"}}:</strong>
             {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}

@@ -16,7 +16,7 @@ export default class RSKArmourType extends RSKEquippableType {
                 }),
                 soak: new fields.NumberField({ required: true, ...positiveNumberField, max: 100 })
             }),
-            qualities: new fields.StringField(),
+            specialEffects: new fields.StringField(),
             isEquipped: new fields.BooleanField(),
             //todo: is armour stackable except when "heavy"?
             maxStackSize: new fields.NumberField({ required: true, initial: 1, min: 1 }),

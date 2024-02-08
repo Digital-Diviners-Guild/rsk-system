@@ -40,9 +40,9 @@
             <p> {{system.effectDescription}}</p>
             {{/if}}
 
-            {{#if system.qualities}}
-            <strong>{{localize "RSK.Qualities"}}:</strong>
-            <div>{{system.qualities}}</div>
+            {{#if system.specialEffects}}
+            <strong>{{localize "SpecialEffectsEffects"}}:</strong>
+            <div>{{system.specialEffects}}</div>
             {{/if}}
 
             {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
@@ -82,8 +82,8 @@
                 <label>{{localize "RSK.Effect"}}</label>
                 <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
             </div>
-            <strong>{{localize "RSK.Qualities"}}:</strong>
-            <input type="text" name="system.qualities" value="{{system.qualities}}">
+            <strong>{{localize "SpecialEffectsEffects"}}:</strong>
+            <input type="text" name="system.specialEffects" value="{{system.specialEffects}}">
             <strong>{{localize "RSK.Effects"}}:</strong>
             {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
             {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}

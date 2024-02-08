@@ -29,7 +29,7 @@ export default class RSKSpell extends foundry.abstract.TypeDataModel {
                 options: [...Object.keys(CONFIG.RSK.spellTypes)]
             }),
             statuses: new fields.ArrayField(new fields.StringField()),
-            qualities: new fields.StringField(),
+            specialEffects: new fields.StringField(),
             requiredEquipment: new fields.StringField(),
         }
     };

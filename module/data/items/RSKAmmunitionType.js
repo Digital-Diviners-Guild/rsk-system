@@ -13,7 +13,7 @@ export default class RSKAmmunitionType extends foundry.abstract.TypeDataModel {
             }),
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
-            qualities: new fields.StringField(),
+            specialEffects: new fields.StringField(),
             maxStackSize: new fields.NumberField({ required: true, initial: 100000, min: 1 }),
             quantity: new fields.NumberField({ initial: 1 }),
             cost: new fields.NumberField({ ...costField })

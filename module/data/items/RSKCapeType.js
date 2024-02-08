@@ -6,7 +6,7 @@ export default class RSKCapeType extends RSKEquippableType {
         return {
             description: new fields.StringField(),
             awardedFor: new fields.StringField(),
-            qualities: new fields.StringField(),
+            specialEffects: new fields.StringField(),
             isEquipped: new fields.BooleanField(),
             activeSlot: new fields.StringField({ required: true, initial: "cape", choices: ["cape"] }),
             maxStackSize: new fields.NumberField({ required: true, initial: 1, min: 1 }),

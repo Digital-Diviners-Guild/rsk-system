@@ -101,7 +101,7 @@ export const rangedAttackAction = async (actor) => {
                 description: `${weapon.system.description}\n${ammoSelection.system.description}`,
                 effectDescription: `${weapon.system.effectDescription}\n${ammoSelection.system.effectDescription}`,
                 damageEntries: weapon.system.damageEntries,
-                qualities: ammoSelection.system.qualities
+                specialEffects: ammoSelection.system.specialEffects
             };
 
     await chatAction(rangedAttack.name, "ranged", rangedAttack, result);
