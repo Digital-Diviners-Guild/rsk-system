@@ -1,5 +1,53 @@
 const RSK = {};
 
+RSK.skills = {
+    archaeology: "RSK.Archaeology",
+    attack: "RSK.Attack",
+    cooking: "RSK.Cooking",
+    crafting: "RSK.Crafting",
+    defense: "RSK.Defense",
+    dungeoneering: "RSK.Dungeoneering",
+    farming: "RSK.Farming",
+    fishing: "RSK.Fishing",
+    fletching: "RSK.Fletching",
+    herblore: "RSK.Herblore",
+    hunter: "RSK.Hunter",
+    magic: "RSK.Magic",
+    mining: "RSK.Mining",
+    prayer: "RSK.Prayer",
+    ranged: "RSK.Ranged",
+    runecrafting: "RSK.Runecrafting",
+    slayer: "RSK.Slayer",
+    smithing: "RSK.Smithing",
+    summoning: "RSK.Summoning",
+    thieving: "RSK.Thieving",
+    woodcutting: "RSK.Woodcutting"
+};
+
+RSK.abilities = {
+    strength: "RSK.Strength",
+    agility: "RSK.Agility",
+    intellect: "RSK.Intellect"
+}
+
+RSK.physicalDamageTypes = {
+    stab: "RSK.Stab",
+    slash: "RSK.Slash",
+    crush: "RSK.Crush"
+}
+
+RSK.elementalDamageTypes = {
+    air: "RSK.Air",
+    water: "RSK.Water",
+    earth: "RSK.Earth",
+    fire: "RSK.Fire",
+}
+
+RSK.damageTypes = {
+    ...RSK.physicalDamageTypes,
+    ...RSK.elementalDamageTypes,
+}
+
 RSK.sizes = {
     tiny: "RSK.Tiny",
     small: "RSK.Small",
@@ -17,6 +65,34 @@ RSK.sizeModifiers = {
     giant: { attack: 2, defense: -1 },
     colossal: { attack: 4, defense: -3 }
 };
+
+//todo: use this instead
+RSK.size = {
+    tiny: {
+        label: "RSK.Tiny",
+        modifier: { attack: -1, defense: 2 }
+    },
+    small: {
+        label: "RSK.Small",
+        modifier: { attack: 0, defense: 0 }
+    },
+    medium: {
+        label: "RSK.Medium",
+        modifier: { attack: 0, defense: 0 }
+    },
+    large: {
+        label: "RSK.Large",
+        modifier: { attack: 1, defense: -1 }
+    },
+    giant: {
+        label: "RSK.Giant",
+        modifier: { attack: 2, defense: -1 }
+    },
+    colossal: {
+        label: "RSK.Colossal",
+        modifier: { attack: 4, defense: -3 }
+    },
+}
 
 RSK.ammunitionType = {
     arrow: "Arrow",
@@ -58,6 +134,8 @@ RSK.spellTypes = {
     teleport: "RSK.Teleport"
 };
 
+//todo: we were thinking of having a 'thrown' action type for
+// weapons, but when used, it still needs to actually be of type "Ranged". thrown is "Ranged"
 RSK.actionTypes = {
     magic: "RSK.Magic",
     melee: "RSK.Melee",
@@ -209,54 +287,6 @@ RSK.armourMaterials = {
     cloth: "RSK.Cloth",
     ...RSK.leatherType,
     ...RSK.metalType
-}
-
-RSK.skills = {
-    archaeology: "RSK.Archaeology",
-    attack: "RSK.Attack",
-    cooking: "RSK.Cooking",
-    crafting: "RSK.Crafting",
-    defense: "RSK.Defense",
-    dungeoneering: "RSK.Dungeoneering",
-    farming: "RSK.Farming",
-    fishing: "RSK.Fishing",
-    fletching: "RSK.Fletching",
-    herblore: "RSK.Herblore",
-    hunter: "RSK.Hunter",
-    magic: "RSK.Magic",
-    mining: "RSK.Mining",
-    prayer: "RSK.Prayer",
-    ranged: "RSK.Ranged",
-    runecrafting: "RSK.Runecrafting",
-    slayer: "RSK.Slayer",
-    smithing: "RSK.Smithing",
-    summoning: "RSK.Summoning",
-    thieving: "RSK.Thieving",
-    woodcutting: "RSK.Woodcutting"
-};
-
-RSK.abilities = {
-    strength: "RSK.Strength",
-    agility: "RSK.Agility",
-    intellect: "RSK.Intellect"
-}
-
-RSK.physicalDamageTypes = {
-    stab: "RSK.Stab",
-    slash: "RSK.Slash",
-    crush: "RSK.Crush"
-}
-
-RSK.elementalDamageTypes = {
-    air: "RSK.Air",
-    water: "RSK.Water",
-    earth: "RSK.Earth",
-    fire: "RSK.Fire",
-}
-
-RSK.damageTypes = {
-    ...RSK.physicalDamageTypes,
-    ...RSK.elementalDamageTypes,
 }
 
 export default RSK;
