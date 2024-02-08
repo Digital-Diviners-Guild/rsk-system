@@ -1,4 +1,5 @@
 import { applyOutcome } from "../rsk-actions.js";
+import { localizeText } from "../rsk-localize.js";
 
 export default class RSKChatLog extends ChatLog {
 
@@ -14,9 +15,9 @@ export function onRenderChatMessage(app, html, data) {
     const possibleTargets = message.flags.rsk.targetUuids;
     const canClickButton = isGM || possibleTargets?.includes(currentCharacterUuid)
     if (!canClickButton) return;
-    // might need to pre localize here
+
     html.find(".message-controls")
-        .html(`<button class="apply-outcome">{{localize "RSK.ApplyDamage"}}</button>`)
+        .html(`<button class="apply-outcome">${localizeText("RSK.ApplyDamage")}</button>`)
     html.find(".apply-outcome")
         .click(async e => {
             const targets = isGM
