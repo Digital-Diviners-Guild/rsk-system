@@ -1,8 +1,11 @@
 import { costField, fields, positiveNumberField } from "../fields.js";
-import RSKEquippableType from "./RSKEquippableType.js";
+import RSKRangedWeapon from "./RSKRangedWeapon.js";
 
-// things that can use ammo to shoot like a bow, or crossbow
-export default class RSKRangedWeapon extends RSKEquippableType {
+//todo: the item type for this won't be "ammunition"
+// although a ranged weapon can use a thrown weapon (such as darts) as ammunition.
+// how should we allow darts to be used as ammo?
+// the ammo properties are present such as "qualities" and increased stack size
+export default class RSKThrownWeapon extends RSKRangedWeapon {
     static defineSchema() {
         return {
             type: new fields.StringField({
@@ -13,12 +16,7 @@ export default class RSKRangedWeapon extends RSKEquippableType {
             material: new fields.StringField({
                 required: true,
                 initial: "bronze",
-                options: [Object.keys(CONFIG.RSK.weaponMaterials)]
-            }),
-            ammoType: new fields.StringField({
-                required: true,
-                initial: "arrow",
-                options: [Object.keys(CONFIG.RSK.ammunitionType)]
+                options: [...Object.keys(CONFIG.RSK.ammunitionMaterialType)]
             }),
             description: new fields.StringField(),
             range: new fields.StringField({
@@ -34,20 +32,15 @@ export default class RSKRangedWeapon extends RSKEquippableType {
                     obj[damageType] = new fields.NumberField({ ...positiveNumberField, max: 500 });
                     return obj;
                 }, {})),
+            qualities: new fields.StringField(),
             activeSlot: new fields.StringField({
                 required: true,
                 initial: "weapon",
                 options: ["weapon", "arm"]
             }),
             isEquipped: new fields.BooleanField({ initial: false }),
-            maxStackSize: new fields.NumberField({ initial: 1, min: 1 }),
+            maxStackSize: new fields.NumberField({ initial: 100000, min: 1 }),
             quantity: new fields.NumberField({ initial: 1 })
         }
     };
-
-    meetsEquipRequirements(actor) {
-        return actor.type !== "character" || this.type === "simple"
-            ? true
-            : actor.system.skills["ranged"] >= 5;
-    }
 }

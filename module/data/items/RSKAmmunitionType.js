@@ -3,8 +3,7 @@ import { costField, fields } from "../fields.js";
 export default class RSKAmmunitionType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            //todo: darts, are they ammo or a ranged weapon? yes!
-            type: new fields.StringField({ required: true, initial: "arrow", options: [...Object.keys(CONFIG.RSK.ammunitionType)] }), // how do we want to handle darts?
+            type: new fields.StringField({ required: true, initial: "arrow", options: [...Object.keys(CONFIG.RSK.ammunitionType)] }),
             material: new fields.StringField({
                 required: true,
                 initial: "bronze",

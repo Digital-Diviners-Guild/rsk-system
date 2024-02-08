@@ -16,6 +16,7 @@
             "background",
             "equipment",
             "rangedWeapon",
+            "thrownWeapon",
             "meleeWeapon",
             "armour",
             "cape",
@@ -45,6 +46,9 @@
         "rune": {},
         "ammunition": {},
         "codex": {},
-        "itemCollection": {}
+        "itemCollection": {},
+        "rangedWeapon": {},
+        "meleeWeapon": {},
+        "thrownWeapon": {}
     }
 }

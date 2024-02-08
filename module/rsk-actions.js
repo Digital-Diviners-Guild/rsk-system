@@ -55,9 +55,11 @@ export const rangedAttackAction = async (actor) => {
     const selectAmmo = async (actor, weapon) => {
         const ammoType = weapon.system.ammoType;
         if (ammoType) {
+            //handling a thrown weapon used as ammo by another ranged weapon
+            //it all needs work, but specifically this throwables stuff...
             const ammos = actor.items.filter(x =>
-                x.type === "ammunition"
-                && x.system.type === ammoType);
+                (x.type === "ammunition" && x.system.type === ammoType)
+                || (ammoType === "darts" && x.type === "thrownWeapon"));
             if (ammos.length > 1) {
                 const ammoSelectionDialog = RSKItemSelectionDialog.create({ items: ammos });
                 const selectResult = await ammoSelectionDialog();
@@ -68,16 +70,20 @@ export const rangedAttackAction = async (actor) => {
                 return ammos[0];
             }
         } else {
-            //return actor.items.find(x => x.system.isEquipped);
-            return { quantity: 0 }; //todo: darts?
+            return { quantity: 0 };
         }
     }
 
-    const weapons = actor.system.getActiveItems().filter(i => i.type === "rangedWeapon");
+    //not sure I like the current throwable approach
+    const weapons = actor.system.getActiveItems().filter(i =>
+        i.type === "rangedWeapon"
+        || i.type === "thrownWeapon");
     if (weapons.length < 1) return false;
 
     const weapon = weapons[0];//todo: off hand darts? or dual wield crossbows?
-    const ammoSelection = await selectAmmo(actor, weapon);
+    const ammoSelection = weapon.type === "thrownWeapon"
+        ? weapon
+        : await selectAmmo(actor, weapon);
     if (!ammoSelection || ammoSelection.quantity < 1) return;
 
     const result = await useAction(actor, "ranged", getAbility(weapon));

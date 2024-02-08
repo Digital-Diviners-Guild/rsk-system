@@ -39,6 +39,7 @@ import RSKRuneSheet from "./sheets/items/RSKRuneSheet.js";
 import RSKItemCollection from "./data/items/RSKItemCollectionType.js";
 import RSKSummoning from "./data/items/RSKSummoning.js";
 import RSKRangedWeapon from "./data/items/RSKRangedWeapon.js";
+import RSKThrownWeapon from "./data/items/RSKThrownWeapon.js";
 import RSKMeleeWeapon from "./data/items/RSKMeleeWeapon.js";
 import RSKNpcAction from "./data/items/RSKNpcAction.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
@@ -93,7 +94,8 @@ Hooks.once("init", function () {
         codex: RSKCodexType,
         itemCollection: RSKItemCollection,
         rangedWeapon: RSKRangedWeapon,
-        meleeWeapon: RSKMeleeWeapon
+        meleeWeapon: RSKMeleeWeapon,
+        thrownWeapon: RSKThrownWeapon
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
