@@ -18,7 +18,7 @@ export function onRenderChatMessage(app, html, data) {
     const targets = isGM
         ? [...game.user.targets.map(t => t.actor)]
         : [game.user.character];
-    const outcomeData = foundry.utils.deepClone(message.flags.rsk);
+    const outcomeData = message.flags.rsk;
     addApplyOutcomeButton(html, () => applyOutcome(targets, outcomeData));
 }
 
