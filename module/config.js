@@ -143,16 +143,14 @@ RSK.weaponTypes = {
 RSK.material = {
     organic: {
         refined: {
-            values: {
-                food: "RSK.Food",
-                potion: "RSK.Potion",
-                produce: "RSK.Produce",
-            }
+            food: "RSK.Food",
+            potion: "RSK.Potion",
         },
         unrefined: {
             wood: {
                 ...RSK.woodType
             },
+            produce: "RSK.Produce",
             fish: "RSK.Fish",
             rawMeat: "RSK.RawMeat",
             skin: "RSK.Skin",
@@ -165,10 +163,14 @@ RSK.material = {
     },
     inorganic: {
         refined: {
-            metal: "RSK.Metal",
+            metal: {
+                ...RSK.metalType
+            },
             glass: "RSK.Glass",
             cloth: "RSK.Cloth",
-            leather: "RSK.Leather"
+            leather: {
+                ...RSK.leatherType
+            }
         },
         unrefined: {
             mineral: {
