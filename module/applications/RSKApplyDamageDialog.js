@@ -29,15 +29,18 @@ export default class RSKApplyDamageDialog extends Application {
         super();
         this.resolve = resolve;
         this.context = context;
-        this.damageEntries = this.context?.actionData?.damageEntries ?? {
-            stab: 0,
-            slash: 0,
-            crush: 0,
-            air: 0,
-            water: 0,
-            earth: 0,
-            fire: 0,
-        };
+        this.damageEntries = this.context?.actionData?.damageEntries
+            ? foundry.utils.deepClone(this.context?.actionData?.damageEntries)
+            : {
+                stab: 0,
+                slash: 0,
+                crush: 0,
+                air: 0,
+                water: 0,
+                earth: 0,
+                fire: 0,
+            };
+
         this.puncture = this.context?.puncture ?? 0;
         this.defenseRoll = this.context?.defenseRoll ?? 0; //todo: need to make this interactive
         this.attackType = this.context?.actionType ?? "melee";
