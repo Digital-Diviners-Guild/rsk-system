@@ -156,7 +156,10 @@ export const dealsDamage = (data) => data.damageEntries
         .filter(x => x > 0).length > 0
 
 //todo: apply margin so we can skip dialog.
-//todo: apply margin.... from defense roll.
+// this will come from outcome margin if a character is attacking
+// this will come from a defense roll dictated by the outcome 
+// if an npc is attacking a character
+// note: this applyOutcome is only for combat - in non combat margin success is a little different.
 export const applyOutcome = async (targets, outcome) => {
     for (let target of targets) {
         const dialog = RSKApplyDamageDialog.create(outcome);
