@@ -1,10 +1,6 @@
 import { costField, fields, positiveNumberField } from "../fields.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 
-//todo: the item type for this won't be "ammunition"
-// although a ranged weapon can use a thrown weapon (such as darts) as ammunition.
-// how should we allow darts to be used as ammo?
-// the ammo properties are present such as "qualities" and increased stack size
 export default class RSKWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
