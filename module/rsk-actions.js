@@ -27,22 +27,15 @@ export const npcAction = async (actor, action) => {
     });
 }
 
-//todo: add this type of validation on use
-// same with checking for ammo
-// meetsEquipRequirements(actor) {
-//     return actor.type !== "character" || this.type === "simple"
-//         ? true
-//         : actor.system.skills["attack"] >= 5;
-// }
-
-
 const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
-
 export const meleeAttackAction = async (actor) => {
     //todo: better way to select equipped weapon from actor from within actor
     //todo: dual wielding? if there are 2 weapons, maybe a dialog to select which one and if it is the second attack to add disadvantage?
     const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon" && i.system.isMelee);
     const weapon = weapons.length > 0 ? weapons[0] : { name: "unarmed", system: { type: "simple", damageEntries: { crush: 1 } } }
+
+    //todo: message that you can't do that (maybe a toast notification alert thing?)
+    if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"] < 5) return;
     const result = await useAction(actor, "attack", getAbility(weapon));
     if (!result) return;
 
@@ -82,7 +75,8 @@ export const rangedAttackAction = async (actor) => {
         : await selectAmmo(actor, weapon);
     if (!ammoSelection || ammoSelection.quantity < 1) return;
 
-    //todo: use validation here rather than on equip
+    //todo: message that you can't do that (maybe a toast notification alert thing?)
+    if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"] < 5) return;
     const result = await useAction(actor, "ranged", getAbility(weapon));
     if (!result) return;
 
