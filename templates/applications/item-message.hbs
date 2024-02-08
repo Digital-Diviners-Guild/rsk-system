@@ -13,10 +13,18 @@
 {{#if qualities}}
 <p>{{qualities}}</p>
 {{/if}}
-{{!-- todo: localize --}}
 {{#if showRollResult}}
 <p>
-    TN: {{targetNumber}} | {{#if isCritical}}<em>critical</em>{{/if}} {{#if isSuccess}} success {{else}} fail{{/if}}
+    {{localize "RSK.TargetNumberChatLabel"}}: {{targetNumber}} | {{#if isCritical}}
+    <em>
+        {{localize "RSK.Critical"}}
+    </em>
+    {{/if}}
+    {{#if isSuccess}}
+    {{localize "RSK.Success"}}
+    {{else}}
+    {{localize "RSK.Fail"}}
+    {{/if}}
     ({{margin}})
 </p>
 {{/if}}
