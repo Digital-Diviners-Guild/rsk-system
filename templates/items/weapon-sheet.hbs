@@ -1,3 +1,11 @@
+{{!-- todo: hide ammo fields when not ammo --}}
+{{!-- todo: hide melee fields when not melee --}}
+{{!-- todo: hide ranged fields when not ranged --}}
+{{!-- todo: material options change when it is ammo, melee, ranged weapon.
+ie. bows can be wood, swords metal, etc. --}}
+{{!-- probably could be done better in logic in the sheet in getData --}}
+{{!-- need to not show qualities when ranged, etc. --}}
+
 <form class="{{cssClass}}" autocomplete="off" data-can-drop="true">
     <header class="sheet-header">
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
@@ -40,10 +48,17 @@
             {{/if}}
 
             {{#if system.specialEffects}}
-            <strong>{{localize "SpecialEffectsEffects"}}:</strong>
+            <strong>{{localize "RSK.SpecialEffects"}}:</strong>
             <div>{{system.specialEffects}}</div>
             {{/if}}
-
+            <div>
+                <strong>{{localize "RSK.AmmoType"}}:</strong>
+                {{system.ammoType}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.IsAmmo"}}:</strong>
+                {{system.isAmmo}}
+            </div>
             {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
             {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
         </div>
@@ -82,10 +97,23 @@
             </div>
             <label>{{localize "RSK.MaxStackSize"}}</label>
             <input name="system.maxStackSize" type="number" value="{{system.maxStackSize}}">
-            <strong>{{localize "SpecialEffectsEffects"}}:</strong>
+            <strong>{{localize "RSK.SpecialEffects"}}:</strong>
             <input type="text" name="system.specialEffects" value="{{system.specialEffects}}">
             <strong>{{localize "RSK.Effects"}}:</strong>
             {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+
+            {{!-- todo: this is really 'can be ammo?' not that it will be used as such per say --}}
+            {{!-- ie. darts. they can be ammo, but are also thrown --}}
+            <label>{{localize "RSK.IsAmmo"}}</label>
+            <input name="system.isAmmo" type="boolean" value="{{system.isAmmo}}">
+            {{!-- todo: ammo type, is ammo, active slot, weapon type. all trying to communicate the same thing really
+            can this be more simple? --}}
+            <div class="form-group">
+                <label>{{localize "RSK.AmmoType"}}</label>
+                <select name="system.ammoType">
+                    {{selectOptions config.ammunitionType selected=system.ammoType localize=true}}
+                </select>
+            </div>
 
             {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
             {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
