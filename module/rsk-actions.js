@@ -7,10 +7,11 @@ import { getTargets } from "./rsk-targetting.js";
 
 export const npcAction = async (actor, action) => {
     const actionData = { ...action.system };
-    const content = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
+    const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
         {
-            label: action.name,
-            actionData
+            name: action.name,
+            actionData,
+            hideRollResults: true
         });
     const targetUuids = getTargets(actor);
     await ChatMessage.create({
@@ -157,13 +158,12 @@ const useAction = async (actor, skill, ability) => {
     return { ...actionResult, targetUuids }
 }
 
-const chatAction = async (label, actionType, actionData, result) => {
-    const flavor = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
+const chatAction = async (name, actionType, actionData, result) => {
+    const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
         {
-            label,
+            name,
             ...actionData,
-            ...result,
-            showRollResult: true
+            ...result
         });
     await result.rollResult.toMessage({
         flavor: flavor,
