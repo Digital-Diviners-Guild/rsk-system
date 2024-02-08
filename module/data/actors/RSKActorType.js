@@ -22,7 +22,9 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
         const remainingArmourSoak = armour - applicablePuncture;
         const { totalDamage, damageResistance } = Object.keys(damageEntries).reduce((acc, type, i) => {
             acc.totalDamage += damageEntries[type];
-            acc.damageResistance += this.getBonusArmourValue(type);
+            if (damageEntries[type] > 0) {
+                acc.damageResistance += this.getBonusArmourValue(type);
+            }
             return acc;
         }, { totalDamage: 0, damageResistance: 0 });
         const attackTypeResistance = this.getBonusArmourValue(attackType);
@@ -32,5 +34,7 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
 
     getArmourValue() { return 0; }
 
-    getBonusArmourValue(type) { return this.resistance[type] ?? 0; }
+    getBonusArmourValue(type) {
+        return this.resistance[type] ?? 0;
+    }
 }
