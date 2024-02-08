@@ -34,4 +34,10 @@ export default class RSKMeleeWeapon extends RSKEquippableType {
             quantity: new fields.NumberField({ initial: 1 })
         }
     };
+
+    meetsEquipRequirements(actor) {
+        return actor.type !== "character" || this.type === "simple"
+            ? true
+            : actor.system.skills["attack"] >= 5;
+    }
 }

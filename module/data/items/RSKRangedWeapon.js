@@ -44,8 +44,14 @@ export default class RSKRangedWeapon extends RSKEquippableType {
                 options: ["weapon", "arm"]
             }),
             isEquipped: new fields.BooleanField({ initial: false }),
-            maxStackSize: new fields.NumberField({ initial: 1 }),
+            maxStackSize: new fields.NumberField({ initial: 1, min: 1 }),
             quantity: new fields.NumberField({ initial: 1 })
         }
     };
+
+    meetsEquipRequirements(actor) {
+        return actor.type !== "character" || this.type === "simple"
+            ? true
+            : actor.system.skills["ranged"] >= 5;
+    }
 }
