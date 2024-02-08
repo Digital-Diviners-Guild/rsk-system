@@ -26,6 +26,14 @@ export const npcAction = async (actor, action) => {
     });
 }
 
+//todo: add this type of validation on use
+// same with checking for ammo
+// meetsEquipRequirements(actor) {
+//     return actor.type !== "character" || this.type === "simple"
+//         ? true
+//         : actor.system.skills["attack"] >= 5;
+// }
+
 
 const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
 
