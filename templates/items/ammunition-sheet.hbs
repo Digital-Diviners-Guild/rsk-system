@@ -33,8 +33,6 @@
                 {{system.material}}
             </div>
 
-            {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
-
             {{#if system.qualities}}
             <div>
                 <strong>{{localize "RSK.Qualities"}}:</strong>
@@ -73,8 +71,6 @@
                     {{selectOptions config.ammunitionMaterialType selected=system.material localize=true}}
                 </select>
             </div>
-
-            {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
 
             <strong>{{localize "RSK.Qualities"}}:</strong>
             <input type="text" data-dtype="text" name="system.qualities" value="{{system.qualities}}">

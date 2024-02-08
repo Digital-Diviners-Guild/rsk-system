@@ -80,10 +80,22 @@ export const rangedAttackAction = async (actor) => {
     if (!result) return;
 
     actor.system.removeItem(ammoSelection);
-    //todo: ranged attacks are a combo of the weapon and ammo used.
-    // weapon give damage, ammo gives qualities
-    // this needs to be reflected in the outcome and messaging
-    await chatAction(weapon.name, "ranged", weapon.system, result);
+    //todo: need to improve the output of ranged attacks
+    const rangedAttack =
+        weapon.type === "thrownWeapon"
+            ? {
+                name: weapon.name,
+                ...weapon.system
+            }
+            : {
+                name: `${weapon.name} + ${ammoSelection.name}`,
+                description: `${weapon.system.description}\n${ammoSelection.system.description}`,
+                effectDescription: `${weapon.system.effectDescription}\n${ammoSelection.system.effectDescription}`,
+                damageEntries: weapon.system.damageEntries,
+                qualities: ammoSelection.system.qualities
+            };
+
+    await chatAction(rangedAttack.name, "ranged", rangedAttack, result);
     return result;
 }
 
