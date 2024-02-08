@@ -80,10 +80,6 @@ quantity: number
                 {{system.activeSlot}}
             </div>
             <div>
-                <strong>{{localize "RSK.IsEquipped"}}</strong>
-                {{system.isEquipped}}
-            </div>
-            <div>
                 <strong>{{localize "RSK.MaxStackSize"}}</strong>
                 {{system.maxStackSize}}
             </div>
@@ -95,57 +91,62 @@ quantity: number
 
         <div class="tab features" data-group="primary" data-tab="edit">
             <div>
-                {{!-- todo render list in a csv? --}}
+                {{!-- todo: attackTypes input --}}
                 <strong>{{localize "RSK.AttackTypes"}}</strong>
                 {{system.attackTypes}}
             </div>
             <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
-                {{system.weaponType}}
+                <select name="system.weaponType">
+                    {{selectOptions config.weaponTypes selected=system.weaponType localize=true}}
+                </select>
             </div>
             <div>
+                {{!-- todo these options will be dynamic
+                depending on if its ammo type, or weapon type for available material options
+                but maybe not? darts... f in darts man --}}
                 <strong>{{localize "RSK.Material"}}</strong>
-                {{system.material}}
+                <select name="system.material">
+                    {{selectOptions config.weaponMaterials selected=system.material localize=true}}
+                </select>
             </div>
             <div>
                 <strong>{{localize "RSK.AmmoType"}}</strong>
-                {{system.ammoType}}
+                <select name="system.ammoType">
+                    {{selectOptions config.ammunitionType selected=system.ammoType localize=true}}
+                </select>
             </div>
             <div>
                 <strong>{{localize "RSK.Description"}}</strong>
-                {{system.description}}
-            </div>
-            <div>
-                <strong>{{localize "RSK.Range"}}</strong>
-                {{system.range}}
+                <input type="text" name="system.description" value="{{system.description}}">
             </div>
             <div>
                 <strong>{{localize "RSK.Cost"}}</strong>
-                {{system.cost}}
+                <input type="number" name="system.cost" value="{{system.cost}}">
             </div>
             <div>
-                <strong>{{localize "RSK.DamageEntries"}}</strong>
-                {{system.damageEntries}}
+                {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
+            </div>
+            <div>
+                {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
             </div>
             <div>
                 <strong>{{localize "RSK.SpecialEffects"}}</strong>
-                {{system.specialEffects}}
+                <input type="text" name="system.specialEffects" value="{{system.specialEffects}}">
             </div>
             <div>
                 <strong>{{localize "RSK.ActiveSlot"}}</strong>
-                {{system.activeSlot}}
-            </div>
-            <div>
-                <strong>{{localize "RSK.IsEquipped"}}</strong>
-                {{system.isEquipped}}
+                <select name="system.activeSlot">
+                    {{selectOptions config.weaponActiveSlotType selected=system.activeSlot localize=true}}
+                </select>
             </div>
             <div>
                 <strong>{{localize "RSK.MaxStackSize"}}</strong>
-                {{system.maxStackSize}}
+                <input type="number" name="system.maxStackSize" value="{{system.maxStackSize}}">
             </div>
             <div>
                 <strong>{{localize "RSK.Quantity"}}</strong>
-                {{system.quantity}}
+                <input type="number" name="system.quantity" value="{{system.quantity}}">
             </div>
         </div>
     </section>
