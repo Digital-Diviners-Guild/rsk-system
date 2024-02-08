@@ -5,14 +5,27 @@ export default class RSKChatLog extends ChatLog {
 }
 
 export function onRenderChatMessage(app, html, data) {
-    html.find(".apply-outcome")
-        .click(async e => {
-            debugger;
-            //todo apply outcomes: Bonus damage from good rolls?
-            const message = data.message;
-            if (!(message?.flags?.rsk?.targetUuid && message?.flags?.rsk?.actionType)) return;
-            applyOutcome(foundry.utils.deepClone(message.flags.rsk));
-        });
+    const message = data.message;
+    const isActionMessage = message?.flags?.rsk?.actionType;
+    const currentCharacterUuid = game.user?.character?.uuid;
+    const isGM = game.user?.isGM;
+    if (!(isActionMessage && (currentCharacterUuid || isGM))) return;
+
+    const possibleTargets = message.flags.rsk.targetUuids;
+    const canClickButton = isGM || possibleTargets?.includes(currentCharacterUuid)
+    if (canClickButton) {
+        html.find(".apply-outcome")
+            .click(async e => {
+                const targets = isGM
+                    ? [...game.user.targets.map(t => t.actor)]
+                    : [game.user.character]
+                applyOutcome(
+                    targets,
+                    foundry.utils.deepClone(message.flags.rsk));
+            });
+    } else {
+        html.find(".apply-outcome").remove();
+    }
 }
 
 export async function chatItem(item, options = {}) {
