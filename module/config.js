@@ -1,5 +1,53 @@
 const RSK = {};
 
+RSK.skills = {
+    archaeology: "RSK.Archaeology",
+    attack: "RSK.Attack",
+    cooking: "RSK.Cooking",
+    crafting: "RSK.Crafting",
+    defense: "RSK.Defense",
+    dungeoneering: "RSK.Dungeoneering",
+    farming: "RSK.Farming",
+    fishing: "RSK.Fishing",
+    fletching: "RSK.Fletching",
+    herblore: "RSK.Herblore",
+    hunter: "RSK.Hunter",
+    magic: "RSK.Magic",
+    mining: "RSK.Mining",
+    prayer: "RSK.Prayer",
+    ranged: "RSK.Ranged",
+    runecrafting: "RSK.Runecrafting",
+    slayer: "RSK.Slayer",
+    smithing: "RSK.Smithing",
+    summoning: "RSK.Summoning",
+    thieving: "RSK.Thieving",
+    woodcutting: "RSK.Woodcutting"
+};
+
+RSK.abilities = {
+    strength: "RSK.Strength",
+    agility: "RSK.Agility",
+    intellect: "RSK.Intellect"
+}
+
+RSK.physicalDamageTypes = {
+    stab: "RSK.Stab",
+    slash: "RSK.Slash",
+    crush: "RSK.Crush"
+}
+
+RSK.elementalDamageTypes = {
+    air: "RSK.Air",
+    water: "RSK.Water",
+    earth: "RSK.Earth",
+    fire: "RSK.Fire",
+}
+
+RSK.damageTypes = {
+    ...RSK.physicalDamageTypes,
+    ...RSK.elementalDamageTypes,
+}
+
 RSK.sizes = {
     tiny: "RSK.Tiny",
     small: "RSK.Small",
