@@ -50,6 +50,12 @@
 
         <div class="tab features" data-group="primary" data-tab="edit">
             <div>
+                <strong>{{localize "RSK.Type"}}:</strong>
+                <select name="system.type">
+                    {{selectOptions config.weaponTypes selected=system.type localize=true}}
+                </select>
+            </div>
+            <div>
                 <strong>{{localize "RSK.Cost"}}: </strong>
                 <input type="number" data-dtype="number" name="system.cost" value="{{system.cost}}">
             </div>
