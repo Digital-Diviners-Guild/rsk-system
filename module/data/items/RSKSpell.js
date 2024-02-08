@@ -1,4 +1,4 @@
-import { fields } from "../fields.js";
+import { fields, positiveNumberField } from "../fields.js";
 import { localizeText } from "../../rsk-localize.js";
 
 export default class RSKSpell extends foundry.abstract.TypeDataModel {

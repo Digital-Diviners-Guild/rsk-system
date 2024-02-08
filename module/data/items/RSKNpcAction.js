@@ -1,4 +1,4 @@
-import { fields } from "../fields.js";
+import { fields, positiveNumberField } from "../fields.js";
 export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
