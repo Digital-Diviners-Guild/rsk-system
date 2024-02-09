@@ -1,13 +1,13 @@
-import { localizeText } from "../rsk-localize.js";
+import { localizeText } from '../rsk-localize.js';
 
 export default class RSKImproveYourCharacter extends Application {
     static isActive;
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            title: localizeText("RSK.ImproveYourCharacter"),
+            title: localizeText('RSK.ImproveYourCharacter'),
             template: 'systems/rsk/templates/applications/improve-your-character-dialog.hbs',
-            classes: ["rsk", "dialog"],
+            classes: ['rsk', 'dialog'],
             width: 480,
             height: 250
         });
@@ -27,8 +27,6 @@ export default class RSKImproveYourCharacter extends Application {
         this.context = context;
         this.skills = context.skills;
         this.abilities = context.abilities;
-        this.showSkillSelect = options.showSkillSelect ?? true;
-        this.showAbilitySelect = options.showAbilitySelect ?? false;
     }
 
     async close(options) {
@@ -46,14 +44,37 @@ export default class RSKImproveYourCharacter extends Application {
         return data;
     }
 
+    willGainAbility(selected) {
+        return selected
+            ? this.skills.find(s => s.index === selected).value === 4
+            : false;
+    }
+
+    handleAbilityDropDownVisibility(selected, abilitySelect) {
+        const show = this.willGainAbility(selected);
+        if (show) {
+            abilitySelect.show();
+        } else {
+            abilitySelect.hide();
+        }
+    }
+
     activateListeners(html) {
         super.activateListeners(html);
         html.find('.confirm-button').click(this._onConfirm.bind(this));
+        const skillDropDown = html.find('.skill-dropdown');
+        const abilityDropDown = html.find('.ability-dropdown');
+        this.handleAbilityDropDownVisibility(skillDropDown.val(), abilityDropDown);
+        skillDropDown.change((ev) => {
+            this.handleAbilityDropDownVisibility(ev.target.value, abilityDropDown);
+        });
     }
 
     async _onConfirm(event) {
         const selectedSkill = $('.skill-dropdown').val();
-        const selectedAbility = $('.ability-dropdown').val();
+        const selectedAbility = this.willGainAbility(selectedSkill)
+            ? $('.ability-dropdown').val()
+            : false;
         this.resolve({
             confirmed: true,
             selectedSkill: selectedSkill,

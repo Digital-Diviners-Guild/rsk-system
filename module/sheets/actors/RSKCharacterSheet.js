@@ -100,9 +100,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         this.actor.system.removeItem(item)
     }
 
-    //todo: 
-    // - ensure we can't gain an ability point for a skill that started at level 5
-    // - see if we can do it in one dialog instead of two? or maybe this is fine
     async handleImproveYourCharacter() {
         const eligibleSkills = localizeObject(this.actor.system.skills, CONFIG.RSK.skills,
             (obj, i) => obj[i].level,
@@ -112,19 +109,17 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             (obj, i) => obj[i].level,
             (val) => val.level < 8);
 
-        const skillDialog = RSKImproveYourCharacterDialog.create({ skills: eligibleSkills });
+        const skillDialog = RSKImproveYourCharacterDialog.create({ skills: eligibleSkills, abilities: eligibleAbilities });
         const skillResult = await skillDialog();
-        if (!(skillResult.confirmed || skillResult.selectedSkill)) return;
+        const hasSelection = skillResult && skillResult.confirmed && skillResult.selectedSkill;
+        if (!hasSelection) return;
         // thought: stuff like this should probably be handled reactively
         // the more we do stuff reactively, the easier it will to extend through modules later
+        this.actor.system.increaseSkillLevel(skillResult.selectedSkill);
         this.actor.system.clearUsedSkills();
-        const gainedAbility = this.actor.system.increaseSkillLevel(skillResult.selectedSkill);
-        if (!gainedAbility) return;
 
-        const abilityDialog = RSKImproveYourCharacterDialog.create({ abilities: eligibleAbilities }, { showSkillSelect: false, showAbilitySelect: true });
-        const abilityResult = await abilityDialog();
-        if (!(abilityResult.confirmed || abilityResult.selectedAbility)) return;
-        this.actor.system.increaseAbilityLevel(abilityResult.selectedAbility);
+        if (!skillResult.selectedAbility) return;
+        this.actor.system.increaseAbilityLevel(skillResult.selectedAbility);
     }
 
     async characterAttackAction() {
