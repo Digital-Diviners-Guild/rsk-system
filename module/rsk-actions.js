@@ -1,8 +1,8 @@
-import RSKApplyDamageDialog from "./applications/RSKApplyDamageDialog.js";
-import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
 import { localizeText } from "./rsk-localize.js";
 import { getTargets } from "./rsk-targetting.js";
+import { uiService } from "./rsk-ui-service.js";
+
 
 export const npcAction = async (actor, action) => {
     const actionData = { ...action.system };
@@ -163,8 +163,7 @@ export const dealsDamage = (data) => data.damageEntries
 // note: this applyOutcome is only for combat - in non combat margin success is a little different.
 export const applyOutcome = async (targets, outcome) => {
     for (let target of targets) {
-        const dialog = RSKApplyDamageDialog.create(outcome);
-        const result = await dialog();
+        const result = await uiService.showDialog("apply-damage", { context: outcome });
         if (!result?.confirmed) return;
         await target.system.receiveDamage({ ...result });
     }
@@ -172,8 +171,7 @@ export const applyOutcome = async (targets, outcome) => {
 
 const useAction = async (actor, skill, ability) => {
     const rollData = actor.system.getRollData();
-    const dialog = RSKConfirmRollDialog.create(rollData, { defaultSkill: skill, defaultAbility: ability });
-    const rollResult = await dialog();
+    const rollResult = await uiService.showDialog("confirm-roll", { context: rollData, options: { defaultSkill: skill, defaultAbility: ability } });
     if (!rollResult.rolled) return false;
 
     const skillResult = await actor.system.useSkill(rollResult);
