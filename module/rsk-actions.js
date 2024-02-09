@@ -24,12 +24,32 @@ export const npcAction = async (actor, action) => {
     });
 }
 
-//todo: 
-const applyStateChanges = (actor, stateChanges) => {
-    if (stateChanges.removeItem) {
-        actor.system.removeItem(stateChanges.removeItem);
+const removeItem = (actor, item) => actor.system.removeItem(item);
+const spendResource = (actor, resourceType, amount) => {
+    switch (resourceType) {
+        case 'prayer':
+        case 'summoning':
+            actor.system.spendPoints(resourceType, amount);
+            break;
+        default:
+            actor.system.spendRunes(resourceType, amount);
+            break;
     }
-}
+};
+const operations = {
+    removeItem,
+    spendResource
+};
+const applyStateChanges = (actor, stateChanges) =>
+    stateChanges?.forEach(change => {
+        const operationFunc = operations[change.operation];
+        if (operationFunc) {
+            operationFunc(actor, ...change.params);
+        } else {
+            console.error(`Unknown operation: ${change.operation}`);
+        }
+    });
+
 export const attackAction = async (actor, weapon) => {
     let result;
     if (weapon.system.isMelee) {
@@ -43,9 +63,7 @@ export const attackAction = async (actor, weapon) => {
         ui.notifications.warn(localizeText(result.error));
         return;
     }
-    if (result.stateChanges) {
-        applyStateChanges(actor, result.stateChanges);
-    }
+    applyStateChanges(actor, result.stateChanges);
     await chatResult(result);
 }
 
@@ -84,9 +102,9 @@ const rangedAttackAction = async (actor, weapon) => {
     return {
         actionType: "ranged",
         ...actionResult,
-        stateChanges: {
-            removeItem: ammo, // maybe just pass the id?
-        },
+        stateChanges: [
+            { operation: 'removeItem', params: [ammo] } //todo: probably use uuids
+        ],
         name: weapon.system.isThrown ? weapon.name : `${weapon.name} + ${ammo.name}`,
         attackData: weapon.system.isThrown
             ? weapon.system
@@ -107,12 +125,16 @@ const castingHandlers = {
     prayer: {
         getCastables: (actor) => actor.items.filter(i => i.type === "prayer"
             && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
-        handleCost: (actor, isSuccess, cost) => actor.system.spendPoints("prayer", isSuccess ? cost[0].amount : 1)
+        handleCost: (isSuccess, cost) => [
+            { operation: 'spendResource', params: ['prayer', isSuccess ? cost[0].amount : 1] }
+        ]
     },
     summoning: {
         getCastables: (actor) => actor.items.filter(i => i.type === "summoning"
             && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
-        handleCost: (actor, isSuccess, cost) => actor.system.spendPoints("summoning", isSuccess ? cost[0].amount : 1)
+        handleCost: (isSuccess, cost) => [
+            { operation: 'spendResource', params: ['summoning', isSuccess ? cost[0].amount : 1] }
+        ]
     },
     magic: {
         getCastables: (actor) => actor.items.filter(s => s.type === "spell"
@@ -120,11 +142,12 @@ const castingHandlers = {
                 actor.items.find(r => r.type === "rune"
                     && r.system.type === uc.type
                     && r.system.quantity >= uc.amount))),
-        handleCost: (actor, isSuccess, cost) => {
-            if (isSuccess) {
-                cost.forEach(c => actor.system.spendRunes(c.type, c.amount));
-            }
-        }
+        handleCost: (isSuccess, cost) => isSuccess
+            ? cost.map(runeCost => ({
+                operation: 'spendResource',
+                params: [runeCost.type, runeCost.amount]
+            }))
+            : []
     }
 };
 
@@ -143,14 +166,19 @@ export const castAction = async (actor, castType) => {
     const actionResult = await useAction(actor, castType, "intellect");
     if (!actionResult) return;
 
-    castHandler.handleCost(actor, actionResult.isSuccess, castable.system.usageCost);
-    await chatResult({
+    const stateChanges = castHandler.handleCost(actionResult.isSuccess, castable.system.usageCost);
+    const result = {
         name: castable.name,
         actionType: castType,
         actionData: castable.system,
-        ...actionResult
-    });
-    return actionResult;
+        ...actionResult,
+        stateChanges
+    };
+    //todo: just return and do these things elsewhere?
+    // but maybe we can't, we need to make a macro and see how this changes things
+    applyStateChanges(actor, result.stateChanges);
+    await chatResult(result);
+    return result;
 }
 
 export const dealsDamage = (data) => data.damageEntries
