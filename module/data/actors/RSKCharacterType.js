@@ -204,10 +204,7 @@ export default class RSKCharacterType extends RSKActorType {
 
         const currentEquipped = this.parent.items
             .find(i => i.system.isEquipped && i.system.equippedInSlot === item.system.activeSlot)
-        if (item.isOnlyAmmo() || (currentEquipped
-            && currentEquipped.system.isRanged
-            && item.system.isAmmo
-            && currentEquipped.system.ammoType === item.system.ammoType)) {
+        if (item.isOnlyAmmo() || currentEquipped.usesItemAsAmmo(item)) {
             equipAmmo();
         } else if (currentEquipped && currentEquipped !== item) {
             currentEquipped.system.equip(currentEquipped.system.equippedInSlot);
