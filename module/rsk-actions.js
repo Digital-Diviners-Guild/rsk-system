@@ -25,12 +25,27 @@ export const npcAction = async (actor, action) => {
     });
 }
 
+const applyStateChanges = (actor, stateChanges) => {
+    if (stateChanges.removeItem) {
+        actor.system.removeItem(stateChanges.removeItem);
+    }
+}
 export const attackAction = async (actor, weapon) => {
-    const action = weapon.system.isMelee
-        ? meleeAttackAction(actor, weapon)
-        : rangedAttackAction(actor, weapon);
-    const result = await action;
+    let result;
+    if (weapon.system.isMelee) {
+        result = await meleeAttackAction(actor, weapon)
+    } else {
+        result = await rangedAttackAction(actor, weapon)
+    }
     if (!result) return;
+
+    if (result.error) {
+        ui.notifications.warn(localizeText(result.error));
+        return;
+    }
+    if (result.stateChanges) {
+        applyStateChanges(actor, result.stateChanges);
+    }
     await chatResult(result);
 }
 
@@ -38,12 +53,16 @@ const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "s
 
 const meleeAttackAction = async (actor, weapon) => {
     if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"].level < 5) {
-        ui.notifications.warn(localizeText("RSK.AttackLevelTooLow"));
-        return false;
+        return { error: "RSK.AttackLevelTooLow" };
     };
     const actionResult = await useAction(actor, "attack", getAbility(weapon));
     if (!actionResult) return false;
-    return { name: weapon.name, attackData: weapon.system, actionType: "melee", ...actionResult };
+    return {
+        name: weapon.name,
+        actionType: "melee",
+        ...actionResult,
+        attackData: weapon.system,
+    };
 }
 
 const rangedAttackAction = async (actor, weapon) => {
@@ -54,36 +73,30 @@ const rangedAttackAction = async (actor, weapon) => {
             && i.system.isAmmo
             && i.system.ammoType === weapon.system.ammoType);
     if (!ammo || ammo.quantity < 1) {
-        ui.notifications.warn(localizeText("RSK.NoAmmoAvailable"));
-        return false;
+        return { error: "RSK.NoAmmoAvailable" };
     };
-
     if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"].level < 5) {
-        ui.notifications.warn(localizeText("RSK.RangedLevelTooLow"));
-        return false;
+        return { error: "RSK.RangedLevelTooLow" };
     }
 
     const actionResult = await useAction(actor, "ranged", getAbility(weapon));
     if (!actionResult) return false;
-
-    actor.system.removeItem(ammo);
-    //todo: need to improve the output of ranged attacks
-    // need to define an actual outcome class really
-    const rangedAttackOutcome = weapon.system.isThrown
-        ? {
-            name: weapon.name,
-            attackData: { ...weapon.system }
-        }
-        : {
-            name: `${weapon.name} + ${ammo.name}`,
-            attackData: {
+    return {
+        actionType: "ranged",
+        ...actionResult,
+        stateChanges: {
+            removeItem: ammo, // maybe just pass the id?
+        },
+        name: weapon.system.isThrown ? weapon.name : `${weapon.name} + ${ammo.name}`,
+        attackData: weapon.system.isThrown
+            ? weapon.system
+            : {
                 description: `${weapon.system.description}\n${ammo.system.description}`,
                 effectDescription: `${weapon.system.effectDescription}\n${ammo.system.effectDescription}`,
                 damageEntries: weapon.system.damageEntries,
                 specialEffects: ammo.system.specialEffects
             }
-        };
-    return { ...rangedAttackOutcome, actionType: "ranged", ...actionResult };
+    };
 }
 
 // todo: explore if this could be a macro handler we drag and drop onto the hotbar
