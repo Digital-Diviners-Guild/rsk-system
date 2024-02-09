@@ -9,4 +9,16 @@ export default class RSKItem extends Item {
         }
         return super._preUpdate(changed, options, user);
     }
+
+    isWeapon() {
+        return this.type === "weapon";
+    }
+
+    isRangedWeapon() {
+        return this.isWeapon() && (this.system.isRanged || this.system.isThrown);
+    }
+
+    isMeleeWeapon() {
+        return this.isWeapon() && this.system.isMelee;
+    }
 }
