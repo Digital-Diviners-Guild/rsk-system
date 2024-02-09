@@ -54,7 +54,7 @@ export const rangedAttackAction = async (actor) => {
             i.type === "weapon"
             && i.system.isAmmo
             && i.system.ammoType === weapon.system.ammoType);
-    if (ammo?.quantity < 1) return false;
+    if (!ammo || ammo.quantity < 1) return false;
 
     //todo: message that you can't do that (maybe a toast notification alert thing?)
     if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"] < 5) return;
