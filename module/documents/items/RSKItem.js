@@ -18,7 +18,15 @@ export default class RSKItem extends Item {
         return this.isWeapon() && (this.system.isRanged || this.system.isThrown);
     }
 
+    isThrownWeapon() {
+        return this.isWeapon() && this.system.isThrown;
+    }
+
     isMeleeWeapon() {
         return this.isWeapon() && this.system.isMelee;
+    }
+
+    isOnlyAmmo() {
+        return this.system.isAmmo && !this.system.isThrown;
     }
 }

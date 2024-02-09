@@ -29,8 +29,8 @@ export default class RSKApplyDamageDialog extends Application {
         super();
         this.resolve = resolve;
         this.context = context;
-        this.damageEntries = this.context?.actionData?.damageEntries
-            ? foundry.utils.deepClone(this.context?.actionData?.damageEntries)
+        this.damageEntries = this.context?.attackData?.damageEntries
+            ? foundry.utils.deepClone(this.context?.attackData?.damageEntries)
             : {
                 stab: 0,
                 slash: 0,

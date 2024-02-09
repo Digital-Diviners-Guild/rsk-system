@@ -28,7 +28,7 @@ export const npcAction = async (actor, action) => {
 }
 
 export const attackAction = async (actor, weapon) => {
-    const action = weapon.system.weaponType === "melee"
+    const action = weapon.system.attackType === "melee"
         ? meleeAttackAction(actor, weapon)
         : rangedAttackAction(actor, weapon);
     const result = await action;
@@ -161,7 +161,7 @@ const chatResult = async (actionResult) => {
         {
             ...actionResult
         });
-    await result.rollResult.toMessage({
+    await actionResult.rollResult.toMessage({
         flavor: flavor,
         flags: {
             rsk: {

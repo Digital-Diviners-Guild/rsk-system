@@ -1,7 +1,7 @@
 import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
-import { localizeObject } from "../../rsk-localize.js";
+import { localizeObject, localizeText } from "../../rsk-localize.js";
 import { attackAction, castAction } from "../../rsk-actions.js";
 import { calculateUsedSlots } from "../../rsk-inventory.js";
 
@@ -129,12 +129,16 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     async characterAttackAction() {
         //todo: dual wield support
-        const weapon = actor.system
+        const weapon = this.actor.system
             .getActiveItems()
             .find(i => i.isWeapon() && i.system.equippedInSlot === "weapon")
             ?? {
             name: localizeText("RSK.Unarmed"),
-            system: { type: "simple", damageEntries: { crush: 1 } }
+            system: {
+                weaponType: "simple",
+                attackType: "melee",
+                damageEntries: { crush: 1 }
+            }
         };
         attackAction(this.actor, weapon);
     }
