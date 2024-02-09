@@ -197,22 +197,20 @@ export default class RSKCharacterType extends RSKActorType {
             item.system.equip("ammo");
         }
 
-        const currentEquipped = this.parent.items
-            .filter(i => i.system.isEquipped && i.system.equippedInSlot === item.system.activeSlot)
-        // todo: refac? this logic is ridiculous to identify the situation
-        // one condition is its just ammo
-        // the other, is that it is a thrown weapon like darts being used as ammo in something like a blow pipe
-        if ((item.system.isAmmo && !item.system.isThrown)
-            || (item.system.isAmmo && item.system.isThrown
-                && currentEquipped[0] !== item
-                && currentEquipped[0].system.isRanged
-                && currentEquipped[0].system.ammoType === item.system.ammoType)) {
-            equipAmmo();
+        if (item.system.isEquipped) {
+            item.system.equip(item.system.equippedInSlot);
             return;
         }
 
-        if (currentEquipped.length > 0) {
-            currentEquipped[0].system.equip(item.system.activeSlot);
+        const currentEquipped = this.parent.items
+            .find(i => i.system.isEquipped && i.system.equippedInSlot === item.system.activeSlot)
+        if (item.isOnlyAmmo() || (currentEquipped
+            && currentEquipped.system.isRanged
+            && item.system.isAmmo
+            && currentEquipped.system.ammoType === item.system.ammoType)) {
+            equipAmmo();
+        } else if (currentEquipped && currentEquipped !== item) {
+            currentEquipped.system.equip(currentEquipped.system.equippedInSlot);
         }
         item.system.equip(item.system.activeSlot);
     }
