@@ -9,10 +9,14 @@
               class="fas fa-bed"></i></div>
           <div class="actor-application" application-method="characterDamage" effect-label="Take Damage"
             glow-color="red"><i class="fas fa-heart"></i></div>
-          <div class="actor-application" application-method="characterMeleeAttack" effect-label="Melee Attack"
-            glow-color="orange"><i class="fas fa-sword"></i></div>
-          <div class="actor-application" application-method="characterRangedAttack" effect-label="Ranged Attack"
-            glow-color="brown"><i class="fas fa-bow-arrow"></i></div>
+          <div class="actor-application" application-method="characterAttackAction" effect-label="Attack"
+            glow-color="orange">
+            {{#if equippedIsRanged}}
+            <i class="fas fa-bow-arrow"></i>
+            {{else}}
+            <i class="fas fa-sword"></i>
+            {{/if}}
+          </div>
           <div class="actor-application" application-method="characterCastSpell" effect-label="Cast Spell"
             glow-color="blue"><i class="fas fa-wand-sparkles"></i></div>
           <div class="actor-application" application-method="characterCastPrayer" effect-label="Pray"
@@ -200,13 +204,14 @@
             <input name="system.gold" type="number" data-dtype="Number" value="{{system.gold}}">
           </div>
           <div class="actor-toolbar">
-            {{#if equippedIsRanged}}
-            <div class="actor-application" application-method="characterRangedAttack" effect-label="Ranged Attack"
-              glow-color="brown"><i class="fas fa-bow-arrow"></i></div>
-            {{else}}
-            <div class="actor-application" application-method="characterMeleeAttack" effect-label="Melee Attack"
-              glow-color="orange"><i class="fas fa-sword"></i></div>
-            {{/if}}
+            <div class="actor-application" application-method="characterAttackAction" effect-label="Attack"
+              glow-color="orange">
+              {{#if equippedIsRanged}}
+              <i class="fas fa-bow-arrow"></i>
+              {{else}}
+              <i class="fas fa-sword"></i>
+              {{/if}}
+            </div>
           </div>
           <div>
             <strong>{{localize "RSK.ActiveSlots"}}</strong>
