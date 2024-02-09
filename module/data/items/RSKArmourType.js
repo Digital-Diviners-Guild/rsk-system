@@ -25,7 +25,12 @@ export default class RSKArmourType extends RSKEquippableType {
                 required: true,
                 initial:
                     "body", choices: [...Object.keys(CONFIG.RSK.armourActiveSlotType)]
-            })
+            }),
+            //todo: feels like maybe we don't need this?
+            // but if we want to 'equip' ammo, this is needed for now
+            // since darts may end up in 1 of 3 slots and we need to know
+            // where it ended up.
+            equippedInSlot: new fields.StringField()
         }
     }
 

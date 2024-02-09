@@ -1,10 +1,10 @@
 export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
-    equip() {
-        if (!this.hasOwnProperty("isEquipped")) return;
+    equip(slot) {
         const newIsEquipped = !this.isEquipped;
-        this.parent.update({ "system.isEquipped": newIsEquipped });
+        const newEquippedInSlot = newIsEquipped ? slot : "";
+        this.parent.update({
+            "system.isEquipped": newIsEquipped,
+            "system.equippedInSlot": newEquippedInSlot
+        });
     }
-
-    //todo: remove this when we move the concept to on use not on equip.
-    meetsEquipRequirements(actor) { return true; }
 }
