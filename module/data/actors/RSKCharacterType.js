@@ -188,6 +188,13 @@ export default class RSKCharacterType extends RSKActorType {
 
     //todo: probably need to pass in the slot we are targetting with 
     // drag and drop?
+    // the item has an activeSlot that determines the valid slot for the item
+    // however, darts can go to the ammo slot even though they say 'weapon'
+    // maybe we need to rethink activeSlot.
+    // the intent was to not allow a helmet on your food and cape in your quiver etc.
+    // most things can only go in one slot.
+    // though this does cause a problem with dual wielding, you would need 'off-hand' variant weapons, which is fine.
+    // when drag and drop occurs, we need to validate the targetted slot is allowed, if not, use general drop rules.
     equip(item) {
         if (item.system.isEquipped) {
             item.system.equip(item.system.equippedInSlot);
@@ -202,7 +209,10 @@ export default class RSKCharacterType extends RSKActorType {
                 currentEquipped[0].system.equip("ammo");
             }
             item.system.equip("ammo");
-        } else if (currentEquipped && currentEquipped !== item) {
+            return;
+        }
+
+        if (currentEquipped && currentEquipped !== item) {
             currentEquipped.system.equip(currentEquipped.system.equippedInSlot);
         }
         item.system.equip(item.system.activeSlot);
