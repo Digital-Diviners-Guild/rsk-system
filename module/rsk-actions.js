@@ -1,4 +1,3 @@
-import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
 import { localizeText } from "./rsk-localize.js";
 import { getTargets } from "./rsk-targetting.js";
 import { uiService } from "./rsk-ui-service.js";
@@ -25,6 +24,7 @@ export const npcAction = async (actor, action) => {
     });
 }
 
+//todo: 
 const applyStateChanges = (actor, stateChanges) => {
     if (stateChanges.removeItem) {
         actor.system.removeItem(stateChanges.removeItem);
@@ -102,52 +102,53 @@ const rangedAttackAction = async (actor, weapon) => {
 // todo: explore if this could be a macro handler we drag and drop onto the hotbar
 // - it may be a bit much to include spell/summon/prayer together.  but the general usage idea is very similar
 // - this might get clarified when handling outcomes
-const prayerHandler = {
-    getCastables: (actor) => actor.items
-        .filter(i => i.type === "prayer"
+// Assuming we have a uiService as defined in the previous example
+const castingHandlers = {
+    prayer: {
+        getCastables: (actor) => actor.items.filter(i => i.type === "prayer"
             && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
-    handleCost: (actor, isSuccess, cost) => actor.system.spendPoints("prayer", isSuccess ? cost[0].amount : 1)
-};
-const summoningHandler = {
-    getCastables: (actor) => actor.items.filter(i => i.type === "summoning" &&
-        actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
-    handleCost: (actor, isSuccess, cost) => actor.system.spendPoints("summoning", isSuccess ? cost[0].amount : 1)
-};
-const magicHandler = {
-    getCastables: (actor) => actor.items.filter(s => s.type === "spell"
-        && s.system.usageCost.every(uc => actor.items.find(r => r.type === "rune"
-            && r.system.type === uc.type
-            && r.system.quantity >= uc.amount))),
-    handleCost: (actor, isSuccess, cost) => {
-        if (isSuccess) {
-            cost.forEach(c => actor.system.spendRunes(c.type, c.amount));
+        handleCost: (actor, isSuccess, cost) => actor.system.spendPoints("prayer", isSuccess ? cost[0].amount : 1)
+    },
+    summoning: {
+        getCastables: (actor) => actor.items.filter(i => i.type === "summoning"
+            && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
+        handleCost: (actor, isSuccess, cost) => actor.system.spendPoints("summoning", isSuccess ? cost[0].amount : 1)
+    },
+    magic: {
+        getCastables: (actor) => actor.items.filter(s => s.type === "spell"
+            && s.system.usageCost.every(uc =>
+                actor.items.find(r => r.type === "rune"
+                    && r.system.type === uc.type
+                    && r.system.quantity >= uc.amount))),
+        handleCost: (actor, isSuccess, cost) => {
+            if (isSuccess) {
+                cost.forEach(c => actor.system.spendRunes(c.type, c.amount));
+            }
         }
     }
 };
-export const castHandlers = {
-    magic: magicHandler,
-    summoning: summoningHandler,
-    prayer: prayerHandler
-};
+
 export const castAction = async (actor, castType) => {
-    const castHandler = castHandlers[castType];
+    const castHandler = castingHandlers[castType];
     const castables = castHandler.getCastables(actor);
     if (castables.length < 1) {
-        ui.notifications.warn(localizeText("RSK.NoCastablesAvailable"));
+        uiService.showNotification("RSK.NoCastablesAvailable");
         return false;
     }
 
-    const selectCastable = RSKItemSelectionDialog.create({ items: castables });
-    const selectCastableResult = await selectCastable();
-    if (!(selectCastableResult && selectCastableResult.confirmed)) return false;
+    const selectCastableResult = await uiService.showDialog('select-item', { context: { items: castables } });
+    if (!selectCastableResult || !selectCastableResult.confirmed) return false;
 
     const castable = actor.items.find(x => x._id === selectCastableResult.id);
     const actionResult = await useAction(actor, castType, "intellect");
     if (!actionResult) return;
 
-    castHandler.handleCost(actor, actionResult.isSuccess, castable.system.usageCost)
+    castHandler.handleCost(actor, actionResult.isSuccess, castable.system.usageCost);
     await chatResult({
-        name: castable.name, actionType: castType, actionData: castable.system, ...actionResult
+        name: castable.name,
+        actionType: castType,
+        actionData: castable.system,
+        ...actionResult
     });
     return actionResult;
 }

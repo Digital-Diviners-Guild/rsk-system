@@ -1,6 +1,7 @@
 import RSKApplyDamageDialog from "./applications/RSKApplyDamageDialog.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
+import { localizeText } from "./rsk-localize.js";
 
 export const uiService = {
     showNotification: (message) => {
