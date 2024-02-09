@@ -136,3 +136,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+babel.config.json
+jest.config.js
+jest.setup.js
+package-lock.json
+package.json
+.vscode/launch.json
