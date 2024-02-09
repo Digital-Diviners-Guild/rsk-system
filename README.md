@@ -21,6 +21,8 @@ In FoundryVTT, use the following url in the 'Manifest URL' field.
         * and more...
     * Action Macros for common skill checks:
         * Disarming a trap, Fishing, etc..
+    * Crafting System
+        * consuming materials and providing the new item after making the appropriate skill check
 * and more...
 
 ### What the system provides now
