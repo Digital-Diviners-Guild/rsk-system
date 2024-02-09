@@ -205,7 +205,7 @@ export default class RSKCharacterType extends RSKActorType {
     // the current character/equipment.
     getArmourValue() {
         return this.parent.items
-            .filter(i => i.isEquipped)
+            .filter(i => i.isEquipped && i.type === "armour")
             .reduce((acc, w, i) => acc +=
                 typeof w.getArmourValue === "function" ? w.getArmourValue() : 0, 0)
     }
