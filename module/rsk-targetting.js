@@ -10,7 +10,11 @@ export function isInRange(actorToken, targetToken, range) {
     return distance < maxDistance;
 }
 
-//todo: only valid targets / potentially self targeting?
+//todo: improve targetting
+// - I think there are 'target' types like self, many, undead, etc..
+//  could be nice to configure that and validate the target is correct
+// - when an action targets 'self', that should just auto target self
+// - could validate range as well
 export function getTargets(actor) {
     const targets = game.user.targets;
     return targets.map(t => t.actor.uuid);
