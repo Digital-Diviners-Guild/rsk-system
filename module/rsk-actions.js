@@ -36,6 +36,9 @@ const spendResource = (actor, resourceType, amount) => {
             break;
     }
 };
+//todo: this is probably where we will 
+// start adding things like add/remove status/effect with actions
+// at least that is the intent. hopefully this wasn't a premature abstraction
 const operations = {
     removeItem,
     spendResource
