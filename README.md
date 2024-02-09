@@ -1,20 +1,32 @@
 # rsk (alpha)
-A FoundryVTT system for playing [RuneScape Kingdoms](https://steamforged.com/pages/runescape-kingdoms#products).
+An Unofficial FoundryVTT system for playing [RuneScape Kingdoms](https://steamforged.com/pages/runescape-kingdoms#products).
 
 **Note: This system does not provide any content, you will need to populate the item and actor sheets within your foundry world.**
 
-### Roadmap
+## Install
+In FoundryVTT, use the following url in the 'Manifest URL' field.    
+`https://raw.githubusercontent.com/qmarsala/rsk-system/main/system.json`
+
+## Roadmap
 * Improved UI/UX
 * Character Creator
+* Quest Log
 * Automation
+    * Consumables (potions, food, etc)
+    * Use margin to boost outcome
     * Combat Action automation
-        * range, dots, qualities and effects, margin bonuses, and more
-    * Action Macros for things like Identifying or Disarming a trap, Fishing, etc..
+        * enforce valid targetting rules (range, type, etc)
+        * damage over time
+        * qualities/effects
+        * and more...
+    * Action Macros for common skill checks:
+        * Disarming a trap, Fishing, etc..
 * and more...
 
-### What the system provides
+### What the system provides now
 * sheets to create and manage characters and items
 * statuses that can be applied to characters/npc's
+    * many statuses don't yet affect the actor, and are more for tracking what statuses currently should be applied
 * basic inventory tracking
 * dice formulas for rolling skill checks with advantage, disadvantage, and applying modifiers.
 
