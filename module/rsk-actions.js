@@ -27,27 +27,27 @@ export const npcAction = async (actor, action) => {
     });
 }
 
-const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
-export const meleeAttackAction = async (actor) => {
-    //todo: better way to select equipped weapon from actor from within actor
-    //todo: dual wielding? if there are 2 weapons, maybe a dialog to select which one and if it is the second attack to add disadvantage?
-    const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon" && i.system.isMelee);
-    const weapon = weapons.length > 0 ? weapons[0] : { name: "unarmed", system: { type: "simple", damageEntries: { crush: 1 } } }
-
-    //todo: message that you can't do that (maybe a toast notification alert thing?)
-    if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"] < 5) return;
-    const result = await useAction(actor, "attack", getAbility(weapon));
+export const attackAction = async (actor, weapon) => {
+    const action = weapon.system.weaponType === "melee"
+        ? meleeAttackAction(actor, weapon)
+        : rangedAttackAction(actor, weapon);
+    const result = await action;
     if (!result) return;
-
-    await chatAction(weapon.name, "melee", weapon.system, result);
-    return result;
+    await chatResult(result);
 }
 
-export const rangedAttackAction = async (actor) => {
-    const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon" && (i.system.isRanged || i.system.isThrown));
-    if (weapons.length < 1) return false;
-    //todo: off hand darts? or dual wield crossbows?
-    const weapon = weapons[0];
+const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
+
+const meleeAttackAction = async (actor, weapon) => {
+    //todo: message that you can't do that (maybe a toast notification alert thing?)
+    if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"] < 5) return false;
+    const actionResult = await useAction(actor, "attack", getAbility(weapon));
+    if (!actionResult) return false;
+    return { name: weapon.name, attackData: weapon.system, actionType: "melee", ...actionResult };
+}
+
+const rangedAttackAction = async (actor, weapon) => {
+    //todo: message that you can't do that (maybe a toast notification alert thing?)
     const ammo = weapon.system.isThrown
         ? weapon
         : actor.system.getActiveItems().find(i =>
@@ -58,27 +58,27 @@ export const rangedAttackAction = async (actor) => {
 
     //todo: message that you can't do that (maybe a toast notification alert thing?)
     if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"] < 5) return;
-    const result = await useAction(actor, "ranged", getAbility(weapon));
-    if (!result) return false;
+    const actionResult = await useAction(actor, "ranged", getAbility(weapon));
+    if (!actionResult) return false;
 
     actor.system.removeItem(ammo);
     //todo: need to improve the output of ranged attacks
-    const rangedAttack =
-        weapon.system.isThrown
-            ? {
-                name: weapon.name,
-                ...weapon.system
-            }
-            : {
-                name: `${weapon.name} + ${ammo.name}`,
+    // need to define an actual outcome class really
+    const rangedAttackOutcome = weapon.system.isThrown
+        ? {
+            name: weapon.name,
+            attackData: { ...weapon.system }
+        }
+        : {
+            name: `${weapon.name} + ${ammo.name}`,
+            attackData: {
                 description: `${weapon.system.description}\n${ammo.system.description}`,
                 effectDescription: `${weapon.system.effectDescription}\n${ammo.system.effectDescription}`,
                 damageEntries: weapon.system.damageEntries,
                 specialEffects: ammo.system.specialEffects
-            };
-
-    await chatAction(rangedAttack.name, "ranged", rangedAttack, result);
-    return result;
+            }
+        };
+    return { ...rangedAttackOutcome, actionType: "ranged", ...actionResult };
 }
 
 // todo: explore if this could be a macro handler we drag and drop onto the hotbar
@@ -109,9 +109,8 @@ export const castAction = async (actor, castType) => {
     if (!(selectCastableResult && selectCastableResult.confirmed)) return false;
 
     const castable = actor.items.find(x => x._id === selectCastableResult.id);
-    const result = await useAction(actor, castType, "intellect");
-    if (!result) return false;
-    if (result.isSuccess) {
+    const actionResult = await useAction(actor, castType, "intellect");
+    if (actionResult.isSuccess) {
         for (const cost of castable.system.usageCost) {
             if (castType === "magic") {
                 actor.system.spendRunes(cost.type, cost.amount);
@@ -119,11 +118,13 @@ export const castAction = async (actor, castType) => {
                 actor.system.spendPoints(castType, cost.amount);
             }
         }
-    } else if (castType !== "magic" && !result.isSuccess) {
+    } else if (castType !== "magic" && !actionResult.isSuccess) {
         actor.system.spendPoints(castType, 1);
     }
-    await chatAction(castable.name, castType, castable.system, result);
-    return result;
+    await chatResult({
+        name: castable.name, actionType: castType, actionData: castable.system, ...actionResult
+    });
+    return actionResult;
 }
 
 export const dealsDamage = (data) => data.damageEntries
@@ -150,27 +151,21 @@ const useAction = async (actor, skill, ability) => {
     const rollResult = await dialog();
     if (!rollResult.rolled) return false;
 
-    const actionResult = await actor.system.useSkill(rollResult);
-    //todo: improve targetting communication?
-    // it isn't really part of the result. just here to help with transition away from proxy
+    const skillResult = await actor.system.useSkill(rollResult);
     const targetUuids = getTargets(actor);
-    return { ...actionResult, targetUuids }
+    return { ...skillResult, targetUuids }
 }
 
-const chatAction = async (name, actionType, actionData, result) => {
+const chatResult = async (actionResult) => {
     const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
         {
-            name,
-            ...actionData,
-            ...result
+            ...actionResult
         });
     await result.rollResult.toMessage({
         flavor: flavor,
         flags: {
             rsk: {
-                targetUuids: [...result.targetUuids],
-                actionType: actionType,
-                actionData: { ...actionData }
+                ...actionResult
             }
         }
     });
