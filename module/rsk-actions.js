@@ -1,6 +1,7 @@
 import RSKApplyDamageDialog from "./applications/RSKApplyDamageDialog.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
+import { localizeText } from "./rsk-localize.js";
 import { getTargets } from "./rsk-targetting.js";
 
 export const npcAction = async (actor, action) => {
@@ -36,25 +37,32 @@ export const attackAction = async (actor, weapon) => {
 const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
 
 const meleeAttackAction = async (actor, weapon) => {
-    //todo: message that you can't do that (maybe a toast notification alert thing?)
-    if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"] < 5) return false;
+    if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"] < 5) {
+        ui.notifications.warn(localizeText("RSK.AttackLevelTooLow"));
+        return false;
+    };
     const actionResult = await useAction(actor, "attack", getAbility(weapon));
     if (!actionResult) return false;
     return { name: weapon.name, attackData: weapon.system, actionType: "melee", ...actionResult };
 }
 
 const rangedAttackAction = async (actor, weapon) => {
-    //todo: message that you can't do that (maybe a toast notification alert thing?)
     const ammo = weapon.system.isThrown
         ? weapon
         : actor.system.getActiveItems().find(i =>
             i.type === "weapon"
             && i.system.isAmmo
             && i.system.ammoType === weapon.system.ammoType);
-    if (!ammo || ammo.quantity < 1) return false;
+    if (!ammo || ammo.quantity < 1) {
+        ui.notifications.warn(localizeText("RSK.NoAmmoAvailable"));
+        return false;
+    };
 
-    //todo: message that you can't do that (maybe a toast notification alert thing?)
-    if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"] < 5) return;
+    if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"] < 5) {
+        ui.notifications.warn(localizeText("RSK.RangedLevelTooLow"));
+        return false;
+    }
+
     const actionResult = await useAction(actor, "ranged", getAbility(weapon));
     if (!actionResult) return false;
 
@@ -111,7 +119,10 @@ export const castHandlers = {
 export const castAction = async (actor, castType) => {
     const castHandler = castHandlers[castType];
     const castables = castHandler.getCastables(actor);
-    if (castables.length < 1) return false;
+    if (castables.length < 1) {
+        ui.notifications.warn(localizeText("RSK.NoCastablesAvailable"));
+        return false;
+    }
 
     const selectCastable = RSKItemSelectionDialog.create({ items: castables });
     const selectCastableResult = await selectCastable();

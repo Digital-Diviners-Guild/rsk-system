@@ -169,6 +169,10 @@ RSK.weaponTypes = {
     unique: "RSK.Unique"
 }
 
+//todo: keep exploring these - ie try and use it somewhere
+// may need to create funcs to select out of it
+// or sub objects thae ...{} out of it to create 
+// more helpful objects for the codes.
 RSK.material = {
     organic: {
         refined: {
