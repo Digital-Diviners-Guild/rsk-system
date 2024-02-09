@@ -1,10 +1,8 @@
 import RSKApplyDamageDialog from "./applications/RSKApplyDamageDialog.js";
 import RSKConfirmRollDialog from "./applications/RSKConfirmRollDialog.js";
 import RSKItemSelectionDialog from "./applications/RSKItemSelectionDialog.js";
+import { localizeText } from "./rsk-localize.js";
 import { getTargets } from "./rsk-targetting.js";
-
-// TODO: new action functions need refactoring.
-// probably strategy pattern? pass in the correct operation for the situation?
 
 export const npcAction = async (actor, action) => {
     const actionData = { ...action.system };
@@ -28,7 +26,7 @@ export const npcAction = async (actor, action) => {
 }
 
 export const attackAction = async (actor, weapon) => {
-    const action = weapon.system.attackType === "melee"
+    const action = weapon.system.isMelee
         ? meleeAttackAction(actor, weapon)
         : rangedAttackAction(actor, weapon);
     const result = await action;
@@ -39,25 +37,32 @@ export const attackAction = async (actor, weapon) => {
 const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
 
 const meleeAttackAction = async (actor, weapon) => {
-    //todo: message that you can't do that (maybe a toast notification alert thing?)
-    if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"] < 5) return false;
+    if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"].level < 5) {
+        ui.notifications.warn(localizeText("RSK.AttackLevelTooLow"));
+        return false;
+    };
     const actionResult = await useAction(actor, "attack", getAbility(weapon));
     if (!actionResult) return false;
     return { name: weapon.name, attackData: weapon.system, actionType: "melee", ...actionResult };
 }
 
 const rangedAttackAction = async (actor, weapon) => {
-    //todo: message that you can't do that (maybe a toast notification alert thing?)
     const ammo = weapon.system.isThrown
         ? weapon
         : actor.system.getActiveItems().find(i =>
             i.type === "weapon"
             && i.system.isAmmo
             && i.system.ammoType === weapon.system.ammoType);
-    if (!ammo || ammo.quantity < 1) return false;
+    if (!ammo || ammo.quantity < 1) {
+        ui.notifications.warn(localizeText("RSK.NoAmmoAvailable"));
+        return false;
+    };
 
-    //todo: message that you can't do that (maybe a toast notification alert thing?)
-    if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"] < 5) return;
+    if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"].level < 5) {
+        ui.notifications.warn(localizeText("RSK.RangedLevelTooLow"));
+        return false;
+    }
+
     const actionResult = await useAction(actor, "ranged", getAbility(weapon));
     if (!actionResult) return false;
 
@@ -84,25 +89,40 @@ const rangedAttackAction = async (actor, weapon) => {
 // todo: explore if this could be a macro handler we drag and drop onto the hotbar
 // - it may be a bit much to include spell/summon/prayer together.  but the general usage idea is very similar
 // - this might get clarified when handling outcomes
-export const castAction = async (actor, castType) => {
-    const canCast = (usageCost) => {
-        if (usageCost.length < 1) return true;
-        for (const cost of usageCost) {
-            if (castType === "magic") {
-                const runes = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
-                if (!runes || runes.system.quantity < cost.amount) return false;
-            } else {
-                const points = actor.system[cost.type];
-                if (!points || points.value < cost.amount) return false;
-            }
+const prayerHandler = {
+    getCastables: (actor) => actor.items
+        .filter(i => i.type === "prayer"
+            && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
+    handleCost: (actor, isSuccess, cost) => actor.system.spendPoints("prayer", isSuccess ? cost[0].amount : 1)
+};
+const summoningHandler = {
+    getCastables: (actor) => actor.items.filter(i => i.type === "summoning" &&
+        actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
+    handleCost: (actor, isSuccess, cost) => actor.system.spendPoints("summoning", isSuccess ? cost[0].amount : 1)
+};
+const magicHandler = {
+    getCastables: (actor) => actor.items.filter(s => s.type === "spell"
+        && s.system.usageCost.every(uc => actor.items.find(r => r.type === "rune"
+            && r.system.type === uc.type
+            && r.system.quantity >= uc.amount))),
+    handleCost: (actor, isSuccess, cost) => {
+        if (isSuccess) {
+            cost.forEach(c => actor.system.spendRunes(c.type, c.amount));
         }
-        return true;
     }
-    const castableType = castType === "magic" ? "spell" : castType; //bleh
-    const castables = actor.items
-        .filter(i => i.type === castableType)
-        .filter(s => canCast(s.system.usageCost));
-    if (castables.length < 1) return false;
+};
+export const castHandlers = {
+    magic: magicHandler,
+    summoning: summoningHandler,
+    prayer: prayerHandler
+};
+export const castAction = async (actor, castType) => {
+    const castHandler = castHandlers[castType];
+    const castables = castHandler.getCastables(actor);
+    if (castables.length < 1) {
+        ui.notifications.warn(localizeText("RSK.NoCastablesAvailable"));
+        return false;
+    }
 
     const selectCastable = RSKItemSelectionDialog.create({ items: castables });
     const selectCastableResult = await selectCastable();
@@ -110,17 +130,9 @@ export const castAction = async (actor, castType) => {
 
     const castable = actor.items.find(x => x._id === selectCastableResult.id);
     const actionResult = await useAction(actor, castType, "intellect");
-    if (actionResult.isSuccess) {
-        for (const cost of castable.system.usageCost) {
-            if (castType === "magic") {
-                actor.system.spendRunes(cost.type, cost.amount);
-            } else {
-                actor.system.spendPoints(castType, cost.amount);
-            }
-        }
-    } else if (castType !== "magic" && !actionResult.isSuccess) {
-        actor.system.spendPoints(castType, 1);
-    }
+    if (!actionResult) return;
+
+    castHandler.handleCost(actor, actionResult.isSuccess, castable.system.usageCost)
     await chatResult({
         name: castable.name, actionType: castType, actionData: castable.system, ...actionResult
     });

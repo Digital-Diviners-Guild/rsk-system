@@ -188,15 +188,14 @@ export default class RSKCharacterType extends RSKActorType {
 
     //todo: probably need to pass in the slot we are targetting with 
     // drag and drop?
+    // the item has an activeSlot that determines the valid slot for the item
+    // however, darts can go to the ammo slot even though they say 'weapon'
+    // maybe we need to rethink activeSlot.
+    // the intent was to not allow a helmet on your food and cape in your quiver etc.
+    // most things can only go in one slot.
+    // though this does cause a problem with dual wielding, you would need 'off-hand' variant weapons, which is fine.
+    // when drag and drop occurs, we need to validate the targetted slot is allowed, if not, use general drop rules.
     equip(item) {
-        const equipAmmo = () => {
-            const currentEquipped = this.parent.items.filter(i => i.system.isEquipped && i.system.isAmmo);
-            if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
-                currentEquipped[0].system.equip("ammo");
-            }
-            item.system.equip("ammo");
-        }
-
         if (item.system.isEquipped) {
             item.system.equip(item.system.equippedInSlot);
             return;
@@ -204,12 +203,16 @@ export default class RSKCharacterType extends RSKActorType {
 
         const currentEquipped = this.parent.items
             .find(i => i.system.isEquipped && i.system.equippedInSlot === item.system.activeSlot)
-        if (item.isOnlyAmmo() || (currentEquipped
-            && currentEquipped.system.isRanged
-            && item.system.isAmmo
-            && currentEquipped.system.ammoType === item.system.ammoType)) {
-            equipAmmo();
-        } else if (currentEquipped && currentEquipped !== item) {
+        if (item.isOnlyAmmo() || currentEquipped?.usesItemAsAmmo(item)) {
+            const currentEquipped = this.parent.items.filter(i => i.system.isEquipped && i.system.isAmmo);
+            if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
+                currentEquipped[0].system.equip("ammo");
+            }
+            item.system.equip("ammo");
+            return;
+        }
+
+        if (currentEquipped && currentEquipped !== item) {
             currentEquipped.system.equip(currentEquipped.system.equippedInSlot);
         }
         item.system.equip(item.system.activeSlot);

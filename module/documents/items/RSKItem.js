@@ -29,4 +29,10 @@ export default class RSKItem extends Item {
     isOnlyAmmo() {
         return this.system.isAmmo && !this.system.isThrown;
     }
+
+    usesItemAsAmmo(item) {
+        return this.system.isRanged
+            && item.system.isAmmo
+            && this.system.ammoType === item.system.ammoType
+    }
 }

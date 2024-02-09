@@ -136,7 +136,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             name: localizeText("RSK.Unarmed"),
             system: {
                 weaponType: "simple",
-                attackType: "melee",
+                isMelee: true,
                 damageEntries: { crush: 1 }
             }
         };
@@ -158,7 +158,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     //inventory rules poc
     async _onDropItem(event, data) {
         const item = await Item.fromDropData(data);
-        // how do we want to identify something that can go in the inventory?
+        //todo: how do we want to identify something that can go in the inventory? 
+        // its fine if this is the answer for now, but it feels a little meh.
         if (item.system.hasOwnProperty("maxStackSize")) {
             await this.actor.system.addItem(item, item.system.quantity);
         }
