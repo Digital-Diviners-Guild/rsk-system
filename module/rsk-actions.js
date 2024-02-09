@@ -26,7 +26,7 @@ export const npcAction = async (actor, action) => {
 }
 
 export const attackAction = async (actor, weapon) => {
-    const action = weapon.system.attackType === "melee"
+    const action = weapon.system.isMelee
         ? meleeAttackAction(actor, weapon)
         : rangedAttackAction(actor, weapon);
     const result = await action;
@@ -37,7 +37,7 @@ export const attackAction = async (actor, weapon) => {
 const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
 
 const meleeAttackAction = async (actor, weapon) => {
-    if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"] < 5) {
+    if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"].level < 5) {
         ui.notifications.warn(localizeText("RSK.AttackLevelTooLow"));
         return false;
     };
@@ -58,7 +58,7 @@ const rangedAttackAction = async (actor, weapon) => {
         return false;
     };
 
-    if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"] < 5) {
+    if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"].level < 5) {
         ui.notifications.warn(localizeText("RSK.RangedLevelTooLow"));
         return false;
     }
