@@ -189,11 +189,35 @@ export default class RSKCharacterType extends RSKActorType {
         return this.parent.items.filter(i => i.system.isEquipped);
     }
 
+    //todo: probably need to pass in the slot we are targetting with 
+    // drag and drop?
     equip(item) {
-        if (!item.system.meetsEquipRequirements(this.parent)) return;
-        const currentEquipped = this.parent.items.filter(i => i.system.isEquipped
-            && i.system.activeSlot === item.system.activeSlot);
-        if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
+        const equipAmmo = () => {
+            const currentEquipped = this.parent.items.filter(i => i.system.isEquipped && i.system.isAmmo);
+            if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
+                currentEquipped[0].system.equip();
+            }
+            //todo: probably need to store what slot it ends up in
+            item.system.equip();
+        }
+
+        const currentEquipped = this.parent.items
+            .filter(i => i.system.isEquipped && i.system.activeSlot === item.system.activeSlot)
+        // todo: refac? this logic is ridiculous to identify the situation
+        // one condition is its just ammo
+        // the other, is that it is a thrown weapon like darts being used as ammo in something like a blow pipe
+        debugger;
+        if ((item.system.isAmmo && !item.system.isThrown)
+            || (item.system.isAmmo && item.system.isThrown
+                && currentEquipped[0] !== item
+                && currentEquipped[0].system.isRanged
+                && currentEquipped[0].system.ammoType === item.system.ammoType)) {
+            equipAmmo();
+            return;
+        }
+
+
+        if (currentEquipped.length > 0) {
             currentEquipped[0].system.equip();
         }
         item.system.equip();

@@ -210,20 +210,34 @@
           </div>
           <div>
             <strong>{{localize "RSK.ActiveSlots"}}</strong>
-            <label>{{localize "RSK.Head"}}</label>
-            <div>{{worn.head}}</div>
-            <label>{{localize "RSK.Body"}}</label>
-            <div>{{worn.body}}</div>
-            <label>{{localize "RSK.Leg"}}</label>
-            <div>{{worn.leg}}</div>
-            <label>{{localize "RSK.Arm"}}</label>
-            <div>{{worn.arm}}</div>
-            <label>{{localize "RSK.Weapon"}}</label>
             <div>
+              <label>{{localize "RSK.Head"}}</label>
+              {{worn.head}}
+            </div>
+            <div>
+              <label>{{localize "RSK.Body"}}</label>
+              {{worn.body}}
+            </div>
+            <div>
+              <label>{{localize "RSK.Leg"}}</label>
+              {{worn.leg}}
+            </div>
+            <div>
+              <label>{{localize "RSK.Arm"}}</label>
+              {{worn.arm}}
+            </div>
+            <div>
+              <label>{{localize "RSK.Weapon"}}</label>
               {{worn.weapon}}
             </div>
-            <label>{{localize "RSK.Cape"}}</label>
-            <div>{{worn.cape}}</div>
+            <div>
+              <label>{{localize "RSK.Cape"}}</label>
+              {{worn.cape}}
+            </div>
+            <div>
+              <label>{{localize "RSK.Ammunition"}}</label>
+              {{worn.ammo}}
+            </div>
             <div><strong>{{localize "RSK.Inventory"}}</strong> ({{usedSlots}} / 28)</div>
             {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
           </div>
