@@ -53,7 +53,7 @@ export const rangedAttackAction = async (actor) => {
         : actor.system.getActiveItems().find(i =>
             i.type === "weapon"
             && i.system.isAmmo
-            && !i.system.isThrown);
+            && i.system.ammoType === weapon.system.ammoType);
     if (ammo?.quantity < 1) return false;
 
     //todo: message that you can't do that (maybe a toast notification alert thing?)
