@@ -63,8 +63,7 @@ export default class RSKCharacterType extends RSKActorType {
         const systemData = this.toObject();
         return {
             skills: { ...systemData.skills },
-            abilities: { ...systemData.abilities },
-            calculateTargetNumber: (skill, ability, targetNumberModifier) => this.calculateTargetNumber(skill, ability, targetNumberModifier)
+            abilities: { ...systemData.abilities }
         };
     }
 
@@ -104,12 +103,10 @@ export default class RSKCharacterType extends RSKActorType {
 
     async useSkill(options) {
         const { skill, ability, targetNumberModifier, rollType } = { ...options }
-        if (this.skills?.hasOwnProperty(skill)) {
-            this.parent.update({ [`system.skills.${skill}.used`]: true });
-            const targetNumber = this.getRollData().calculateTargetNumber(skill, ability, targetNumberModifier);
-            const rollResult = await game.rsk.dice.skillCheck(targetNumber, rollType);
-            return { ...rollResult, targetNumber };
-        }
+        this.parent.update({ [`system.skills.${skill}.used`]: true });
+        const targetNumber = this.calculateTargetNumber(skill, ability, targetNumberModifier);
+        const rollResult = await game.rsk.dice.skillCheck(targetNumber, rollType);
+        return { ...rollResult, targetNumber };
     }
 
     rest() {
