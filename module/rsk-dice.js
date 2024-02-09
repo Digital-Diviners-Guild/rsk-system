@@ -25,11 +25,18 @@ export default class RSKDice {
     }
 
     static roll = async (rollType = "normal", customFormula = "3d6") => {
+        // Validate the customFormula
+        const validCustomFormula = /^[1-9]\d*d[1-9]\d*$/.test(customFormula);
+        if (!validCustomFormula) {
+            throw new Error("Invalid Roll Formula");
+        }
+
         let formula = ({
             normal: "3d6",
             advantage: "4d6dh1",
             disadvantage: "4d6kh3"
-        })[rollType] || customFormula; // todo: validate its a valid formula
+        })[rollType] || validCustomFormula;
+
         const r = await Roll.create(formula);
         const result = await r.evaluate();
         const results = result.terms[0].results;
