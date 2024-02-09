@@ -44,41 +44,24 @@ export const meleeAttackAction = async (actor) => {
 }
 
 export const rangedAttackAction = async (actor) => {
-    //todo: use active slot to pick ammo, need an active slot to put it in
-    const selectAmmo = async (actor, weapon) => {
-        const ammoType = weapon.system.ammoType;
-        if (ammoType) {
-            const ammos = actor.items.filter(x => x.system.isAmmo && x.system.ammoType === ammoType);
-            if (ammos.length > 1) {
-                const ammoSelectionDialog = RSKItemSelectionDialog.create({ items: ammos });
-                const selectResult = await ammoSelectionDialog();
-                if (!(selectResult && selectResult.confirmed)) return false;
-
-                return actor.items.find(x => x._id === selectResult.id);
-            } else {
-                return ammos[0];
-            }
-        } else {
-            return { quantity: 0 };
-        }
-    }
-
     const weapons = actor.system.getActiveItems().filter(i => i.type === "weapon" && (i.system.isRanged || i.system.isThrown));
     if (weapons.length < 1) return false;
-
     //todo: off hand darts? or dual wield crossbows?
     const weapon = weapons[0];
-    const ammoSelection = weapon.system.isThrown
+    const ammo = weapon.system.isThrown
         ? weapon
-        : await selectAmmo(actor, weapon);
-    if (!ammoSelection || ammoSelection.quantity < 1) return;
+        : actor.system.getActiveItems().filter(i =>
+            i.type === "weapon"
+            && i.system.isAmmo
+            && !i.system.isThrown);
+    if (ammo?.quantity < 1) return false;
 
     //todo: message that you can't do that (maybe a toast notification alert thing?)
     if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"] < 5) return;
     const result = await useAction(actor, "ranged", getAbility(weapon));
-    if (!result) return;
+    if (!result) return false;
 
-    actor.system.removeItem(ammoSelection);
+    actor.system.removeItem(ammo);
     //todo: need to improve the output of ranged attacks
     const rangedAttack =
         weapon.system.isThrown
