@@ -287,24 +287,37 @@ export const rskPrayerStatusEffects = [
             value: 8
         }]
     },
-    //todo: need an armour soak property to modify per damage type
     {
         id: "protect_from_melee",
         label: "RSK.ProtectFromMelee",
         icon: "icons/png/protect_from_melee.png",
-        changes: []
+        changes: [
+            {
+                key: "system.resistance.melee",
+                mode: changeModes.ADD,
+                value: 5
+            }
+        ]
     },
     {
         id: "protect_from_missiles",
         label: "RSK.ProtectFromMissiles",
         icon: "icons/png/protect_from_missiles.png",
-        changes: []
+        changes: [{
+            key: "system.resistance.ranged",
+            mode: changeModes.ADD,
+            value: 5
+        }]
     },
     {
         id: "protect_from_magic",
         label: "RSK.ProtectFromMagic",
         icon: "icons/png/protect_from_magic.png",
-        changes: []
+        changes: [{
+            key: "system.resistance.magic",
+            mode: changeModes.ADD,
+            value: 5
+        }]
     },
     //end todo
     //todo: not sure if this needs anything, maybe a flag? or death consequences can check active prayer

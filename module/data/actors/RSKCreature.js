@@ -14,7 +14,7 @@ export default class RSKCreature extends foundry.abstract.TypeDataModel {
                     max: new fields.NumberField({ initial: 1 })
                 }
             ),
-            resistance: new fields.SchemaField([...Object.keys(CONFIG.RSK.damageTypes), ...Object.keys(CONFIG.RSK.actionTypes)]
+            resistance: new fields.SchemaField([...Object.keys(CONFIG.RSK.damageTypes), ...Object.keys(CONFIG.RSK.attackType)]
                 .reduce((obj, type) => {
                     obj[type] = new fields.NumberField({ initial: 0, min: -500, max: 500 });
                     return obj;
