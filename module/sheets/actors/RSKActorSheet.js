@@ -25,6 +25,10 @@ export default class RSKActorSheet extends ActorSheet {
         context.config = CONFIG.RSK;
         context.publicRoll = CONST.DICE_ROLL_MODES.PUBLIC;
         context.privateRoll = CONST.DICE_ROLL_MODES.PRIVATE;
+        context.sizes = Object.keys(CONFIG.RSK.size).reduce((ss, s) => {
+            ss[s] = CONFIG.RSK.size[s].label;
+            return ss;
+        }, {});
         this._prepareItems(context);
         this._prepareCodex(context);
         return context;

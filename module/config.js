@@ -48,25 +48,6 @@ RSK.damageTypes = {
     ...RSK.elementalDamageTypes,
 }
 
-RSK.sizes = {
-    tiny: "RSK.Tiny",
-    small: "RSK.Small",
-    medium: "RSK.Medium",
-    large: "RSK.Large",
-    giant: "RSK.Giant",
-    colossal: "RSK.Colossal"
-};
-
-RSK.sizeModifiers = {
-    tiny: { attack: -1, defense: 2 },
-    small: { attack: 0, defense: 0 },
-    medium: { attack: 0, defense: 0 },
-    large: { attack: 1, defense: -1 },
-    giant: { attack: 2, defense: -1 },
-    colossal: { attack: 4, defense: -3 }
-};
-
-//todo: use this instead
 RSK.size = {
     tiny: {
         label: "RSK.Tiny",
