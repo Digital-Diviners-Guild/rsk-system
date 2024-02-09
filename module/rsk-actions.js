@@ -84,20 +84,21 @@ const rangedAttackAction = async (actor, weapon) => {
 // todo: explore if this could be a macro handler we drag and drop onto the hotbar
 // - it may be a bit much to include spell/summon/prayer together.  but the general usage idea is very similar
 // - this might get clarified when handling outcomes
+
+const hasPoints = (actor, cost) => {
+    const points = actor.system[cost.type];
+    return points && points.value >= cost.amount;
+}
+const hasRunes = (actor, cost) => {
+    const runes = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
+    return runes || runes.system.quantity < cost.amount
+}
+const canCast = (usageCost) => {
+    return usageCost.every(uc => castType === "magic"
+        ? hasRunes(actor, uc)
+        : hasPoints(actor, uc));
+}
 export const castAction = async (actor, castType) => {
-    const canCast = (usageCost) => {
-        if (usageCost.length < 1) return true;
-        for (const cost of usageCost) {
-            if (castType === "magic") {
-                const runes = actor.items.find(i => i.type === "rune" && i.system.type === cost.type);
-                if (!runes || runes.system.quantity < cost.amount) return false;
-            } else {
-                const points = actor.system[cost.type];
-                if (!points || points.value < cost.amount) return false;
-            }
-        }
-        return true;
-    }
     const castableType = castType === "magic" ? "spell" : castType; //bleh
     const castables = actor.items
         .filter(i => i.type === castableType)
