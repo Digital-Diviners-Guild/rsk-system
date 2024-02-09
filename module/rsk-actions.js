@@ -50,7 +50,7 @@ export const rangedAttackAction = async (actor) => {
     const weapon = weapons[0];
     const ammo = weapon.system.isThrown
         ? weapon
-        : actor.system.getActiveItems().filter(i =>
+        : actor.system.getActiveItems().find(i =>
             i.type === "weapon"
             && i.system.isAmmo
             && !i.system.isThrown);
@@ -70,11 +70,11 @@ export const rangedAttackAction = async (actor) => {
                 ...weapon.system
             }
             : {
-                name: `${weapon.name} + ${ammoSelection.name}`,
-                description: `${weapon.system.description}\n${ammoSelection.system.description}`,
-                effectDescription: `${weapon.system.effectDescription}\n${ammoSelection.system.effectDescription}`,
+                name: `${weapon.name} + ${ammo.name}`,
+                description: `${weapon.system.description}\n${ammo.system.description}`,
+                effectDescription: `${weapon.system.effectDescription}\n${ammo.system.effectDescription}`,
                 damageEntries: weapon.system.damageEntries,
-                specialEffects: ammoSelection.system.specialEffects
+                specialEffects: ammo.system.specialEffects
             };
 
     await chatAction(rangedAttack.name, "ranged", rangedAttack, result);
