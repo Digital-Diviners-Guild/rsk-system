@@ -123,7 +123,7 @@ RSK.attackType = {
     ranged: "RSK.Ranged"
 };
 
-RSK.attackTypes = {
+RSK.attackMethods = {
     melee: "RSK.Melee",
     ranged: "RSK.Ranged",
     thrown: "RSK.Thrown",

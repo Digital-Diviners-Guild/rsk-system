@@ -66,6 +66,10 @@
 
         <div class="tab features" data-group="primary" data-tab="edit">
             <div>
+                <strong>{{localize "RSK.AttackMethods"}}</strong>
+                {{setBoxes system.attackMethods "attackMethod-checkbox" config.attackMethods}}
+            </div>
+            <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
                 <select name="system.weaponType">
                     {{selectOptions config.weaponTypes selected=system.weaponType localize=true}}

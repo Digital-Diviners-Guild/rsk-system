@@ -1,14 +1,13 @@
-import { costField, fields, positiveNumberField } from "../fields.js";
+import { costField, fields, positiveNumberField, AttackMethodField } from "../fields.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 
 export default class RSKWeapon extends RSKEquippableType {
     static defineSchema() {
-        debugger;
         return {
-            attackType: new fields.SetField(fields.AttackTypeField, {
+            attackMethods: new fields.SetField(new AttackMethodField(), {
                 required: true,
-                initial: "melee",
-                options: [...Object.keys(CONFIG.RSK.attackTypes)]
+                initial: ["melee"],
+                options: [...Object.keys(CONFIG.RSK.attackMethods)]
             }),
             weaponType: new fields.StringField({
                 required: true,

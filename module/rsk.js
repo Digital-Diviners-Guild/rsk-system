@@ -41,6 +41,7 @@ import RSKWeapon from "./data/items/RSKWeapon.js";
 import RSKNpcAction from "./data/items/RSKNpcAction.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 import RSKWeaponSheet from "./sheets/items/RSKWeaponSheet.js";
+import { setBoxes } from "../templates/helpers/rsk-helpers.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -121,7 +122,8 @@ Hooks.once("init", function () {
 
     Hooks.on("renderChatMessage", onRenderChatMessage);
 
-    preloadHandlebarsTemplates()
+    preloadHandlebarsTemplates();
+    Handlebars.registerHelper({setBoxes});
     customizeStatusEffects();
 
 

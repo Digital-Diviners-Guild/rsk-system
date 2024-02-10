@@ -195,27 +195,28 @@ export default class RSKCharacterType extends RSKActorType {
     // most things can only go in one slot.
     // though this does cause a problem with dual wielding, you would need 'off-hand' variant weapons, which is fine.
     // when drag and drop occurs, we need to validate the targetted slot is allowed, if not, use general drop rules.
-    equip(item) {
-        if (item.system.isEquipped) {
-            item.system.equip(item.system.equippedInSlot);
+    // 
+    equip(itemToEquip) {
+        if (itemToEquip.system.isEquipped) {
+            itemToEquip.system.equip(itemToEquip.system.equippedInSlot);
             return;
         }
 
         const currentEquipped = this.parent.items
-            .find(i => i.system.isEquipped && i.system.equippedInSlot === item.system.activeSlot)
-        if (item.isOnlyAmmo() || currentEquipped?.usesItemAsAmmo(item)) {
-            const currentEquipped = this.parent.items.filter(i => i.system.isEquipped && i.system.attackType.has("ammo"));
-            if (currentEquipped.length > 0 && currentEquipped[0] !== item) {
+            .find(i => i.system.isEquipped && i.system.equippedInSlot === itemToEquip.system.activeSlot)
+        if (itemToEquip.isOnlyAmmo() || currentEquipped?.usesItemAsAmmo(itemToEquip)) {
+            const currentEquipped = this.parent.items.filter(i => i.system.isEquipped && i.usesItemAsAmmo(itemToEquip));
+            if (currentEquipped.length > 0 && currentEquipped[0] !== itemToEquip) {
                 currentEquipped[0].system.equip("ammo");
             }
-            item.system.equip("ammo");
+            itemToEquip.system.equip("ammo");
             return;
         }
 
-        if (currentEquipped && currentEquipped !== item) {
+        if (currentEquipped && currentEquipped !== itemToEquip) {
             currentEquipped.system.equip(currentEquipped.system.equippedInSlot);
         }
-        item.system.equip(item.system.activeSlot);
+        itemToEquip.system.equip(itemToEquip.system.activeSlot);
     }
 
     // todo: armour soak may be good to put in 
