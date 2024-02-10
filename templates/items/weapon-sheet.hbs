@@ -16,6 +16,11 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
+                <strong>{{localize "RSK.AttackMethods"}}</strong>
+                {{!-- todo: make this read-only/hide all the edit tabs with a hotkey --}}
+                {{setBoxes system.attackMethods "attackMethod-checkbox" config.attackMethods}}
+            </div>
+            <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
                 {{system.weaponType}}
             </div>
