@@ -1,3 +1,4 @@
+import { rskPrayerStatusEffects, statusToEffect } from "./effects/statuses.js";
 import { localizeText } from "./rsk-localize.js";
 import { getTargets } from "./rsk-targetting.js";
 import { uiService } from "./rsk-ui-service.js";
@@ -36,22 +37,36 @@ const spendResource = (actor, resourceType, amount) => {
             break;
     }
 };
+const addStatuses = async (actor, statuses) => {
+    const effects = statuses.map(s => statusToEffect(s));
+    await actor.createEmbeddedDocuments("ActiveEffect", [...effects]);
+};
+const removeStatuses = async (actor, statusIds) => {
+    await actor.deleteEmbeddedDocuments("ActiveEffect", [...statusIds]);
+};
+const receiveDamage = async (actor, damageEntries) => {
+    await actor.system.receiveDamage(damageEntries);
+};
 //todo: this is probably where we will 
 // start adding things like add/remove status/effect with actions
 // at least that is the intent. hopefully this wasn't a premature abstraction
 const operations = {
     removeItem,
-    spendResource
+    spendResource,
+    addStatuses,
+    removeStatuses,
+    receiveDamage
 };
-const applyStateChanges = (actor, stateChanges) =>
-    stateChanges?.forEach(change => {
-        const operationFunc = operations[change.operation];
+const applyStateChanges = async (actor, stateChanges) => {
+    for (let stateChange of stateChanges) {
+        const operationFunc = operations[stateChange.operation];
         if (operationFunc) {
-            operationFunc(actor, ...change.params);
+            await operationFunc(actor, ...stateChange.params);
         } else {
-            console.error(`Unknown operation: ${change.operation}`);
+            console.error(`Unknown operation: ${stateChange.operation}`);
         }
-    });
+    }
+};
 
 export const attackAction = async (actor, weapon) => {
     let result;
@@ -66,7 +81,9 @@ export const attackAction = async (actor, weapon) => {
         ui.notifications.warn(localizeText(result.error));
         return;
     }
-    applyStateChanges(actor, result.stateChanges);
+    if (result.usage) {
+        await applyStateChanges(actor, result.usage);
+    }
     await chatResult(result);
 }
 
@@ -105,9 +122,7 @@ const rangedAttackAction = async (actor, weapon) => {
     return {
         actionType: "ranged",
         ...actionResult,
-        stateChanges: [
-            { operation: 'removeItem', params: [ammo] } //todo: probably use uuids
-        ],
+        usage: [{ operation: 'removeItem', params: [ammo] }], //todo: probably use uuids
         name: weapon.system.isThrown ? weapon.name : `${weapon.name} + ${ammo.name}`,
         attackData: weapon.system.isThrown
             ? weapon.system
@@ -128,16 +143,32 @@ const castingHandlers = {
     prayer: {
         getCastables: (actor) => actor.items.filter(i => i.type === "prayer"
             && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
-        handleCost: (isSuccess, cost) => [
-            { operation: 'spendResource', params: ['prayer', isSuccess ? cost[0].amount : 1] }
-        ]
+        handleCast: (isSuccess, castable) => {
+            if (isSuccess) {
+                const appliedStatus = rskPrayerStatusEffects.filter(x => x.id === castable.status);
+                return {
+                    usage: [{ operation: 'spendResource', params: ['prayer', castable.usageCost[0].amount] }],
+                    targetStateChanges: [{ operation: 'addStatuses', params: [appliedStatus] }]
+                };
+            }
+            return {
+                usage: [{ operation: 'spendResource', params: ['prayer', 1] }]
+            };
+        }
     },
     summoning: {
         getCastables: (actor) => actor.items.filter(i => i.type === "summoning"
             && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
-        handleCost: (isSuccess, cost) => [
-            { operation: 'spendResource', params: ['summoning', isSuccess ? cost[0].amount : 1] }
-        ]
+        handleCast: (isSuccess, castable) => {
+            if (isSuccess) {
+                return {
+                    usage: [{ operation: 'spendResource', params: ['summoning', castable.usageCost[0].amount] }]
+                };
+            }
+            return {
+                usage: [{ operation: 'spendResource', params: ['summoning', 1] }]
+            };
+        }
     },
     magic: {
         getCastables: (actor) => actor.items.filter(s => s.type === "spell"
@@ -145,15 +176,16 @@ const castingHandlers = {
                 actor.items.find(r => r.type === "rune"
                     && r.system.type === uc.type
                     && r.system.quantity >= uc.amount))),
-        handleCost: (isSuccess, cost) => isSuccess
-            ? cost.map(runeCost => ({
-                operation: 'spendResource',
-                params: [runeCost.type, runeCost.amount]
-            }))
-            : []
+        handleCast: (isSuccess, castable) => isSuccess
+            ? {
+                usage: castable.usageCost.map(runeCost => ({
+                    operation: 'spendResource',
+                    params: [runeCost.type, runeCost.amount]
+                }))
+            }
+            : { usage: [] }
     }
 };
-
 export const castAction = async (actor, castType) => {
     const castHandler = castingHandlers[castType];
     const castables = castHandler.getCastables(actor);
@@ -169,17 +201,19 @@ export const castAction = async (actor, castType) => {
     const actionResult = await useAction(actor, castType, "intellect");
     if (!actionResult) return;
 
-    const stateChanges = castHandler.handleCost(actionResult.isSuccess, castable.system.usageCost);
+    const stateChanges = castHandler.handleCast(actionResult.isSuccess, castable.system);
     const result = {
         name: castable.name,
         actionType: castType,
         actionData: castable.system,
         ...actionResult,
-        stateChanges
+        ...stateChanges
     };
     //todo: just return and do these things elsewhere?
     // but maybe we can't, we need to make a macro and see how this changes things
-    applyStateChanges(actor, result.stateChanges);
+    if (stateChanges.usage) {
+        await applyStateChanges(actor, result.usage);
+    }
     await chatResult(result);
     return result;
 }
@@ -192,12 +226,42 @@ export const dealsDamage = (data) => data.damageEntries
 // this will come from outcome margin if a character is attacking
 // this will come from a defense roll dictated by the outcome 
 // if an npc is attacking a character
-// note: this applyOutcome is only for combat - in non combat margin success is a little different.
-export const applyOutcome = async (targets, outcome) => {
-    for (let target of targets) {
+const outcomeHandlers = {
+    prayer: async (target, outcome) => {
+        const activePrayers = target.effects
+            .filter(e => e.statuses
+                .filter(s => rskPrayerStatusEffects.map(se => se.id)
+                    .includes(s)))
+            .map(ap => ap._id);
+        return [{
+            operation: "removeStatuses", params: [activePrayers]
+        }, ...outcome.targetStateChanges]
+    },
+    //these will probably start to differ
+    melee: async (target, outcome) => {
         const result = await uiService.showDialog("apply-damage", { context: outcome });
-        if (!result?.confirmed) return;
-        await target.system.receiveDamage({ ...result });
+        return result && result.confirmed
+            ? [{ operation: "receiveDamage", params: [{ ...result }] }]
+            : []
+    },
+    magic: async (target, outcome) => {
+        const result = await uiService.showDialog("apply-damage", { context: outcome });
+        return result && result.confirmed
+            ? [{ operation: "receiveDamage", params: [{ ...result }] }]
+            : []
+    },
+    ranged: async (target, outcome) => {
+        const result = await uiService.showDialog("apply-damage", { context: outcome });
+        return result && result.confirmed
+            ? [{ operation: "receiveDamage", params: [{ ...result }] }]
+            : []
+    }
+};
+export const applyOutcome = async (targets, outcome) => {
+    const outcomeHandler = outcomeHandlers[outcome.actionType]
+    for (let target of targets) {
+        let stateChanges = await outcomeHandler(target, outcome);
+        await applyStateChanges(target, stateChanges);
     }
 }
 
