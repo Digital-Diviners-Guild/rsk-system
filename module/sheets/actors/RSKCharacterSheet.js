@@ -86,7 +86,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         //todo: could probably be in a template
         const flavor = `<strong>${rollOptions.skill} | ${rollOptions.ability}</strong> TN: ${result.targetNumber}
                   <p>${result.isCritical ? "<em>critical</em>" : ""} ${result.isSuccess ? "success" : "fail"} (${result.margin})</p>`;
-        result.rollResult.toMessage({ flavor }, { ...rollOptions });
+        result.toMessage({ flavor }, { ...rollOptions });
         return result;
     }
 
