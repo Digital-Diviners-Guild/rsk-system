@@ -62,7 +62,7 @@ const meleeAttackAction = async (actor, weapon) => {
 }
 
 const rangedAttackAction = async (actor, weapon) => {
-    const ammo = weapon.system.isThrown ? weapon
+    const ammo = weapon.isThrownWeapon() ? weapon
         : actor.system.getActiveItems().find(i => weapon.usesItemAsAmmo(i));
     if (!ammo || ammo.quantity < 1) {
         return { error: "RSK.NoAmmoAvailable" };
@@ -77,8 +77,8 @@ const rangedAttackAction = async (actor, weapon) => {
         actionType: "ranged",
         ...actionResult,
         usage: [{ operation: 'removeItem', params: [ammo] }], //todo: probably use uuids
-        name: weapon.system.isThrown ? weapon.name : `${weapon.name} + ${ammo.name}`,
-        attackData: weapon.system.isThrown
+        name: weapon.system.isThrownWeapon() ? weapon.name : `${weapon.name} + ${ammo.name}`,
+        attackData: weapon.system.isThrownWeapon()
             ? weapon.system
             //todo: this message could probably use some work
             : {
