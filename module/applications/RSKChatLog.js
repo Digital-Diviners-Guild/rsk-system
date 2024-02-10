@@ -1,4 +1,4 @@
-import { applyOutcome } from "../rsk-actions.js";
+import { applyOutcome } from "../rsk-action-results.js";
 import { localizeText } from "../rsk-localize.js";
 
 export default class RSKChatLog extends ChatLog {
