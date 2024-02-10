@@ -2,17 +2,17 @@ import { rskPrayerStatusEffects, statusToEffect } from "./effects/statuses.js";
 import { localizeText } from "./rsk-localize.js";
 import { getTargets } from "./rsk-targetting.js";
 import { uiService } from "./rsk-ui-service.js";
+import { applyStateChanges } from "./rsk-action-results.js";
 
-
-export const npcAction = async (actor, action) => {
-    const actionData = { ...action.system };
+export const npcAction = async (npc, npcAction) => {
+    const actionData = { ...npcAction.system };
     const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
         {
-            name: action.name,
+            name: npcAction.name,
             actionData,
             hideRollResults: true
         });
-    const targetUuids = getTargets(actor);
+    const targetUuids = getTargets(npc);
     await ChatMessage.create({
         content: content,
         flags: {
@@ -24,49 +24,6 @@ export const npcAction = async (actor, action) => {
         }
     });
 }
-
-const removeItem = (actor, item) => actor.system.removeItem(item);
-const spendResource = (actor, resourceType, amount) => {
-    switch (resourceType) {
-        case 'prayer':
-        case 'summoning':
-            actor.system.spendPoints(resourceType, amount);
-            break;
-        default:
-            actor.system.spendRunes(resourceType, amount);
-            break;
-    }
-};
-const addStatuses = async (actor, statuses) => {
-    const effects = statuses.map(s => statusToEffect(s));
-    await actor.createEmbeddedDocuments("ActiveEffect", [...effects]);
-};
-const removeStatuses = async (actor, statusIds) => {
-    await actor.deleteEmbeddedDocuments("ActiveEffect", [...statusIds]);
-};
-const receiveDamage = async (actor, damageEntries) => {
-    await actor.system.receiveDamage(damageEntries);
-};
-//todo: this is probably where we will 
-// start adding things like add/remove status/effect with actions
-// at least that is the intent. hopefully this wasn't a premature abstraction
-const operations = {
-    removeItem,
-    spendResource,
-    addStatuses,
-    removeStatuses,
-    receiveDamage
-};
-const applyStateChanges = async (actor, stateChanges) => {
-    for (let stateChange of stateChanges) {
-        const operationFunc = operations[stateChange.operation];
-        if (operationFunc) {
-            await operationFunc(actor, ...stateChange.params);
-        } else {
-            console.error(`Unknown operation: ${stateChange.operation}`);
-        }
-    }
-};
 
 export const attackAction = async (actor, weapon) => {
     let result;
@@ -87,8 +44,6 @@ export const attackAction = async (actor, weapon) => {
     await chatResult(result);
 }
 
-const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
-
 const meleeAttackAction = async (actor, weapon) => {
     if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"].level < 5) {
         return { error: "RSK.AttackLevelTooLow" };
@@ -102,6 +57,8 @@ const meleeAttackAction = async (actor, weapon) => {
         attackData: weapon.system,
     };
 }
+
+const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
 
 const rangedAttackAction = async (actor, weapon) => {
     const ammo = weapon.system.isThrown
@@ -143,12 +100,14 @@ const castingHandlers = {
     prayer: {
         getCastables: (actor) => actor.items.filter(i => i.type === "prayer"
             && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
-        handleCast: (isSuccess, castable) => {
-            if (isSuccess) {
-                const appliedStatus = rskPrayerStatusEffects.filter(x => x.id === castable.status);
+        handleCast: (rollResult, castable) => {
+            if (rollResult.isSuccess) {
+                const appliedEffects = rskPrayerStatusEffects
+                    .filter(x => x.id === castable.status)
+                    .map(s => statusToEffect(s));
                 return {
                     usage: [{ operation: 'spendResource', params: ['prayer', castable.usageCost[0].amount] }],
-                    targetStateChanges: [{ operation: 'addStatuses', params: [appliedStatus] }]
+                    targetStateChanges: [{ operation: 'addEffects', params: [appliedEffects] }]
                 };
             }
             return {
@@ -159,8 +118,8 @@ const castingHandlers = {
     summoning: {
         getCastables: (actor) => actor.items.filter(i => i.type === "summoning"
             && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
-        handleCast: (isSuccess, castable) => {
-            if (isSuccess) {
+        handleCast: (rollResult, castable) => {
+            if (rollResult.isSuccess) {
                 return {
                     usage: [{ operation: 'spendResource', params: ['summoning', castable.usageCost[0].amount] }]
                 };
@@ -176,7 +135,7 @@ const castingHandlers = {
                 actor.items.find(r => r.type === "rune"
                     && r.system.type === uc.type
                     && r.system.quantity >= uc.amount))),
-        handleCast: (isSuccess, castable) => isSuccess
+        handleCast: (rollResult, castable) => rollResult.isSuccess
             ? {
                 usage: castable.usageCost.map(runeCost => ({
                     operation: 'spendResource',
@@ -186,6 +145,7 @@ const castingHandlers = {
             : { usage: [] }
     }
 };
+
 export const castAction = async (actor, castType) => {
     const castHandler = castingHandlers[castType];
     const castables = castHandler.getCastables(actor);
@@ -201,7 +161,7 @@ export const castAction = async (actor, castType) => {
     const actionResult = await useAction(actor, castType, "intellect");
     if (!actionResult) return;
 
-    const stateChanges = castHandler.handleCast(actionResult.isSuccess, castable.system);
+    const stateChanges = castHandler.handleCast(actionResult.rollResult, castable.system);
     const result = {
         name: castable.name,
         actionType: castType,
@@ -218,61 +178,15 @@ export const castAction = async (actor, castType) => {
     return result;
 }
 
-export const dealsDamage = (data) => data.damageEntries
-    && Object.values(data.damageEntries)
-        .filter(x => x > 0).length > 0
-
-//todo: apply margin so we can skip dialog.
-// this will come from outcome margin if a character is attacking
-// this will come from a defense roll dictated by the outcome 
-// if an npc is attacking a character
-const outcomeHandlers = {
-    prayer: async (target, outcome) => {
-        const activePrayers = target.effects
-            .filter(e => e.statuses
-                .filter(s => rskPrayerStatusEffects.map(se => se.id)
-                    .includes(s)))
-            .map(ap => ap._id);
-        return [{
-            operation: "removeStatuses", params: [activePrayers]
-        }, ...outcome.targetStateChanges]
-    },
-    //these will probably start to differ
-    melee: async (target, outcome) => {
-        const result = await uiService.showDialog("apply-damage", { context: outcome });
-        return result && result.confirmed
-            ? [{ operation: "receiveDamage", params: [{ ...result }] }]
-            : []
-    },
-    magic: async (target, outcome) => {
-        const result = await uiService.showDialog("apply-damage", { context: outcome });
-        return result && result.confirmed
-            ? [{ operation: "receiveDamage", params: [{ ...result }] }]
-            : []
-    },
-    ranged: async (target, outcome) => {
-        const result = await uiService.showDialog("apply-damage", { context: outcome });
-        return result && result.confirmed
-            ? [{ operation: "receiveDamage", params: [{ ...result }] }]
-            : []
-    }
-};
-export const applyOutcome = async (targets, outcome) => {
-    const outcomeHandler = outcomeHandlers[outcome.actionType]
-    for (let target of targets) {
-        let stateChanges = await outcomeHandler(target, outcome);
-        await applyStateChanges(target, stateChanges);
-    }
-}
-
 const useAction = async (actor, skill, ability) => {
     const rollData = actor.system.getRollData();
-    const rollResult = await uiService.showDialog("confirm-roll", { context: rollData, options: { defaultSkill: skill, defaultAbility: ability } });
-    if (!rollResult.rolled) return false;
+    const confirmRollResult = await uiService.showDialog("confirm-roll", { context: rollData, options: { defaultSkill: skill, defaultAbility: ability } });
+    if (!confirmRollResult.rolled) return false;
 
-    const skillResult = await actor.system.useSkill(rollResult);
+    const skillResult = await actor.system.useSkill(confirmRollResult);
+    //todo: not all actions will need a target (some only target self, others don't need a target per say)
     const targetUuids = getTargets(actor);
-    return { ...skillResult, targetUuids }
+    return { rollResult: { ...skillResult }, targetUuids }
 }
 
 const chatResult = async (actionResult) => {
