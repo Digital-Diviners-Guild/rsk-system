@@ -1,3 +1,5 @@
+import { uiService } from "./rsk-ui-service";
+
 export default class RSKDice {
     static addClickListener = (selector, handler) => {
         selector.click(async (ev) => {
@@ -25,10 +27,11 @@ export default class RSKDice {
     }
 
     static roll = async (rollType = "normal", customFormula = "3d6") => {
-        // Validate the customFormula
+        // todo: accommodate the cool things like (1d4+@str)
         const validCustomFormula = /^[1-9]\d*d[1-9]\d*$/.test(customFormula);
         if (!validCustomFormula) {
-            throw new Error("Invalid Roll Formula");
+            uiService.showNotification("RSK.InvalidRollFormula");
+            return;
         }
 
         let formula = ({
