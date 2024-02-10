@@ -21,6 +21,7 @@ export default class RSKWeaponSheet extends RSKItemSheet {
         context.flags = itemData.flags;
         context.config = CONFIG.RSK;
         context.effects = itemData.effects;
+        debugger;
         return context;
     }
 

@@ -6,15 +6,13 @@ export const positiveNumberField = { nullable: false, integer: true, initial: 0,
 class AttackTypeField extends StringField {
     constructor(options = {}) {
         super(options);
-        this.allowedValues = ["melee", "ranged", "thrown", "ammo"];
-        this.name = `RSK.AttackTypes.${this.value}`;
+        this.allowedValues = [...Object.keys(CONFIG.RSK.attackTypes)];
     }
 
     validate(value) {
         if (!this.allowedValues.includes(value)) {
             throw new Error(`Invalid value: ${value}. Must be one of ${this.allowedValues.join(", ")}.`);
         }
-        this.name = `RSK.AttackTypes.${value}`;
         return super.validate(value);
     }
 }

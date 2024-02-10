@@ -3,15 +3,13 @@ import RSKEquippableType from "./RSKEquippableType.js";
 
 export default class RSKWeapon extends RSKEquippableType {
     static defineSchema() {
+        debugger;
         return {
-
             attackType: new fields.SetField(fields.AttackTypeField, {
-                name: "attackType",
                 required: true,
                 initial: "melee",
-                options: ["melee","ranged","thrown","ammo"]
+                options: [...Object.keys(CONFIG.RSK.attackTypes)]
             }),
-
             weaponType: new fields.StringField({
                 required: true,
                 initial: "simple",

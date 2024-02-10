@@ -16,10 +16,6 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
-                {{!-- todo: display better --}}
-                <strong>{{localize "RSK.AttackTypes"}}</strong>
-            </div>
-            <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
                 {{system.weaponType}}
             </div>
@@ -69,26 +65,6 @@
         </div>
 
         <div class="tab features" data-group="primary" data-tab="edit">
-            <div>
-                {{!-- todo: attackTypes validations and sheet reactions (hiding fields) --}}
-                {{!-- if its melee, it can't be ranged thrown or ammo
-                if its ranged, it can be thrown and ammo as well --}}
-                <strong>{{localize "RSK.AttackTypes"}}</strong>
-                {{!-- <label>{{localize "RSK.IsMelee"}}</label> --}}
-                {{!-- <input type="checkbox" data-dtype="Boolean" name="system.attackType['melee'].name" value="melee" {{#if system.attackType.has 'melee'}}checked{{/if}}> --}}
-
-                {{!-- <label>{{localize "RSK.IsRanged"}}</label>
-                <input type="checkbox" data-dtype="Boolean" name="system.isRanged" value="{{system.isRanged}}" {{checked
-                    system.isRanged}}>
-
-                <label>{{localize "RSK.IsThrown"}}</label>
-                <input type="checkbox" data-dtype="Boolean" name="system.isThrown" value="{{system.isThrown}}" {{checked
-                    system.isThrown}}>
-
-                <label>{{localize "RSK.IsAmmo"}}</label>
-                <input type="checkbox" data-dtype="Boolean" name="system.isAmmo" value="{{system.isAmmo}}" {{checked
-                    system.isAmmo}}> --}}
-            </div>
             <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
                 <select name="system.weaponType">

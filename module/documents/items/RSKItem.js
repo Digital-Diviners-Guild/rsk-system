@@ -1,3 +1,5 @@
+import RSK from "../../config";
+
 export default class RSKItem extends Item {
     async _preUpdate(changed, options, user) {
         const itemType = changed?.system?.type;
@@ -15,24 +17,29 @@ export default class RSKItem extends Item {
     }
 
     isRangedWeapon() {
-        return this.isWeapon() && (this.system.attackType.has("ranged") || this.system.attackType.has("thrown");
+        return true;
+        // return this.isWeapon() && (this.system.attackType.has("ranged") || this.system.attackType.has("thrown"));
     }
 
     isThrownWeapon() {
-        return this.isWeapon() && this.system.attackType.has("thrown");
+        return true;
+        // return this.isWeapon() && this.system.attackType.has("thrown");
     }
 
     isMeleeWeapon() {
-        return this.isWeapon() && this.system.attackType.has("melee");
+        return true;
+        // return this.isWeapon() && this.system.attackType.has("melee");
     }
 
     isOnlyAmmo() {
-        return this.system.attackType.has("ammo") && !this.system.attackType.has("melee") && !this.system.attackType.has("ranged") && !this.system.attackType.has("thrown");
+        return false;
+        // return this.system.attackType.has("ammo") && !this.system.attackType.has("melee") && !this.system.attackType.has("ranged") && !this.system.attackType.has("thrown");
     }
 
     usesItemAsAmmo(item) {
-        return this.system.attackType.has("ranged")
-            && item.system.attackType.has("ammo")
-            && this.system.ammoType === item.system.ammoType
+        return true;
+        // return this.system.attackType.has("ranged")
+        //     && item.system.attackType.has("ammo")
+        //     && this.system.ammoType === item.system.ammoType;
     }
 }

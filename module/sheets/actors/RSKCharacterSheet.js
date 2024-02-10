@@ -47,7 +47,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const equipped = context.items.filter(i => i.system.isEquipped);
         context.worn = {};
         equipped.map((e) => context.worn[e.system.equippedInSlot] = e.name);
-        context.equippedIsRanged = equipped.filter(x => x.type === "weapon" && (x.system.isRanged || x.system.isThrown)).length > 0;
+        context.equippedIsRanged = equipped.filter(x => x.type === "weapon" && (x.system.attackType.has("ranged")) || x.system.attackType.has("thrown")).length > 0;
     }
 
     activateListeners(html) {
@@ -136,6 +136,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             name: localizeText("RSK.Unarmed"),
             system: {
                 weaponType: "simple",
+                attackType: RSK.attackTypes.melee,
                 damageEntries: { crush: 1 }
             }
         };
