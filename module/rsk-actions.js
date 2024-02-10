@@ -26,9 +26,28 @@ export const npcAction = async (actor, action) => {
 }
 
 export const attackAction = async (actor, weapon) => {
-    const action = weapon.system.isMelee
-        ? meleeAttackAction(actor, weapon)
-        : rangedAttackAction(actor, weapon);
+    //if the weapon can be used for both melee and ranged, we need to ask the user which they want to use
+    if (weapon.system.attackType.has("melee") || weapon.system.attackType.has("ranged")) {
+        let chosenAttackType = new Dialog({
+            title: "Choose an attack type",
+            content: "<p>Attack using Melee or Ranged?</p>",
+            buttons: {
+                melee: {
+                    label: "Melee",
+                    callback: () => "melee"
+                },
+                ranged: {
+                    label: "Ranged",
+                    callback: () => "ranged"
+                }
+            },
+            default: "melee"
+        });
+    } else {
+        let chosenAttackType = weapon.system.attackType.has("melee") ? "melee" : "ranged";
+    }
+
+    const action = chosenAttackType === "melee" ? meleeAttackAction(actor, weapon) : rangedAttackAction(actor, weapon);
     const result = await action;
     if (!result) return;
     await chatResult(result);

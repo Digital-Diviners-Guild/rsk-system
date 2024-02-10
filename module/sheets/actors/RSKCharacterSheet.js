@@ -136,7 +136,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             name: localizeText("RSK.Unarmed"),
             system: {
                 weaponType: "simple",
-                isMelee: true,
                 damageEntries: { crush: 1 }
             }
         };
