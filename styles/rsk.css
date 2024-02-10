@@ -2,7 +2,18 @@
 /*  Root                                     */
 /* ----------------------------------------- */
 :root {
+    --color-primary: #994523;
+    --color-secondary: #431a0e;
+    --color-alt: #2c1a44;
+    --color-dark: #1f2326;
+    --color-tan-dark: #e2d1b1;
+    --color-tan: rgba(171,157,132, .4);
+    --color-tan-light: #f2e4c7;
+    --color-text-light: #fff;
     --color-text-light-highlight: #f9fafb;
+    --color-text-dark-primary: #2f3337;
+    --color-text-dark-secondary: #545658; 
+    --color-underline-header: #782e22;
     --color-shadow-subtle: rgba(0,0,0,0.45);
     --color-light-gray: rgba(0,0,0,0.45);
     --color-rsk-brown: #95835e;
@@ -33,6 +44,7 @@
 /*  Actor Sheet                              */
 /* ----------------------------------------- */
 
+/* #region Sidebar */
 .actor.sheet .editable.character .profile-img {
     border-radius: 50%;
     border: none;
@@ -107,7 +119,9 @@
     border-bottom-left-radius: 0;
     padding-top: 3px;
 }
+/* #endregion */
 
+/* #region Sheet Tabs */
 .actor.sheet .sheet-container .sheet-tabs.tabs {
     justify-content: center;
 } 
@@ -156,7 +170,9 @@
     font-weight: 100;
     margin-top: -10px;
 }
+/* #endregion */
 
+/* #region Skills Body */
 .actor.sheet .sheet-container .sheet-body .rsk.skill-container {
     column-count: 2;
     column-gap: 60px;
@@ -190,11 +206,171 @@
     margin-right: 12px;
 
 }
+/* #endregion */
 
-/*.stats-abilities {
+/* #region Inventory Body */
+.actor.sheet .sheet-container .sheet-body .inventory-active {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-active h3 {
+    display: flex;
+    width: 100%;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-md,
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-sm {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-right: 10px;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-md {
+    width: 75px;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-sm {
+    width: 50px;
+    align-items: flex-end;
+    align-self: flex-end;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-md img,
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-sm img {
+    display: flex;
+    width: 100%;
+    border: 1px solid var(--color-rsk-brown);
+    border-radius: 5px;
+    position: relative;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-md img {
+    height: 75px;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-sm img {
+    height: 50px;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-md img:before,
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-sm img:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-tan);
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list {
+    padding: 0 .11rem 0 0;
+    margin: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 100%;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list header {
+    align-items: center;
+    background-color: var(--color-primary);
+    color: var(--color-text-light);
     display: flex;
     justify-content: space-between;
-}*/
+    padding: 0.5rem 0.3rem 0.3rem 0.4rem;
+    width: 100%;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list header h3 {
+    font-size: var(--font-size-14);
+    margin: 0 0 3px;
+    border-bottom: none;
+    text-shadow: 0px 3px 5px rgba(0,0,0,.34);
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .items-list {
+    margin: 0;
+    padding: 0;
+    border-top: none;
+    border: 1px solid var(--color-underline-header);
+    list-style-type: none;
+    box-shadow: 1px 1px 6px 0px rgba(0,0,0,0.33);
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .items-list .item {
+    color: var(--color-text-dark-secondary);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: var(--font-size-13);
+    justify-content: space-between;
+    padding: 0 5px;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .items-list .item:nth-of-type(even) {
+    background-color: var(--color-tan);
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .item-name {
+    align-items: center;
+    display: flex;
+    gap: 0.25rem;
+    width: 60%;
+    padding: 5px 0;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .item-name img {
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    margin-left: 4px;
+    padding: 3px;
+    background-color: beige;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .item-name h4 {
+    margin: 0 0 0 5px;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .item-quantity {
+    flex-basis: 5rem;
+    align-items: center;
+    align-self: stretch;
+    justify-content: center;
+    display: flex;
+    
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .item .item-quantity {
+    font-size: 16px;
+    justify-content: space-around;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .items-list .item-quantity {
+    border-left: 1px solid var(--color-tan);
+    border-right: 1px solid var(--color-tan);
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .item-controls {
+
+    gap: .55rem;
+    display: flex;
+    align-items: center;
+    flex-basis: 6.25rem;
+    justify-content: flex-end;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-list .item-summary {
+    flex: 100%;
+    padding: 10px 5px 8px;
+}
+
+
+
+
+/* #endregion */
 
 
 
