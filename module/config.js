@@ -123,6 +123,13 @@ RSK.attackType = {
     ranged: "RSK.Ranged"
 };
 
+RSK.attackTypes = {
+    melee: "RSK.Melee",
+    ranged: "RSK.Ranged",
+    thrown: "RSK.Thrown",
+    ammo: "RSK.Ammo"
+};
+
 RSK.codexTypes = {
     npcAction: "RSK.NpcAction",
     spell: "RSK.Spell",
