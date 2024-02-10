@@ -141,7 +141,6 @@ export default class RSKActorSheet extends ActorSheet {
     }
 
     _prepareCodex(context) {
-        //todo: can probably be refactored
         const codexIds = this.actor.flags?.rsk?.codexIds ?? [];
         this.codexs = codexIds
             .map(i => Item.get(i))

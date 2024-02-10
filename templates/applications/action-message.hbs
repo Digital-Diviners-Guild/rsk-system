@@ -15,19 +15,19 @@
 {{#if hideRollResults}}
 {{else}}
 <p>
-    {{localize "RSK.TargetNumberChatLabel"}}: {{targetNumber}} |
-    {{#if isCritical}}
+    {{localize "RSK.TargetNumberChatLabel"}}: {{rollResult.targetNumber}} |
+    {{#if rollResult.isCritical}}
     <em>
         {{localize "RSK.Critical"}}
     </em>
     {{/if}}
-    {{#if isSuccess}}
+    {{#if rollResult.isSuccess}}
     {{localize "RSK.Success"}}
     {{else}}
     {{localize "RSK.Fail"}}
     {{/if}}
 
-    ({{margin}})
+    ({{rollResult.margin}})
 </p>
 {{/if}}
 

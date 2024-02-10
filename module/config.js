@@ -117,7 +117,7 @@ RSK.spellTypes = {
 
 //todo: we were thinking of having a 'thrown' action type for
 // weapons, but when used, it still needs to actually be of type "Ranged". thrown is "Ranged"
-RSK.actionTypes = {
+RSK.attackType = {
     magic: "RSK.Magic",
     melee: "RSK.Melee",
     ranged: "RSK.Ranged"

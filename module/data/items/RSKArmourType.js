@@ -19,6 +19,8 @@ export default class RSKArmourType extends RSKEquippableType {
             specialEffects: new fields.StringField(),
             isEquipped: new fields.BooleanField(),
             //todo: is armour stackable except when "heavy"?
+            // if so, then 'heavy' can be implemented as an active effect when creating the item in foundry
+            // it can OVERRIDE the system.maxStackSize = 1, allowing it to default to 3 for items that are not heavy
             maxStackSize: new fields.NumberField({ required: true, initial: 1, min: 1 }),
             quantity: new fields.NumberField({ initial: 1 }),
             activeSlot: new fields.StringField({

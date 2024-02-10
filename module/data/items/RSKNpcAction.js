@@ -5,7 +5,7 @@ export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
             type: new fields.StringField({
                 required: true,
                 initial: "melee",
-                options: [...Object.keys(CONFIG.RSK.actionTypes)]
+                options: [...Object.keys(CONFIG.RSK.attackType)]
             }),
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
