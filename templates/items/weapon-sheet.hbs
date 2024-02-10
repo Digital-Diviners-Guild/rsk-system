@@ -74,11 +74,10 @@
                 {{!-- if its melee, it can't be ranged thrown or ammo
                 if its ranged, it can be thrown and ammo as well --}}
                 <strong>{{localize "RSK.AttackTypes"}}</strong>
-                <label>{{localize "RSK.IsMelee"}}</label>
-                <input type="checkbox" data-dtype="Boolean" name="system.isMelee" value="{{system.isMelee}}" {{checked
-                    system.isMelee}}>
+                {{!-- <label>{{localize "RSK.IsMelee"}}</label> --}}
+                {{!-- <input type="checkbox" data-dtype="Boolean" name="system.attackType['melee'].name" value="melee" {{#if system.attackType.has 'melee'}}checked{{/if}}> --}}
 
-                <label>{{localize "RSK.IsRanged"}}</label>
+                {{!-- <label>{{localize "RSK.IsRanged"}}</label>
                 <input type="checkbox" data-dtype="Boolean" name="system.isRanged" value="{{system.isRanged}}" {{checked
                     system.isRanged}}>
 
@@ -88,7 +87,7 @@
 
                 <label>{{localize "RSK.IsAmmo"}}</label>
                 <input type="checkbox" data-dtype="Boolean" name="system.isAmmo" value="{{system.isAmmo}}" {{checked
-                    system.isAmmo}}>
+                    system.isAmmo}}> --}}
             </div>
             <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
