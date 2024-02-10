@@ -12,8 +12,8 @@ export function onRenderChatMessage(app, html, data) {
     const isGM = game.user?.isGM;
     if (!(isActionMessage && (currentCharacterUuid || isGM))) return;
 
-    const possibleTargets = message.flags.rsk.targetUuids;
-    const canClickButton = isGM || possibleTargets?.includes(currentCharacterUuid)
+    const possibleTargets = message.flags.rsk.targetUuids ?? [];
+    const canClickButton = isGM || possibleTargets.includes(currentCharacterUuid)
     if (!canClickButton) return;
     const targets = () => isGM
         ? [...game.user.targets.map(t => t.actor)]
@@ -24,7 +24,7 @@ export function onRenderChatMessage(app, html, data) {
 
 const addApplyOutcomeButton = (html, handler) => {
     html.find(".message-controls")
-        .html(`<button class="apply-outcome">${localizeText("RSK.ApplyDamage")}</button>`)
+        .html(`<button class="apply-outcome">${localizeText("RSK.Apply")}</button>`)
     html.find(".apply-outcome")
         .click(async e => await handler());
 }

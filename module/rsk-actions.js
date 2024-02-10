@@ -180,7 +180,7 @@ const useAction = async (actor, skill, ability) => {
     const skillResult = await actor.system.useSkill(confirmRollResult);
     //todo: not all actions will need a target (some only target self, others don't need a target per say)
     const targetUuids = getTargets(actor);
-    return { rollResult: { ...skillResult }, targetUuids }
+    return { rollResult: { ...skillResult }, targetUuids: [...targetUuids] }
 }
 
 const chatResult = async (actionResult) => {
