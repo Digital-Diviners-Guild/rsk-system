@@ -15,24 +15,24 @@ export default class RSKItem extends Item {
     }
 
     isRangedWeapon() {
-        return this.isWeapon() && (this.system.isRanged || this.system.isThrown);
+        return this.isWeapon() && (this.system.attackMethods.has("ranged") || this.system.attackMethods.has("thrown"));
     }
 
     isThrownWeapon() {
-        return this.isWeapon() && this.system.isThrown;
+        return this.isWeapon() && this.system.attackMethods.has("thrown");
     }
 
     isMeleeWeapon() {
-        return this.isWeapon() && this.system.isMelee;
+        return this.isWeapon() && this.system.attackMethods.has("melee");
     }
 
     isOnlyAmmo() {
-        return this.system.isAmmo && !this.system.isThrown;
+        return this.system.attackMethods.has("ammo") && !this.system.attackMethods.has("melee") && !this.system.attackMethods.has("ranged") && !this.system.attackMethods.has("thrown");
     }
 
     usesItemAsAmmo(item) {
-        return this.system.isRanged
-            && item.system.isAmmo
-            && this.system.ammoType === item.system.ammoType
+        return this.system.attackMethods.has("ranged")
+            && item.system.attackMethods.has("ammo")
+            && this.system.ammoType === item.system.ammoType;
     }
 }

@@ -27,7 +27,8 @@ export const npcAction = async (npc, npcAction) => {
 
 export const attackAction = async (actor, weapon) => {
     let result;
-    if (weapon.system.isMelee) {
+    //todo: handle dual wielding and multiple attack methods.
+    if (weapon.isMeleeWeapon()) {
         result = await meleeAttackAction(actor, weapon)
     } else {
         result = await rangedAttackAction(actor, weapon)

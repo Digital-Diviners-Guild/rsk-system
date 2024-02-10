@@ -16,16 +16,9 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
-                {{!-- todo: display better --}}
-                <strong>{{localize "RSK.AttackTypes"}}</strong>
-                <label>{{localize "RSK.IsMelee"}}</label>
-                {{system.isMelee}}
-                <label>{{localize "RSK.IsRanged"}}</label>
-                {{system.isRanged}}
-                <label>{{localize "RSK.IsThrown"}}</label>
-                {{system.isThrown}}
-                <label>{{localize "RSK.IsAmmo"}}</label>
-                {{system.isAmmo}}
+                <strong>{{localize "RSK.AttackMethods"}}</strong>
+                {{!-- todo: make this read-only/hide all the edit tabs with a hotkey --}}
+                {{setBoxes system.attackMethods "attackMethod-checkbox" config.attackMethods}}
             </div>
             <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
@@ -78,25 +71,8 @@
 
         <div class="tab features" data-group="primary" data-tab="edit">
             <div>
-                {{!-- todo: attackTypes validations and sheet reactions (hiding fields) --}}
-                {{!-- if its melee, it can't be ranged thrown or ammo
-                if its ranged, it can be thrown and ammo as well --}}
-                <strong>{{localize "RSK.AttackTypes"}}</strong>
-                <label>{{localize "RSK.IsMelee"}}</label>
-                <input type="checkbox" data-dtype="Boolean" name="system.isMelee" value="{{system.isMelee}}" {{checked
-                    system.isMelee}}>
-
-                <label>{{localize "RSK.IsRanged"}}</label>
-                <input type="checkbox" data-dtype="Boolean" name="system.isRanged" value="{{system.isRanged}}" {{checked
-                    system.isRanged}}>
-
-                <label>{{localize "RSK.IsThrown"}}</label>
-                <input type="checkbox" data-dtype="Boolean" name="system.isThrown" value="{{system.isThrown}}" {{checked
-                    system.isThrown}}>
-
-                <label>{{localize "RSK.IsAmmo"}}</label>
-                <input type="checkbox" data-dtype="Boolean" name="system.isAmmo" value="{{system.isAmmo}}" {{checked
-                    system.isAmmo}}>
+                <strong>{{localize "RSK.AttackMethods"}}</strong>
+                {{setBoxes system.attackMethods "attackMethod-checkbox" config.attackMethods}}
             </div>
             <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>

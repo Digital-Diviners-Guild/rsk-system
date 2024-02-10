@@ -1,15 +1,14 @@
-import { costField, fields, positiveNumberField } from "../fields.js";
+import { costField, fields, positiveNumberField, AttackMethodField } from "../fields.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 
 export default class RSKWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
-            // todo: custom data model validation. at least one or all of these needs to be selected
-            // there is a way to add a 'validate' method to these models
-            isMelee: new fields.BooleanField(),
-            isRanged: new fields.BooleanField(),
-            isThrown: new fields.BooleanField(),
-            isAmmo: new fields.BooleanField(),
+            attackMethods: new fields.SetField(new AttackMethodField(), {
+                required: true,
+                initial: ["melee"],
+                options: [...Object.keys(CONFIG.RSK.attackMethods)]
+            }),
             weaponType: new fields.StringField({
                 required: true,
                 initial: "simple",
