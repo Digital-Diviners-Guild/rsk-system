@@ -1,30 +1,46 @@
-<ol class="items-list">
-    {{#each items as |item|}}
-    <li class="item flexrow" data-item-id="{{item._id}}">
-        <div class="item-name flexrow">
-            <div>
-                <strong>{{item.name}}</strong>
+
+    <header>
+        <h3 class="item-name">{{localize "RSK.Inventory"}} ({{usedSlots}} / 28)</h3>
+        <div class="item-quantity">Qty.</div>
+        <div class="item-controls">
+            <a data-action="browse-equipment" data-tooltip="Search Inventory"><i class="fa-solid fa-fw fa-search"></i></a>
+        </div>
+    </header>
+    <ul class="items-list">
+        {{#each items as |item|}}
+        <li class="item" data-item-id="{{item._id}}">
+            <div class="item-name">
+                {{!-- todo attach to item image --}}
+                <img src="{{item.img}}" data-tooltip="{{item.name}}">
+                <h4><a data-action="toggle-summary">{{item.name}}</a></h4>
+            </div>
+            <div class="item-quantity">
                 {{#if item.system.quantity}}
-                (
                 <a class="item-control decrease-item-quantity" data-item-id="{{item.id}}">-</a>
-                <em>qty: {{item.system.quantity}}</em>
+                <span>{{item.system.quantity}}</span>
                 <a class="item-control increase-item-quantity" data-item-id="{{item.id}}">+</a>
-                )
                 {{/if}}
             </div>
-        </div>
-        {{#if item.system.description}}
-        <div class="item-content">
-            {{item.system.description}}
-        </div>
-        {{/if}}
-        {{#if item.system.activeSlot}}
-        <a class="item-control item-equip" title="Equip Item">{{localize "RSK.EquipItem"}}</a>
-        {{/if}}
-        {{!-- todo reduce quantity, don't remove all --}}
-        <a class="item-control chat-item" data-item-type="{{item.type}}" data-item-id="{{item._id}}"
-            title="Chat Item">{{localize "RSK.ChatItem"}}</a>
-        <a class="item-control item-delete" title="Remove Item">{{localize "RSK.RemoveItem"}}</a>
-    </li>
-    {{/each}}
-</ol>
+            {{!-- todo reduce quantity, don't remove all --}}
+            <div class="item-controls">
+                {{!-- todo expand logic to change icon type (i.e. equip armor/weapon/ammo) --}}
+                {{#if item.system.activeSlot}}
+                <a class="item-control item-equip" data-tooltip="{{localize "RSK.EquipItem"}}"><i class="fas fa-shirt"></i></a>
+                {{/if}}
+                <a class="item-control chat-item" data-item-type="{{item.type}}" data-item-id="{{item._id}}"
+                   data-tooltip="{{localize "RSK.ChatItem"}}">
+                    <i class="fas fa-message"></i>
+                </a>
+                <a class="item-control item-delete" data-tooltip="{{localize "RSK.RemoveItem"}}"><i class="fas fa-trash"></i></a>
+            </div>
+            {{!-- todo show/hide summary using toggle-summary action --}}
+            <div class="item-summary" hidden="hidden">
+                {{#if item.system.description}}
+                <div class="item-content">
+                    {{item.system.description}}
+                </div>
+                {{/if}}
+            </div>
+        </li>
+        {{/each}}
+    </ul>

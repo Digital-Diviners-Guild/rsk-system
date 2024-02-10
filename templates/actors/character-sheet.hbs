@@ -126,7 +126,6 @@
             {{/each}}
           </div>
         </div>
-
         <div class="tab features" data-group="primary" data-tab="prayer">
           <div class="actor-toolbar">
             <div class="actor-application" application-method="characterCastPrayer" effect-label="Pray"
@@ -213,39 +212,42 @@
               {{/if}}
             </div>
           </div>
-          <div>
-            <strong>{{localize "RSK.ActiveSlots"}}</strong>
-            <div>
+          {{!-- Todo: Pass the active items image src properly | Fix RSK.Ammunition to be "Ammo"  --}}
+          <section class="inventory-active">
+            <h3>{{localize "RSK.ActiveSlots"}}</h3>
+            <div class="item-active-md">
               <label>{{localize "RSK.Head"}}</label>
-              {{worn.head}}
+              <img src="{{worn.head.img}}" data-tooltip="{{worn.head}}">
             </div>
-            <div>
+            <div class="item-active-md">
               <label>{{localize "RSK.Body"}}</label>
-              {{worn.body}}
+              <img src="{{worn.head.img}}" data-tooltip="{{worn.body}}">
             </div>
-            <div>
+            <div class="item-active-md">
               <label>{{localize "RSK.Leg"}}</label>
-              {{worn.leg}}
+              <img src="{{worn.leg.img}}" data-tooltip="{{worn.leg}}">
             </div>
-            <div>
+            <div class="item-active-md">
               <label>{{localize "RSK.Arm"}}</label>
-              {{worn.arm}}
+              <img src="{{worn.arm.img}}" data-tooltip="{{worn.arm}}">
             </div>
-            <div>
+            <div class="item-active-md">
               <label>{{localize "RSK.Weapon"}}</label>
-              {{worn.weapon}}
+              <img src="{{worn.weapon.img}}" data-tooltip="{{worn.weapon}}">
             </div>
-            <div>
+            <div class="item-active-md">
               <label>{{localize "RSK.Cape"}}</label>
-              {{worn.cape}}
+              <img src="{{worn.cape.img}}" data-tooltip="{{worn.cape}}">
             </div>
-            <div>
+            <div class="item-active-sm">
               <label>{{localize "RSK.Ammunition"}}</label>
-              {{worn.ammo}}
+              <img src="{{worn.ammo.img}}" data-tooltip="{{worn.ammo}}">
             </div>
-            <div><strong>{{localize "RSK.Inventory"}}</strong> ({{usedSlots}} / 28)</div>
+          </section>
+          <section class="inventory-list">
             {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
-          </div>
+          </section>
+          
         </div>
         <div class="tab features" data-group="primary" data-tab="description">
           <div class="form-group">
