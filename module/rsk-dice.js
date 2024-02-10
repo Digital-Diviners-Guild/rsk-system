@@ -14,9 +14,8 @@ export default class RSKDice {
         const margin = targetNumber - rollTotal;
         return {
             isSuccess,
-            isCritical: rollResult.isCritical,
             margin,
-            rollResult: rollResult
+            ...rollResult
         }
     }
 
