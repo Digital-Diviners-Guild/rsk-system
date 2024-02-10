@@ -1,4 +1,4 @@
-import { uiService } from "./rsk-ui-service";
+import { uiService } from "./rsk-ui-service.js";
 
 export default class RSKDice {
     static addClickListener = (selector, handler) => {
