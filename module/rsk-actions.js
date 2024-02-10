@@ -35,7 +35,7 @@ export const attackAction = async (actor, weapon) => {
     if (!result) return;
 
     if (result.error) {
-        ui.notifications.warn(localizeText(result.error));
+        uiService.showNotification(localizeText(result.error));
         return;
     }
     if (result.usage) {
@@ -43,6 +43,8 @@ export const attackAction = async (actor, weapon) => {
     }
     await chatResult(result);
 }
+
+const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
 
 const meleeAttackAction = async (actor, weapon) => {
     if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"].level < 5) {
@@ -58,18 +60,12 @@ const meleeAttackAction = async (actor, weapon) => {
     };
 }
 
-const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
-
 const rangedAttackAction = async (actor, weapon) => {
-    const ammo = weapon.system.isThrown
-        ? weapon
-        : actor.system.getActiveItems().find(i =>
-            i.type === "weapon"
-            && i.system.isAmmo
-            && i.system.ammoType === weapon.system.ammoType);
+    const ammo = weapon.system.isThrown ? weapon
+        : actor.system.getActiveItems().find(i => weapon.usesItemAsAmmo(i));
     if (!ammo || ammo.quantity < 1) {
         return { error: "RSK.NoAmmoAvailable" };
-    };
+    }
     if (weapon.system.weaponType !== "simple" && actor.system.skills["ranged"].level < 5) {
         return { error: "RSK.RangedLevelTooLow" };
     }
@@ -83,6 +79,7 @@ const rangedAttackAction = async (actor, weapon) => {
         name: weapon.system.isThrown ? weapon.name : `${weapon.name} + ${ammo.name}`,
         attackData: weapon.system.isThrown
             ? weapon.system
+            //todo: this message could probably use some work
             : {
                 description: `${weapon.system.description}\n${ammo.system.description}`,
                 effectDescription: `${weapon.system.effectDescription}\n${ammo.system.effectDescription}`,
@@ -92,10 +89,6 @@ const rangedAttackAction = async (actor, weapon) => {
     };
 }
 
-// todo: explore if this could be a macro handler we drag and drop onto the hotbar
-// - it may be a bit much to include spell/summon/prayer together.  but the general usage idea is very similar
-// - this might get clarified when handling outcomes
-// Assuming we have a uiService as defined in the previous example
 const castingHandlers = {
     prayer: {
         getCastables: (actor) => actor.items.filter(i => i.type === "prayer"
@@ -146,6 +139,7 @@ const castingHandlers = {
     }
 };
 
+// todo: explore if this could be a macro handler we drag and drop onto the hotbar
 export const castAction = async (actor, castType) => {
     const castHandler = castingHandlers[castType];
     const castables = castHandler.getCastables(actor);
