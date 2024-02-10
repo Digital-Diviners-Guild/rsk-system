@@ -77,8 +77,8 @@ const rangedAttackAction = async (actor, weapon) => {
         actionType: "ranged",
         ...actionResult,
         usage: [{ operation: 'removeItem', params: [ammo] }], //todo: probably use uuids
-        name: weapon.system.isThrownWeapon() ? weapon.name : `${weapon.name} + ${ammo.name}`,
-        attackData: weapon.system.isThrownWeapon()
+        name: weapon.isThrownWeapon() ? weapon.name : `${weapon.name} + ${ammo.name}`,
+        attackData: weapon.isThrownWeapon()
             ? weapon.system
             //todo: this message could probably use some work
             : {
