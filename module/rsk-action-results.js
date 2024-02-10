@@ -60,6 +60,10 @@ const outcomeHandlers = {
             operation: "removeEffects", params: [activePrayers]
         }, ...outcome.targetStateChanges]
     },
+    summoning: async (target, outcome) => {
+        //todo: add summoned token to the board
+        return [];
+    },
     //these will probably start to differ
     melee: async (target, outcome) => {
         const result = await uiService.showDialog("apply-damage", { context: outcome });
