@@ -197,11 +197,6 @@ export default class RSKCharacterType extends RSKActorType {
     // when drag and drop occurs, we need to validate the targetted slot is allowed, if not, use general drop rules.
     // 
     equip(itemToEquip) {
-        if (itemToEquip.system.isEquipped) {
-            itemToEquip.system.equip(itemToEquip.system.equippedInSlot);
-            return;
-        }
-
         const currentEquipped = this.parent.items
             .find(i => i.system.isEquipped && i.system.equippedInSlot === itemToEquip.system.activeSlot)
         if (itemToEquip.isOnlyAmmo() || currentEquipped?.usesItemAsAmmo(itemToEquip)) {
@@ -213,7 +208,10 @@ export default class RSKCharacterType extends RSKActorType {
             return;
         }
 
-        if (currentEquipped && currentEquipped !== itemToEquip) {
+        if (itemToEquip.system.isEquipped) {
+            itemToEquip.system.equip(itemToEquip.system.equippedInSlot);
+        }
+        else if (currentEquipped && currentEquipped !== itemToEquip) {
             currentEquipped.system.equip(currentEquipped.system.equippedInSlot);
         }
         itemToEquip.system.equip(itemToEquip.system.activeSlot);
