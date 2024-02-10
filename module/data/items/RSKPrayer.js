@@ -1,5 +1,6 @@
 import { fields } from "../fields.js";
 import { localizeText } from "../../rsk-localize.js";
+import { rskPrayerStatusEffects } from "../../effects/statuses.js";
 
 //i'm wondering if we just want these datamodels to be their own data types
 //and have the use function in another service rather than in the datamodels
@@ -15,7 +16,7 @@ export default class RSKPrayer extends foundry.abstract.TypeDataModel {
                 amount: new fields.NumberField({ min: 0, max: 30 })
             })),
             usageCostLabel: new fields.StringField(),
-            statuses: new fields.ArrayField(new fields.StringField()),
+            status: new fields.StringField({ choices: [...rskPrayerStatusEffects.map(se => se.id)] }),
         }
     }
 

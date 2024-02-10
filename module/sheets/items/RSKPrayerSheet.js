@@ -1,3 +1,4 @@
+import { rskPrayerStatusEffects } from "../../effects/statuses.js";
 import RSKItemSheet from "./RSKItemSheet.js";
 
 export default class RSKPrayerSheet extends RSKItemSheet {
@@ -9,6 +10,7 @@ export default class RSKPrayerSheet extends RSKItemSheet {
         const context = super.getData();
         context.config = CONFIG.RSK;
         context.usageCost = context.system.getUsageCostLabel();
+        context.prayerStatusChoices = rskPrayerStatusEffects.reduce((ss, s) => { ss[s.id] = s.label; return ss; }, {});
         return context;
     }
 
