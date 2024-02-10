@@ -12,7 +12,8 @@ export function statusToEffect(status, duration) {
         name: status.label,
         icon: status.icon,
         duration: duration,
-        statuses: [status.id]
+        statuses: [status.id],
+        changes: status.changes
     }
 }
 
