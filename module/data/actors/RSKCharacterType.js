@@ -195,23 +195,21 @@ export default class RSKCharacterType extends RSKActorType {
     // most things can only go in one slot.
     // though this does cause a problem with dual wielding, you would need 'off-hand' variant weapons, which is fine.
     // when drag and drop occurs, we need to validate the targetted slot is allowed, if not, use general drop rules.
-    // 
     equip(itemToEquip) {
-        const currentEquipped = this.parent.items
-            .find(i => i.system.isEquipped && i.system.equippedInSlot === itemToEquip.system.activeSlot)
+        const currentEquipped = this.getActiveItems().find(i => i.system.equippedInSlot === itemToEquip.system.activeSlot);
         if (itemToEquip.isOnlyAmmo() || currentEquipped?.usesItemAsAmmo(itemToEquip)) {
-            const currentEquipped = this.parent.items.filter(i => i.system.isEquipped && i.usesItemAsAmmo(itemToEquip));
-            if (currentEquipped.length > 0 && currentEquipped[0] !== itemToEquip) {
-                currentEquipped[0].system.equip("ammo");
+            //todo: the ammo detection needs some work since 'active' slot is only capturing the primary slot preference
+            // this mihght be solvable with the attackMethods set?
+            const ammoSlot = "ammo";
+            const currentEquippedAmmo = this.getActiveItems().find(i => i.system.equippedInSlot === ammoSlot);
+            if (currentEquippedAmmo && currentEquippedAmmo !== itemToEquip) {
+                currentEquippedAmmo.system.equip(ammoSlot);
             }
-            itemToEquip.system.equip("ammo");
+            itemToEquip.system.equip(ammoSlot);
             return;
         }
 
-        if (itemToEquip.system.isEquipped) {
-            itemToEquip.system.equip(itemToEquip.system.equippedInSlot);
-        }
-        else if (currentEquipped && currentEquipped !== itemToEquip) {
+        if (currentEquipped && currentEquipped !== itemToEquip) {
             currentEquipped.system.equip(currentEquipped.system.equippedInSlot);
         }
         itemToEquip.system.equip(itemToEquip.system.activeSlot);

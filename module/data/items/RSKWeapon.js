@@ -39,11 +39,10 @@ export default class RSKWeapon extends RSKEquippableType {
                 }, {})),
             //todo: array of objects eventually
             specialEffects: new fields.StringField(),
-            // todo: ammo slot
             activeSlot: new fields.StringField({
                 required: true,
                 initial: "weapon",
-                options: ["weapon", "arm"]
+                options: ["weapon", "arm", "ammo"]
             }),
             isEquipped: new fields.BooleanField({ initial: false }),
             maxStackSize: new fields.NumberField({ initial: 1, min: 1 }),
