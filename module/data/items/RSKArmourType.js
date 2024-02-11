@@ -25,8 +25,8 @@ export default class RSKArmourType extends RSKEquippableType {
             quantity: new fields.NumberField({ initial: 1 }),
             activeSlot: new fields.StringField({
                 required: true,
-                initial:
-                    "body", choices: [...Object.keys(CONFIG.RSK.armourActiveSlotType)]
+                initial: "body",
+                choices: [...Object.keys(CONFIG.RSK.armourActiveSlotType.values)]
             }),
             //todo: feels like maybe we don't need this?
             // but if we want to 'equip' ammo, this is needed for now

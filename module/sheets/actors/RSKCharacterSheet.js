@@ -47,7 +47,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const equipped = context.items.filter(i => i.system.isEquipped);
         context.worn = {};
         equipped.map((e) => context.worn[e.system.equippedInSlot] = { name: e.name, img: e.img });
-        context.equippedIsRanged = equipped.filter(x => x.type === "weapon" && (x.system.attackMethods.includes("ranged")) || x.system.attackMethods.includes("thrown")).length > 0;
+        context.equippedIsRanged = this.actor.system.getActiveItems().filter(i => i.isRangedWeapon()).length > 0;
     }
 
     activateListeners(html) {
