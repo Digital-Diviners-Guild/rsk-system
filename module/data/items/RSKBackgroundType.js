@@ -12,15 +12,15 @@ export default class RSKBackgroundType extends foundry.abstract.TypeDataModel {
     };
 
     applyBackgroundSkillImprovements = (actor) => {
-        if (this.flags.rsk?.appliedBackground || this.getBackgroundSkillImprovementTotal() === 0) return;
+        if (this.parent.flags.rsk?.appliedBackground || this.getBackgroundSkillImprovementTotal() === 0) return;
         this.mapSkillImprovementOperation((skill, improvement) =>
-            actor.increaseSkillLevel(skill, improvement));
+            actor.system.increaseSkillLevel(skill, improvement));
         this.parent.update({ "flags.rsk.appliedBackground": true });
     };
 
     removeBackgroundSkillImprovements = (actor) => {
         this.mapSkillImprovementOperation((skill, improvement) =>
-            actor.decreaseSkillLevel(skill, improvement));
+            actor.system.decreaseSkillLevel(skill, improvement));
         this.parent.update({ "flags.rsk.appliedBackground": false });
     };
 

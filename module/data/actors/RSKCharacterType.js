@@ -134,7 +134,7 @@ export default class RSKCharacterType extends RSKActorType {
 
     applyBackgrounds() {
         this.parent.items.filter(i => i.type === "background")
-            .map(b => b.applyBackgroundSkillImprovements(this.parent));
+            .map(b => b.system.applyBackgroundSkillImprovements(this.parent));
     }
 
     spendRunes(type, amount) {
