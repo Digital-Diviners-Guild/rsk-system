@@ -21,7 +21,6 @@ export default class RSKBackgroundType extends foundry.abstract.TypeDataModel {
     removeBackgroundSkillImprovements = (actor) => {
         this.mapSkillImprovementOperation((skill, improvement) =>
             actor.system.decreaseSkillLevel(skill, improvement));
-        this.parent.update({ "flags.rsk.appliedBackground": false });
     };
 
     mapSkillImprovementOperation = (op) => {
@@ -37,11 +36,4 @@ export default class RSKBackgroundType extends foundry.abstract.TypeDataModel {
         .map(si => this.skillImprovements[si])
         .reduce((acc, x) => acc += x, 0)
         ?? 0;
-
-    delete() {
-        if (this.parent.actor) {
-            this.removeBackgroundSkillImprovements(this.parent.actor);
-        }
-        super.delete();
-    }
 }

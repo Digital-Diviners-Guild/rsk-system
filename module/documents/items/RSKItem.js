@@ -39,4 +39,11 @@ export default class RSKItem extends Item {
             && item.system.attackMethods.has("ammo")
             && this.system.ammoType === item.system.ammoType;
     }
+
+    delete() {
+        if (this.type === "background" && this.actor) {
+            this.system.removeBackgroundSkillImprovements(this.actor);
+        }
+        super.delete();
+    }
 }
