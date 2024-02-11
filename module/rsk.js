@@ -140,7 +140,10 @@ Hooks.once("ready", async function () {
         }
     });
 
-    await ChatMessage.create({
+    // todo: explore Dialog
+    // could probably use it instead of creating our own 
+    let d = new Dialog({
+        title: "Early Access Disclaimer",
         content: `
         <h3>Welcome to RSK!</h3>
         <p>
@@ -152,5 +155,17 @@ Hooks.once("ready", async function () {
         <p>
         Your input is invaluable to us. For feedback, bug reports, or feature suggestions, please contribute through our <a href="https://github.com/qmarsala/rsk-system/issues" target="_blank">GitHub issues page</a>. Your insights will help us improve and refine RSK.
         </p>
-    ` });
+    ` ,
+        buttons: {
+            ok: {
+                icon: '<i class="fas fa-check"></i>',
+                label: "{{RSK.Understood}}",
+                callback: () => console.log("Welcome dialog acknowledged.")
+            }
+        },
+        default: "ok",
+        render: html => console.log("Rendering welcome dialog"),
+        close: html => console.log("Welcome dialog closed.")
+    });
+    d.render(true);
 });
