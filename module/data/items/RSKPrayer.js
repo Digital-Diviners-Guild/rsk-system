@@ -12,11 +12,11 @@ export default class RSKPrayer extends foundry.abstract.TypeDataModel {
             effectDescription: new fields.StringField(),
             range: new fields.StringField({ initial: "near", options: ["near"] }),
             usageCost: new fields.ArrayField(new fields.SchemaField({
-                type: new fields.StringField({ choices: ["prayerPoints"] }),
+                type: new fields.StringField({ initial: "prayerPoints", choices: ["prayerPoints"] }),
                 amount: new fields.NumberField({ min: 0, max: 30 })
             })),
             usageCostLabel: new fields.StringField(),
-            status: new fields.StringField({ choices: [...rskPrayerStatusEffects.map(se => se.id)] }),
+            status: new fields.StringField({ initial: "thick_skin", choices: [...rskPrayerStatusEffects.map(se => se.id)] }),
         }
     }
 

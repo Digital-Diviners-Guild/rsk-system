@@ -18,7 +18,7 @@ export default class RSKSpell extends foundry.abstract.TypeDataModel {
                 choices: [...Object.keys(CONFIG.RSK.ranges)]
             }),
             usageCost: new fields.ArrayField(new fields.SchemaField({
-                type: new fields.StringField({ choices: [...Object.keys(CONFIG.RSK.runeType)] }),
+                type: new fields.StringField({ initial: "air", choices: [...Object.keys(CONFIG.RSK.runeType)] }),
                 amount: new fields.NumberField()
             })),
             usageCostLabel: new fields.StringField(),

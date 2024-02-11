@@ -4,7 +4,9 @@ import RSKEquippableType from "./RSKEquippableType.js";
 export default class RSKWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
-            attackMethods: new fields.SetField(new fields.StringField({ choices: [...Object.keys(CONFIG.RSK.attackMethods)] }), {
+            attackMethods: new fields.SetField(new fields.StringField({
+                choices: [...Object.keys(CONFIG.RSK.attackMethods)]
+            }), {
                 required: true,
                 initial: ["melee"],
                 choices: [...Object.keys(CONFIG.RSK.attackMethods)]
@@ -21,8 +23,7 @@ export default class RSKWeapon extends RSKEquippableType {
                     ...Object.keys(CONFIG.RSK.weaponMaterials)]
             }),
             ammoType: new fields.StringField({
-                initial: "",
-                choices: ["", ...Object.keys(CONFIG.RSK.ammunitionType)]
+                choices: [...Object.keys(CONFIG.RSK.ammunitionType)]
             }),
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
