@@ -42,6 +42,7 @@ import RSKNpcAction from "./data/items/RSKNpcAction.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 import RSKWeaponSheet from "./sheets/items/RSKWeaponSheet.js";
 import { setBoxes } from "../templates/helpers/rsk-helpers.js";
+import { localizeText } from "./rsk-localize.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -159,7 +160,7 @@ Hooks.once("ready", async function () {
         buttons: {
             ok: {
                 icon: '<i class="fas fa-check"></i>',
-                label: "{{RSK.Understood}}",
+                label: localizeText("RSK.Understood"),
                 callback: () => console.log("Welcome dialog acknowledged.")
             }
         },
