@@ -55,6 +55,7 @@ async function preloadHandlebarsTemplates() {
         "/systems/rsk/templates/items/parts/view-range.hbs",
 
         "/systems/rsk/templates/actors/parts/view-items.hbs",
+        "/systems/rsk/templates/actors/parts/view-inventory.hbs",
         "/systems/rsk/templates/actors/parts/edit-items.hbs",
 
         "/systems/rsk/templates/parts/view-effects.hbs",
@@ -123,9 +124,8 @@ Hooks.once("init", function () {
     Hooks.on("renderChatMessage", onRenderChatMessage);
 
     preloadHandlebarsTemplates();
-    Handlebars.registerHelper({setBoxes});
+    Handlebars.registerHelper({ setBoxes });
     customizeStatusEffects();
-
 
     console.log("rsk ready");
 });
