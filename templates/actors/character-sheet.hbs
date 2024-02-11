@@ -212,42 +212,41 @@
               {{/if}}
             </div>
           </div>
-          {{!-- Todo: Pass the active items image src properly | Fix RSK.Ammunition to be "Ammo"  --}}
           <section class="inventory-active">
             <h3>{{localize "RSK.ActiveSlots"}}</h3>
             <div class="item-active-md">
               <label>{{localize "RSK.Head"}}</label>
-              <img src="{{worn.head.img}}" data-tooltip="{{worn.head}}">
+              <img src="{{worn.head.img}}" data-tooltip="{{worn.head.name}}">
             </div>
             <div class="item-active-md">
               <label>{{localize "RSK.Body"}}</label>
-              <img src="{{worn.head.img}}" data-tooltip="{{worn.body}}">
+              <img src="{{worn.head.img}}" data-tooltip="{{worn.body.name}}">
             </div>
             <div class="item-active-md">
               <label>{{localize "RSK.Leg"}}</label>
-              <img src="{{worn.leg.img}}" data-tooltip="{{worn.leg}}">
+              <img src="{{worn.leg.img}}" data-tooltip="{{worn.leg.name}}">
             </div>
             <div class="item-active-md">
               <label>{{localize "RSK.Arm"}}</label>
-              <img src="{{worn.arm.img}}" data-tooltip="{{worn.arm}}">
+              <img src="{{worn.arm.img}}" data-tooltip="{{worn.arm.name}}">
             </div>
             <div class="item-active-md">
               <label>{{localize "RSK.Weapon"}}</label>
-              <img src="{{worn.weapon.img}}" data-tooltip="{{worn.weapon}}">
+              <img src="{{worn.weapon.img}}" data-tooltip="{{worn.weapon.name}}">
             </div>
             <div class="item-active-md">
               <label>{{localize "RSK.Cape"}}</label>
-              <img src="{{worn.cape.img}}" data-tooltip="{{worn.cape}}">
+              <img src="{{worn.cape.img}}" data-tooltip="{{worn.cape.name}}">
             </div>
             <div class="item-active-sm">
-              <label>{{localize "RSK.Ammunition"}}</label>
-              <img src="{{worn.ammo.img}}" data-tooltip="{{worn.ammo}}">
+              <label>{{localize "RSK.Ammo"}}</label>
+              <img src="{{worn.ammo.img}}" data-tooltip="{{worn.ammo.name}}">
             </div>
           </section>
           <section class="inventory-list">
             {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=inventoryItems }}
           </section>
-          
+
         </div>
         <div class="tab features" data-group="primary" data-tab="description">
           <div class="form-group">
