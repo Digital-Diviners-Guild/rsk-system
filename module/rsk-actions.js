@@ -93,7 +93,7 @@ const rangedAttackAction = async (actor, weapon) => {
 const castingHandlers = {
     prayer: {
         getCastables: (actor) => actor.items.filter(i => i.type === "prayer"
-            && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
+            && actor.system.prayerPoints.value >= (i.system.usageCost[0]?.amount ?? 0)),
         handleCast: (rollResult, castable) => {
             if (rollResult.isSuccess) {
                 const appliedEffects = rskPrayerStatusEffects
@@ -111,7 +111,7 @@ const castingHandlers = {
     },
     summoning: {
         getCastables: (actor) => actor.items.filter(i => i.type === "summoning"
-            && actor.system.prayerPoints.value >= i.system.usageCost[0].amount),
+            && actor.system.prayerPoints.value >= (i.system.usageCost[0]?.amount ?? 0)),
         handleCast: (rollResult, castable) => {
             if (rollResult.isSuccess) {
                 return {
