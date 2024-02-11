@@ -4,32 +4,32 @@ import RSKEquippableType from "./RSKEquippableType.js";
 export default class RSKWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
-            attackMethods: new fields.SetField(new AttackMethodField(), {
+            attackMethods: new fields.SetField(new fields.StringField({ choices: [...Object.keys(CONFIG.RSK.attackMethods)] }), {
                 required: true,
                 initial: ["melee"],
-                options: [...Object.keys(CONFIG.RSK.attackMethods)]
+                choices: [...Object.keys(CONFIG.RSK.attackMethods)]
             }),
             weaponType: new fields.StringField({
                 required: true,
                 initial: "simple",
-                options: [...Object.keys(CONFIG.RSK.weaponTypes)]
+                choices: [...Object.keys(CONFIG.RSK.weaponTypes)]
             }),
             material: new fields.StringField({
                 required: true,
                 initial: "bronze",
-                options: [
+                choices: [
                     ...Object.keys(CONFIG.RSK.weaponMaterials)]
             }),
             ammoType: new fields.StringField({
                 initial: "",
-                options: ["", ...Object.keys(CONFIG.RSK.ammunitionType)]
+                choices: ["", ...Object.keys(CONFIG.RSK.ammunitionType)]
             }),
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
             range: new fields.StringField({
                 required: true,
                 initial: "near",
-                options: [...Object.keys(CONFIG.RSK.ranges)]
+                choices: [...Object.keys(CONFIG.RSK.ranges)]
             }),
             cost: new fields.NumberField({ ...costField }),
             damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes)
@@ -42,7 +42,7 @@ export default class RSKWeapon extends RSKEquippableType {
             activeSlot: new fields.StringField({
                 required: true,
                 initial: "weapon",
-                options: ["weapon", "arm", "ammo"]
+                choices: ["weapon", "arm", "ammo"]
             }),
             isEquipped: new fields.BooleanField({ initial: false }),
             maxStackSize: new fields.NumberField({ initial: 1, min: 1 }),

@@ -15,9 +15,8 @@ export default class RSKSpell extends foundry.abstract.TypeDataModel {
             range: new fields.StringField({
                 required: true,
                 initial: "far",
-                options: [...Object.keys(CONFIG.RSK.ranges)]
+                choices: [...Object.keys(CONFIG.RSK.ranges)]
             }),
-            //todo: what is the diff between choices and options?
             usageCost: new fields.ArrayField(new fields.SchemaField({
                 type: new fields.StringField({ choices: [...Object.keys(CONFIG.RSK.runeType)] }),
                 amount: new fields.NumberField()
@@ -26,7 +25,7 @@ export default class RSKSpell extends foundry.abstract.TypeDataModel {
             spellType: new fields.StringField({
                 required: true,
                 initial: "utility",
-                options: [...Object.keys(CONFIG.RSK.spellTypes)]
+                choices: [...Object.keys(CONFIG.RSK.spellTypes)]
             }),
             statuses: new fields.ArrayField(new fields.StringField()),
             specialEffects: new fields.StringField(),

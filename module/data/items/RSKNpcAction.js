@@ -5,7 +5,7 @@ export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
             type: new fields.StringField({
                 required: true,
                 initial: "melee",
-                options: [...Object.keys(CONFIG.RSK.attackType)]
+                choices: [...Object.keys(CONFIG.RSK.attackType)]
             }),
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
@@ -14,7 +14,7 @@ export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
                     obj[damageType] = new fields.NumberField({ ...positiveNumberField, max: 500 });
                     return obj;
                 }, {})),
-            range: new fields.StringField({ required: true, initial: "near", options: [...Object.keys(CONFIG.RSK.ranges)] }),
+            range: new fields.StringField({ required: true, initial: "near", choices: [...Object.keys(CONFIG.RSK.ranges)] }),
         };
     }
 }

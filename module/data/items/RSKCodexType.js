@@ -3,7 +3,7 @@ import { fields } from "../fields.js";
 export default class RSKCodexType extends foundry.abstract.DataModel {
     static defineSchema() {
         return {
-            actionType: new fields.StringField({ initial: "spell", options: [...Object.keys(CONFIG.RSK.codexTypes)] }),
+            actionType: new fields.StringField({ initial: "spell", choices: [...Object.keys(CONFIG.RSK.codexTypes)] }),
             actions: new fields.ArrayField(new fields.ObjectField())
         };
     }

@@ -12,7 +12,7 @@ export default class RSKArmourType extends RSKEquippableType {
                 material: new fields.StringField({
                     required: true,
                     initial: "cloth",
-                    options: [...Object.keys(CONFIG.RSK.armourMaterials)]
+                    choices: [...Object.keys(CONFIG.RSK.armourMaterials)]
                 }),
                 soak: new fields.NumberField({ required: true, ...positiveNumberField, max: 100 })
             }),

@@ -5,7 +5,7 @@ export default class RSKCreature extends foundry.abstract.TypeDataModel {
             movement: new fields.NumberField({ required: true, min: 1, initial: 1, max: 3 }),
             size: new fields.StringField({
                 initial: "medium",
-                options: [...Object.keys(CONFIG.RSK.size)]
+                choices: [...Object.keys(CONFIG.RSK.size)]
             }),
             lifePoints: new fields.SchemaField(
                 {
