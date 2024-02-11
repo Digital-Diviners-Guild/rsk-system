@@ -11,7 +11,9 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
             { min: 0 });
         if (remainingLifePoints < 1 && !this.parent.statuses.has("dead")) {
             const death = rskStatusEffects.find(x => x.id === "dead");
-            await this.parent.createEmbeddedDocuments("ActiveEffect", [statusToEffect(death)]);
+            await this.parent.createEmbeddedDocuments("ActiveEffect", [{
+                ...statusToEffect(death), flags: { core: { overlay: true } }
+            }]);
         }
         this.parent.update({ "system.lifePoints.value": remainingLifePoints });
     }
