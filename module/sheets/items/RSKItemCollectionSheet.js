@@ -50,12 +50,6 @@ export default class RSKItemCollectionSheet extends RSKItemSheet {
         }
     }
 
-    //todo: a little better, we can use some of the inventory logic 
-    // to enforce an item collection doesn't exceed an inventory
-    // though there is still a lot in this sheet that is 'inventory' like
-    // I wonder what else we can move out that is similiar with character inventory.
-    // both 'add/remove/stack' based on 'items'.  
-    // both need to modify the system quantity
     async _onDropItem(event, data) {
         const item = await Item.fromDropData(data);
         if (this.invalidTypes.includes(item.type)) return;
