@@ -76,7 +76,7 @@ const rangedAttackAction = async (actor, weapon) => {
     return {
         actionType: "ranged",
         ...actionResult,
-        usage: [{ operation: 'removeItem', params: [ammo] }], //todo: probably use uuids
+        usage: [{ operation: 'removeItem', params: [ammo.uuid] }],
         name: weapon.isThrownWeapon() ? weapon.name : `${weapon.name} + ${ammo.name}`,
         attackData: weapon.isThrownWeapon()
             ? weapon.system

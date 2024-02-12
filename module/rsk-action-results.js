@@ -1,7 +1,10 @@
 import { rskPrayerStatusEffects } from "./effects/statuses.js";
 import { uiService } from "./rsk-ui-service.js";
 
-const removeItem = (actor, item) => actor.system.removeItem(item);
+const removeItem = (actor, itemUuid) => {
+    const item = fromUuidSync(itemUuid);
+    if (item) { actor.system.removeItem(item); }
+};
 
 const spendResource = (actor, resourceType, amount) => {
     switch (resourceType) {
