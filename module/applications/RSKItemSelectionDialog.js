@@ -5,7 +5,7 @@ export default class RSKItemSelectionDialog extends Application {
 
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            title: localizeText("RSK.ItemSelection"), //todo: could this title be more dynamic to match the item type?
+            title: localizeText("RSK.ItemSelection"),
             template: 'systems/rsk/templates/applications/item-selection-dialog.hbs',
             classes: ["rsk", "dialog"],
             width: 480,
