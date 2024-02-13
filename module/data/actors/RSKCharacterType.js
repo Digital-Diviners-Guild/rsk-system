@@ -198,10 +198,15 @@ export default class RSKCharacterType extends RSKActorType {
     // though this does cause a problem with dual wielding, you would need 'off-hand' variant weapons, which is fine.
     // when drag and drop occurs, we need to validate the targetted slot is allowed, if not, use general drop rules.
     async equip(itemToEquip) {
-        const currentEquippedWeapon = this.getActiveItems().find(i => i.system.equippedInSlot === "weapon");
-        const targetSlot = itemToEquip.isOnlyAmmo() || currentEquippedWeapon?.usesItemAsAmmo(itemToEquip)
+        const currentEquippedWeapons = this.getActiveItems().filter(i =>
+            i.isWeapon()
+            && ["weapon", "arm"].includes(i.system.equippedInSlot));
+        //todo: not a ternary - needs a func or switch or something
+        const targetSlot = itemToEquip.isOnlyAmmo() || currentEquippedWeapons?.some(w => w.usesItemAsAmmo(itemToEquip))
             ? "ammo"
-            : itemToEquip.system.activeSlot;
+            : currentEquippedWeapons.find(w => w.system.equippedInSlot === "weapon")?.canDualWieldWith(itemToEquip)
+                ? "arm"
+                : itemToEquip.system.activeSlot; //handling it like ammo for now to poc
         if (this.parent.flags?.rsk?.disabledSlots?.includes(targetSlot)) {
             uiService.showNotification(localizeText("RSK.ErrorActiveSlotIsDisabled"));
             return;

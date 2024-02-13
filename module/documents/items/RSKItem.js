@@ -40,6 +40,12 @@ export default class RSKItem extends Item {
             && this.system.ammoType === item.system.ammoType;
     }
 
+    canDualWieldWith(item) {
+        return this.isWeapon()
+            && item.isWeapon()
+            && this != item; //todo: other logic like - is it also one handed, not 2 handed
+    }
+
     delete() {
         if (this.type === "background" && this.actor) {
             this.system.removeBackgroundSkillImprovements(this.actor);
