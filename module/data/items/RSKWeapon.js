@@ -47,11 +47,8 @@ export default class RSKWeapon extends RSKEquippableType {
             }),
             isEquipped: new fields.BooleanField({ initial: false }),
             maxStackSize: new fields.NumberField({ initial: 1, min: 1 }),
+            bulk: new fields.NumberField({ required: true, initial: 1, min: 1 }),
             quantity: new fields.NumberField({ initial: 1 }),
-            //todo: feels like maybe we don't need this?
-            // but if we want to 'equip' ammo, this is needed for now
-            // since darts may end up in 1 of 3 slots and we need to know
-            // where it ended up.
             equippedInSlot: new fields.StringField()
         }
     };

@@ -18,20 +18,17 @@ export default class RSKArmourType extends RSKEquippableType {
             }),
             specialEffects: new fields.StringField(),
             isEquipped: new fields.BooleanField(),
-            //todo: is armour stackable except when "heavy"?
-            // if so, then 'heavy' can be implemented as an active effect when creating the item in foundry
-            // it can OVERRIDE the system.maxStackSize = 1, allowing it to default to 3 for items that are not heavy
-            maxStackSize: new fields.NumberField({ required: true, initial: 1, min: 1 }),
+            maxStackSize: new fields.NumberField({ required: true, initial: 3, min: 1 }),
+            //todo: use this in inventory logic instead to control how many slots are used
+            // when stowed and equipped.
+            // when bulk > 1 an equipping we need dialog to chose slots to disable.
+            bulk: new fields.NumberField({ required: true, initial: 1, min: 1 }),
             quantity: new fields.NumberField({ initial: 1 }),
             activeSlot: new fields.StringField({
                 required: true,
                 initial: "body",
                 choices: [...Object.keys(CONFIG.RSK.armourActiveSlotType.values)]
             }),
-            //todo: feels like maybe we don't need this?
-            // but if we want to 'equip' ammo, this is needed for now
-            // since darts may end up in 1 of 3 slots and we need to know
-            // where it ended up.
             equippedInSlot: new fields.StringField()
         }
     }
