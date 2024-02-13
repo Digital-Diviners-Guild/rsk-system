@@ -46,12 +46,14 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     _prepareEquipment(context) {
         const equipped = context.items.filter(i => i.system.isEquipped);
         context.activeSlots = Object.keys(CONFIG.RSK.activeSlotType)
-            .filter(slot => !(this.actor.flags?.rsk?.disabledSlots?.includes(slot) ?? false))
             .map((slot) => {
                 return {
                     label: localizeText(slot),
                     itemName: equipped.find(e => e.system.equippedInSlot === slot)?.name ?? "",
                     itemImg: equipped.find(e => e.system.equippedInSlot === slot)?.img ?? "",
+                    style: (this.actor.flags?.rsk?.disabledSlots?.includes(slot) ?? false)
+                        ? "item-active-md disabled"
+                        : "item-active-md"
                 }
             });
         context.ammo = equipped.find(i => i.system.equippedInSlot === "ammo");
