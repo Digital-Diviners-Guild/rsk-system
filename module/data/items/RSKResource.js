@@ -21,7 +21,10 @@ export default class RSKResource extends foundry.abstract.TypeDataModel {
             uses: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
             maxStackSize: new fields.NumberField({ initial: 3 }),
-            bulk: new fields.NumberField({ required: true, initial: 1, min: 1 }),
+            bulk: new fields.SchemaField({
+                value: new fields.NumberField({ required: true, initial: 1, min: 1 }), 
+                modifier: new fields.NumberField()
+            }),
             quantity: new fields.NumberField({ initial: 1 }),
         }
     }

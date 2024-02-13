@@ -22,7 +22,10 @@ export default class RSKArmourType extends RSKEquippableType {
             //todo: use this in inventory logic instead to control how many slots are used
             // when stowed and equipped.
             // when bulk > 1 an equipping we need dialog to chose slots to disable.
-            bulk: new fields.NumberField({ required: true, initial: 1, min: 1 }),
+            bulk: new fields.SchemaField({
+                value: new fields.NumberField({ required: true, initial: 1, min: 1 }), 
+                modifier: new fields.NumberField()
+            }),
             quantity: new fields.NumberField({ initial: 1 }),
             activeSlot: new fields.StringField({
                 required: true,
