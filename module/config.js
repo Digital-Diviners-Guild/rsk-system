@@ -48,6 +48,8 @@ RSK.damageTypes = {
     ...RSK.elementalDamageTypes,
 }
 
+// todo: we need to add the attack/defense modifiers
+// not actually clear on how they should be applied yet.
 RSK.size = {
     tiny: {
         label: "RSK.Tiny",
