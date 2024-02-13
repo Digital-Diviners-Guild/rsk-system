@@ -143,7 +143,7 @@ Hooks.once("ready", async function () {
 
     // todo: explore Dialog
     // could probably use it instead of creating our own 
-    let d = new Dialog({
+    const d = new Dialog({
         title: "Early Access Disclaimer",
         content: `
         <h3>Welcome to RSK!</h3>

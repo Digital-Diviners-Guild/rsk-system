@@ -45,13 +45,15 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     _prepareEquipment(context) {
         const equipped = context.items.filter(i => i.system.isEquipped);
-        context.activeSlots = Object.keys(CONFIG.RSK.activeSlotType).map((slot) => {
-            return {
-                label: localizeText(slot),
-                itemName: equipped.find(e => e.system.equippedInSlot === slot)?.name ?? "",
-                itemImg: equipped.find(e => e.system.equippedInSlot === slot)?.img ?? "",
-            }
-        });
+        context.activeSlots = Object.keys(CONFIG.RSK.activeSlotType)
+            .filter(slot => !(this.actor.flags?.rsk?.disabledSlots?.includes(slot) ?? false))
+            .map((slot) => {
+                return {
+                    label: localizeText(slot),
+                    itemName: equipped.find(e => e.system.equippedInSlot === slot)?.name ?? "",
+                    itemImg: equipped.find(e => e.system.equippedInSlot === slot)?.img ?? "",
+                }
+            });
         context.ammo = equipped.find(i => i.system.equippedInSlot === "ammo");
         context.equippedIsRanged = this.actor.system.getActiveItems().filter(i => i.isRangedWeapon()).length > 0;
     }
@@ -66,6 +68,17 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 const dialogOptions = type === "skill" ? { defaultSkill: value } : { defaultAbility: value };
                 await this.handleSkillCheck(dialogOptions);
             });
+        if (!this.isEditable) return;
+
+        html.find('.item-equip').click(async ev => {
+            const li = $(ev.currentTarget).parents(".item");
+            const item = this.actor.items.get(li.data("itemId"));
+            await this.actor.system.equip(item);
+        });
+
+        html.find('.apply-backgrounds').click(ev => {
+            this.actor.system.applyBackgrounds();
+        });
 
         html.find('.increase-item-quantity').click(async ev => {
             const s = $(ev.currentTarget);

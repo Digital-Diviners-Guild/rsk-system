@@ -2,6 +2,8 @@ import RSKCreature from "./RSKCreature.js";
 import { fields, costField } from "../fields.js";
 import RSKActorType from "./RSKActorType.js";
 import { canAddItem } from "../../rsk-inventory.js";
+import { uiService } from "../../rsk-ui-service.js";
+import { localizeText } from "../../rsk-localize.js";
 
 export default class RSKCharacterType extends RSKActorType {
     static defineSchema() {
@@ -195,24 +197,45 @@ export default class RSKCharacterType extends RSKActorType {
     // most things can only go in one slot.
     // though this does cause a problem with dual wielding, you would need 'off-hand' variant weapons, which is fine.
     // when drag and drop occurs, we need to validate the targetted slot is allowed, if not, use general drop rules.
-    equip(itemToEquip) {
-        const currentEquipped = this.getActiveItems().find(i => i.system.equippedInSlot === itemToEquip.system.activeSlot);
-        if (itemToEquip.isOnlyAmmo() || currentEquipped?.usesItemAsAmmo(itemToEquip)) {
-            //todo: the ammo detection needs some work since 'active' slot is only capturing the primary slot preference
-            // this mihght be solvable with the attackMethods set?
-            const ammoSlot = "ammo";
-            const currentEquippedAmmo = this.getActiveItems().find(i => i.system.equippedInSlot === ammoSlot);
-            if (currentEquippedAmmo && currentEquippedAmmo !== itemToEquip) {
-                currentEquippedAmmo.system.equip(ammoSlot);
-            }
-            itemToEquip.system.equip(ammoSlot);
+    async equip(itemToEquip) {
+        const currentEquippedWeapon = this.getActiveItems().find(i => i.system.equippedInSlot === "weapon");
+        const targetSlot = itemToEquip.isOnlyAmmo() || currentEquippedWeapon?.usesItemAsAmmo(itemToEquip)
+            ? "ammo"
+            : itemToEquip.system.activeSlot;
+        if (this.parent.flags?.rsk?.disabledSlots?.includes(targetSlot)) {
+            uiService.showNotification(localizeText("RSK.ErrorActiveSlotIsDisabled"));
             return;
         }
-
-        if (currentEquipped && currentEquipped !== itemToEquip) {
-            currentEquipped.system.equip(currentEquipped.system.equippedInSlot);
+        const currentEquipped = this.getActiveItems().find(i => i.system.equippedInSlot === targetSlot);
+        let updates = {};
+        if (currentEquipped) {
+            const unequipResult = currentEquipped.system.unequip();
+            if (unequipResult?.freedSlot) {
+                updates["flags.rsk.disabledSlots"] = this.parent.flags.rsk.disabledSlots
+                    .filter(s => s !== unequipResult.freedSlot);
+            }
         }
-        itemToEquip.system.equip(itemToEquip.system.activeSlot);
+        const result = currentEquipped !== itemToEquip
+            ? await itemToEquip.system.equip(targetSlot)
+            : {};
+        if (result.error) {
+            uiService.showNotification(result.error);
+            return;
+        }
+        if (result.disablesSlot) {
+            const currentEquippedInDisabledSlot = this.getActiveItems().find(i => i.system.equippedInSlot === result.disablesSlot);
+            if (currentEquippedInDisabledSlot) {
+                const unequipResult = currentEquippedInDisabledSlot.system.unequip();
+                if (unequipResult?.freedSlot) {
+                    updates["flags.rsk.disabledSlots"] = this.parent.flags.rsk.disabledSlots
+                        .filter(s => s !== unequipResult.freedSlot);
+                }
+            }
+            updates["flags.rsk.disabledSlots"] = this.parent.flags?.rsk?.disabledSlots
+                ? [...this.parent.flags.rsk.disabledSlots, result.disablesSlot]
+                : [result.disablesSlot];
+        }
+        this.parent.update(updates);
     }
 
     // todo: armour soak may be good to put in 
