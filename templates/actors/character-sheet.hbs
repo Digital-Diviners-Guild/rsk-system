@@ -217,7 +217,7 @@
               </div>
             </header>
             {{#each activeSlots as |activeSlot|}}
-            <div class="item-active-md disabled">
+            <div class="{{activeSlot.style}}">
               <label>{{activeSlot.label}}</label>
               <img src="{{activeSlot.itemImg}}" data-tooltip="{{activeSlot.itemName}}">
             </div>
