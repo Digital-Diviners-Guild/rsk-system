@@ -208,39 +208,20 @@
           </div>
           <section class="inventory-active">
             <header>
-              <h3 class="w-50">{{localize "RSK.ActiveSlots"}}</h3><div class="w-50">
+              <h3 class="w-50">{{localize "RSK.ActiveSlots"}}</h3>
+              <div class="w-50">
                 <h3 class="flex-end">
                   <label>{{localize "RSK.Gold"}}</label>
                   <input name="system.gold" type="number" data-dtype="Number" value="{{system.gold}}">
                 </h3>
               </div>
             </header>
-              {{#each activeSlots as |activeSlot|}}
-            
+            {{#each activeSlots as |activeSlot|}}
             <div class="item-active-md disabled">
               <label>{{activeSlot.label}}</label>
               <img src="{{activeSlot.itemImg}}" data-tooltip="{{activeSlot.itemName}}">
             </div>
-            <div class="item-active-md">
-              <label>{{localize "RSK.Body"}}</label>
-              <img src="{{worn.body.img}}" data-tooltip="{{worn.body.name}}">
-            </div>
-            <div class="item-active-md">
-              <label>{{localize "RSK.Leg"}}</label>
-              <img src="{{worn.leg.img}}" data-tooltip="{{worn.leg.name}}">
-            </div>
-            <div class="item-active-md">
-              <label>{{localize "RSK.Arm"}}</label>
-              <img src="{{worn.arm.img}}" data-tooltip="{{worn.arm.name}}">
-            </div>
-            <div class="item-active-md">
-              <label>{{localize "RSK.Weapon"}}</label>
-              <img src="{{worn.weapon.img}}" data-tooltip="{{worn.weapon.name}}">
-            </div>
-            <div class="item-active-md">
-              <label>{{localize "RSK.Cape"}}</label>
-              <img src="{{worn.cape.img}}" data-tooltip="{{worn.cape.name}}">
-            </div>
+            {{/each}}
             <div class="item-active-sm">
               <label>{{localize "RSK.Ammo"}}</label>
               <img src="{{ammo.img}}" data-tooltip="{{ammo.name}}">
