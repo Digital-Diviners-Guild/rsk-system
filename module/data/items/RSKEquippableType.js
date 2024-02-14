@@ -11,7 +11,9 @@ export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
     async equip(slot) {
         //todo: should 2 handed weapons disable the other arm slot?
         let slotToDisable;
-        if (this.bulk.value + this.bulk.modifier > 1) {
+        if (this.hasOwnProperty("disablesSlot") && this.disablesSlot) {
+            slotToDisable = { id: this.disablesSlot };
+        } else if (this.parent.totalBulk() > 1) {
             const otherSlots = Object.keys(CONFIG.RSK.activeSlotType)
                 //todo: this may not be totally accurate (darts) as activeSlot would likely say 'weapon' but it could be intended for the ammo slot here
                 // in which case we would not want to show ammo to disable

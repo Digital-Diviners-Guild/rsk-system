@@ -23,6 +23,11 @@
             <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
                 {{system.weaponType}}
+                {{#if isTwoHanded}}
+                {{localize "RSK.TwoHanded"}}
+                {{else}}
+                {{localize "RSK.OneHanded"}}
+                {{/if}}
             </div>
             <div>
                 <strong>{{localize "RSK.Material"}}</strong>
@@ -79,6 +84,11 @@
                 <select name="system.weaponType">
                     {{selectOptions config.weaponTypes selected=system.weaponType localize=true}}
                 </select>
+            </div>
+            <div>
+                <strong>{{localize "RSK.IsTwoHanded"}}</strong>
+                <input type="checkbox" class="is-two-handed" name="isTwoHanded" value="{{isTwoHanded}}" {{checked
+                    isTwoHanded}}>
             </div>
             <div>
                 <strong>{{localize "RSK.Material"}}</strong>
