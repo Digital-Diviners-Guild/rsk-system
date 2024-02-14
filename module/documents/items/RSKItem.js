@@ -10,6 +10,10 @@ export default class RSKItem extends Item {
         return super._preUpdate(changed, options, user);
     }
 
+    totalBulk() {
+        return this.system.bulk.value + this.system.bulk.modifier;
+    }
+
     isWeapon() {
         return this.type === "weapon";
     }
@@ -43,7 +47,8 @@ export default class RSKItem extends Item {
     canDualWieldWith(item) {
         return this.isWeapon()
             && item.isWeapon()
-            && this != item; //todo: other logic like - is it also one handed, not 2 handed
+            && this != item
+            && this.totalBulk() + item.totalBulk() < 3;
     }
 
     delete() {

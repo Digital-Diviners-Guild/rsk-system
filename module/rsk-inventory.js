@@ -1,4 +1,4 @@
-export const calculateStackSize = (item) => item.system.quantity * (item.system.bulk.value + item.system.bulk.modifier);
+export const calculateStackSize = (item) => item.system.quantity * item.totalBulk();
 
 export const calculateUsedSlots = (items) =>
     items
