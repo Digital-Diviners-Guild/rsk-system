@@ -4,6 +4,7 @@ import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourChar
 import { localizeObject, localizeText } from "../../rsk-localize.js";
 import { attackAction, castAction } from "../../rsk-actions.js";
 import { calculateUsedSlots } from "../../rsk-inventory.js";
+import { uiService } from "../../rsk-ui-service.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     getData() {
@@ -159,10 +160,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     async characterAttackAction() {
         //todo: dual wield support
-        const weapon = this.actor.system
-            .getActiveItems()
-            .find(i => i.isWeapon() && i.system.equippedInSlot === "weapon")
-            ?? {
+        const weapons = this.actor.system.getActiveItems().filter(i => i.isWeapon());
+        let weapon = {
             name: localizeText("RSK.Unarmed"),
             system: {
                 weaponType: "simple",
@@ -170,6 +169,18 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 damageEntries: { crush: 1 }
             }
         };
+        if (weapons?.length > 1) {
+            //todo: better flow, maybe a dual wield dialog
+            // that allows you to select the weapon and if it is a 'map' or not for disadvantage
+            // this dialog could maybe call the attack for you so you don't need to go through 
+            // two dialogs?
+            const result = await uiService.showDialog("select-item", { context: { items: weapons } });
+            if (!result.confirmed) return;
+            debugger;
+            weapon = weapons.find(i => i._id === result.id);
+        } else if (weapons?.length > 0) {
+            weapon = weapons[0];
+        }
         attackAction(this.actor, weapon);
     }
 
