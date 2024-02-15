@@ -47,10 +47,12 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const equipped = context.items.filter(i => i.system.isEquipped);
         context.activeSlots = Object.keys(CONFIG.RSK.activeSlotType)
             .map((slot) => {
+                const inSlot = equipped.find(e => e.system.equippedInSlot === slot);
                 return {
                     label: localizeText(slot),
-                    itemName: equipped.find(e => e.system.equippedInSlot === slot)?.name ?? "",
-                    itemImg: equipped.find(e => e.system.equippedInSlot === slot)?.img ?? "",
+                    itemId: inSlot?._id ?? "",
+                    itemName: inSlot?.name ?? "",
+                    itemImg: inSlot?.img ?? "",
                     style: (this.actor.flags?.rsk?.disabledSlots?.includes(slot) ?? false)
                         ? "item-active-md disabled"
                         : "item-active-md"
@@ -76,6 +78,16 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             const li = $(ev.currentTarget).parents(".item");
             const item = this.actor.items.get(li.data("itemId"));
             await this.actor.system.equip(item);
+        });
+
+        html.find('.item-unequip').click(async ev => {
+            //todo: this isn't in a list so it is different than 'equip'
+            // might be a problem?
+            const itemId = $(ev.currentTarget).data("itemId");
+            if (!itemId) return;
+            const item = this.actor.items.get(itemId);
+            if (!item) return;
+            this.actor.system.unequip(item);
         });
 
         html.find('.apply-backgrounds').click(ev => {

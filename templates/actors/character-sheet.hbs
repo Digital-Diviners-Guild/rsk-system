@@ -217,12 +217,12 @@
               </div>
             </header>
             {{#each activeSlots as |activeSlot|}}
-            <div class="{{activeSlot.style}}">
+            <div class="item-unequip {{activeSlot.style}}" data-item-id="{{activeSlot.itemId}}">
               <label>{{activeSlot.label}}</label>
               <img src="{{activeSlot.itemImg}}" data-tooltip="{{activeSlot.itemName}}">
             </div>
             {{/each}}
-            <div class="item-active-sm">
+            <div class="item-unequip item-active-sm" data-item-id="{{ammo._id}}">
               <label>{{localize "RSK.Ammo"}}</label>
               <img src="{{ammo.img}}" data-tooltip="{{ammo.name}}">
             </div>

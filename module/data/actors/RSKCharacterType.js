@@ -214,11 +214,8 @@ export default class RSKCharacterType extends RSKActorType {
         const currentEquipped = this.getActiveItems().find(i => i.system.equippedInSlot === targetSlot);
         let updates = {};
         if (currentEquipped) {
-            const unequipResult = currentEquipped.system.unequip();
-            if (unequipResult?.freedSlot) {
-                updates["flags.rsk.disabledSlots"] = this.parent.flags.rsk.disabledSlots
-                    .filter(s => s !== unequipResult.freedSlot);
-            }
+            const unequipResult = this.unequip(currentEquipped, false);
+            updates = foundry.utils.mergeObject(updates, unequipResult);
         }
         const result = currentEquipped !== itemToEquip
             ? await itemToEquip.system.equip(targetSlot)
@@ -230,17 +227,27 @@ export default class RSKCharacterType extends RSKActorType {
         if (result.disablesSlot) {
             const currentEquippedInDisabledSlot = this.getActiveItems().find(i => i.system.equippedInSlot === result.disablesSlot);
             if (currentEquippedInDisabledSlot) {
-                const unequipResult = currentEquippedInDisabledSlot.system.unequip();
-                if (unequipResult?.freedSlot) {
-                    updates["flags.rsk.disabledSlots"] = this.parent.flags.rsk.disabledSlots
-                        .filter(s => s !== unequipResult.freedSlot);
-                }
+                const unequipResult = this.unequip(currentEquippedInDisabledSlot, false);
+                updates = foundry.utils.mergeObject(updates, unequipResult);
             }
             updates["flags.rsk.disabledSlots"] = this.parent.flags?.rsk?.disabledSlots
                 ? [...this.parent.flags.rsk.disabledSlots, result.disablesSlot]
                 : [result.disablesSlot];
         }
         this.parent.update(updates);
+    }
+
+    unequip(item, update = true) {
+        const unequipResult = item.system.unequip();
+        let updates = {};
+        if (unequipResult?.freedSlot) {
+            updates["flags.rsk.disabledSlots"] = this.parent.flags.rsk.disabledSlots
+                .filter(s => s !== unequipResult.freedSlot) ?? [];
+        }
+        if (update && updates) {
+            this.parent.update(updates);
+        }
+        return updates;
     }
 
     // todo: armour soak may be good to put in 
