@@ -59,7 +59,9 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 }
             });
         context.ammo = equipped.find(i => i.system.equippedInSlot === "ammo");
-        context.equippedIsRanged = this.actor.system.getActiveItems().filter(i => i.isRangedWeapon()).length > 0;
+        const weapons = this.actor.system.getActiveItems().filter(i => i.isWeapon());
+        context.equippedIsRanged = weapons.length > 0 ? weapons.every(i => i.isRangedWeapon()) : false;
+        context.equippedIsHybrid = weapons.some(i => i.isRangedWeapon()) && weapons.some(i => i.isMeleeWeapon());
     }
 
     activateListeners(html) {
