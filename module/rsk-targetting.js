@@ -17,5 +17,5 @@ export function isInRange(actorToken, targetToken, range) {
 // - could validate range as well
 export function getTargets(actor) {
     const targets = game.user.targets;
-    return targets.map(t => t.actor.uuid);
+    return targets.length > 0 ? targets.map(t => t.actor.uuid) : [actor.uuid];
 }

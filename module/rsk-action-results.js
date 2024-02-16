@@ -27,7 +27,9 @@ const addEffects = async (actor, effects) => {
 };
 
 const removeEffects = async (actor, effectIds) => {
-    await actor.deleteEmbeddedDocuments("ActiveEffect", [...effectIds]);
+    if (actor.effects.some(e => effectIds.includes(e.id))) {
+        await actor.deleteEmbeddedDocuments("ActiveEffect", [...effectIds]);
+    }
 };
 
 const receiveDamage = async (actor, attackData) => {
@@ -96,7 +98,10 @@ const outcomeHandlers = {
 export const applyOutcome = async (targets, actionResult) => {
     const outcomeHandler = outcomeHandlers[actionResult.actionType]
     for (let target of targets) {
-        let stateChanges = await outcomeHandler(target, actionResult);
+        let stateChanges = actionResult.targetStateChanges;
+        if (outcomeHandler) {
+            stateChanges = await outcomeHandler(target, actionResult);
+        }
         await applyStateChanges(target, stateChanges);
     }
 }

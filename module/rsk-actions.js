@@ -35,11 +35,7 @@ export const consumeAction = async (actor, consumable) => {
         .filter(e => e.statuses
             .filter(s => consumable.system.statusesRemoved.includes(s.id)))
         .map(ap => ap._id);
-    const result = [
-        {
-            operation: 'removeItem',
-            params: [consumable.uuid]
-        },
+    const targetStateChanges = [
         {
             operation: 'addLifePoints',
             params: [consumable.system.lifePointsRestored]
@@ -53,7 +49,25 @@ export const consumeAction = async (actor, consumable) => {
             params: [removedEffects]
         }
     ];
-    await applyStateChanges(actor, result);
+    await applyStateChanges(actor, [{ operation: 'removeItem', params: [consumable.uuid] }]);
+    const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
+        {
+            name: actor.name,
+            actionData: consumable.system,
+            hideRollResults: true
+        });
+    const targetUuids = getTargets(actor);
+    await ChatMessage.create({
+        content: content,
+        flags: {
+            rsk: {
+                targetUuids: targetUuids,
+                actionType: "consume",
+                actionData: consumable.system,
+                targetStateChanges
+            }
+        }
+    });
 }
 
 export const attackAction = async (actor, weapon) => {
