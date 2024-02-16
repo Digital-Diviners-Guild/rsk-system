@@ -77,6 +77,10 @@ Hooks.once("init", function () {
         dice: RSKDice
     };
 
+    CONFIG.Combat.initiative = {
+        formula: '2d6 + @armourValue'
+    };
+
     CONFIG.RSK = RSK;
     CONFIG.Item.documentClass = RSKItem;
     CONFIG.Item.dataModels = {

@@ -65,7 +65,8 @@ export default class RSKCharacterType extends RSKActorType {
         const systemData = this.toObject();
         return {
             skills: { ...systemData.skills },
-            abilities: { ...systemData.abilities }
+            abilities: { ...systemData.abilities },
+            armourValue: this.getArmourValue()
         };
     }
 

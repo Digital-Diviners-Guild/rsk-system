@@ -14,6 +14,12 @@ export default class RSKNpcType extends RSKActorType {
         };
     }
 
+    getRollData() {
+        return {
+            armourValue: this.getArmourValue()
+        }
+    }
+
     getArmourValue() {
         return this.armourValue;
     }
