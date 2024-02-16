@@ -6,7 +6,82 @@
     </div>
 </header>
 <ul class="items-list">
-    {{#each items as |item|}}
+    {{!-- todo: clean this up --}}
+    {{#each consumables as |consumable|}}
+    <li class="item" data-item-id="{{consumable._id}}" data-inventory-item-id="{{consumable._id}}">
+        <div class="item-name">
+            {{!-- todo attach to item image --}}
+            <img src="{{consumable.img}}" data-tooltip="{{consumable.name}}">
+            <h4><a data-action="toggle-summary">{{consumable.name}}</a></h4>
+        </div>
+        <div class="item-quantity">
+            {{#if consumable.system.quantity}}
+            <a class="item-control decrease-item-quantity" data-item-id="{{consumable.id}}">-</a>
+            <span>{{consumable.system.quantity}}</span>
+            <a class="item-control increase-item-quantity" data-item-id="{{consumable.id}}">+</a>
+            {{/if}}
+        </div>
+        {{!-- todo reduce quantity, don't remove all --}}
+        <div class="item-controls">
+            <a class="item-control item-consume" data-tooltip="{{localize " RSK.ConsumeItem"}}"><i
+                    class="fas fa-meat"></i></a>
+            <a class="item-control chat-item" data-item-type="{{consumable.type}}" data-item-id="{{consumable._id}}"
+                data-tooltip="{{localize " RSK.ChatItem"}}">
+                <i class="fas fa-message"></i>
+            </a>
+            <a class="item-control item-delete" data-tooltip="{{localize " RSK.RemoveItem"}}"><i
+                    class="fas fa-trash"></i></a>
+        </div>
+        {{!-- todo show/hide summary using toggle-summary action --}}
+        <div class="item-summary" hidden="hidden">
+            {{#if item.system.description}}
+            <div class="item-content">
+                {{item.system.description}}
+            </div>
+            {{/if}}
+        </div>
+    </li>
+    {{/each}}
+
+
+    {{#each equippables as |equippable|}}
+    {{!-- todo: don't have both item-id and inventory-item-id (inv id is for drag n drop) --}}
+    <li class="item" data-item-id="{{equippable._id}}" data-inventory-item-id="{{equippable._id}}">
+        <div class="item-name">
+            {{!-- todo attach to item image --}}
+            <img src="{{equippable.img}}" data-tooltip="{{equippable.name}}">
+            <h4><a data-action="toggle-summary">{{equippable.name}}</a></h4>
+        </div>
+        <div class="item-quantity">
+            {{#if equippable.system.quantity}}
+            <a class="item-control decrease-item-quantity" data-item-id="{{equippable.id}}">-</a>
+            <span>{{equippable.system.quantity}}</span>
+            <a class="item-control increase-item-quantity" data-item-id="{{equippable.id}}">+</a>
+            {{/if}}
+        </div>
+        {{!-- todo reduce quantity, don't remove all --}}
+        <div class="item-controls">
+            <a class="item-control item-equip" data-tooltip="{{localize " RSK.EquipItem"}}"><i
+                    class="fas fa-shirt"></i></a>
+            <a class="item-control chat-item" data-item-type="{{equippable.type}}" data-item-id="{{equippable._id}}"
+                data-tooltip="{{localize " RSK.ChatItem"}}">
+                <i class="fas fa-message"></i>
+            </a>
+            <a class="item-control item-delete" data-tooltip="{{localize " RSK.RemoveItem"}}"><i
+                    class="fas fa-trash"></i></a>
+        </div>
+        {{!-- todo show/hide summary using toggle-summary action --}}
+        <div class="item-summary" hidden="hidden">
+            {{#if item.system.description}}
+            <div class="item-content">
+                {{item.system.description}}
+            </div>
+            {{/if}}
+        </div>
+    </li>
+    {{/each}}
+
+    {{#each miscItems as |item|}}
     {{!-- todo: don't have both item-id and inventory-item-id (inv id is for drag n drop) --}}
     <li class="item" data-item-id="{{item._id}}" data-inventory-item-id="{{item._id}}">
         <div class="item-name">
@@ -23,14 +98,6 @@
         </div>
         {{!-- todo reduce quantity, don't remove all --}}
         <div class="item-controls">
-            {{!-- todo: need to only show when consumable --}}
-            <a class="item-control item-consume" data-tooltip="{{localize " RSK.ConsumeItem"}}"><i
-                    class="fas fa-shirt"></i></a>
-            {{!-- todo expand logic to change icon type (i.e. equip armor/weapon/ammo) --}}
-            {{#if item.system.activeSlot}}
-            <a class="item-control item-equip" data-tooltip="{{localize " RSK.EquipItem"}}"><i
-                    class="fas fa-shirt"></i></a>
-            {{/if}}
             <a class="item-control chat-item" data-item-type="{{item.type}}" data-item-id="{{item._id}}"
                 data-tooltip="{{localize " RSK.ChatItem"}}">
                 <i class="fas fa-message"></i>

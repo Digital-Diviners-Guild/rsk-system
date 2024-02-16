@@ -23,7 +23,12 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         //todo: this sets the actual item as the item so we can call methods on it
         // perhaps it would be better to 'toObject' them and look up the actual item
         // when clicked? saying this because I changed this line to do some mapping and it broke buttons
+        //todo: it is nice to have things separated out for both filtering and action buttons
+        // though its a naive approach that reduces flexibility. need to improve this.
         context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("maxStackSize"));
+        context.equippables = context.inventoryItems.filter(i => i.system.hasOwnProperty("activeSlot"));
+        context.consumables = context.inventoryItems.filter(i => i.type === "consumable");
+        context.miscItems = context.inventoryItems.filter(i => !(i.system.hasOwnProperty("activeSlot") || i.type === "consumable"));
         context.usedSlots = calculateUsedSlots(this.actor.items);
     }
 
