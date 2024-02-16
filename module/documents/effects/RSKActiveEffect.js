@@ -9,9 +9,6 @@ export default class RSKActiveEffect extends ActiveEffect {
         }
         // these will get created directly on the actor when consumed
         // don't want them to 'transfer' on pickup.
-        if (this.parent.type === "consumable") {
-            return false;
-        }
-        return false;
+        return this.parent.type === "consumable";
     }
 }

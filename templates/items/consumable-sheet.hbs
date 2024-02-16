@@ -54,7 +54,6 @@
                 </p>
             </div>
             {{!-- I feel like the to add and remove could be done a lot better --}}
-            {{!-- I feel like the to add and remove could be done a lot better --}}
             <div class="form-group">
                 <label>{{localize "RSK.StatusesToRemove"}}:</label>
                 <ol class="items-list">
@@ -95,5 +94,7 @@
                     <i class="fas fa-plus"></i> {{localize "RSK.AddStatusToAdd"}}
                 </a>
             </div>
+            <strong>{{localize "RSK.Effects"}}</strong>
+            {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
     </section>
 </form>

@@ -26,9 +26,11 @@ export const npcAction = async (npc, npcAction) => {
 }
 
 export const consumeAction = async (actor, consumable) => {
-    const addedEffects = consumable.system.statusesAdded
+    const addedStatusEffects = consumable.system.statusesAdded
         .map(s => statusToEffect(
             CONFIG.statusEffects.find(se => se.id === s)));
+    const addedEffects = consumable.effects.map(
+        e => foundry.utils.deepClone(e.toObject()))
     const removedEffects = actor.effects
         .filter(e => e.statuses
             .filter(s => consumable.system.statusesRemoved.includes(s.id)))
@@ -44,7 +46,7 @@ export const consumeAction = async (actor, consumable) => {
         },
         {
             operation: 'addEffects',
-            params: [addedEffects]
+            params: [[...addedStatusEffects, ...addedEffects]]
         },
         {
             operation: 'removeEffects',
