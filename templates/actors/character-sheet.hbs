@@ -12,8 +12,8 @@
             glow-color="orange">
             {{!-- todo: hybrid logo --}}
             {{#if equippedIsHybrid}}
-              <i class="fas fa-sword"></i>
-              <i class="fas fa-bow-arrow"></i>
+            <i class="fas fa-sword"></i>
+            <i class="fas fa-bow-arrow"></i>
             {{else}}
             {{#if equippedIsRanged}}
             <i class="fas fa-bow-arrow"></i>
@@ -58,6 +58,12 @@
                   <input class="stats-value-left" data-stat="Summoning" type="number"
                     name="system.summoningPoints.value" value="{{system.summoningPoints.value}}">
                   <div class="stats-value-right">{{system.summoningPoints.max}}</div>
+                </div>
+              </div>
+              <div class="stats-box">
+                <div class="stats-label">{{localize "RSK.ArmourValue"}}</div>
+                <div class="stats-values">
+                  <div class="stats-value-right">{{armourValue}}</div>
                 </div>
               </div>
             </div>

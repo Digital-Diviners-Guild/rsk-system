@@ -16,6 +16,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         this._preparePrayers(context);
         this._prepareSummons(context);
         this._prepareEquipment(context);
+        context.armourValue = this.actor.system.getArmourValue();
         return context;
     }
 

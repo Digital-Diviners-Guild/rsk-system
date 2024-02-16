@@ -256,15 +256,10 @@ export default class RSKCharacterType extends RSKActorType {
         return updates;
     }
 
-    // todo: armour soak may be good to put in 
-    // one of the prepare data methods and displayed somewhere on the char
-    // sheet, to give feedback about the current soak values based on 
-    // the current character/equipment.
     getArmourValue() {
         return this.parent.items
-            .filter(i => i.isEquipped && i.type === "armour")
-            .reduce((acc, w, i) => acc +=
-                typeof w.getArmourValue === "function" ? w.getArmourValue() : 0, 0)
+            .filter(i => i.system.isEquipped && i.type === "armour")
+            .reduce((acc, w, i) => acc += w.system.getArmourValue(), 0);
     }
 
     _clampActorValues() {
