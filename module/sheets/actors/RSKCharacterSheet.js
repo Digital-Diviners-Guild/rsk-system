@@ -2,7 +2,7 @@ import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject, localizeText } from "../../rsk-localize.js";
-import { attackAction, castAction } from "../../rsk-actions.js";
+import { attackAction, castAction, consumeAction } from "../../rsk-actions.js";
 import { calculateUsedSlots } from "../../rsk-inventory.js";
 import { uiService } from "../../rsk-ui-service.js";
 
@@ -20,6 +20,9 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareInventory(context) {
+        //todo: this sets the actual item as the item so we can call methods on it
+        // perhaps it would be better to 'toObject' them and look up the actual item
+        // when clicked? saying this because I changed this line to do some mapping and it broke buttons
         context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("maxStackSize"));
         context.usedSlots = calculateUsedSlots(this.actor.items);
     }
@@ -91,6 +94,14 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             const item = this.actor.items.get(itemId);
             if (!item) return;
             this.actor.system.unequip(item);
+        });
+
+        html.find('.item-consume').click(async ev => {
+            // todo: we should chat when consuming like when attacking
+            const li = $(ev.currentTarget).parents(".item");
+            const item = this.actor.items.get(li.data("itemId"));
+            if (!item) return;
+            await consumeAction(this.actor, item);
         });
 
         html.find('.apply-backgrounds').click(ev => {

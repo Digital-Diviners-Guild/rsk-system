@@ -13,7 +13,13 @@ export default class RSKConsumable extends foundry.abstract.TypeDataModel {
             //todo: need something like a drop down to select from available statuses to pick
             // for these lists.  
             statusesAdded: new fields.ArrayField(new fields.StringField()),
-            statusesRemoved: new fields.ArrayField(new fields.StringField())
+            statusesRemoved: new fields.ArrayField(new fields.StringField()),
+            maxStackSize: new fields.NumberField({ initial: 3 }),
+            quantity: new fields.NumberField({ initial: 1 }),
+            bulk: new fields.SchemaField({
+                value: new fields.NumberField({ initial: 1 }),
+                modifier: new fields.NumberField({ initial: 0 })
+            })
         }
     }
 }

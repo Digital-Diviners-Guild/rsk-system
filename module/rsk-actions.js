@@ -25,6 +25,35 @@ export const npcAction = async (npc, npcAction) => {
     });
 }
 
+export const consumeAction = async (actor, consumable) => {
+    const addedEffects = consumable.system.statusesAdded
+        .map(s => statusToEffect(
+            CONFIG.statusEffects.find(se => se.id === s)));
+    const removedEffects = actor.effects
+        .filter(e => e.statuses
+            .filter(s => consumable.system.statusesRemoved.includes(s.id)))
+        .map(ap => ap._id);
+    const result = [
+        {
+            operation: 'removeItem',
+            params: [consumable.uuid]
+        },
+        {
+            operation: 'addLifePoints',
+            params: [consumable.system.lifePointsRestored]
+        },
+        {
+            operation: 'addEffects',
+            params: [addedEffects]
+        },
+        {
+            operation: 'removeEffects',
+            params: [removedEffects]
+        }
+    ];
+    await applyStateChanges(actor, result);
+}
+
 export const attackAction = async (actor, weapon) => {
     let result;
     if (weapon.isMeleeWeapon()) {

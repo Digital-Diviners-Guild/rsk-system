@@ -23,6 +23,9 @@
         </div>
         {{!-- todo reduce quantity, don't remove all --}}
         <div class="item-controls">
+            {{!-- todo: need to only show when consumable --}}
+            <a class="item-control item-consume" data-tooltip="{{localize " RSK.ConsumeItem"}}"><i
+                    class="fas fa-shirt"></i></a>
             {{!-- todo expand logic to change icon type (i.e. equip armor/weapon/ammo) --}}
             {{#if item.system.activeSlot}}
             <a class="item-control item-equip" data-tooltip="{{localize " RSK.EquipItem"}}"><i

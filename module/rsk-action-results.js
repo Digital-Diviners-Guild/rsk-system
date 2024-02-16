@@ -1,6 +1,10 @@
 import { rskPrayerStatusEffects } from "./effects/statuses.js";
 import { uiService } from "./rsk-ui-service.js";
 
+const addLifePoints = (actor, lifePointsAdded) => {
+    actor.system.restoreLifePoints(lifePointsAdded);
+}
+
 const removeItem = (actor, itemUuid) => {
     const item = fromUuidSync(itemUuid);
     if (item) { actor.system.removeItem(item); }
@@ -35,7 +39,8 @@ const operations = {
     spendResource,
     addEffects,
     removeEffects,
-    receiveDamage
+    receiveDamage,
+    addLifePoints
 };
 
 export const applyStateChanges = async (actor, stateChanges) => {
