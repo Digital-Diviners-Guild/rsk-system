@@ -61,12 +61,18 @@ export const applyStateChanges = async (actor, stateChanges) => {
 // this will come from a defense roll dictated by the outcome 
 // if an npc is attacking a character
 const outcomeHandlers = {
+    consume: async (target, outcome) => {
+        const removedEffects = target.effects.filter(e =>
+            e.statuses.some(s => outcome.actionData.statusesRemoved.includes(s)))
+            .map(e => e._id);
+        return [{
+            operation: 'removeEffects', params: [removedEffects]
+        }, ...outcome.targetStateChanges];
+    },
     prayer: async (target, outcome) => {
-        const activePrayers = target.effects
-            .filter(e => e.statuses
-                .filter(s => rskPrayerStatusEffects.map(se => se.id)
-                    .includes(s)))
-            .map(ap => ap._id);
+        const activePrayers = target.effects.filter(e =>
+            e.statuses.some(s => rskPrayerStatusEffects.map(se => se.id).includes(s)))
+            .map(e => e._id);
         return [{
             operation: "removeEffects", params: [activePrayers]
         }, ...outcome.targetStateChanges]

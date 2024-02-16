@@ -7,6 +7,7 @@ import { fields, costField } from "../fields.js";
 export default class RSKConsumable extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
+            description: new fields.StringField(),
             effectDescription: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
             lifePointsRestored: new fields.NumberField({ min: 0, initial: 0, max: 300 }),

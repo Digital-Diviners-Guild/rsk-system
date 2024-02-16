@@ -25,16 +25,21 @@ export const npcAction = async (npc, npcAction) => {
     });
 }
 
+//todo: in order to allow consumables to be used on a target
+// we need to treat it like another action - send outcome to chat for an outcome handler
+// however, this shows us a weirdness/failure in the system
+// stateChanges like "removeEffects" either need to be communicated differently
+// or we have a situation where we can communicate some outcomes here
+// but have to rely on an outcome handler to be implemented on the other side in order 
+// to pick up things that are calculated on the target.
 export const consumeAction = async (actor, consumable) => {
+    //todo: should any of these changes be here other than 'usage'
+    // and just let the outcome handler do the rest? it would be more consistent at least
     const addedStatusEffects = consumable.system.statusesAdded
         .map(s => statusToEffect(
             CONFIG.statusEffects.find(se => se.id === s)));
     const addedEffects = consumable.effects.map(
-        e => foundry.utils.deepClone(e.toObject()))
-    const removedEffects = actor.effects
-        .filter(e => e.statuses
-            .filter(s => consumable.system.statusesRemoved.includes(s.id)))
-        .map(ap => ap._id);
+        e => foundry.utils.deepClone(e.toObject()));
     const targetStateChanges = [
         {
             operation: 'addLifePoints',
@@ -43,17 +48,13 @@ export const consumeAction = async (actor, consumable) => {
         {
             operation: 'addEffects',
             params: [[...addedStatusEffects, ...addedEffects]]
-        },
-        {
-            operation: 'removeEffects',
-            params: [removedEffects]
         }
     ];
     await applyStateChanges(actor, [{ operation: 'removeItem', params: [consumable.uuid] }]);
     const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
         {
-            name: actor.name,
-            actionData: consumable.system,
+            name: `${actor.name} ${localizeText("RSK.Uses")} ${consumable.name}`,
+            ...consumable.system,
             hideRollResults: true
         });
     const targetUuids = getTargets(actor);
@@ -144,7 +145,7 @@ const castingHandlers = {
                     .filter(x => x.id === castable.status)
                     .map(s => statusToEffect(s));
                 return {
-                    usage: [{ operation: 'spendResource', params: ['prayer', castable.usageCost[0].amount] }],
+                    usage: [{ operation: 'spendResource', params: ['prayer', castable.usageCost[0]?.amount ?? 0] }],
                     targetStateChanges: [{ operation: 'addEffects', params: [appliedEffects] }]
                 };
             }
@@ -159,7 +160,7 @@ const castingHandlers = {
         handleCast: (rollResult, castable) => {
             if (rollResult.isSuccess) {
                 return {
-                    usage: [{ operation: 'spendResource', params: ['summoning', castable.usageCost[0].amount] }]
+                    usage: [{ operation: 'spendResource', params: ['summoning', castable.usageCost[0]?.amount ?? 0] }]
                 };
             }
             return {
