@@ -176,7 +176,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             // two dialogs?
             const result = await uiService.showDialog("select-item", { context: { items: weapons } });
             if (!result.confirmed) return;
-            debugger;
             weapon = weapons.find(i => i._id === result.id);
         } else if (weapons?.length > 0) {
             weapon = weapons[0];

@@ -4,8 +4,13 @@ export default class RSKActiveEffect extends ActiveEffect {
     }
 
     determineSuppression() {
-        if (this.parent.system.equipped) {
-            return !this.parent.isEquipped;
+        if (this.parent.system.hasOwnProperty("equippedInSlot")) {
+            return !this.parent.system.isEquipped;
+        }
+        // these will get created directly on the actor when consumed
+        // don't want them to 'transfer' on pickup.
+        if (this.parent.type === "consumable") {
+            return false;
         }
         return false;
     }

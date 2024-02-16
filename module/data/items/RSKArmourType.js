@@ -17,7 +17,7 @@ export default class RSKArmourType extends RSKEquippableType {
                 soak: new fields.NumberField({ required: true, ...positiveNumberField, max: 100 })
             }),
             specialEffects: new fields.StringField(),
-            isEquipped: new fields.BooleanField(),
+            isEquipped: new fields.BooleanField({ initial: false }),
             maxStackSize: new fields.NumberField({ required: true, initial: 3, min: 1 }),
             //todo: use this in inventory logic instead to control how many slots are used
             // when stowed and equipped.

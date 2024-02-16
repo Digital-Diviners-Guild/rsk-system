@@ -7,6 +7,8 @@ import RSKSpecialEffect from "./data/items/RSKSpecialEffect.js";
 import RSKResource from "./data/items/RSKResource.js";
 import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
 import RSKSpell from "./data/items/RSKSpell.js";
+import RSKConsumable from "./data/items/RSKConsumable.js"
+import RSKConsumableSheet from "./sheets/items/RSKConsumableSheet.js"
 
 import RSKCharacterType from "./data/actors/RSKCharacterType.js";
 import RSKNpc from "./data/actors/RSKNpcType.js";
@@ -94,9 +96,11 @@ Hooks.once("init", function () {
         codex: RSKCodexType,
         itemCollection: RSKItemCollection,
         weapon: RSKWeapon,
+        consumable: RSKConsumable
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
+    Items.registerSheet("rsk", RSKConsumableSheet, { types: ["consumable"], makeDefault: true });
     Items.registerSheet("rsk", RSKWeaponSheet, { types: ["weapon"], makeDefault: true });
     Items.registerSheet("rsk", RSKNpcActionSheet, { types: ["npcAction"], makeDefault: true });
     Items.registerSheet("rsk", RSKSpellSheet, { types: ["spell"], makeDefault: true });
