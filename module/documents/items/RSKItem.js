@@ -39,16 +39,18 @@ export default class RSKItem extends Item {
 
     usesItemAsAmmo(item) {
         return this.isWeapon()
+            && item.isWeapon()
             && this.system.attackMethods.has("ranged")
             && item.system.attackMethods.has("ammo")
             && this.system.ammoType === item.system.ammoType;
     }
 
-    canDualWieldWith(item) {
-        return this.isWeapon()
-            && item.isWeapon()
-            && this != item
-            && this.totalBulk() + item.totalBulk() < 3;
+    canWieldWith(item) {
+        return !(this.isWeapon() && item.isWeapon())
+            || (this.isWeapon()
+                && item.isWeapon()
+                && this != item
+                && !(this.system.isTwoHanded || item.system.isTwoHanded));
     }
 
     delete() {
