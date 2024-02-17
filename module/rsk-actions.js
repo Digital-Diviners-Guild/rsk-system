@@ -6,65 +6,51 @@ import { applyStateChanges } from "./rsk-action-results.js";
 
 export const npcAction = async (npc, npcAction) => {
     const actionData = { ...npcAction.system };
-    const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
-        {
-            name: npcAction.name,
-            actionData,
-            hideRollResults: true
-        });
     const targetUuids = getTargets(npc);
-    await ChatMessage.create({
-        content: content,
-        flags: {
-            rsk: {
-                targetUuids: targetUuids,
-                actionType: actionData.type,
-                actionData
-            }
-        }
-    });
+    await chatResult(npcAction.name, actionData, actionData.type, targetUuids);
 }
 
-//todo: in order to allow consumables to be used on a target
-// we need to treat it like another action - send outcome to chat for an outcome handler
-// however, this shows us a weirdness/failure in the system
-// stateChanges like "removeEffects" either need to be communicated differently
-// or we have a situation where we can communicate some outcomes here
-// but have to rely on an outcome handler to be implemented on the other side in order 
-// to pick up things that are calculated on the target.
 export const consumeAction = async (actor, consumable) => {
-    //todo: should any of these changes be here other than 'usage'
-    // and just let the outcome handler do the rest? it would be more consistent at least
-    const addedStatusEffects = consumable.system.statusesAdded
-        .map(s => statusToEffect(
-            CONFIG.statusEffects.find(se => se.id === s)));
-    const addedEffects = consumable.effects.map(
-        e => foundry.utils.deepClone(e.toObject()));
+    const addedEffects = consumable.effects.map(e => foundry.utils.deepClone(e.toObject()));
     const targetStateChanges = [
         {
             operation: 'addLifePoints',
             params: [consumable.system.lifePointsRestored]
-        },
-        {
+        }, {
+            operation: 'addStatuses',
+            params: [consumable.system.statusesAdded]
+        }, {
             operation: 'addEffects',
-            params: [[...addedStatusEffects, ...addedEffects]]
-        }
+            params: [addedEffects]
+        }, {
+            operation: 'removeStatuses',
+            params: [consumable.system.statusesRemoved]
+        },
     ];
     await applyStateChanges(actor, [{ operation: 'removeItem', params: [consumable.uuid] }]);
+    const targetUuids = getTargets(actor);
+    const actionData = consumable.system;
+    await chatResult(`${actor.name} ${localizeText("RSK.Uses")} ${consumable.name}`,
+        actionData,
+        "consume",
+        targetUuids,
+        targetStateChanges);
+}
+
+const chatResult = async (name, actionData, actionType, targetUuids = [], targetStateChanges = {}) => {
     const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
         {
-            name: `${actor.name} ${localizeText("RSK.Uses")} ${consumable.name}`,
-            ...consumable.system,
+            name,
+            ...actionData,
             hideRollResults: true
         });
-    const targetUuids = getTargets(actor);
     await ChatMessage.create({
         content: content,
         flags: {
             rsk: {
-                targetUuids: targetUuids,
-                actionType: "consume",
-                actionData: consumable.system,
+                targetUuids,
+                actionType,
+                actionData,
                 targetStateChanges
             }
         }
@@ -87,7 +73,7 @@ export const attackAction = async (actor, weapon) => {
     if (result.usage) {
         await applyStateChanges(actor, result.usage);
     }
-    await chatResult(result);
+    await chatRollResult(result);
 }
 
 const getAbility = (weapon) => weapon.system.type === "martial" ? "agility" : "strength";
@@ -214,7 +200,7 @@ export const castAction = async (actor, castType) => {
     if (stateChanges.usage) {
         await applyStateChanges(actor, result.usage);
     }
-    await chatResult(result);
+    await chatRollResult(result);
     return result;
 }
 
@@ -229,7 +215,7 @@ const useAction = async (actor, skill, ability) => {
     return { rollResult: { ...skillResult }, targetUuids: [...targetUuids] }
 }
 
-const chatResult = async (actionResult) => {
+const chatRollResult = async (actionResult) => {
     const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
         {
             ...actionResult

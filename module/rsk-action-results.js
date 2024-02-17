@@ -1,4 +1,4 @@
-import { rskPrayerStatusEffects } from "./effects/statuses.js";
+import { rskPrayerStatusEffects, statusToEffect } from "./effects/statuses.js";
 import { uiService } from "./rsk-ui-service.js";
 
 const addLifePoints = (actor, lifePointsAdded) => {
@@ -22,8 +22,21 @@ const spendResource = (actor, resourceType, amount) => {
     }
 };
 
+const addStatuses = async (actor, statuses) => {
+    const addedStatusEffects = statuses.map(s => statusToEffect(
+        CONFIG.statusEffects.find(se => se.id === s)));
+    await addEffects(actor, addedStatusEffects);
+}
+
 const addEffects = async (actor, effects) => {
     await actor.createEmbeddedDocuments("ActiveEffect", [...effects]);
+};
+
+const removeStatuses = async (actor, statuses) => {
+    const effectIds = actor.effects.filter(e =>
+        e.statuses.some(s => statuses.includes(s)))
+        .map(e => e._id);
+    await removeEffects(actor, effectIds);
 };
 
 const removeEffects = async (actor, effectIds) => {
@@ -39,10 +52,12 @@ const receiveDamage = async (actor, attackData) => {
 const operations = {
     removeItem,
     spendResource,
+    addLifePoints,
     addEffects,
+    addStatuses,
+    removeStatuses,
     removeEffects,
     receiveDamage,
-    addLifePoints
 };
 
 export const applyStateChanges = async (actor, stateChanges) => {
@@ -61,14 +76,6 @@ export const applyStateChanges = async (actor, stateChanges) => {
 // this will come from a defense roll dictated by the outcome 
 // if an npc is attacking a character
 const outcomeHandlers = {
-    consume: async (target, outcome) => {
-        const removedEffects = target.effects.filter(e =>
-            e.statuses.some(s => outcome.actionData.statusesRemoved.includes(s)))
-            .map(e => e._id);
-        return [{
-            operation: 'removeEffects', params: [removedEffects]
-        }, ...outcome.targetStateChanges];
-    },
     prayer: async (target, outcome) => {
         const activePrayers = target.effects.filter(e =>
             e.statuses.some(s => rskPrayerStatusEffects.map(se => se.id).includes(s)))
