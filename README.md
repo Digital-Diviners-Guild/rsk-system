@@ -7,25 +7,7 @@ An Unofficial FoundryVTT system for playing [RuneScape Kingdoms](https://steamfo
 In FoundryVTT, use the following url in the 'Manifest URL' field.    
 `https://raw.githubusercontent.com/qmarsala/rsk-system/main/system.json`
 
-## Roadmap
-* Improved UI/UX
-* Character Creator
-* Quest Log
-* Automation
-    * Consumables (potions, food, etc)
-    * Use margin to boost outcome
-    * Combat Action automation
-        * enforce valid targetting rules (range, type, etc)
-        * damage over time
-        * qualities/effects
-        * and more...
-    * Action Macros for common skill checks:
-        * Disarming a trap, Fishing, etc..
-    * Crafting System
-        * consuming materials and providing the new item after making the appropriate skill check
-* and more...
-
-### What the system provides now
+## What the system provides now
 * sheets to create and manage characters and items
 * statuses that can be applied to characters/npc's
     * many statuses don't yet affect the actor, and are more for tracking what statuses currently should be applied
@@ -41,6 +23,7 @@ Though there are a few things that have automation already:
 - Resting
 - Improving your Character (leveling)
 - Spending 'Ammo' when an action requires it (prayer/summoning points, runes, arrows/bolts/darts)
+- Consumables (potions, food, etc)
 - Applying damage (partial automation)
     - Death status will automatically be applied
     - Armour Soak, Attack and Damage Type specific strength/weaknesses will be taken into account when calculating damage taken
@@ -50,6 +33,7 @@ Though there are a few things that have automation already:
     - remove statuses 
     - restore health/prayer/summoning points
 
+    
 #### Tips for creating your content
 - Spells, Familiars, and Prayers need to be given to each character
     - to help with this you can create a 'codex' item for each group
@@ -67,3 +51,23 @@ Though there are a few things that have automation already:
         - the consequences themselves currently need to be resolved by the player
     - resurrection will reset stats and effects, the button to do so will appear after rolling the correct amount of consequences
     - I like to put Death in a special scene called "Death's Office" and move players there on death
+
+    
+## Roadmap
+* Improved UI/UX
+* Character Creator
+* Quest Log
+* Automation
+    * Use margin to boost outcome
+    * Combat Action automation
+        * enforce valid targetting rules (range, type, etc)
+        * damage over time
+        * qualities/effects
+        * and more...
+    * Action Macros for common skill checks:
+        * Disarming a trap, Fishing, etc..
+        * Easily created by dragging and dropping skills, abilities, items onto the hot bar
+    * Crafting System
+        * consuming materials and providing the new item after making the appropriate skill check
+* Module friendly api to enable community modules to extend the system
+* and more...
