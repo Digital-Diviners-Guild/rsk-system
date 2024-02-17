@@ -45,9 +45,7 @@ export default class RSKWeapon extends RSKEquippableType {
                 initial: "weapon",
                 choices: ["weapon", "arm", "ammo"]
             }),
-            //todo: keep or remove this, it is intended to define which 
-            // slot should be disabled when
-            disablesSlot: new fields.StringField(),
+            isTwoHanded: new fields.BooleanField({ initial: false }),
             isEquipped: new fields.BooleanField({ initial: false }),
             maxStackSize: new fields.NumberField({ initial: 1, min: 1 }),
             bulk: new fields.SchemaField({

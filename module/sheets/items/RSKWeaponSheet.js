@@ -23,14 +23,12 @@ export default class RSKWeaponSheet extends RSKItemSheet {
         context.flags = itemData.flags;
         context.config = CONFIG.RSK;
         context.effects = itemData.effects;
-        context.isTwoHanded = context.system.bulk.value > 1;
         return context;
     }
 
     activateListeners(html) {
         super.activateListeners(html);
         html.find('.attackMethod-checkbox').change(ev => this._onAttackTypeCheckbox(ev));
-        html.find('.is-two-handed').change(ev => this._onTwoHandedCheckbox(ev));
     }
 
     _onAttackTypeCheckbox(ev) {
@@ -38,22 +36,6 @@ export default class RSKWeaponSheet extends RSKItemSheet {
         const isChecked = target.prop("checked");
         const attackMethod = target.val();
         this._updateAttackType(attackMethod, isChecked);
-    }
-
-    _onTwoHandedCheckbox(ev) {
-        const target = $(ev.currentTarget);
-        const isChecked = target.prop("checked");
-        if (isChecked) {
-            this.item.update({
-                'system.bulk.value': 2,
-                'system.disablesSlot': "arm"
-            });
-        } else {
-            this.item.update({
-                'system.bulk.value': 1,
-                'system.disablesSlot': ""
-            });
-        }
     }
 
     _updateAttackType(attackMethod, isChecked) {

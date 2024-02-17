@@ -23,7 +23,7 @@
             <div>
                 <strong>{{localize "RSK.WeaponType"}}</strong>
                 {{system.weaponType}}
-                {{#if isTwoHanded}}
+                {{#if system.isTwoHanded}}
                 {{localize "RSK.TwoHanded"}}
                 {{else}}
                 {{localize "RSK.OneHanded"}}
@@ -87,8 +87,8 @@
             </div>
             <div>
                 <strong>{{localize "RSK.IsTwoHanded"}}</strong>
-                <input type="checkbox" class="is-two-handed" name="isTwoHanded" value="{{isTwoHanded}}" {{checked
-                    isTwoHanded}}>
+                <input type="checkbox" data-dtype="Boolean" name="system.isTwoHanded"
+                  value="{{system.isTwoHanded}}" {{checked system.isTwoHanded}}>
             </div>
             <div>
                 <strong>{{localize "RSK.Material"}}</strong>
