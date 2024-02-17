@@ -189,63 +189,88 @@ export default class RSKCharacterType extends RSKActorType {
         return this.parent.items.filter(i => i.system.isEquipped);
     }
 
-    //todo: probably need to pass in the slot we are targetting with 
-    // drag and drop?
-    // the item has an activeSlot that determines the valid slot for the item
-    // however, darts can go to the ammo slot even though they say 'weapon'
-    // maybe we need to rethink activeSlot.
-    // the intent was to not allow a helmet on your food and cape in your quiver etc.
-    // most things can only go in one slot.
-    // though this does cause a problem with dual wielding, you would need 'off-hand' variant weapons, which is fine.
-    // when drag and drop occurs, we need to validate the targetted slot is allowed, if not, use general drop rules.
     async equip(itemToEquip) {
-        const currentEquippedWeapons = this.getActiveItems().filter(i =>
-            i.isWeapon()
-            && ["weapon", "arm"].includes(i.system.equippedInSlot));
-        //todo: not a ternary - needs a func or switch or something
-        const targetSlot = itemToEquip.isOnlyAmmo() || currentEquippedWeapons?.some(w => w.usesItemAsAmmo(itemToEquip))
-            ? "ammo"
-            : currentEquippedWeapons.find(w => w.system.equippedInSlot === "weapon")?.canDualWieldWith(itemToEquip)
-                ? "arm"
-                : itemToEquip.system.activeSlot; //handling it like ammo for now to poc
-        if (this.parent.flags?.rsk?.disabledSlots?.includes(targetSlot)) {
+        const { currentWeaponSlot, currentArmSlot } = this.getCurrentSlots();
+
+        const targetSlot = this.determineTargetSlot(itemToEquip);
+        if (this.isSlotDisabled(targetSlot)) {
             uiService.showNotification(localizeText("RSK.ErrorActiveSlotIsDisabled"));
             return;
         }
-        const currentEquipped = this.getActiveItems().find(i => i.system.equippedInSlot === targetSlot);
+
         let updates = {};
+        const currentEquipped = this.getActiveItems().find(i => i.system.equippedInSlot === targetSlot);
         if (currentEquipped) {
-            const unequipResult = this.unequip(currentEquipped, false);
-            updates = foundry.utils.mergeObject(updates, unequipResult);
+            updates = this.mergeUpdates(updates, this.unequip(currentEquipped, false));
         }
-        const result = currentEquipped !== itemToEquip
-            ? await itemToEquip.system.equip(targetSlot)
-            : {};
-        if (result.error) {
-            uiService.showNotification(result.error);
-            return;
+
+        if (currentEquipped !== itemToEquip) {
+            const result = await itemToEquip.system.equip(targetSlot);
+            if (result.error) {
+                uiService.showNotification(result.error);
+                return;
+            }
+
+            updates = this.processEquipResult(result, targetSlot, itemToEquip, { currentWeaponSlot, currentArmSlot }, updates);
         }
+
+        this.parent.update(updates);
+    }
+
+    getCurrentSlots() {
+        const currentEquippedWeapons = this.getActiveItems().filter(i =>
+            i.isWeapon() && ["weapon", "arm"].includes(i.system.equippedInSlot));
+        return {
+            currentWeaponSlot: currentEquippedWeapons.find(i => i.system.equippedInSlot === "weapon"),
+            currentArmSlot: currentEquippedWeapons.find(i => i.system.equippedInSlot === "arm")
+        };
+    }
+
+    determineTargetSlot(itemToEquip) {
+        const isAmmo = itemToEquip.isOnlyAmmo() || this.getActiveItems().some(w => w.usesItemAsAmmo(itemToEquip));
+        if (isAmmo) return "ammo";
+
+        const canWieldWithWeapon = this.getActiveItems().find(w => w.system.equippedInSlot === "weapon")?.canWieldWith(itemToEquip);
+        return canWieldWithWeapon ? "arm" : itemToEquip.system.activeSlot;
+    }
+
+    isSlotDisabled(targetSlot) {
+        return this.parent.flags?.rsk?.disabledSlots?.includes(targetSlot);
+    }
+
+    mergeUpdates(existingUpdates, newUpdates) {
+        return foundry.utils.mergeObject(existingUpdates, newUpdates);
+    }
+
+    processEquipResult(result, targetSlot, itemToEquip, slots, updates) {
         if (result.disablesSlot) {
             const currentEquippedInDisabledSlot = this.getActiveItems().find(i => i.system.equippedInSlot === result.disablesSlot);
             if (currentEquippedInDisabledSlot) {
-                const unequipResult = this.unequip(currentEquippedInDisabledSlot, false);
-                updates = foundry.utils.mergeObject(updates, unequipResult);
+                updates = this.mergeUpdates(updates, this.unequip(currentEquippedInDisabledSlot, false));
             }
-            updates["flags.rsk.disabledSlots"] = this.parent.flags?.rsk?.disabledSlots
-                ? [...this.parent.flags.rsk.disabledSlots, result.disablesSlot]
-                : [result.disablesSlot];
+            updates["flags.rsk.disabledSlots"] = [...(this.parent.flags?.rsk?.disabledSlots ?? []), result.disablesSlot];
+        } else {
+            updates = this.handleSlotCompatibility(targetSlot, itemToEquip, slots, updates);
         }
-        this.parent.update(updates);
+        return updates;
+    }
+
+    handleSlotCompatibility(targetSlot, itemToEquip, { currentWeaponSlot, currentArmSlot }, updates) {
+        if (targetSlot === "weapon" && currentArmSlot && !itemToEquip.canWieldWith(currentArmSlot)) {
+            updates = this.mergeUpdates(updates, this.unequip(currentArmSlot, false));
+        } else if (targetSlot === "arm" && currentWeaponSlot && !itemToEquip.canWieldWith(currentWeaponSlot)) {
+            updates = this.mergeUpdates(updates, this.unequip(currentWeaponSlot, false));
+        }
+        return updates;
     }
 
     unequip(item, update = true) {
         const unequipResult = item.system.unequip();
         let updates = {};
         if (unequipResult?.freedSlot) {
-            updates["flags.rsk.disabledSlots"] = this.parent.flags.rsk.disabledSlots
-                .filter(s => s !== unequipResult.freedSlot) ?? [];
+            updates["flags.rsk.disabledSlots"] = this.parent.flags.rsk.disabledSlots.filter(s => s !== unequipResult.freedSlot) ?? [];
         }
-        if (update && updates) {
+        if (update) {
             this.parent.update(updates);
         }
         return updates;
