@@ -1,5 +1,11 @@
 <strong>{{name}}</strong>
 
+{{#if img}}
+<div>
+    <img src="{{img}}" data-edit="img" title="{{name}}" height="32" width="32" />
+</div>
+{{/if}}
+
 {{#if description}}
 <p>{{description}}</p>
 {{/if}}

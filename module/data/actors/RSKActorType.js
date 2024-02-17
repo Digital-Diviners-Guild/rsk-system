@@ -1,6 +1,11 @@
 import { rskStatusEffects, statusToEffect } from "../../effects/statuses.js";
 
 export default class RSKActorType extends foundry.abstract.TypeDataModel {
+    restoreLifePoints(amount) {
+        const newAmount = game.rsk.math.clamp_value(this.lifePoints.value + amount, this.lifePoints);
+        this.parent.update({ [`system.lifePoints.value`]: newAmount });
+    }
+    
     //todo: defense roll is only applicable when applying to a character
     // this could be refactored a bit
     async receiveDamage(damage) {

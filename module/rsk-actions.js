@@ -10,6 +10,12 @@ export const npcAction = async (npc, npcAction) => {
     await chatResult(npcAction.name, actionData, actionData.type, targetUuids);
 }
 
+//todo: (applicable to all actions and chatted things)
+// it would be nice to have an img of the chatted item/action
+// for now passing it through actiondata.img, though this will not add 
+// the img to 'chat' with the chat button, and feels meh.
+// wonder what we could do (maybe through on chat render)
+// to look up the item and insert the img?
 export const consumeAction = async (actor, consumable) => {
     const addedEffects = consumable.effects.map(e => foundry.utils.deepClone(e.toObject()));
     const targetStateChanges = [
@@ -29,7 +35,7 @@ export const consumeAction = async (actor, consumable) => {
     ];
     await applyStateChanges(actor, [{ operation: 'removeItem', params: [consumable.uuid] }]);
     const targetUuids = getTargets(actor);
-    const actionData = consumable.system;
+    const actionData = { img: consumable.img, ...consumable.system };
     await chatResult(`${actor.name} ${localizeText("RSK.Uses")} ${consumable.name}`,
         actionData,
         "consume",
@@ -88,7 +94,7 @@ const meleeAttackAction = async (actor, weapon) => {
         name: weapon.name,
         actionType: "melee",
         ...actionResult,
-        attackData: weapon.system,
+        attackData: { img: weapon.img, ...weapon.system }
     };
 }
 
@@ -110,9 +116,10 @@ const rangedAttackAction = async (actor, weapon) => {
         usage: [{ operation: 'removeItem', params: [ammo.uuid] }],
         name: weapon.isThrownWeapon() ? weapon.name : `${weapon.name} + ${ammo.name}`,
         attackData: weapon.isThrownWeapon()
-            ? weapon.system
+            ? { img: weapon.img, ...weapon.system }
             //todo: this message could probably use some work
             : {
+                img: weapon.img,
                 description: `${weapon.system.description}\n${ammo.system.description}`,
                 effectDescription: `${weapon.system.effectDescription}\n${ammo.system.effectDescription}`,
                 damageEntries: weapon.system.damageEntries,
@@ -211,6 +218,7 @@ const useAction = async (actor, skill, ability) => {
 
     const skillResult = await actor.system.useSkill(confirmRollResult);
     //todo: not all actions will need a target (some only target self, others don't need a target per say)
+    // we should skip this when an action can only target 'self'
     const targetUuids = getTargets(actor);
     return { rollResult: { ...skillResult }, targetUuids: [...targetUuids] }
 }

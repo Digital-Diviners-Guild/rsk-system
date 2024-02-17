@@ -157,11 +157,6 @@ export default class RSKCharacterType extends RSKActorType {
         this.parent.update({ [`system.${type}Points.value`]: newAmount });
     }
 
-    restoreLifePoints(amount) {
-        const newAmount = game.rsk.math.clamp_value(this.lifePoints.value + amount, this.lifePoints);
-        this.parent.update({ [`system.lifePoints.value`]: newAmount });
-    }
-
     addItem(itemToAdd, quantity = 1) {
         const canAddResult = canAddItem(this.parent.items, itemToAdd);
         if (canAddResult.canAdd && canAddResult.usesExistingSlot) {

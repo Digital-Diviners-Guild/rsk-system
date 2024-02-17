@@ -30,7 +30,11 @@ const addApplyOutcomeButton = (html, handler) => {
 }
 
 export async function chatItem(item, options = {}) {
-    const data = item.hasOwnProperty("system") ? { name: item.name, ...item.system } : item;
+    const data = item.hasOwnProperty("system")
+        ? {
+            name: item.name, img: item.img, ...item.system
+        } :
+        item;
     const content = await renderTemplate("systems/rsk/templates/applications/item-message.hbs",
         {
             ...data,

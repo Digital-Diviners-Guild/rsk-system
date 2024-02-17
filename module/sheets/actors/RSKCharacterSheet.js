@@ -103,7 +103,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         });
 
         html.find('.item-consume').click(async ev => {
-            // todo: we should chat when consuming like when attacking
             const li = $(ev.currentTarget).parents(".item");
             const item = this.actor.items.get(li.data("itemId"));
             if (!item) return;
