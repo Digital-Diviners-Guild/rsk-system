@@ -45,8 +45,8 @@ const removeEffects = async (actor, effectIds) => {
     }
 };
 
-const receiveDamage = async (actor, attackData) => {
-    await actor.system.receiveDamage(attackData);
+const receiveDamage = async (actor, actionData) => {
+    await actor.system.receiveDamage(actionData);
 };
 
 const operations = {

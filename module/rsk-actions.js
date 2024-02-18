@@ -94,7 +94,7 @@ const meleeAttackAction = async (actor, weapon) => {
         name: weapon.name,
         actionType: "melee",
         ...actionResult,
-        attackData: { img: weapon.img, ...weapon.system }
+        actionData: { img: weapon.img, ...weapon.system }
     };
 }
 
@@ -115,7 +115,7 @@ const rangedAttackAction = async (actor, weapon) => {
         ...actionResult,
         usage: [{ operation: 'removeItem', params: [ammo.uuid] }],
         name: weapon.isThrownWeapon() ? weapon.name : `${weapon.name} + ${ammo.name}`,
-        attackData: weapon.isThrownWeapon()
+        actionData: weapon.isThrownWeapon()
             ? { img: weapon.img, ...weapon.system }
             //todo: this message could probably use some work
             : {
