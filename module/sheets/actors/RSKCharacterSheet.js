@@ -89,7 +89,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 await this.handleSkillCheck(dialogOptions);
             });
         html.find("[data-action='toggle-summary']").click(ev => {
-            debugger;
             const toggleTarget = $(ev.currentTarget).data('toggle');
             $(`[data-toggle-target='${toggleTarget}']`).toggle();
         });

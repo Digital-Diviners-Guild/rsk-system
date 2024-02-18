@@ -1,7 +1,3 @@
-//todo: the 'stacks'/'slots' are just the result division.
-// though we probably do need 'slots' to be a more real concept
-// in order to properly track which item to decrease/increase in qty
-
 export const calculateStackSize = (item) => item.system.quantity * item.totalBulk();
 
 export const calculateUsedSlots = (items) =>

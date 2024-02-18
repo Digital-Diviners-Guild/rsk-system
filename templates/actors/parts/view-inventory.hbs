@@ -8,7 +8,7 @@
 {{!-- todo: clean this up --}}
 <ul class="items-list">
     {{#each consumables as |consumable|}}
-    <li class="item" data-item-id="{{consumable._id}}" data-inventory-item-id="{{consumable._id}}">
+    <li class="item" data-item-id="{{consumable._id}}">
         <div class="item-name">
             <img src="{{consumable.img}}" data-tooltip="{{consumable.name}}">
             <h4><a data-action="toggle-summary" data-toggle="{{consumable._id}}">{{consumable.name}}</a></h4>
@@ -41,12 +41,9 @@
     </li>
     {{/each}}
 
-
     {{#each equippables as |equippable|}}
-    {{!-- todo: don't have both item-id and inventory-item-id (inv id is for drag n drop) --}}
-    <li class="item" data-item-id="{{equippable._id}}" data-inventory-item-id="{{equippable._id}}">
+    <li class="item" data-item-id="{{equippable._id}}">
         <div class="item-name">
-            {{!-- todo attach to item image --}}
             <img src="{{equippable.img}}" data-tooltip="{{equippable.name}}">
             <h4><a data-action="toggle-summary" data-toggle="{{equippable._id}}">{{equippable.name}}</a></h4>
         </div>
@@ -57,7 +54,6 @@
             <a class="item-control increase-item-quantity" data-item-id="{{equippable.id}}">+</a>
             {{/if}}
         </div>
-        {{!-- todo reduce quantity, don't remove all --}}
         <div class="item-controls">
             <a class="item-control item-equip" data-tooltip="{{localize " RSK.EquipItem"}}"><i
                     class="fas fa-shirt"></i></a>
@@ -68,7 +64,6 @@
             <a class="item-control item-delete" data-tooltip="{{localize " RSK.RemoveItem"}}"><i
                     class="fas fa-trash"></i></a>
         </div>
-        {{!-- todo show/hide summary using toggle-summary action --}}
         <div class="item-summary" hidden="hidden" data-toggle-target="{{equippable._id}}">
             {{#if equippable.system.description}}
             <div class="item-content">
@@ -80,10 +75,8 @@
     {{/each}}
 
     {{#each miscItems as |item|}}
-    {{!-- todo: don't have both item-id and inventory-item-id (inv id is for drag n drop) --}}
-    <li class="item" data-item-id="{{item._id}}" data-inventory-item-id="{{item._id}}">
+    <li class="item" data-item-id="{{item._id}}">
         <div class="item-name">
-            {{!-- todo attach to item image --}}
             <img src="{{item.img}}" data-tooltip="{{item.name}}">
             <h4><a data-action="toggle-summary" data-toggle="{{item._id}}">{{item.name}}</a></h4>
         </div>
@@ -94,7 +87,6 @@
             <a class="item-control increase-item-quantity" data-item-id="{{item.id}}">+</a>
             {{/if}}
         </div>
-        {{!-- todo reduce quantity, don't remove all --}}
         <div class="item-controls">
             <a class="item-control chat-item" data-item-type="{{item.type}}" data-item-id="{{item._id}}"
                 data-tooltip="{{localize " RSK.ChatItem"}}">
@@ -103,7 +95,6 @@
             <a class="item-control item-delete" data-tooltip="{{localize " RSK.RemoveItem"}}"><i
                     class="fas fa-trash"></i></a>
         </div>
-        {{!-- todo show/hide summary using toggle-summary action --}}
         <div class="item-summary" hidden="hidden" data-toggle-target="{{item._id}}">
             {{#if item.system.description}}
             <div class="item-content">
