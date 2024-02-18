@@ -70,7 +70,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 }
             });
         context.ammo = equipped.find(i => i.system.equippedInSlot === "ammo");
-        const weapons = this.actor.system.getActiveItems().filter(i => i.isWeapon());
+        const weapons = this.actor.system.getActiveItems().filter(i => i.isWeapon() && i.system.equippedInSlot !== "ammo");
         context.equippedIsRanged = weapons.length > 0 ? weapons.every(i => i.isRangedWeapon()) : false;
         context.equippedIsHybrid = weapons.some(i => i.isRangedWeapon()) && weapons.some(i => i.isMeleeWeapon());
     }
@@ -176,8 +176,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     async characterAttackAction() {
-        //todo: dual wield support
-        const weapons = this.actor.system.getActiveItems().filter(i => i.isWeapon());
+        const weapons = this.actor.system.getActiveItems().filter(i => i.isWeapon() && i.system.equippedInSlot !== "ammo");
         let weapon = {
             name: localizeText("RSK.Unarmed"),
             system: {
