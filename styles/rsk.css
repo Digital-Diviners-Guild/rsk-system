@@ -631,18 +631,6 @@ input.stats-value-left[type=number] {
 .actor-application:hover {
     transform: scale(1.25);
 }
-.actor-application:hover::after {
-    content: attr(effect-label);
-    position: absolute;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #fff;
-    padding: 5px;
-    border-radius: 4px;
-    white-space: nowrap;
-}
 
 @keyframes glow {
 
