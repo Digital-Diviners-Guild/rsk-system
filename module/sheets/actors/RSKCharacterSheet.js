@@ -88,6 +88,11 @@ export default class RSKCharacterSheet extends RSKActorSheet {
                 const dialogOptions = type === "skill" ? { defaultSkill: value } : { defaultAbility: value };
                 await this.handleSkillCheck(dialogOptions);
             });
+        html.find("[data-action='toggle-summary']").click(ev => {
+            debugger;
+            const toggleTarget = $(ev.currentTarget).data('toggle');
+            $(`[data-toggle-target='${toggleTarget}']`).toggle();
+        });
         if (!this.isEditable) return;
 
         html.find('.item-equip').click(async ev => {

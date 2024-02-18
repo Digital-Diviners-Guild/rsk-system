@@ -5,14 +5,13 @@
         <a data-action="browse-equipment" data-tooltip="Search Inventory"><i class="fa-solid fa-fw fa-search"></i></a>
     </div>
 </header>
+{{!-- todo: clean this up --}}
 <ul class="items-list">
-    {{!-- todo: clean this up --}}
     {{#each consumables as |consumable|}}
     <li class="item" data-item-id="{{consumable._id}}" data-inventory-item-id="{{consumable._id}}">
         <div class="item-name">
-            {{!-- todo attach to item image --}}
             <img src="{{consumable.img}}" data-tooltip="{{consumable.name}}">
-            <h4><a data-action="toggle-summary">{{consumable.name}}</a></h4>
+            <h4><a data-action="toggle-summary" data-toggle="{{consumable._id}}">{{consumable.name}}</a></h4>
         </div>
         <div class="item-quantity">
             {{#if consumable.system.quantity}}
@@ -21,7 +20,6 @@
             <a class="item-control increase-item-quantity" data-item-id="{{consumable.id}}">+</a>
             {{/if}}
         </div>
-        {{!-- todo reduce quantity, don't remove all --}}
         <div class="item-controls">
             <a class="item-control item-consume" data-tooltip="{{localize " RSK.ConsumeItem"}}"><i
                     class="fas fa-meat"></i></a>
@@ -32,11 +30,11 @@
             <a class="item-control item-delete" data-tooltip="{{localize " RSK.RemoveItem"}}"><i
                     class="fas fa-trash"></i></a>
         </div>
-        {{!-- todo show/hide summary using toggle-summary action --}}
-        <div class="item-summary" hidden="hidden">
-            {{#if item.system.description}}
+        <div class="item-summary" hidden="hidden" data-toggle-target="{{consumable._id}}"
+            data-toggle-target="{{consumable._id}}">
+            {{#if consumable.system.description}}
             <div class="item-content">
-                {{item.system.description}}
+                {{consumable.system.description}}
             </div>
             {{/if}}
         </div>
@@ -50,7 +48,7 @@
         <div class="item-name">
             {{!-- todo attach to item image --}}
             <img src="{{equippable.img}}" data-tooltip="{{equippable.name}}">
-            <h4><a data-action="toggle-summary">{{equippable.name}}</a></h4>
+            <h4><a data-action="toggle-summary" data-toggle="{{equippable._id}}">{{equippable.name}}</a></h4>
         </div>
         <div class="item-quantity">
             {{#if equippable.system.quantity}}
@@ -71,10 +69,10 @@
                     class="fas fa-trash"></i></a>
         </div>
         {{!-- todo show/hide summary using toggle-summary action --}}
-        <div class="item-summary" hidden="hidden">
-            {{#if item.system.description}}
+        <div class="item-summary" hidden="hidden" data-toggle-target="{{equippable._id}}">
+            {{#if equippable.system.description}}
             <div class="item-content">
-                {{item.system.description}}
+                {{equippable.system.description}}
             </div>
             {{/if}}
         </div>
@@ -87,7 +85,7 @@
         <div class="item-name">
             {{!-- todo attach to item image --}}
             <img src="{{item.img}}" data-tooltip="{{item.name}}">
-            <h4><a data-action="toggle-summary">{{item.name}}</a></h4>
+            <h4><a data-action="toggle-summary" data-toggle="{{item._id}}">{{item.name}}</a></h4>
         </div>
         <div class="item-quantity">
             {{#if item.system.quantity}}
@@ -106,7 +104,7 @@
                     class="fas fa-trash"></i></a>
         </div>
         {{!-- todo show/hide summary using toggle-summary action --}}
-        <div class="item-summary" hidden="hidden">
+        <div class="item-summary" hidden="hidden" data-toggle-target="{{item._id}}">
             {{#if item.system.description}}
             <div class="item-content">
                 {{item.system.description}}
