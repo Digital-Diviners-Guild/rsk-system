@@ -140,6 +140,18 @@ export default class RSKCharacterType extends RSKActorType {
             .map(b => b.system.applyBackgroundSkillImprovements(this.parent));
     }
 
+    addGold(amount) {
+        const newAmount = this.gold + amount
+        this.parent.update({ "system.gold": newAmount });
+    }
+
+    removeGold(amount) {
+        const newAmount = game.rsk.math.clamp_value(this.gold - amount, { min: 0 });
+        this.parent.update({
+            "system.gold": newAmount
+        });
+    }
+
     spendRunes(type, amount) {
         const rune = this.parent.items.find(i => i.type === "rune" && i.system.type === type);
         const newAmount = rune.system.quantity - amount;
@@ -230,7 +242,7 @@ export default class RSKCharacterType extends RSKActorType {
         const isAmmo = itemToEquip.isOnlyAmmo() || this.getActiveItems().some(w => w.usesItemAsAmmo(itemToEquip));
         if (isAmmo) return "ammo";
 
-        if (["weapon", "arm"].includes(itemToEquip.system.activeSlot)){
+        if (["weapon", "arm"].includes(itemToEquip.system.activeSlot)) {
             const canWieldWithWeapon = this.getActiveItems().find(w => w.system.equippedInSlot === "weapon")?.canWieldWith(itemToEquip);
             return canWieldWithWeapon ? "arm" : itemToEquip.system.activeSlot;
         }

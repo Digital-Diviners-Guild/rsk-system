@@ -18,6 +18,9 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         this._prepareEquipment(context);
         context.armourValue = this.actor.system.getArmourValue();
         context.needsApplyBackgrounds = this.actor.items.some(i => i.type === "background" && !i.system.isApplied());
+        context.canImproveCharacter = Object.keys(this.actor.system.skills)
+            .some(i => this.actor.system.skills[i].used
+                && this.actor.system.skills[i].level < 10);
         return context;
     }
 
@@ -143,6 +146,20 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         return result;
     }
 
+    async addGold() {
+        const amountResult = await uiService.showDialog("manage-gold");
+        if (amountResult.confirmed) {
+            this.actor.system.addGold(amountResult.amount)
+        }
+    }
+
+    async removeGold() {
+        const amountResult = await uiService.showDialog("manage-gold");
+        if (amountResult.confirmed) {
+            this.actor.system.removeGold(amountResult.amount)
+        }
+    }
+
     async handleIncreaseItemQuantity(itemId) {
         const item = this.actor.items.find(i => i.id === itemId);
         this.actor.system.addItem(item)
@@ -183,7 +200,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             // that allows you to select the weapon and if it is a 'map' or not for disadvantage
             // this dialog could maybe call the attack for you so you don't need to go through 
             // two dialogs?
-            const result = await uiService.showDialog("select-item", { context: { items: weapons } });
+            const result = await uiService.showDialog("select-item", { items: weapons });
             if (!result.confirmed) return;
             weapon = weapons.find(i => i._id === result.id);
         } else if (weapons?.length > 0) {

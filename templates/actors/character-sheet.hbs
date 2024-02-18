@@ -4,12 +4,12 @@
       <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
       <div class="rsk stats-abilities">
         <div class="actor-toolbar">
-          <div class="actor-application" application-method="characterRest" effect-label="Rest" glow-color="green"><i
-              class="fas fa-bed"></i></div>
-          <div class="actor-application" application-method="characterDamage" effect-label="Take Damage"
-            glow-color="red"><i class="fas fa-heart"></i></div>
-          <div class="actor-application" application-method="characterAttackAction" effect-label="Attack"
-            glow-color="orange">
+          <div class="actor-application" application-method="characterRest" data-tooltip="{{localize 'RSK.Rest'}}"
+            glow-color=" green"><i class="fas fa-bed"></i></div>
+          <div class="actor-application" application-method="characterDamage"
+            data-tooltip="{{localize 'RSK.TakeDamage'}}" glow-color=" red"><i class="fas fa-heart"></i></div>
+          <div class="actor-application" application-method="characterAttackAction"
+            data-tooltip="{{localize 'RSK.Attack'}}" glow-color=" orange">
             {{!-- todo: hybrid logo --}}
             {{#if equippedIsHybrid}}
             <i class="fas fa-sword"></i>
@@ -22,14 +22,14 @@
             {{/if}}
             {{/if}}
           </div>
-          <div class="actor-application" application-method="characterCastSpell" effect-label="Cast Spell"
-            glow-color="blue"><i class="fas fa-wand-sparkles"></i></div>
-          <div class="actor-application" application-method="characterCastPrayer" effect-label="Pray"
+          <div class="actor-application" application-method="characterCastSpell"
+            data-tooltip="{{localize 'RSK.CastSpell'}}" glow-color="blue"><i class="fas fa-wand-sparkles"></i></div>
+          <div class="actor-application" application-method="characterCastPrayer" data-tooltip="{{localize 'RSK.Pray'}}"
             glow-color="white">
             <i class="fas fa-hands-praying"></i>
           </div>
-          <div class="actor-application" application-method="characterCastSummons" effect-label="Summon Familiar"
-            glow-color="yellow">
+          <div class="actor-application" application-method="characterCastSummons"
+            data-tooltip="{{localize 'RSK.SummonFamiliar'}}" glow-color="yellow">
             <i class="fas fa-paw-claws"></i>
           </div>
         </div>
@@ -92,32 +92,34 @@
         <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" /></h1>
       </header>
       <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="skills" data-tooltip='{{localize "RSK.Skills" }}'>
+        <a class="item" data-tab="skills" data-tooltip='{{localize "RSK.Skills"}}'>
           <i class="fas fa-location-crosshairs"></i>
         </a>
-        <a class="item" data-tab="inventory" data-tooltip='{{localize "RSK.Inventory" }}'>
+        <a class="item" data-tab="inventory" data-tooltip='{{localize "RSK.Inventory"}}'>
           <i class="fas fa-sack"></i>
         </a>
-        <a class="item" data-tab="magic" data-tooltip='{{localize "RSK.SpellBook" }}'>
+        <a class="item" data-tab="magic" data-tooltip='{{localize "RSK.SpellBook"}}'>
           <i class="fas fa-hat-wizard"></i>
         </a>
-        <a class="item" data-tab="prayer" data-tooltip='{{localize "RSK.Prayers" }}'>
+        <a class="item" data-tab="prayer" data-tooltip='{{localize "RSK.Prayers"}}'>
           <i class="fas fa-sparkles"></i>
         </a>
-        <a class="item" data-tab="summoning" data-tooltip='{{localize "RSK.Familiars" }}'>
+        <a class="item" data-tab="summoning" data-tooltip='{{localize "RSK.Familiars"}}'>
           <i class="fas fa-cloud-bolt-moon"></i>
         </a>
-        <a class="item" data-tab="description" data-tooltip='{{localize "RSK.Details" }}'>
+        <a class="item" data-tab="description" data-tooltip='{{localize "RSK.Details"}}'>
           <i class="fas fa-id-card"></i>
         </a>
-        <a class="item" data-tab="edit" data-tooltip='{{localize "RSK.Edit" }}'>
+        <a class="item" data-tab="edit" data-tooltip='{{localize "RSK.Edit"}}'>
           <i class="fas fa-pen-to-square"></i>
         </a>
       </nav>
       <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="skills">
-          <div class="skill-header">
-            <button type="button" class="improve-your-character">{{localize "Improve Your Character"}}</button>
+          <div style="min-height: 40px" class="skill-header">
+            {{#if canImproveCharacter}}
+            <button type="button" class="improve-your-character">{{localize "RSK.ImproveYourCharacter"}}</button>
+            {{/if}}
           </div>
           <div class="rsk skill-container">
             {{#each skills as |skill|}}
@@ -196,8 +198,12 @@
               <h3 class="w-50">{{localize "RSK.ActiveSlots"}}</h3>
               <div class="w-50">
                 <h3 class="flex-end">
-                  <label>{{localize "RSK.Gold"}}</label>
-                  <input name="system.gold" type="number" data-dtype="Number" value="{{system.gold}}">
+                  <i style="padding-right:5px;" class="fas fa-coins"></i>
+                  <span style="padding-right:10px;">{{system.gold}}</span>
+                  <i stye="padding-left: 10px;" class="fas fa-plus actor-application" application-method="addGold"
+                    data-tooltip='{{localize "RSK.AddGold" }}'></i>
+                  <i style="padding-left: 10px;" class="fas fa-minus actor-application" application-method="removeGold"
+                    data-tooltip='{{localize "RSK.RemoveGold" }}'></i>
                 </h3>
               </div>
             </header>
