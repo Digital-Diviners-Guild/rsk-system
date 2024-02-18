@@ -230,8 +230,11 @@ export default class RSKCharacterType extends RSKActorType {
         const isAmmo = itemToEquip.isOnlyAmmo() || this.getActiveItems().some(w => w.usesItemAsAmmo(itemToEquip));
         if (isAmmo) return "ammo";
 
-        const canWieldWithWeapon = this.getActiveItems().find(w => w.system.equippedInSlot === "weapon")?.canWieldWith(itemToEquip);
-        return canWieldWithWeapon ? "arm" : itemToEquip.system.activeSlot;
+        if (["weapon", "arm"].includes(itemToEquip.system.activeSlot)){
+            const canWieldWithWeapon = this.getActiveItems().find(w => w.system.equippedInSlot === "weapon")?.canWieldWith(itemToEquip);
+            return canWieldWithWeapon ? "arm" : itemToEquip.system.activeSlot;
+        }
+        return itemToEquip.system.activeSlot;
     }
 
     isSlotDisabled(targetSlot) {
