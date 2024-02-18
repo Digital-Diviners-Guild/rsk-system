@@ -215,24 +215,10 @@
           <section class="inventory-list">
             {{> "/systems/rsk/templates/actors/parts/view-inventory.hbs" items=inventoryItems }}
           </section>
-
         </div>
         <div class="tab features" data-group="primary" data-tab="description">
-          <div class="form-group">
-            <label>{{localize "RSK.Catalyst"}}</label>
-            <div>{{system.catalyst}}</div>
-            <label>{{localize "RSK.Motivation"}}</label>
-            <div>{{system.motivation}}</div>
-          </div>
-          <div>
-            {{editor system.description target="system.description" editable=false engine="prosemirror"}}
-          </div>
-          <label>{{localize "RSK.Backgrounds"}}</label>
-          {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=backgrounds }}
-        </div>
-
-        <div class="tab features" data-group="primary" data-tab="edit">
-          <div>
+          {{!-- todo: only editable by player or gm, not others --}}
+          <div class="description-editor">
             <label>{{localize "RSK.Description"}}</label>
             {{editor system.description target="system.description" button=true engine="prosemirror"}}
           </div>
@@ -245,37 +231,23 @@
             <input type="text" name="system.motivation" value="{{system.motivation}}">
           </div>
           <label>{{localize "RSK.Backgrounds"}}</label>
+          {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=backgrounds }}
+          {{#if needsApplyBackgrounds}}
+          <button class="apply-backgrounds">{{localize "RSK.ApplyBackgrounds"}}</button>
+          {{/if}}
+        </div>
+
+        <div class="tab features" data-group="primary" data-tab="edit">
+          <strong>{{localize "RSK.Effects"}}</strong>
+          {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+          <hr />
+          <label>{{localize "RSK.Backgrounds"}}</label>
           {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
           items=backgrounds
           addType="background"
           addLabel="Add Background"}}
           <button class="apply-backgrounds">{{localize "RSK.ApplyBackgrounds"}}</button>
-
-          <div class="form-group">
-            {{#each abilities as |ability|}}
-            <span data-type="ability" data-value="{{ability.index}}">
-              <strong>{{ability.label}}</strong>
-              <input name="system.abilities.{{ability.index}}.level" type="number" data-dtype="Number"
-                value="{{ability.value.level}}">
-            </span>
-            {{/each}}
-          </div>
-          <div class="rsk skill-container">
-            {{#each skills as |skill|}}
-            <div class="form-group">
-              <span data-type="skill" data-value="{{skill.index}}">
-                <strong>{{skill.label}}</strong>
-                <input name="system.skills.{{skill.index}}.level" type="number" data-dtype="Number"
-                  value="{{skill.value.level}}">
-              </span>
-            </div>
-            {{/each}}
-          </div>
           <hr />
-
-          <strong>{{localize "RSK.Effects"}}</strong>
-          {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
-
           <strong>{{"RSK.Codexes"}}</strong>
           {{#each codexs as |codex|}}
           <div class="form-group">
@@ -284,6 +256,7 @@
               "RSK.RemoveItem"}}</a>
           </div>
           {{/each}}
+          <hr />
           <div>
             <label>{{localize "RSK.Spells"}}</label>
             {{#each spells as |spell|}}
@@ -295,7 +268,7 @@
             </li>
             {{/each}}
           </div>
-
+          <hr />
           <div>
             <label>{{localize "RSK.Prayers"}}</label>
             {{#each prayers as |prayer|}}
@@ -307,7 +280,7 @@
             </li>
             {{/each}}
           </div>
-
+          <hr />
           <div>
             <label>{{localize "RSK.Familiars"}}</label>
             {{#each familiars as |familiar|}}
@@ -317,6 +290,28 @@
               </div>
               <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
             </li>
+            {{/each}}
+          </div>
+          <hr />
+          <div class="form-group">
+            {{#each abilities as |ability|}}
+            <span data-type="ability" data-value="{{ability.index}}">
+              <strong>{{ability.label}}</strong>
+              <input name="system.abilities.{{ability.index}}.level" type="number" data-dtype="Number"
+                value="{{ability.value.level}}">
+            </span>
+            {{/each}}
+          </div>
+          <hr />
+          <div class="rsk skill-container">
+            {{#each skills as |skill|}}
+            <div class="form-group">
+              <span data-type="skill" data-value="{{skill.index}}">
+                <strong>{{skill.label}}</strong>
+                <input name="system.skills.{{skill.index}}.level" type="number" data-dtype="Number"
+                  value="{{skill.value.level}}">
+              </span>
+            </div>
             {{/each}}
           </div>
         </div>

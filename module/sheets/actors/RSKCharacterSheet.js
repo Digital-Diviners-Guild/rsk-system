@@ -17,6 +17,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         this._prepareSummons(context);
         this._prepareEquipment(context);
         context.armourValue = this.actor.system.getArmourValue();
+        context.needsApplyBackgrounds = this.actor.items.some(i => i.type === "background" && !i.system.isApplied());
         return context;
     }
 

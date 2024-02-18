@@ -11,6 +11,10 @@ export default class RSKBackgroundType extends foundry.abstract.TypeDataModel {
         }
     };
 
+    isApplied = () => {
+        return this.parent.flags?.rsk?.appliedBackground ?? false;
+    }
+
     applyBackgroundSkillImprovements = (actor) => {
         if (this.parent.flags.rsk?.appliedBackground || this.getBackgroundSkillImprovementTotal() === 0) return;
         this.mapSkillImprovementOperation((skill, improvement) =>
