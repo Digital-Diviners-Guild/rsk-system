@@ -184,7 +184,7 @@ export default class RSKCharacterType extends RSKActorType {
     }
 
     removeItem(itemToRemove, quantity = 1) {
-        const existingItem = this.parent.items.find(i => i.name === itemToRemove.name && i.type === itemToRemove.type);
+        const existingItem = this.parent.items.find(i => i.id === itemToRemove.id);
         if (existingItem) {
             const newQuantity = existingItem.system.quantity - quantity;
             if (newQuantity < 1) {

@@ -19,9 +19,10 @@ export const canAddItem = (items, newItem) => {
     let existingItem = null;
     if (newItem.system.quantity && newItem.system.maxStackSize) {
         existingItem = items.find(item =>
-            item.name === newItem.name &&
-            item.type === newItem.type &&
-            calculateStackSize(item) < item.system.maxStackSize
+            item.name === newItem.name
+            && item.img === newItem.img
+            && item.type === newItem.type
+            && calculateStackSize(item) < item.system.maxStackSize
         );
     }
 
