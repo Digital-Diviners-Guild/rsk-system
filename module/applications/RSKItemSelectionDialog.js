@@ -1,6 +1,7 @@
 import { localizeText } from "../rsk-localize.js";
+import RSKDialog from "./RSKDialog.js";
 
-export default class RSKItemSelectionDialog extends Application {
+export default class RSKItemSelectionDialog extends RSKDialog {
     static isActive;
 
     static get defaultOptions() {
@@ -25,10 +26,10 @@ export default class RSKItemSelectionDialog extends Application {
         super();
         this.resolve = resolve;
         this.context = context;
+        this.keypressId = "itemSelection";
     }
 
     async close(options) {
-        if (!this.isResolved) this.resolve({ confirmed: false });
         RSKItemSelectionDialog.isActive = false;
         super.close(options);
     }
@@ -41,7 +42,7 @@ export default class RSKItemSelectionDialog extends Application {
 
     activateListeners(html) {
         super.activateListeners(html);
-        html.find('.confirm-button').click(this._onConfirm.bind(this));
+        html.find('button.confirm').click(this._onConfirm.bind(this));
     }
 
     async _onConfirm(event) {
@@ -50,7 +51,6 @@ export default class RSKItemSelectionDialog extends Application {
             confirmed: true,
             id
         });
-        this.isResolved = true;
-        this.close();
+        await super._onConfirm(event);
     }
 }

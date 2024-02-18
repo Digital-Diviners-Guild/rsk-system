@@ -1,6 +1,7 @@
 import { localizeText } from '../rsk-localize.js';
+import RSKDialog from './RSKDialog.js';
 
-export default class RSKImproveYourCharacter extends Application {
+export default class RSKImproveYourCharacter extends RSKDialog {
     static isActive;
 
     static get defaultOptions() {
@@ -27,6 +28,7 @@ export default class RSKImproveYourCharacter extends Application {
         this.context = context;
         this.skills = context.skills;
         this.abilities = context.abilities;
+        this.keypressId = "improveCharacter";
     }
 
     async close(options) {
@@ -61,7 +63,6 @@ export default class RSKImproveYourCharacter extends Application {
 
     activateListeners(html) {
         super.activateListeners(html);
-        html.find('.confirm-button').click(this._onConfirm.bind(this));
         const skillDropDown = html.find('.skill-dropdown');
         const abilityDropDown = html.find('.ability-dropdown');
         this.handleAbilityDropDownVisibility(skillDropDown.val(), abilityDropDown);
@@ -80,7 +81,6 @@ export default class RSKImproveYourCharacter extends Application {
             selectedSkill: selectedSkill,
             selectedAbility: selectedAbility
         });
-        this.isResolved = true;
-        this.close();
+        await super._onConfirm(event);
     }
 }

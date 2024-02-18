@@ -1,6 +1,7 @@
 import { localizeText } from "../rsk-localize.js";
+import RSKDialog from "./RSKDialog.js";
 
-export default class RSKManageGoldDialog extends Application {
+export default class RSKManageGoldDialog extends RSKDialog {
     static isActive;
 
     static get defaultOptions() {
@@ -29,6 +30,7 @@ export default class RSKManageGoldDialog extends Application {
         super();
         this.resolve = resolve;
         this.context = context;
+        this.keypressId = "manageGold";
     }
 
     getData() {
@@ -38,20 +40,16 @@ export default class RSKManageGoldDialog extends Application {
     }
 
     async close(options) {
-        if (!this.isResolved) this.resolve({ confirmed: false, damage: 0 });
         RSKManageGoldDialog.isActive = false;
         super.close(options);
     }
 
-    activateListeners(html) {
-        html.find("button.confirm").click((ev) => {
-            const amount = Number($("#amount").val());
-            this.resolve({
-                confirmed: true,
-                amount
-            });
-            this.isResolved = true;
-            this.close();
+    async _onConfirm(event) {
+        const amount = Number($("#amount").val());
+        this.resolve({
+            confirmed: true,
+            amount
         });
+        await super._onConfirm(event);
     }
 }

@@ -214,7 +214,7 @@ export const castAction = async (actor, castType) => {
 const useAction = async (actor, skill, ability) => {
     const rollData = actor.system.getRollData();
     const confirmRollResult = await uiService.showDialog("confirm-roll", rollData, { defaultSkill: skill, defaultAbility: ability });
-    if (!confirmRollResult.rolled) return false;
+    if (!confirmRollResult.confirmed) return false;
 
     const skillResult = await actor.system.useSkill(confirmRollResult);
     //todo: not all actions will need a target (some only target self, others don't need a target per say)

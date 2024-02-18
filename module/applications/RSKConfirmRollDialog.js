@@ -1,6 +1,7 @@
 import { localizeObject, localizeText } from "../rsk-localize.js";
+import RSKDialog from "./RSKDialog.js";
 
-export default class RSKConfirmRollDialog extends Application {
+export default class RSKConfirmRollDialog extends RSKDialog {
     static isActive;
 
     static get defaultOptions() {
@@ -36,6 +37,7 @@ export default class RSKConfirmRollDialog extends Application {
         this.advantageDisadvantageOptions = { normal: "RSK.Normal", advantage: "RSK.Advantage", disadvantage: "RSK.Disadvantage" };
         this.advantageDisadvantage = "normal";
         this.targetNumberModifier = 0;
+        this.keypressId = "confirmRoll";
     }
 
     getData() {
@@ -54,28 +56,24 @@ export default class RSKConfirmRollDialog extends Application {
     }
 
     async close(options) {
-        if (!this.isResolved) this.resolve({ rolled: false });
         RSKConfirmRollDialog.isActive = false;
         super.close(options);
     }
 
-    activateListeners(html) {
-        html.find("button.roll").click((ev) => {
-            this.rollMode = $("#roll-mode-select").val();
-            this.selectedSkill = $("#skill-select").val();
-            this.selectedAbility = $("#ability-select").val();
-            this.advantageDisadvantage = $("#adv-dadv-select").val();
-            this.targetNumberModifier = Number($("#tn-modifier").val());
-            this.resolve({
-                rolled: true,
-                rollMode: this.rollMode,
-                rollType: this.advantageDisadvantage,
-                skill: this.selectedSkill,
-                ability: this.selectedAbility,
-                targetNumberModifier: this.targetNumberModifier
-            });
-            this.isResolved = true;
-            this.close();
+    async _onConfirm(event) {
+        this.rollMode = $("#roll-mode-select").val();
+        this.selectedSkill = $("#skill-select").val();
+        this.selectedAbility = $("#ability-select").val();
+        this.advantageDisadvantage = $("#adv-dadv-select").val();
+        this.targetNumberModifier = Number($("#tn-modifier").val());
+        this.resolve({
+            confirmed: true,
+            rollMode: this.rollMode,
+            rollType: this.advantageDisadvantage,
+            skill: this.selectedSkill,
+            ability: this.selectedAbility,
+            targetNumberModifier: this.targetNumberModifier
         });
+        await super._onConfirm(event);
     }
 }
