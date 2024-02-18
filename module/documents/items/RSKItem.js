@@ -41,6 +41,7 @@ export default class RSKItem extends Item {
         return this.isWeapon()
             && item.isWeapon()
             && this.system.attackMethods.has("ranged")
+            && !this.system.attackMethods.has("ammo")
             && item.system.attackMethods.has("ammo")
             && this.system.ammoType === item.system.ammoType;
     }
