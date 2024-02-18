@@ -1,5 +1,15 @@
 const RSK = {};
 
+RSK.defaultWeapon = {
+    name: "Unarmed",
+    isMeleeWeapon: () => true,
+    system: {
+        weaponType: "simple",
+        attackType: "melee",
+        damageEntries: { crush: 1 }
+    }
+};
+
 RSK.skills = {
     archaeology: "RSK.Archaeology",
     attack: "RSK.Attack",

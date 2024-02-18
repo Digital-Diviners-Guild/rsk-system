@@ -177,14 +177,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     async characterAttackAction() {
         const weapons = this.actor.system.getActiveItems().filter(i => i.isWeapon() && i.system.equippedInSlot !== "ammo");
-        let weapon = {
-            name: localizeText("RSK.Unarmed"),
-            system: {
-                weaponType: "simple",
-                attackType: "melee",
-                damageEntries: { crush: 1 }
-            }
-        };
+        let weapon = CONFIG.RSK.defaultWeapon;
         if (weapons?.length > 1) {
             //todo: better flow, maybe a dual wield dialog
             // that allows you to select the weapon and if it is a 'map' or not for disadvantage
