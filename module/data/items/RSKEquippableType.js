@@ -24,7 +24,7 @@ export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
                         name: localizeText(CONFIG.RSK.activeSlotType[s])
                     };
                 });
-            slotToDisable = await uiService.showDialog("select-item", { context: { items: otherSlots } });
+            slotToDisable = await uiService.showDialog("select-item", { items: otherSlots });
             if (!slotToDisable.confirmed) {
                 return { error: localizeText("RSK.Error.DisableSlotToEquip") }
             };

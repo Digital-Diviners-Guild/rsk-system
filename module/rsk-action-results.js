@@ -90,19 +90,19 @@ const outcomeHandlers = {
     },
     //these will probably start to differ
     melee: async (target, outcome) => {
-        const result = await uiService.showDialog("apply-damage", { context: outcome });
+        const result = await uiService.showDialog("apply-damage", outcome);
         return result && result.confirmed
             ? [{ operation: "receiveDamage", params: [{ ...result }] }]
             : []
     },
     magic: async (target, outcome) => {
-        const result = await uiService.showDialog("apply-damage", { context: outcome });
+        const result = await uiService.showDialog("apply-damage", outcome);
         return result && result.confirmed
             ? [{ operation: "receiveDamage", params: [{ ...result }] }]
             : []
     },
     ranged: async (target, outcome) => {
-        const result = await uiService.showDialog("apply-damage", { context: outcome });
+        const result = await uiService.showDialog("apply-damage", outcome);
         return result && result.confirmed
             ? [{ operation: "receiveDamage", params: [{ ...result }] }]
             : []

@@ -187,7 +187,7 @@ export const castAction = async (actor, castType) => {
         return false;
     }
 
-    const selectCastableResult = await uiService.showDialog('select-item', { context: { items: castables } });
+    const selectCastableResult = await uiService.showDialog('select-item', { items: castables });
     if (!selectCastableResult || !selectCastableResult.confirmed) return false;
 
     const castable = actor.items.find(x => x._id === selectCastableResult.id);
@@ -213,7 +213,7 @@ export const castAction = async (actor, castType) => {
 
 const useAction = async (actor, skill, ability) => {
     const rollData = actor.system.getRollData();
-    const confirmRollResult = await uiService.showDialog("confirm-roll", { context: rollData, options: { defaultSkill: skill, defaultAbility: ability } });
+    const confirmRollResult = await uiService.showDialog("confirm-roll", rollData, { defaultSkill: skill, defaultAbility: ability });
     if (!confirmRollResult.rolled) return false;
 
     const skillResult = await actor.system.useSkill(confirmRollResult);
