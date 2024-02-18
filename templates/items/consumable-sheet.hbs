@@ -58,10 +58,13 @@
                 <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
             </div>
             <div>
+                <strong>{{localize "RSK.Cost"}}:</strong>
+                <input type="number" data-dType="Number" name="system.cost" value="{{system.cost}}">
+            </div>
+            <div>
                 <strong>{{localize "RSK.RestoresLifePoints"}}:</strong>
                 <input type="number" data-dType="Number" name="system.lifePointsRestored"
                     value="{{system.lifePointsRestored}}">
-                </p>
             </div>
             {{!-- I feel like the to add and remove could be done a lot better --}}
             <div class="form-group">
