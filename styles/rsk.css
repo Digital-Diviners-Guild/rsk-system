@@ -2,6 +2,7 @@
 /*  Root                                     */
 /* ----------------------------------------- */
 :root {
+    --button-tan: linear-gradient(to right, #8b4513, #a0522d, #8b4513);
     --color-primary: #994523;
     --color-secondary: #431a0e;
     --color-alt: #2c1a44;
@@ -9,7 +10,7 @@
     --color-border-light-primary: #a79687;
     --color-paper:#dfddd1;
     --color-tan-dark: #e2d1b1;
-    --color-tan: rgba(171,157,132, .4);
+    --color-tan: #cac3b4;
     --color-tan-light: #f2e4c7;
     --color-text-light: #fff;
     --color-text-light-highlight: #f9fafb;
@@ -18,6 +19,7 @@
     --color-underline-header: #782e22;
     --color-shadow-subtle: rgba(0,0,0,0.45);
     --color-light-gray: rgba(0,0,0,0.45);
+    --color-gray:#a9a8a5;
     --color-rsk-brown: #95835e;
     --color-gold: #cfb53b;
     --font-size-11: 0.6875rem;
@@ -41,6 +43,30 @@
     --color-level-success: #266c3c;
 
 
+}
+
+.ml-1 {
+    margin-left: 6px;
+}
+
+.ml-2 {
+    margin-left: 12px;
+}
+
+.ml-3 {
+    margin-left: 18px;
+}
+
+.mr-1 {
+    margin-right: 6px;
+}
+
+.mr-2 {
+    margin-right: 12px;
+}
+
+.mr-3 {
+    margin-right: 18px;
 }
 
 .w-100 {
@@ -74,6 +100,7 @@
     height: 150px;
     display: block;
     margin: 0 auto 12px;
+    object-fit: contain;
 }
 
 .actor.sheet .sheet-header h1.charname input[type="text"] {
@@ -238,9 +265,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 35px;
+    width: 25px;
     height: 25px;
     margin-right: 12px;
+
 }
 /* #endregion */
 
@@ -254,8 +282,8 @@
 .actor.sheet .sheet-container .sheet-body .inventory-active header {
     display: flex;
     width: 100%;
-    border-bottom: 1px solid var(--color-underline-header);
-    margin-bottom: 12px;
+    margin-bottom: 7px;
+    margin-top: 8px;
 }
 
 .actor.sheet .sheet-container .sheet-body .inventory-active header h3,
@@ -298,11 +326,19 @@
 
 .actor.sheet .sheet-container .sheet-body .inventory-active .item-active-md img,
 .actor.sheet .sheet-container .sheet-body .inventory-active .item-active-sm img {
+    background-color: var(--color-tan);
     display: flex;
     width: 100%;
     border: 1px solid var(--color-rsk-brown);
     border-radius: 5px;
     position: relative;
+    object-fit: contain;
+    padding: 5px;
+}
+
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-md.disabled img,
+.actor.sheet .sheet-container .sheet-body .inventory-active .item-active-sm.disabled img {
+    background-color: var(--color-gray);
 }
 
 .actor.sheet .sheet-container .sheet-body .inventory-active .item-active-md img {
@@ -327,7 +363,7 @@
     font-family: 'Bruno Ace';
     width: 100%;
     height: 100%;
-    background-color: rgb(161 161 161 / 80%);
+    background-color: var(--color-gray);
     display: flex;
     position: absolute;
     top: 0;
@@ -407,7 +443,9 @@
     border-radius: 5px;
     margin-left: 4px;
     padding: 3px;
-    background-color: beige;
+    object-fit: contain;
+    background-color: var(--color-tan);
+    border-color: var(--color-rsk-brown);
 }
 
 .actor.sheet .sheet-container .sheet-body .inventory-list .item-name h4 {
@@ -447,14 +485,20 @@
     padding: 10px 5px 8px;
 }
 
-
-
-
 /* #endregion */
 
+/* ----------------------------------------- */
+/*  Sidebar Directory                        */
+/* ----------------------------------------- */
+
+/* #region Directory Items */
+.directory .directory-item img {
+    object-fit: contain;
+    padding: 5px;
+}
 
 
-
+/* endregion */
 
 
 
@@ -467,7 +511,7 @@
     height: 100%;
 }
 
-.rsk.sheet.actor .description-editor .editor {
+.rsk.sheet.actor [data-tab="edit"] .editor {
     padding: 0 8px;
     min-height: 200px;
 }
@@ -586,6 +630,18 @@ input.stats-value-left[type=number] {
 
 .actor-application:hover {
     transform: scale(1.25);
+}
+.actor-application:hover::after {
+    content: attr(effect-label);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 4px;
+    white-space: nowrap;
 }
 
 @keyframes glow {
