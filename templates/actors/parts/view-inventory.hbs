@@ -37,6 +37,11 @@
                 {{consumable.system.description}}
             </div>
             {{/if}}
+            {{#if consumable.system.effectDescription}}
+            <div class="item-content">
+                {{consumable.system.effectDescription}}
+            </div>
+            {{/if}}
         </div>
     </li>
     {{/each}}
@@ -70,6 +75,11 @@
                 {{equippable.system.description}}
             </div>
             {{/if}}
+            {{#if equippable.system.effectDescription}}
+            <div class="item-content">
+                {{equippable.system.effectDescription}}
+            </div>
+            {{/if}}
         </div>
     </li>
     {{/each}}
@@ -99,6 +109,11 @@
             {{#if item.system.description}}
             <div class="item-content">
                 {{item.system.description}}
+            </div>
+            {{/if}}
+            {{#if item.system.effectDescription}}
+            <div class="item-content">
+                {{item.system.effectDescription}}
             </div>
             {{/if}}
         </div>
