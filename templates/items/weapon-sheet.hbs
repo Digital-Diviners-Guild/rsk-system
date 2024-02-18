@@ -16,61 +16,67 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div>
-                <strong>{{localize "RSK.AttackMethods"}}</strong>
-                {{!-- todo: make this read-only/hide all the edit tabs with a hotkey --}}
-                {{setBoxes system.attackMethods "attackMethod-checkbox" config.attackMethods}}
-            </div>
-            <div>
-                <strong>{{localize "RSK.WeaponType"}}</strong>
-                {{system.weaponType}}
-                {{#if system.isTwoHanded}}
-                {{localize "RSK.TwoHanded"}}
-                {{else}}
-                {{localize "RSK.OneHanded"}}
-                {{/if}}
-            </div>
-            <div>
-                <strong>{{localize "RSK.Material"}}</strong>
-                {{system.material}}
-            </div>
-            <div>
-                <strong>{{localize "RSK.AmmoType"}}</strong>
-                {{system.ammoType}}
-            </div>
-            <div>
                 <strong>{{localize "RSK.Description"}}</strong>
                 {{system.description}}
             </div>
-            {{!-- only ammo --}}
+            {{#if system.effectDescription}}
             <div>
                 <strong>{{localize "RSK.Effects"}}</strong>
                 {{system.effectDescription}}
             </div>
+            {{/if}}
+            <div style="display: flex;">
+                <div class="w-50">
+                    <strong>{{localize "RSK.Cost"}}</strong>
+                    {{system.cost}}
+                </div>
+                <div class="w-50">
+                    <strong>{{localize "RSK.Material"}}</strong>
+                    {{system.material}}
+                </div>
+            </div>
+            {{#if showRange}}
             <div>
                 {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
             </div>
-            <div>
-                <strong>{{localize "RSK.Cost"}}</strong>
-                {{system.cost}}
-            </div>
+            {{/if}}
             <div>
                 {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
             </div>
-            <div>
-                <strong>{{localize "RSK.SpecialEffects"}}</strong>
-                {{system.specialEffects}}
+            <div style="display: flex;">
+                <div class="w-50">
+                    <strong>{{localize "RSK.WeaponType"}}</strong>
+                    {{system.weaponType}}
+                </div>
+                <div class="w-50">
+                    <strong>{{localize "RSK.AttackMethods"}}</strong>
+                    {{attackMethods}}
+                </div>
             </div>
+            {{#if showAmmo}}
             <div>
-                <strong>{{localize "RSK.ActiveSlot"}}</strong>
-                {{system.activeSlot}}
+                <strong>{{localize "RSK.AmmoType"}}</strong>
+                {{system.ammoType}}
             </div>
+            {{/if}}
+            {{#if showEffects}}
             <div>
-                <strong>{{localize "RSK.MaxStackSize"}}</strong>
-                {{system.maxStackSize}}
+                <div>
+                    <strong>{{localize "RSK.SpecialEffects"}}</strong>
+                    {{system.specialEffects}}
+                </div>
             </div>
-            <div>
-                <strong>{{localize "RSK.Quantity"}}</strong>
-                {{system.quantity}}
+            {{/if}}
+
+            <div style="display: flex;">
+                <div class="w-50">
+                    <strong>{{localize "RSK.Quantity"}}</strong>
+                    {{system.quantity}}
+                </div>
+                <div class="w-50">
+                    <strong>{{localize "RSK.MaxStackSize"}}</strong>
+                    {{system.maxStackSize}}
+                </div>
             </div>
         </div>
 
@@ -87,8 +93,8 @@
             </div>
             <div>
                 <strong>{{localize "RSK.IsTwoHanded"}}</strong>
-                <input type="checkbox" data-dtype="Boolean" name="system.isTwoHanded"
-                  value="{{system.isTwoHanded}}" {{checked system.isTwoHanded}}>
+                <input type="checkbox" data-dtype="Boolean" name="system.isTwoHanded" value="{{system.isTwoHanded}}"
+                    {{checked system.isTwoHanded}}>
             </div>
             <div>
                 <strong>{{localize "RSK.Material"}}</strong>

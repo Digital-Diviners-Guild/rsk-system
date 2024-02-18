@@ -37,6 +37,14 @@ export default class RSKItem extends Item {
             && this.system.attackMethods.size === 1;
     }
 
+    isAmmo() {
+        return this.system.attackMethods.has("ammo");
+    }
+
+    isOrUsesAmmo() {
+        return this.isRangedWeapon() || this.isAmmo();
+    }
+
     usesItemAsAmmo(item) {
         return this.isWeapon()
             && item.isWeapon()
