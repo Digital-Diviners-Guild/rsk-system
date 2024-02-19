@@ -1,75 +1,108 @@
 <form class="{{cssClass}}" autocomplete="off">
-    <header class="sheet-header">
-        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
-        <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
-    </header>
-    <nav class="sheet-tabs tabs" data-group="primary">
-        <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
-        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
-    </nav>
-    <section class="sheet-body" data-can-drop="true">
-        <div class="tab features" data-group="primary" data-tab="description">
-            <h3>{{localize "RSK.Description"}}</h3>
-            <p>{{system.description}}</p>
-            <p>{{system.effectDescription}}</p>
-            <p><strong>{{localize "RSK.Cost"}}:</strong> {{system.cost}} {{localize "RSK.GP"}}</p>
-            <p><strong>{{localize "RSK.ActiveSlot"}}:</strong> {{system.activeSlot}}</p>
-            <h3>{{localize "RSK.Values"}}</h3>
-            <p><strong>{{localize "RSK.Material"}}:</strong> {{system.values.material}}</p>
-            <p><strong>{{localize "RSK.Soak"}}:</strong> {{system.values.soak}}</p>
-            <div>
-                <strong>{{localize "RSK.SpecialEffects"}}:</strong>
-                <div>{{system.specialEffects}}</div>
+    <div class="sheet-container">
+        <div class="sidebar">
+            <img src="{{item.img}}" data-edit="img" title="{{item.name}}" />
+            <div class="rsk stats">
+                <div class="stats-group">
+                    <div class="stats-box">
+                        <div class="stats-label">{{localize "RSK.Cost"}}</div>
+                        <div class="stats-values">
+                            <div class="stats-value-center">{{system.cost}} {{localize "RSK.GP"}}</div>
+                        </div>
+                    </div>
+                    <div class="stats-box">
+                        <div class="stats-label">{{localize "RSK.ArmourValue"}}</div>
+                        <div class="stats-values">
+                            {{localize "RSK.Soak"}}
+                            <div class="stats-value-center">{{system.values.soak}}</div>
+                            {{localize "RSK.Material"}}
+                            <div class="stats-value-center">{{system.values.material}}</div>
+                        </div>
+                    </div>
+                    <div class="stats-box">
+                        <div class="stats-label">{{localize "RSK.ActiveSlot"}}</div>
+                        <div class="stats-values">
+                            {{!-- todo: localize --}}
+                            <div class="stats-value-center">{{system.activeSlot}}</div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <strong>{{localize "RSK.Upgrades"}}:</strong>
-                <div>{{system.upgrades}}</div>
-            </div>
-
-            <div>
-                <strong>{{localize "RSK.Effects"}}:</strong>
-                {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
-            </div>
-
         </div>
-        <div class="tab features" data-group="primary" data-tab="edit">
-            <label>{{localize "RSK.Description"}}:</label>
-            <input type="text" name="system.description" value="{{system.description}}">
+        <div class="main-content">
+            <header class="sheet-header">
+                <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
+            </header>
+            <nav class="sheet-tabs tabs" data-group="primary">
+                <a class="item" data-tab="description" data-tooltip='{{localize "RSK.Details"}}'>
+                    <i class="fas fa-id-card"></i>
+                </a>
+                <a class="item" data-tab="edit" data-tooltip='{{localize "RSK.Edit"}}'>
+                    <i class="fas fa-pen-to-square"></i>
+                </a>
+            </nav>
+            <section class="sheet-body" data-can-drop="true">
+                <div class="tab features" data-group="primary" data-tab="description">
+                    <h3>{{localize "RSK.Description"}}</h3>
+                    <p>{{system.description}}</p>
+                    <p>{{system.effectDescription}}</p>
 
-            <label>{{localize "RSK.Cost"}}:</label>
-            <input type="number" name="system.cost" value="{{system.cost}}">
+                    <div>
+                        <strong>{{localize "RSK.SpecialEffects"}}:</strong>
+                        <div>{{system.specialEffects}}</div>
+                    </div>
+                    <div>
+                        <strong>{{localize "RSK.Effects"}}:</strong>
+                        {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
+                    </div>
+                    {{#if system.upgrades}}
+                    <div>
+                        <strong>{{localize "RSK.Upgrades"}}:</strong>
+                        <div>{{system.upgrades}}</div>
+                    </div>
+                    {{/if}}
 
-            <div class="form-group">
-                <label>{{localize "RSK.ActiveSlot"}}:</label>
-                <select name="system.activeSlot">
-                    {{selectOptions config.armourActiveSlotType.values selected=system.activeSlot localize=true}}
-                </select>
-            </div>
-            <div>
-                <strong>{{localize "RSK.Upgrades"}}:</strong>
-                <input type="text" name="system.upgrades" value="{{system.upgrades}}">
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Material"}}</label>
-                <select name="system.values.material">
-                    {{selectOptions config.armourMaterials selected=system.values.material localize=true}}
-                </select>
-            </div>
-            <div>
-                <label>{{localize "RSK.Soak"}}:</label>
-                <input type="number" name="system.values.soak" value="{{system.values.soak}}">
-            </div>
+                </div>
+                <div class="tab features" data-group="primary" data-tab="edit">
+                    <label>{{localize "RSK.Description"}}:</label>
+                    <input type="text" name="system.description" value="{{system.description}}">
 
-            <strong>{{localize "RSK.MaxStackSize"}}: </strong>
-            <input type="number" data-dtype="number" name="system.maxStackSize" value="{{system.maxStackSize}}">
+                    <label>{{localize "RSK.Cost"}}:</label>
+                    <input type="number" name="system.cost" value="{{system.cost}}">
 
-            <strong>{{localize "RSK.SpecialEffects"}}:</strong>
-            <input type="text" name="system.specialEffects" value="{{system.specialEffects}}">
+                    <div class="form-group">
+                        <label>{{localize "RSK.ActiveSlot"}}:</label>
+                        <select name="system.activeSlot">
+                            {{selectOptions config.armourActiveSlotType.values selected=system.activeSlot
+                            localize=true}}
+                        </select>
+                    </div>
+                    <div>
+                        <strong>{{localize "RSK.Upgrades"}}:</strong>
+                        <input type="text" name="system.upgrades" value="{{system.upgrades}}">
+                    </div>
+                    <div class="form-group">
+                        <label>{{localize "RSK.Material"}}</label>
+                        <select name="system.values.material">
+                            {{selectOptions config.armourMaterials selected=system.values.material localize=true}}
+                        </select>
+                    </div>
+                    <div>
+                        <label>{{localize "RSK.Soak"}}:</label>
+                        <input type="number" name="system.values.soak" value="{{system.values.soak}}">
+                    </div>
 
-            <strong>{{localize "RSK.Effects"}}:</strong>
-            {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+                    <strong>{{localize "RSK.MaxStackSize"}}: </strong>
+                    <input type="number" data-dtype="number" name="system.maxStackSize" value="{{system.maxStackSize}}">
 
+                    <strong>{{localize "RSK.SpecialEffects"}}:</strong>
+                    <input type="text" name="system.specialEffects" value="{{system.specialEffects}}">
+
+                    <strong>{{localize "RSK.Effects"}}:</strong>
+                    {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+
+                </div>
+            </section>
         </div>
-    </section>
+    </div>
 </form>
