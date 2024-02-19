@@ -3,7 +3,7 @@
   "title": "RSK System",
   "description": "a system for rsk",
   "version": "0.16.1",
-  "url": "https://github.com/qmarsala/rsk-system/",
+  "url": "https://github.com/Digital-Diviners-Guild/rsk-system",
   "esmodules": [
     "module/rsk.js"
   ],
@@ -24,6 +24,6 @@
   },
   "gridDistance": 5,
   "gridUnits": "ft",
-  "manifest": "https://raw.githubusercontent.com/qmarsala/rsk-system/main/system.json",
-  "download": "https://github.com/qmarsala/rsk-system/releases/download/0.16.1/rsk-system.zip" 
+  "manifest": "https://raw.githubusercontent.com/Digital-Diviners-Guild/rsk-system/main/system.json",
+  "download": "https://github.com/Digital-Diviners-Guild/rsk-system/releases/download/0.16.1/rsk-system.zip" 
 }

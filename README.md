@@ -4,8 +4,9 @@ An Unofficial FoundryVTT system for playing [RuneScape Kingdoms](https://steamfo
 **Note: This system does not provide any content, you will need to populate the item and actor sheets within your foundry world.**
 
 ## Install
-In FoundryVTT, use the following url in the 'Manifest URL' field.    
-`https://raw.githubusercontent.com/qmarsala/rsk-system/main/system.json`
+- Installation Guide: In FoundryVTT, paste the following url into the 'Manifest URL' field.    
+`https://raw.githubusercontent.com/Digital-Diviners-Guild/rsk-system/main/system.json`
+- Support Us: As a fan-made project, we thrive on community support. Consider [buying us a coffee](https://ko-fi.com/digitaldivinersguild) or contributing to keep the project alive and well.
 
 ## What the system provides now
 * sheets to create and manage characters and items
