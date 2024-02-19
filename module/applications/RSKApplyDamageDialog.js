@@ -43,7 +43,6 @@ export default class RSKApplyDamageDialog extends RSKDialog {
             };
         this.damageEntries = Object.keys(damageData)
             .map((key) => { return { label: localizeText(CONFIG.RSK.damageTypes[key]), type: key, amount: damageData[key] }; });
-        debugger;
         this.puncture = this.context?.puncture ?? 0;
         this.defenseRoll = this.context?.defenseRoll ?? 0; //todo: need to make this interactive
         this.attackType = this.context?.actionType ?? "melee";
