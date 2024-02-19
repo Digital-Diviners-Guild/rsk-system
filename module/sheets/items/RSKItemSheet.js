@@ -3,7 +3,7 @@ export default class RSKItemSheet extends ItemSheet {
         return mergeObject(super.defaultOptions, {
             classes: ["rsk", "sheet", "item"],
             width: 600,
-            height: 600,
+            height: 420,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
             dragDrop: [{ dropSelector: "[data-can-drop=true]" }],
         });
