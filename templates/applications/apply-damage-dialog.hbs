@@ -1,44 +1,41 @@
 <div autocomplete="off" spellcheck="off">
-    <h3>{{localize "RSK.DamageType"}}</h3>
-    <div class="form-group">
-        <label>{{localize "RSK.Stab"}}</label>
-        <input type="number" id="stab" name="damageEntries.stab" value="{{damageEntries.stab}}">
+    <h3>{{localize "RSK.Damage"}}</h3>
+    <ol class="items-list">
+        {{#each damageEntries as |damageEntry|}}
+        <li class="item flexrow" data-type="{{damageEntry.type}}">
+            {{damageEntry.label}}:
+            {{damageEntry.amount}}
+            <div class="item-controls ml-1">
+                <a class="item-control remove-damage" title="{{localize " RSK.RemoveDamage"}}"><i
+                        class="fas fa-trash"></i></a>
+            </div>
+        </li>
+        {{/each}}
+    </ol>
+    <div>
+        <label>{{localize "RSK.DamageType"}}</label>
+        <select id="type">
+            {{selectOptions config.damageTypes localize=true}}
+        </select>
     </div>
-    <div class="form-group">
-        <label>{{localize "RSK.Slash"}}</label>
-        <input type="number" id="slash" name="damageEntries.slash" value="{{damageEntries.slash}}">
+    <div>
+        <label>{{localize "RSK.Amount"}}</label>
+        <input id="amount" type="number">
     </div>
-    <div class="form-group">
-        <label>{{localize "RSK.Crush"}}</label>
-        <input type="number" id="crush" name="damageEntries.crush" value="{{damageEntries.crush}}">
-    </div>
-    <div class="form-group">
-        <label>{{localize "RSK.Air"}}</label>
-        <input type="number" id="air" name="damageEntries.air" value="{{damageEntries.air}}">
-    </div>
-    <div class="form-group">
-        <label>{{localize "RSK.Water"}}</label>
-        <input type="number" id="water" name="damageEntries.water" value="{{damageEntries.water}}">
-    </div>
-    <div class="form-group">
-        <label>{{localize "RSK.Earth"}}</label>
-        <input type="number" id="earth" name="damageEntries.earth" value="{{damageEntries.earth}}">
-    </div>
-    <div class="form-group">
-        <label>{{localize "RSK.Fire"}}</label>
-        <input type="number" id="fire" name="damageEntries.fire" value="{{damageEntries.fire}}">
-    </div>
+    <a class="item-control add-damage" title="{{localize " RSK.AddDamage"}}">
+        <i class="fas fa-plus"></i> {{localize "RSK.AddDamage"}}
+    </a>
     <hr />
-    <div class="form-group">
+    <div style="display: flex;">
         <label>{{localize "RSK.AttackType"}}</label>
         <input type="text" id="attackType" name="attackType" value="{{attackType}}">
     </div>
-    <div class="form-group">
+    <div style="display: flex;">
         <label>{{localize "RSK.Puncture"}}</label>
         <input type="number" id="puncture" name="puncture" value="{{puncture}}">
     </div>
     {{!-- need to be able to roll this --}}
-    <div class="form-group">
+    <div style="display: flex;">
         <label>{{localize "RSK.DefenseRoll"}}</label>
         <input type="number" id="defenseRoll" name="defenseRoll" value="{{defenseRoll}}">
     </div>
