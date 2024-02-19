@@ -164,6 +164,14 @@ Hooks.once("ready", async function () {
         <p>
         Your input is invaluable to us. For feedback, bug reports, or feature suggestions, please contribute through our <a href="https://github.com/qmarsala/rsk-system/issues" target="_blank">GitHub issues page</a>. Your insights will help us improve and refine RSK.
         </p>
+        <em>
+        Please consider <a target="_blank" href="https://ko-fi.com/digitaldivinersguild">
+        buying us an Energy Potion</a> to help support future development.
+        </em>
+        <p>
+        Thanks,<br /> Digital Diviners Guild.
+        </p>
+        </script> 
     ` ,
         buttons: {
             ok: {
