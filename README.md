@@ -74,6 +74,6 @@ Though there are a few things that have automation already:
 * and more...
 
 ### Disclaimer
-The Digital Diviners Guild is an independent, fan-made project. We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Jagex or Steamforged Games, or any of their subsidiaries or affiliates. The official RuneScape website can be found at https://www.runescape.com. The official Steamforged Games website can be found at https://steamforged.com.
+The RSK-System is an independent, fan-made project by the Digital Diviners Guild. We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Jagex or Steamforged Games, or any of their subsidiaries or affiliates. The official RuneScape website can be found at https://www.runescape.com. The official Steamforged Games website can be found at https://steamforged.com.
 
 All game content and materials are trademarks and copyrights of their respective owners. This project is intended for personal use and aims to support the RuneScape Kingdoms TTRPG community by providing additional tools for gameplay enhancement.
