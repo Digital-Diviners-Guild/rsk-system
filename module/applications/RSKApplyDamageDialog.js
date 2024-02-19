@@ -32,15 +32,7 @@ export default class RSKApplyDamageDialog extends RSKDialog {
         this.context = context;
         const damageData = this.context?.actionData?.damageEntries
             ? foundry.utils.deepClone(this.context?.actionData?.damageEntries)
-            : {
-                stab: 0,
-                slash: 0,
-                crush: 0,
-                air: 0,
-                water: 0,
-                earth: 0,
-                fire: 0,
-            };
+            : {};
         this.damageEntries = Object.keys(damageData)
             .map((key) => { return { label: localizeText(CONFIG.RSK.damageTypes[key]), type: key, amount: damageData[key] }; });
         this.puncture = this.context?.puncture ?? 0;
