@@ -1,4 +1,10 @@
-export const calculateStackSize = (item) => item.system.quantity * item.totalBulk();
+//todo: 'itemCollections' for starting gear packages
+// piggy back off of inventory logic, but only have meta data about their objects.
+// decide how we want to deal with that. or is falling back to 'quantity' good enough.
+export const calculateStackSize = (item) =>
+    typeof item.totalBulk === "function"
+        ? item.system.quantity * item.totalBulk()
+        : item.system.quantity;
 
 export const calculateUsedSlots = (items) =>
     items
