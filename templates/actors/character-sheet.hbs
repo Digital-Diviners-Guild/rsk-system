@@ -230,11 +230,15 @@
           </div>
           <div>
             <label>{{localize "RSK.Catalyst"}}</label>
-            <input type="text" name="system.catalyst" value="{{system.catalyst}}">
+            <p>
+              {{system.catalyst}}
+            </p>
           </div>
           <div>
             <label>{{localize "RSK.Motivation"}}</label>
-            <input type="text" name="system.motivation" value="{{system.motivation}}">
+            <p>
+              {{system.motivation}}
+            </p>
           </div>
           <label>{{localize "RSK.Backgrounds"}}</label>
           {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=backgrounds }}
@@ -247,6 +251,14 @@
           <strong>{{localize "RSK.Effects"}}</strong>
           {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
           <hr />
+          <div>
+            <label>{{localize "RSK.Catalyst"}}</label>
+            <input type="text" name="system.catalyst" value="{{system.catalyst}}">
+          </div>
+          <div>
+            <label>{{localize "RSK.Motivation"}}</label>
+            <input type="text" name="system.motivation" value="{{system.motivation}}">
+          </div>
           <label>{{localize "RSK.Backgrounds"}}</label>
           {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
           items=backgrounds
