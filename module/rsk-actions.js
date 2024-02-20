@@ -122,10 +122,27 @@ const rangedAttackAction = async (actor, weapon) => {
                 img: weapon.img,
                 description: `${weapon.system.description}\n${ammo.system.description}`,
                 effectDescription: `${weapon.system.effectDescription}\n${ammo.system.effectDescription}`,
-                damageEntries: weapon.system.damageEntries,
+                damageEntries: combineDamage(weapon.system.damageEntries, ammo.system.damageEntries),
                 specialEffects: ammo.system.specialEffects
             }
     };
+}
+
+const combineDamage = (damageEntries1, damageEntries2) => {
+    const result = { ...damageEntries1 };
+
+    Object.keys(damageEntries2).forEach(key => {
+        if (result[key]) {
+            result[key] += damageEntries2[key];
+        } else {
+            result[key] = damageEntries2[key];
+        }
+        if (result[key] === 0) {
+            delete result[key];
+        }
+    });
+
+    return result;
 }
 
 const castingHandlers = {
