@@ -511,9 +511,9 @@
     height: 100%;
 }
 
-.rsk.sheet.actor [data-tab="edit"] .editor {
+.rsk.sheet.actor .description-editor .editor {
     padding: 0 8px;
-    min-height: 200px;
+    min-height: 120px;
 }
 
 .dice-tooltip .dice-rolls .roll.min {
