@@ -230,11 +230,10 @@ export default class RSKCharacterType extends RSKActorType {
     }
 
     getCurrentSlots() {
-        const currentEquippedWeapons = this.getActiveItems().filter(i =>
-            i.isWeapon() && ["weapon", "arm"].includes(i.system.equippedInSlot));
+        const currentEquipped = this.getActiveItems().filter(i => ["weapon", "arm"].includes(i.system.equippedInSlot));
         return {
-            currentWeaponSlot: currentEquippedWeapons.find(i => i.system.equippedInSlot === "weapon"),
-            currentArmSlot: currentEquippedWeapons.find(i => i.system.equippedInSlot === "arm")
+            currentWeaponSlot: currentEquipped.find(i => i.system.equippedInSlot === "weapon"),
+            currentArmSlot: currentEquipped.find(i => i.system.equippedInSlot === "arm")
         };
     }
 
