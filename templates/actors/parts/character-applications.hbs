@@ -1,0 +1,30 @@
+<div class="actor-toolbar">
+    <div class="actor-application" application-method="characterRest" data-tooltip="{{localize 'RSK.Rest'}}"
+        glow-color=" green"><i class="fas fa-bed"></i></div>
+    <div class="actor-application" application-method="characterDamage" data-tooltip="{{localize 'RSK.TakeDamage'}}"
+        glow-color=" red"><i class="fas fa-heart"></i></div>
+    <div class="actor-application" application-method="characterAttackAction" data-tooltip="{{localize 'RSK.Attack'}}"
+        glow-color=" orange">
+        {{!-- todo: hybrid logo --}}
+        {{#if equippedIsHybrid}}
+        <i class="fas fa-sword"></i>
+        <i class="fas fa-bow-arrow"></i>
+        {{else}}
+        {{#if equippedIsRanged}}
+        <i class="fas fa-bow-arrow"></i>
+        {{else}}
+        <i class="fas fa-sword"></i>
+        {{/if}}
+        {{/if}}
+    </div>
+    <div class="actor-application" application-method="characterCastSpell" data-tooltip="{{localize 'RSK.CastSpell'}}"
+        glow-color="blue"><i class="fas fa-wand-sparkles"></i></div>
+    <div class="actor-application" application-method="characterCastPrayer" data-tooltip="{{localize 'RSK.Pray'}}"
+        glow-color="white">
+        <i class="fas fa-hands-praying"></i>
+    </div>
+    <div class="actor-application" application-method="characterCastSummons"
+        data-tooltip="{{localize 'RSK.SummonFamiliar'}}" glow-color="yellow">
+        <i class="fas fa-paw-claws"></i>
+    </div>
+</div>

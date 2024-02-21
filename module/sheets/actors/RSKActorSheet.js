@@ -12,7 +12,7 @@ export default class RSKActorSheet extends ActorSheet {
     }
 
     get template() {
-        return `systems/rsk/templates/actors/${this.actor.type}-sheet.hbs`;
+        return `systems/rsk/templates/actors/actor-sheet.hbs`;
     }
 
     codexs;
@@ -20,6 +20,7 @@ export default class RSKActorSheet extends ActorSheet {
     getData() {
         const context = super.getData();
         const actorData = this.actor.toObject(false);
+        context.isCharacter = this.actor.type === "character";
         context.system = actorData.system;
         context.flags = actorData.flags;
         context.config = CONFIG.RSK;

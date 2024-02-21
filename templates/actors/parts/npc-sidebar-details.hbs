@@ -1,0 +1,32 @@
+<div class="rsk stats-abilities">
+    <div class="stats-group">
+        <div class="stats-box">
+            <div class="stats-label">{{localize "RSK.Lifepoints"}}</div>
+            <div class="stats-values">
+                <input class="stats-value-left" data-stat="Life" type="number" name="system.lifePoints.value"
+                    value="{{system.lifePoints.value}}">
+                <div class="stats-value-right">{{system.lifePoints.max}}</div>
+            </div>
+        </div>
+        <div class="stats-box">
+            <div class="stats-label">{{localize "RSK.ArmourValue"}}</div>
+            <div class="stats-values">
+                <input class="stats-value-left" data-stat="Life" type="number" name="system.armourValue"
+                    value="{{system.armourValue}}">
+            </div>
+        </div>
+        <div class="stats-box">
+            <strong>{{localize "RSK.Size"}}: </strong>
+            <select name="system.size">
+                {{selectOptions sizes selected=system.size localize=true}}
+            </select>
+        </div>
+        <div class="stats-box">
+            <div class="stats-label">{{localize "RSK.Movement"}}</div>
+            <div class="stats-values">
+                <input class="stats-value-left" data-stat="Movement" type="number" name="system.movement"
+                    value="{{system.movement}}">
+            </div>
+        </div>
+    </div>
+</div>

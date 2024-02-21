@@ -14,7 +14,7 @@ export default class RSKDeathSheet extends ActorSheet {
     }
 
     get template() {
-        return `systems/rsk/templates/actors/${this.actor.type}-sheet.hbs`;
+        return `systems/rsk/templates/actors/death-sheet.hbs`;
     }
 
     getData() {

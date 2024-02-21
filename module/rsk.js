@@ -60,6 +60,12 @@ async function preloadHandlebarsTemplates() {
         "/systems/rsk/templates/actors/parts/view-items.hbs",
         "/systems/rsk/templates/actors/parts/view-inventory.hbs",
         "/systems/rsk/templates/actors/parts/edit-items.hbs",
+        "/systems/rsk/templates/actors/parts/character-main-content.hbs",
+        "/systems/rsk/templates/actors/parts/character-sidebar-details.hbs",
+        "/systems/rsk/templates/actors/parts/character-applications.hbs",
+        "/systems/rsk/templates/actors/parts/npc-main-content.hbs",
+        "/systems/rsk/templates/actors/parts/npc-applications.hbs",
+        "/systems/rsk/templates/actors/parts/npc-sidebar-details.hbs",
 
         "/systems/rsk/templates/parts/view-effects.hbs",
         "/systems/rsk/templates/parts/edit-effects.hbs"

@@ -1,0 +1,22 @@
+<form class="{{cssClass}} character" autocomplete="off">
+    <div class="sheet-container">
+        <div class="sidebar">
+            <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+            {{#if isCharacter}}
+            {{> "/systems/rsk/templates/actors/parts/character-applications.hbs"}}
+            {{else}}
+            {{> "/systems/rsk/templates/actors/parts/npc-applications.hbs"}}
+            {{/if}}
+            {{#if isCharacter}}
+            {{> "/systems/rsk/templates/actors/parts/character-sidebar-details.hbs"}}
+            {{else}}
+            {{> "/systems/rsk/templates/actors/parts/npc-sidebar-details.hbs"}}
+            {{/if}}
+        </div>
+        {{#if isCharacter}}
+        {{> "/systems/rsk/templates/actors/parts/character-main-content.hbs"}}
+        {{else}}
+        {{> "/systems/rsk/templates/actors/parts/npc-main-content.hbs"}}
+        {{/if}}
+    </div>
+</form>
