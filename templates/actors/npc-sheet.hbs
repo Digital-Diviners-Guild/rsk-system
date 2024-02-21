@@ -1,50 +1,52 @@
-<form class="{{cssClass}}" autocomplete="off">
-    <header class="sheet-header">
-        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="64" width="64" />
-        <h1><input type="text" name="name" value="{{actor.name}}" placeholder="Name"></h1>
-    </header>
+<form class="{{cssClass}} character" autocomplete="off">
     <div class="sheet-container">
         <div class="sidebar">
+            <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
             <div class="rsk stats-abilities">
-                <div class="rsk stats">
-                    <div class="stats-toolbar">
-                        <div class="actor-application" application-method="characterDamage" effect-label="Take Damage"
-                            glow-color="red"><i class="fas fa-sword"></i></div>
+                <div class="actor-toolbar">
+                    <div class="actor-application" application-method="characterDamage"
+                        data-tooltip="{{localize 'RSK.TakeDamage'}}" glow-color=" red"><i class="fas fa-heart"></i>
                     </div>
                 </div>
-                <div class="stats-group">
-                    <div class="stats-box">
-                        <div class="stats-label">{{localize "RSK.Lifepoints"}}</div>
-                        <div class="stats-values">
-                            <input class="stats-value-left" data-stat="Life" type="number"
-                                name="system.lifePoints.value" value="{{system.lifePoints.value}}">
-                            <div class="stats-value-right">{{system.lifePoints.max}}</div>
+                <div class="rsk stats-abilities">
+                    <div class="stats-group">
+                        <div class="stats-box">
+                            <div class="stats-label">{{localize "RSK.Lifepoints"}}</div>
+                            <div class="stats-values">
+                                <input class="stats-value-left" data-stat="Life" type="number"
+                                    name="system.lifePoints.value" value="{{system.lifePoints.value}}">
+                                <div class="stats-value-right">{{system.lifePoints.max}}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="stats-box">
-                        <div class="stats-label">{{localize "RSK.ArmourValue"}}</div>
-                        <div class="stats-values">
-                            <input class="stats-value-left" data-stat="Life" type="number" name="system.armourValue"
-                                value="{{system.armourValue}}">
+                        <div class="stats-box">
+                            <div class="stats-label">{{localize "RSK.ArmourValue"}}</div>
+                            <div class="stats-values">
+                                <input class="stats-value-left" data-stat="Life" type="number" name="system.armourValue"
+                                    value="{{system.armourValue}}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="stats-box">
-                        <strong>{{localize "RSK.Size"}}: </strong>
-                        <select name="system.size">
-                            {{selectOptions sizes selected=system.size localize=true}}
-                        </select>
-                    </div>
-                    <div class="stats-box">
-                        <div class="stats-label">{{localize "RSK.Movement"}}</div>
-                        <div class="stats-values">
-                            <input class="stats-value-left" data-stat="Movement" type="number" name="system.movement"
-                                value="{{system.movement}}">
+                        <div class="stats-box">
+                            <strong>{{localize "RSK.Size"}}: </strong>
+                            <select name="system.size">
+                                {{selectOptions sizes selected=system.size localize=true}}
+                            </select>
+                        </div>
+                        <div class="stats-box">
+                            <div class="stats-label">{{localize "RSK.Movement"}}</div>
+                            <div class="stats-values">
+                                <input class="stats-value-left" data-stat="Movement" type="number"
+                                    name="system.movement" value="{{system.movement}}">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="main-content">
+            <header class="sheet-header">
+                <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name" />
+                </h1>
+            </header>
             <nav class="sheet-tabs tabs" data-group="primary">
                 <a class="item" data-tab="description" data-tooltip='{{localize "RSK.Details"}}'>
                     <i class="fas fa-id-card"></i>
