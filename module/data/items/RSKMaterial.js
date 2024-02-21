@@ -10,18 +10,13 @@ export default class RSKMaterial extends foundry.abstract.TypeDataModel {
             }),
             tier: new fields.StringField({
                 required: false,
-                initial: "wood",
-                choices: [
-                    "",
-                    ...Object.keys(CONFIG.RSK.woodType),
-                    ...Object.keys(CONFIG.RSK.mineralType)
-                ]
+                initial: "wood"
             }),
             description: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
             maxStackSize: new fields.NumberField({ required: true, initial: 3, min: 1 }),
             bulk: new fields.SchemaField({
-                value: new fields.NumberField({ required: true, initial: 1, min: 1 }), 
+                value: new fields.NumberField({ required: true, initial: 1, min: 1 }),
                 modifier: new fields.NumberField()
             }),
             quantity: new fields.NumberField({ initial: 1 }),
