@@ -7,7 +7,7 @@ export default class RSKSummoning extends foundry.abstract.TypeDataModel {
             description: new fields.StringField(),
             targetNumberModifier: new fields.NumberField({ initial: 0 }),
             usageCost: new fields.ArrayField(new fields.SchemaField({
-                type: new fields.StringField({ initial: "summoningPoints", choices: "summoningPoints" }),
+                type: new fields.StringField({ initial: "summoningPoints", choices: ["summoningPoints"] }),
                 amount: new fields.NumberField({ min: 0, max: 50 })
             })),
             usageCostLabel: new fields.StringField(),
