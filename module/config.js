@@ -294,8 +294,16 @@ RSK.resource = {
     metal: "RSK.Metal",
     glass: "RSK.Glass",
     mineral: "RSK.Mineral",
-    food: "RSK.Food",
-    potion: "RSK.Potion",
+    //todo: there is a mix up with 'mats' 'resource', 'consumable'
+    // we need to refactor our item models, ultimately we have 
+    // things that can be used/consumed, things that are used to make/aquire things.
+    // ie raw food  => food  => eat. / ore => bar => weapon. etc.
+    // ie need a fishing pole to catch fish, but the pole doesn't really do anything.
+    // i'm not sure if we need all the types we have, or if it would be better to 
+    // categorize them differently. I think using our 'serialized actions' will help
+    // categorize by purpose a little better, rather than a model for each thing.
+    //food: "RSK.Food",
+    //potion: "RSK.Potion",
     cloth: "RSK.Cloth",
     leather: "RSK.Leather"
 }

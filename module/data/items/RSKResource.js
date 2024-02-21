@@ -6,16 +6,10 @@ export default class RSKResource extends foundry.abstract.TypeDataModel {
             type: new fields.StringField({
                 required: true,
                 initial: "cloth",
-                choices: [...Object.keys(CONFIG.RSK.resourceType)]
+                choices: [...Object.keys(CONFIG.RSK.resource)]
             }),
             tier: new fields.StringField({
                 required: false,
-                initial: "",
-                choices: [
-                    "",
-                    ...Object.keys(CONFIG.RSK.leatherType),
-                    ...Object.keys(CONFIG.RSK.metalType),
-                ]
             }),
             description: new fields.StringField(),
             uses: new fields.StringField(),
