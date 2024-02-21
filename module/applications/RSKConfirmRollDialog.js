@@ -36,7 +36,7 @@ export default class RSKConfirmRollDialog extends RSKDialog {
         this.rollMode = CONFIG.Dice.rollModes.publicroll;
         this.advantageDisadvantageOptions = { normal: "RSK.Normal", advantage: "RSK.Advantage", disadvantage: "RSK.Disadvantage" };
         this.advantageDisadvantage = "normal";
-        this.targetNumberModifier = 0;
+        this.targetNumberModifier = options.hasOwnProperty("targetNumberModifier") ? options.targetNumberModifier : 0;
         this.keypressId = "confirmRoll";
     }
 

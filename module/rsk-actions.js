@@ -208,7 +208,10 @@ export const castAction = async (actor, castType) => {
     if (!selectCastableResult || !selectCastableResult.confirmed) return false;
 
     const castable = actor.items.find(x => x._id === selectCastableResult.id);
-    const actionResult = await useAction(actor, castType, "intellect");
+    const options = castable.system.hasOwnProperty("targetNumberModifier")
+        ? { targetNumberModifier: castable.system.targetNumberModifier }
+        : {};
+    const actionResult = await useAction(actor, castType, "intellect", options);
     if (!actionResult) return;
 
     const stateChanges = castHandler.handleCast(actionResult.rollResult, castable.system);
@@ -228,9 +231,10 @@ export const castAction = async (actor, castType) => {
     return result;
 }
 
-const useAction = async (actor, skill, ability) => {
+//todo: options is temp to get modifier working - probably needs to be something else
+const useAction = async (actor, skill, ability, options = {}) => {
     const rollData = actor.system.getRollData();
-    const confirmRollResult = await uiService.showDialog("confirm-roll", rollData, { defaultSkill: skill, defaultAbility: ability });
+    const confirmRollResult = await uiService.showDialog("confirm-roll", rollData, { defaultSkill: skill, defaultAbility: ability, ...options });
     if (!confirmRollResult.confirmed) return false;
 
     const skillResult = await actor.system.useSkill(confirmRollResult);
