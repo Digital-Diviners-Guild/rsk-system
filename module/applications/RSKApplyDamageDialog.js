@@ -34,9 +34,16 @@ export default class RSKApplyDamageDialog extends RSKDialog {
             ? foundry.utils.deepClone(this.context?.actionData?.damageEntries)
             : {};
         this.damageEntries = Object.keys(damageData)
-            .map((key) => { return { label: localizeText(CONFIG.RSK.damageTypes[key]), type: key, amount: damageData[key] }; });
+            .filter(key => damageData[key] > 0)
+            .map((key) => {
+                return {
+                    label: localizeText(CONFIG.RSK.damageTypes[key]),
+                    type: key,
+                    amount: damageData[key]
+                };
+            });
         this.puncture = this.context?.puncture ?? 0;
-        this.defenseRoll = this.context?.defenseRoll ?? 0; //todo: need to make this interactive
+        this.defenseRoll = this.context?.defenseRoll || options?.defenseRoll || 0;
         this.attackType = this.context?.actionType ?? "melee";
         this.keypressId = "applyDamage";
     }
