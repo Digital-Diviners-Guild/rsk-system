@@ -80,7 +80,10 @@ Hooks.once("init", function () {
         item: RSKItem,
         actor: RSKActor,
         math: RSKMath,
-        dice: RSKDice
+        dice: RSKDice,
+        featureFlags: {
+            characterDefenseTests: true
+        }
     };
 
     CONFIG.Combat.initiative = {

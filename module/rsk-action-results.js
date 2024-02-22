@@ -71,7 +71,26 @@ export const applyStateChanges = async (actor, stateChanges) => {
     }
 };
 
-//todo: apply margin so we can skip dialog.
+//POC
+const getDefenseRoll = async (target, skill, ability) => {
+    if (!game?.rsk?.featureFlags?.characterDefenseTests) return 0;
+
+    let defenseRollMargin = 0;
+    if (target.type === "character") {
+        const rollData = target.system.getRollData();
+        const confirmRollResult = await uiService.showDialog("confirm-roll",
+            rollData, { defaultSkill: skill, defaultAbility: ability });
+        if (confirmRollResult.confirmed) {
+            const skillResult = await target.system.useSkill(confirmRollResult);
+            defenseRollMargin = skillResult.margin;
+            defenseRollMargin = skillResult.margin;
+            await skillResult.toMessage();
+        }
+    }
+    return defenseRollMargin;
+}
+
+//todo: (WIP) apply margin so we can skip dialog.
 // this will come from outcome margin if a character is attacking
 // this will come from a defense roll dictated by the outcome 
 // if an npc is attacking a character
@@ -88,21 +107,23 @@ const outcomeHandlers = {
         //todo: add summoned token to the board
         return [];
     },
-    //these will probably start to differ
     melee: async (target, outcome) => {
-        const result = await uiService.showDialog("apply-damage", outcome);
+        const defenseRollMargin = await getDefenseRoll(target, "defense", "strength");
+        const result = await uiService.showDialog("apply-damage", outcome, { defenseRoll: defenseRollMargin });
         return result && result.confirmed
             ? [{ operation: "receiveDamage", params: [{ ...result }] }]
             : []
     },
     magic: async (target, outcome) => {
-        const result = await uiService.showDialog("apply-damage", outcome);
+        const defenseRollMargin = await getDefenseRoll(target, "magic", "intellect");
+        const result = await uiService.showDialog("apply-damage", outcome, { defenseRoll: defenseRollMargin });
         return result && result.confirmed
             ? [{ operation: "receiveDamage", params: [{ ...result }] }]
             : []
     },
     ranged: async (target, outcome) => {
-        const result = await uiService.showDialog("apply-damage", outcome);
+        const defenseRollMargin = await getDefenseRoll(target, "ranged", "agility");
+        const result = await uiService.showDialog("apply-damage", outcome, { defenseRoll: defenseRollMargin });
         return result && result.confirmed
             ? [{ operation: "receiveDamage", params: [{ ...result }] }]
             : []
