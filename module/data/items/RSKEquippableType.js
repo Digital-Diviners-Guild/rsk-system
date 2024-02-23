@@ -9,7 +9,6 @@ import { uiService } from "../../rsk-ui-service.js";
 // mean while 'heavy's give the option to pick a slot?
 export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
     async equip(slot) {
-        //todo: should 2 handed weapons disable the other arm slot?
         let slotToDisable;
         if (this.hasOwnProperty("disablesSlot") && this.disablesSlot) {
             slotToDisable = { id: this.disablesSlot };

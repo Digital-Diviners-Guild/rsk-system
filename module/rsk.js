@@ -180,7 +180,6 @@ Hooks.once("ready", async function () {
         <p>
         Thanks,<br /> Digital Diviners Guild.
         </p>
-        </script> 
     ` ,
         buttons: {
             ok: {
