@@ -21,7 +21,7 @@ RSK.skills = {
     fishing: "RSK.Fishing",
     fletching: "RSK.Fletching",
     herblore: "RSK.Herblore",
-    hunter: "RSK.Hunter",
+    hunting: "RSK.Hunting",
     magic: "RSK.Magic",
     mining: "RSK.Mining",
     prayer: "RSK.Prayer",
