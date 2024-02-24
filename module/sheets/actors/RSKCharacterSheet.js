@@ -229,6 +229,13 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         await castAction(this.actor, "summoning");
     }
 
+    async characterTravel() {
+        await this.handleSkillCheck({
+            defaultSkill: "hunting",
+            defaultAbility: "intellect"
+        });
+    }
+
     //inventory rules poc
     async _onDropItem(event, data) {
         const item = await Item.fromDropData(data);
