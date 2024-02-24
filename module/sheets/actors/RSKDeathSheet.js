@@ -47,7 +47,7 @@ export default class RSKDeathSheet extends ActorSheet {
         html.find('.resurrect').click(async ev => {
             const char = game?.users?.current?.character;
             if (char) {
-                await char.acceptResurrection();
+                await char.system.acceptResurrection();
             }
             this.consequencesTaken = 0;
             this.canResurrect = false;
