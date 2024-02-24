@@ -166,7 +166,7 @@ const castingHandlers = {
     },
     summoning: {
         getCastables: (actor) => actor.items.filter(i => i.type === "summoning"
-            && actor.system.prayerPoints.value >= (i.system.usageCost[0]?.amount ?? 0)),
+            && actor.system.summoningPoints.value >= (i.system.usageCost[0]?.amount ?? 0)),
         handleCast: (rollResult, castable) => {
             if (rollResult.isSuccess) {
                 return {
