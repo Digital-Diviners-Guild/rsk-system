@@ -43,3 +43,15 @@ export async function chatItem(item, options = {}) {
         });
     await ChatMessage.create({ content });
 }
+
+// I think we should start adding hooks for important events on actors.
+// then we can have handlers set up to capture and log that information to chat.
+// though would this cause one event to render multiple chats if all clients handle the hook?
+// needs some experimentation.
+//todo: Add Hooks.call("characterHealed") etc when things we want to 'log' happen.
+//todo: add Hooks.on("characterHealed", onCharacterHealed) etc for handlers like this?
+
+//ex:
+export async function onCharacterHealed(ev) {
+    await ChatMessage.create({ content: "Healing info" });
+}
