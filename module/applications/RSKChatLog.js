@@ -52,6 +52,18 @@ export async function chatItem(item, options = {}) {
 //todo: add Hooks.on("characterHealed", onCharacterHealed) etc for handlers like this?
 
 //ex:
-export async function onCharacterHealed(ev) {
-    await ChatMessage.create({ content: "Healing info" });
+export async function onActorReceivedDamage(data) {
+    await ChatMessage.create({ content: `${JSON.stringify({ name: data.targetActor.name, damageTaken: data.damageTaken })}` });
+}
+
+export async function onActorRestoredLifePoints(data) {
+    await ChatMessage.create({ content: `${JSON.stringify({ name: data.targetActor.name, lifePointsRestored: data.lifePointsRestored })}` });
+}
+
+//todo: these would only fire if the damage or healing is done the way the system expects.
+// I wonder if we could get the hook.call closer to the 'update' code in foundry, so any change to the value
+// could trigger the hook?
+export function registerActorEventHandlers() {
+    Hooks.on("actorReceivedDamage", onActorReceivedDamage);
+    Hooks.on("actorRestoredLifePoints", onActorRestoredLifePoints);
 }

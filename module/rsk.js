@@ -20,7 +20,7 @@ import RSKActor from "./documents/actors/RSKActor.js";
 import RSKActorSheet from "./sheets/actors/RSKActorSheet.js";
 import RSKItem from "./documents/items/RSKItem.js";
 import RSKItemSheet from "./sheets/items/RSKItemSheet.js";
-import RSKChatLog, { onRenderChatMessage } from "./applications/RSKChatLog.js";
+import RSKChatLog, { onRenderChatMessage, registerActorEventHandlers } from "./applications/RSKChatLog.js";
 import RSK from "./config.js";
 import RSKRuneType from "./data/items/RSKRune.js";
 import { customizeStatusEffects } from "./effects/statuses.js";
@@ -144,6 +144,7 @@ Hooks.once("init", function () {
     preloadHandlebarsTemplates();
     Handlebars.registerHelper({ setBoxes });
     customizeStatusEffects();
+    registerActorEventHandlers();
 
     console.log("rsk ready");
 });

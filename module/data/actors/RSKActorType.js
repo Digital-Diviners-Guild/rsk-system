@@ -2,10 +2,11 @@ import { rskStatusEffects, statusToEffect } from "../../effects/statuses.js";
 
 export default class RSKActorType extends foundry.abstract.TypeDataModel {
     restoreLifePoints(amount) {
-        const newAmount = game.rsk.math.clamp_value(this.lifePoints.value + amount, this.lifePoints);
-        this.parent.update({ [`system.lifePoints.value`]: newAmount });
+        const newValue = game.rsk.math.clamp_value(this.lifePoints.value + amount, this.lifePoints);
+        this.parent.update({ [`system.lifePoints.value`]: newValue });
+        Hooks.call("actorRestoredLifePoints", { targetActor: this.parent, lifePointsRestored: amount, newLifePointsValue: newValue });
     }
-    
+
     //todo: defense roll is only applicable when applying to a character
     // this could be refactored a bit
     async receiveDamage(damage) {
@@ -21,6 +22,7 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
             }]);
         }
         this.parent.update({ "system.lifePoints.value": remainingLifePoints });
+        Hooks.call("actorReceivedDamage", { targetActor: this.parent, damageTaken, remainingLifePoints });
     }
 
     calculateDamageTaken(damageEntries, attackType = "melee", puncture = 0, defenseRoll = 0) {
