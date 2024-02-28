@@ -53,17 +53,42 @@ export async function chatItem(item, options = {}) {
 
 //ex:
 export async function onActorReceivedDamage(data) {
-    await ChatMessage.create({ content: `${JSON.stringify({ name: data.targetActor.name, damageTaken: data.damageTaken })}` });
+    await ChatMessage.create({
+        content: `
+        Received Damage:
+        ${JSON.stringify({
+            name: data.targetActor.name,
+            damageTaken: data.damageTaken
+        })}`
+    });
 }
 
 export async function onActorRestoredLifePoints(data) {
-    await ChatMessage.create({ content: `${JSON.stringify({ name: data.targetActor.name, lifePointsRestored: data.lifePointsRestored })}` });
+    await ChatMessage.create({
+        content: `
+        Restored LifePoints:
+        ${JSON.stringify({
+            name: data.targetActor.name,
+            lifePointsRestored: data.lifePointsRestored
+        })}`
+    });
 }
 
-//todo: these would only fire if the damage or healing is done the way the system expects.
-// I wonder if we could get the hook.call closer to the 'update' code in foundry, so any change to the value
-// could trigger the hook?
+export async function onActorRest(data) {
+    await ChatMessage.create({
+        content: `
+        Rest:
+        ${JSON.stringify({
+            name: data.targetActor.name,
+            gainedLife: data.gainedLife,
+            gainedPrayer: data.gainedPrayer,
+            gainedSummoning: data.gainedSummoning
+        })}`
+    });
+}
+
 export function registerActorEventHandlers() {
     Hooks.on("actorReceivedDamage", onActorReceivedDamage);
     Hooks.on("actorRestoredLifePoints", onActorRestoredLifePoints);
+    Hooks.on("actorRest", onActorRest);
 }

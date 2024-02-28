@@ -113,11 +113,15 @@ export default class RSKCharacterType extends RSKActorType {
     }
 
     rest() {
+        const gainedLife = this.lifePoints.max - this.lifePoints.value;
+        const gainedPrayer = this.prayerPoints.max - this.prayerPoints.value;
+        const gainedSummoning = this.summoningPoints.max - this.summoningPoints.value;
         this.parent.update({
             "system.lifePoints.value": this.lifePoints.max,
             "system.prayerPoints.value": this.prayerPoints.max,
             "system.summoningPoints.value": this.summoningPoints.max
         });
+        Hooks.call("actorRest", { targetActor: this.parent, gainedLife, gainedPrayer, gainedSummoning });
     }
 
     async acceptResurrection() {
