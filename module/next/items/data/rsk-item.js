@@ -2,7 +2,6 @@ export default class RSKItem extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         const fields = foundry.data.fields;
         return {
-            name: new fields.StringField(),
             // is material something more? like magic log, redwood log? skin > green_dragonhide?  like a type and tier values?
             material: new fields.StringField(),
             cost: new fields.NumberField(),
