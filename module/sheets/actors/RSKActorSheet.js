@@ -1,5 +1,6 @@
 import RSKApplyDamageDialog from "../../applications/RSKApplyDamageDialog.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
+import { localizeText } from "../../rsk-localize.js";
 
 export default class RSKActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -162,7 +163,17 @@ export default class RSKActorSheet extends ActorSheet {
     }
 
     async characterRest() {
-        this.actor.system.rest();
+        const confirmRest = await Dialog.prompt({
+            title: localizeText("RSK.Confirm"),
+            content: `
+        <p>
+        ${localizeText("RSK.ConfirmRest")}
+        </p>`,
+            callback: () => true
+        });
+        if (confirmRest) {
+            this.actor.system.rest();
+        }
     };
 
     async characterDamage() {
