@@ -31,34 +31,8 @@
         </fieldset>
     </div>
 
-    <h4>Damage Entries</h4>
-    <ol class="items-list">
-        {{#each system.damageEntries as |damageEntry|}}
-        <li class="item flexrow" data-type="{{damageEntry.type}}">
-            {{damageEntry.type}}:
-            {{damageEntry.amount}}
-            <div class="item-controls ml-1">
-                <a class="item-control remove-damage" title="{{localize " RSK.RemoveDamage"}}"><i
-                        class="fas fa-trash"></i></a>
-            </div>
-        </li>
-        {{/each}}
-    </ol>
-    {{!-- todo: we could have this be a dialog that we pop up on add clicked
-    or hidden and show when needed.  --}}
-    <div>
-        <label>{{localize "RSK.DamageType"}}</label>
-        <select id="type">
-            {{selectOptions config.damageTypes localize=true}}
-        </select>
-    </div>
-    <div>
-        <label>{{localize "RSK.Amount"}}</label>
-        <input id="amount" type="number">
-    </div>
-    <a class="item-control add-damage" title="{{localize " RSK.AddDamage"}}">
-        <i class="fas fa-plus"></i> {{localize "RSK.AddDamage"}}
-    </a>
+    {{> "/systems/templates/items/parts/outcome.hbs" group="usage" changes=system.usageOutcomes}}
+    {{> "/systems/templates/items/parts/outcome.hbs" group="target" changes=system.targetOutcomes}}
 
     {{!-- todo: --}}
     <h4>Required Materials</h4>
@@ -68,9 +42,4 @@
     <h4>Usage Cost</h4>
 
     <h4>Targets</h4>
-
-    {{!-- todo: in the base item this will be outcomes, though with other types it would be 
-    additional outcomes? --}}
-    {{!-- {{> "/systems/lab/templates/parts/outcome.hbs" group="usage" changes=usageOutcomes}}
-    {{> "/systems/lab/templates/parts/outcome.hbs" group="target" changes=targetOutcomes}} --}}
 </form>

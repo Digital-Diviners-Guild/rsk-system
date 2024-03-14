@@ -1,8 +1,10 @@
-export default class RSKItem extends foundry.abstract.TypeDataModel {
+export default class RSKItemType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         const fields = foundry.data.fields;
         return {
             // is material something more? like magic log, redwood log? skin > green_dragonhide?  like a type and tier values?
+            category: new fields.StringField(), // rune | weapon | spell
+            subCategory: new fields.StringField(), // air | sword | utility
             material: new fields.StringField(),
             cost: new fields.NumberField({ initial: 0, min: 0 }),
             uses: new fields.StringField(),
@@ -12,10 +14,8 @@ export default class RSKItem extends foundry.abstract.TypeDataModel {
             awardedFor: new fields.StringField(),
             requiredMaterials: new fields.ArrayField(
                 new fields.SchemaField({
-                    schema: new fields.SchemaField({
-                        material: new fields.StringField(),
-                        amountNeeded: new fields.NumberField()
-                    })
+                    material: new fields.StringField(),
+                    amountNeeded: new fields.NumberField()
                 })),
             equipmentNeeded: new fields.StringField(),
             damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes)
@@ -40,10 +40,6 @@ export default class RSKItem extends foundry.abstract.TypeDataModel {
                     })
                 })),
             targetNumberModifier: new fields.NumberField(),
-            category: new fields.StringField(),
-            ammoType: new fields.StringField({
-                choices: [...Object.keys(CONFIG.RSK.ammunitionType)]
-            }),
             target: new fields.SchemaField({
                 range: new fields.StringField({
                     initial: "near",
@@ -60,16 +56,16 @@ export default class RSKItem extends foundry.abstract.TypeDataModel {
             // or would we want them on the schema?
             maxStackSize: new fields.NumberField({ initial: 3, min: 1 }),
             quantity: new fields.NumberField({ initial: 1 }),
+            bulk: new fields.SchemaField({
+                value: new fields.NumberField({ initial: 1, min: 1 }),
+                modifier: new fields.NumberField()
+            }),
             activeSlot: new fields.StringField({
                 required: false,
                 initial: "",
                 choices: ["", ...Object.keys(CONFIG.RSK.activeSlotType)]
             }),
             equippedInSlot: new fields.StringField(),
-            bulk: new fields.SchemaField({
-                value: new fields.NumberField({ initial: 1, min: 1 }),
-                modifier: new fields.NumberField()
-            }),
             isTwoHanded: new fields.BooleanField({ initial: false }),
             isEquipped: new fields.BooleanField({ initial: false }),
         };

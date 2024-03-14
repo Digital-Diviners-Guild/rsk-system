@@ -8,6 +8,7 @@ export default class RSKArmourType extends RSKEquippableType {
             effectDescription: new fields.StringField(),
             cost: new fields.NumberField({ ...costField }),
             upgrades: new fields.StringField(),
+            //todo: redo values, and make sure slots can include cape, capes are armour now
             values: new fields.SchemaField({
                 material: new fields.StringField({
                     required: true,
