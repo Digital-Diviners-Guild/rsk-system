@@ -2,40 +2,32 @@
     <div class="item-details">
         <h3>Item Details</h3>
         <label>Name: <input type="text" name="item.name" value="{{item.name}}"></label>
+        <label>category: <input type="text" name="system.category" value="{{system.category}}"></label>
+        <label>subCategory: <input type="text" name="system.subCategory" value="{{system.subCategory}}"></label>
+        <label>Description: <input type="text" name="system.description" value="{{system.description}}"></label>
+        <label>Awarded For: <input type="text" name="system.awardedFor" value="{{system.awardedFor}}"></label>
+        <label>Location: <input type="text" name="system.location" value="{{system.location}}"></label>
         <label>Material: <input type="text" name="system.material" value="{{system.material}}"></label>
         <label>Cost: <input type="number" name="system.cost" value="{{system.cost}}"></label>
         <label>Uses: <input type="text" name="system.uses" value="{{system.uses}}"></label>
-        <label>Location: <input type="text" name="system.location" value="{{system.location}}"></label>
-        <label>Description: <input type="text" name="system.description" value="{{system.description}}"></label>
+        <label>Soak Value: <input type="number" name="system.soakValue" value="{{system.soakValue}}"></label>
         <label>Effect Description: <input type="text" name="system.effectDescription"
                 value="{{system.effectDescription}}"></label>
-        <label>Awarded For: <input type="text" name="system.awardedFor" value="{{system.awardedFor}}"></label>
         <label>Equipment Needed: <input type="text" name="system.equipmentNeeded"
                 value="{{system.equipmentNeeded}}"></label>
-        <label>Soak Value: <input type="number" name="system.soakValue" value="{{system.soakValue}}"></label>
         <label>Target Number Modifier: <input type="number" name="system.targetNumberModifier"
                 value="{{system.targetNumberModifier}}"></label>
-        <label>Weapon Type: <input type="text" name="system.weaponType" value="{{system.weaponType}}"></label>
-        <label>Ammo Type: <input type="text" name="system.ammoType" value="{{system.ammoType}}"></label>
         <label>Max Stack Size: <input type="number" name="system.maxStackSize" value="{{system.maxStackSize}}"></label>
         <label>Quantity: <input type="number" name="system.quantity" value="{{system.quantity}}"></label>
-        <label>Active Slot: <input type="text" name="system.activeSlot" value="{{system.activeSlot}}"></label>
-        <label>Equipped In Slot: <input type="text" name="system.equippedInSlot"
-                value="{{system.equippedInSlot}}"></label>
-        <label>Is Two-Handed: <input type="checkbox" name="system.isTwoHanded" {{#if
-                isTwoHanded}}checked{{/if}}></label>
-        <fieldset>
-            <legend>Bulk</legend>
-            <label>Value: <input type="number" name="system.bulk.value" value="{{system.bulk.value}}"></label>
-            <label>Modifier: <input type="number" name="system.bulk.modifier" value="{{system.bulk.modifier}}"></label>
-        </fieldset>
+        <label>Bulk: <input type="number" name="system.bulk.value" value="{{system.bulk.value}}"></label>
     </div>
 
-    {{> "/systems/templates/items/parts/outcome.hbs" group="usage" changes=system.usageOutcomes}}
-    {{> "/systems/templates/items/parts/outcome.hbs" group="target" changes=system.targetOutcomes}}
+    {{> "/systems/rsk/templates/items/parts/outcome.hbs" group="usage" changes=system.usageOutcomes}}
+    {{> "/systems/rsk/templates/items/parts/outcome.hbs" group="target" changes=system.targetOutcomes}}
 
     {{!-- todo: --}}
     <h4>Required Materials</h4>
+    <h4>Equipment Needed</h4>
 
     <h4>Qualities</h4>
 

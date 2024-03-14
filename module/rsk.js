@@ -1,12 +1,7 @@
 import RSKArmourType from "./data/items/RSKArmourType.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
-import RSKEquipment from "./data/items/RSKEquipment.js";
-import RSKMaterial from "./data/items/RSKMaterial.js";
-import RSKPrayer from "./data/items/RSKCastable.js";
 import RSKSpecialEffect from "./data/items/RSKSpecialEffect.js";
-import RSKResource from "./data/items/RSKResource.js";
 import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
-import RSKSpell from "./data/items/RSKSpell.js";
 import RSKConsumable from "./data/items/RSKConsumable.js"
 import RSKConsumableSheet from "./sheets/items/RSKConsumableSheet.js"
 
@@ -28,23 +23,20 @@ import RSKDice from "./rsk-dice.js";
 import RSKMath from "./rsk-math.js";
 import RSKCharacterSheet from "./sheets/actors/RSKCharacterSheet.js";
 import RSKDeathSheet from "./sheets/actors/RSKDeathSheet.js";
-import RSKCapeType from "./data/items/RSKCapeType.js";
 import RSKNpcActionSheet from "./sheets/items/RSKNpcActionSheet.js";
-import RSKSummoningSheet from "./sheets/items/RSKSummoningSheet.js";
-import RSKPrayerSheet from "./sheets/items/RSKPrayerSheet.js";
-import RSKSpellSheet from "./sheets/items/RSKSpellSheet.js";
 import RSKCodexType from "./data/items/RSKCodexType.js";
 import RSKCodexSheet from "./sheets/items/RSKCodexSheet.js";
 import RSKItemCollectionSheet from "./sheets/items/RSKItemCollectionSheet.js";
 import RSKRuneSheet from "./sheets/items/RSKRuneSheet.js";
 import RSKItemCollection from "./data/items/RSKItemCollectionType.js";
-import RSKSummoning from "./data/items/RSKSummoning.js";
 import RSKWeapon from "./data/items/RSKWeapon.js";
 import RSKNpcAction from "./data/items/RSKNpcAction.js";
 import RSKNpcSheet from "./sheets/actors/RSKNpcSheet.js";
 import RSKWeaponSheet from "./sheets/items/RSKWeaponSheet.js";
 import { setBoxes } from "../templates/helpers/rsk-helpers.js";
 import { localizeText } from "./rsk-localize.js";
+import RSKCastable from "./data/items/RSKCastable.js";
+import RSKItemType from "./data/items/RSKItemType.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -56,6 +48,7 @@ async function preloadHandlebarsTemplates() {
         "/systems/rsk/templates/items/parts/view-damage-entries.hbs",
         "/systems/rsk/templates/items/parts/edit-range.hbs",
         "/systems/rsk/templates/items/parts/view-range.hbs",
+        "/systems/rsk/templates/items/parts/outcome.hbs",
 
         "/systems/rsk/templates/actors/parts/view-items.hbs",
         "/systems/rsk/templates/actors/parts/view-inventory.hbs",
@@ -66,7 +59,6 @@ async function preloadHandlebarsTemplates() {
         "/systems/rsk/templates/actors/parts/npc-main-content.hbs",
         "/systems/rsk/templates/actors/parts/npc-applications.hbs",
         "/systems/rsk/templates/actors/parts/npc-sidebar-details.hbs",
-        "/systems/templates/items/parts/outcome.hbs",
 
         "/systems/rsk/templates/parts/view-effects.hbs",
         "/systems/rsk/templates/parts/edit-effects.hbs"
@@ -94,32 +86,27 @@ Hooks.once("init", function () {
     CONFIG.RSK = RSK;
     CONFIG.Item.documentClass = RSKItem;
     CONFIG.Item.dataModels = {
-        specialEffect: RSKSpecialEffect,
-        npcAction: RSKNpcAction,
-        specialFeature: RSKSpecialFeature,
-        cape: RSKCapeType,
-        material: RSKMaterial,
-        resource: RSKResource,
+        item: RSKItemType,
+        consumable: RSKConsumable,
+        castable: RSKCastable,
+        weapon: RSKWeapon,
         armour: RSKArmourType,
-        equipment: RSKEquipment,
-        background: RSKBackgroundType,
-        spell: RSKSpell,
-        prayer: RSKPrayer,
-        summoning: RSKSummoning,
+
         rune: RSKRuneType,
+
+        specialEffect: RSKSpecialEffect,
+        specialFeature: RSKSpecialFeature,
+        npcAction: RSKNpcAction,
+        background: RSKBackgroundType,
         codex: RSKCodexType,
         itemCollection: RSKItemCollection,
-        weapon: RSKWeapon,
-        consumable: RSKConsumable
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
     Items.registerSheet("rsk", RSKConsumableSheet, { types: ["consumable"], makeDefault: true });
     Items.registerSheet("rsk", RSKWeaponSheet, { types: ["weapon"], makeDefault: true });
     Items.registerSheet("rsk", RSKNpcActionSheet, { types: ["npcAction"], makeDefault: true });
-    Items.registerSheet("rsk", RSKSpellSheet, { types: ["spell"], makeDefault: true });
-    Items.registerSheet("rsk", RSKSummoningSheet, { types: ["summoning"], makeDefault: true });
-    Items.registerSheet("rsk", RSKPrayerSheet, { types: ["prayer"], makeDefault: true });
+    //todo: Items.registerSheet("rsk", RSKCastableSheet, { types: ["castable"], makeDefault: true });
     Items.registerSheet("rsk", RSKCodexSheet, { types: ["codex"], makeDefault: true });
     Items.registerSheet("rsk", RSKItemCollectionSheet, { types: ["itemCollection"], makeDefault: true });
     Items.registerSheet("rsk", RSKRuneSheet, { types: ["rune"], makeDefault: true });

@@ -11,41 +11,35 @@
     },
     "Item": {
         "types": [
-            "material",
-            "resource",
+            "item",
+            "castable",
             "consumable",
-            "background",
-            "equipment",
             "weapon",
             "armour",
-            "cape",
+
+            "rune",
+
+            "quality",
             "specialFeature",
             "specialEffect",
             "npcAction",
-            "spell",
-            "prayer",
-            "summoning",
-            "rune",
+            "background",
             "codex",
             "itemCollection"
         ],
-        "material": {},
+        "castable": {},
         "consumable": {},
-        "resource": {},
-        "background": {},
-        "equipment": {},
+        "weapon": {},
         "armour": {},
-        "cape": {},
+
+        "rune": {},
+
+        "quality": {},
         "specialFeature": {},
         "specialEffect": {},
         "npcAction": {},
-        "spell": {},
-        "prayer": {},
-        "summoning": {},
-        "rune": {},
-        "ammunition": {},
+        "background": {},
         "codex": {},
-        "itemCollection": {},
-        "weapon": {}
+        "itemCollection": {}
     }
 }
