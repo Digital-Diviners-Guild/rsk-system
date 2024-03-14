@@ -1,6 +1,7 @@
+import { fields, positiveNumberField } from "../fields.js";
+
 export default class RSKItemType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
-        const fields = foundry.data.fields;
         return {
             // is material something more? like magic log, redwood log? skin > green_dragonhide?  like a type and tier values?
             category: new fields.StringField(), // rune | weapon | spell
@@ -18,12 +19,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                     amountNeeded: new fields.NumberField()
                 })),
             equipmentNeeded: new fields.StringField(),
-            damageEntries: new fields.SchemaField(Object.keys(CONFIG.RSK.damageTypes)
-                .reduce((obj, damageType) => {
-                    obj[damageType] = new fields.NumberField({ ...positiveNumberField, max: 500 });
-                    return obj;
-                }, {})),
-            soakValue: new fields.NumberField(),
+            targetNumberModifier: new fields.NumberField(),
             qualities: new fields.ArrayField(
                 new fields.SchemaField({
                     name: new fields.StringField(),
@@ -32,6 +28,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                     y: new fields.StringField()
                 })
             ),
+            soakValue: new fields.NumberField(),
             usageCost: new fields.ArrayField(
                 new fields.SchemaField({
                     schema: new fields.SchemaField({
@@ -39,7 +36,9 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                         amount: new fields.NumberField()
                     })
                 })),
-            targetNumberModifier: new fields.NumberField(),
+            //todo: do we want 'damage entries' or should we render that out of the targetOutcomes with 'recieve dmage'
+            targetOutcomes: new fields.ArrayField(new fields.ObjectField()),
+            usageOutcomes: new fields.ArrayField(new fields.ObjectField()),
             target: new fields.SchemaField({
                 range: new fields.StringField({
                     initial: "near",
@@ -48,8 +47,6 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 type: new fields.StringField(),
                 amount: new fields.NumberField()
             }),
-            targetOutcomes: new fields.ArrayField(new fields.ObjectField()),
-            usageOutcomes: new fields.ArrayField(new fields.ObjectField()),
 
             // what types of stuff could we utilize flags for?
             // would quantity/bulk/equipped perhaps fit there?
@@ -60,10 +57,11 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 value: new fields.NumberField({ initial: 1, min: 1 }),
                 modifier: new fields.NumberField()
             }),
+
+            //todo: do these really need to be on the base item
             activeSlot: new fields.StringField({
                 required: false,
-                initial: "",
-                choices: ["", ...Object.keys(CONFIG.RSK.activeSlotType)]
+                choices: [...Object.keys(CONFIG.RSK.activeSlotType)]
             }),
             equippedInSlot: new fields.StringField(),
             isTwoHanded: new fields.BooleanField({ initial: false }),
