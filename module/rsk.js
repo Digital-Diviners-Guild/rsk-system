@@ -2,7 +2,7 @@ import RSKArmourType from "./data/items/RSKArmourType.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
 import RSKEquipment from "./data/items/RSKEquipment.js";
 import RSKMaterial from "./data/items/RSKMaterial.js";
-import RSKPrayer from "./data/items/RSKPrayer.js";
+import RSKPrayer from "./data/items/RSKCastable.js";
 import RSKSpecialEffect from "./data/items/RSKSpecialEffect.js";
 import RSKResource from "./data/items/RSKResource.js";
 import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
@@ -66,6 +66,7 @@ async function preloadHandlebarsTemplates() {
         "/systems/rsk/templates/actors/parts/npc-main-content.hbs",
         "/systems/rsk/templates/actors/parts/npc-applications.hbs",
         "/systems/rsk/templates/actors/parts/npc-sidebar-details.hbs",
+        "/systems/templates/items/parts/outcome.hbs",
 
         "/systems/rsk/templates/parts/view-effects.hbs",
         "/systems/rsk/templates/parts/edit-effects.hbs"
