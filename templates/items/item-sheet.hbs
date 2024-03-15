@@ -6,20 +6,26 @@
     </header>
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+        <a class="item" data-tab="crafting">{{localize "RSK.Crafting"}}</a>
+        <a class="item" data-tab="actions">{{localize "RSK.Actions"}}</a>
         <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
+            <div style="display: flex;">
+                <div class="w-50">
+                    <strong>{{localize "RSK.Category"}}</strong>
+                    {{system.category}}
+                </div>
+                <div class="w-50">
+                    <strong>{{localize "RSK.SubCategory"}}</strong>
+                    {{system.subCategory}}
+                </div>
+            </div>
             <div>
                 <strong>{{localize "RSK.Description"}}</strong>
                 {{system.description}}
             </div>
-            {{#if system.effectDescription}}
-            <div>
-                <strong>{{localize "RSK.Effects"}}</strong>
-                {{system.effectDescription}}
-            </div>
-            {{/if}}
             <div style="display: flex;">
                 <div class="w-50">
                     <strong>{{localize "RSK.Cost"}}</strong>
@@ -30,38 +36,28 @@
                     {{system.material}}
                 </div>
             </div>
-            {{#if showRange}}
             <div>
-                {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
+                <strong>{{localize "RSK.Uses"}}</strong>
+                {{system.uses}}
             </div>
-            {{/if}}
             <div>
-                {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
+                <strong>{{localize "RSK.EffectDescription"}}</strong>
+                {{system.effectDescription}}
             </div>
-            <div style="display: flex;">
-                <div class="w-50">
-                    <strong>{{localize "RSK.WeaponType"}}</strong>
-                    {{system.weaponType}}
-                </div>
-                <div class="w-50">
-                    <strong>{{localize "RSK.AttackMethods"}}</strong>
-                    {{attackMethods}}
-                </div>
-            </div>
-            {{#if showAmmo}}
             <div>
-                <strong>{{localize "RSK.AmmoType"}}</strong>
-                {{system.ammoType}}
+                <strong>{{localize "RSK.Location"}}</strong>
+                {{system.location}}
             </div>
-            {{/if}}
-            {{#if showEffects}}
+
             <div>
-                <div>
-                    <strong>{{localize "RSK.SpecialEffects"}}</strong>
-                    {{system.specialEffects}}
-                </div>
+                <strong>{{localize "RSK.AwardedFor"}}</strong>
+                {{system.awardedFor}}
             </div>
-            {{/if}}
+
+            <div>
+                <strong>{{localize "RSK.TargetNumberModifier"}}</strong>
+                {{system.targetNumberModifier}}
+            </div>
 
             <div style="display: flex;">
                 <div class="w-50">
@@ -103,14 +99,12 @@
             changes=system.targetOutcomes}}
 
             {{!-- todo: --}}
-            <h4>Required Materials</h4>
-            <h4>Equipment Needed</h4>
-
-            <h4>Qualities</h4>
-
-            <h4>Usage Cost</h4>
-
-            <h4>Targets</h4>
+            <strong>Required Materials</strong>
+            <strong>Equipment Needed</strong>
+            <strong>Qualities</strong>
+            <strong>Effects</strong>
+            <strong>Usage Cost</strong>
+            <strong>Targets</strong>
         </div>
     </section>
 </form>
