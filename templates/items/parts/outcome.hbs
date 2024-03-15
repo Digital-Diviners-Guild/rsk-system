@@ -1,4 +1,4 @@
-<div group="{{group}}">
+<div data-group="{{group}}">
     <div class="form-group">
         <strong>{{localize "RSK.ConfiguredOutcomes"}}</strong>
         <ul class="target-state-changes-list">
@@ -16,24 +16,27 @@
     <div>
         <strong>{{localize "RSK.AddOutcome"}}</strong>
         <div class="form-group">
-            <label for="new-outcome">{{localize "RSK.Outcome"}}</label>
-            <select id="new-outcome-{{group}}" name="newOutcome">
-                <option value="">{{localize "RSK.SelectOutcome"}}</option>
-                <option value="restoreLifePoints">{{localize "RSK.RestoreLifePoints"}}</option>
-                <option value="receiveDamage">{{localize "RSK.ReceiveDamage"}}</option>
-                <option value="addStatuses">{{localize "RSK.AddStatuses"}}</option>
-                <option value="removeStatuses">{{localize "RSK.RemoveStatuses"}}</option>
-            </select>
+            <label>{{localize "RSK.Outcome"}}
+                <select class="new-outcome">
+                    <option value="">{{localize "RSK.SelectOutcome"}}</option>
+                    <option value="restoreLifePoints">{{localize "RSK.RestoreLifePoints"}}</option>
+                    <option value="receiveDamage">{{localize "RSK.ReceiveDamage"}}</option>
+                    <option value="addStatuses">{{localize "RSK.AddStatuses"}}</option>
+                    <option value="removeStatuses">{{localize "RSK.RemoveStatuses"}}</option>
+                </select>
+            </label>
         </div>
 
         <div class="form-group amount-input outcome-input" style="display:none;">
-            <label for="outcome-amount">{{localize "RSK.Amount"}}</label>
-            <input type="number" id="outcome-amount-{{group}}" name="outcomeAmount" value="1" min="1">
+            <label>{{localize "RSK.Amount"}}:
+                <input type="number" id="outcome-amount" value="1" min="1">
+            </label>
         </div>
         {{!-- todo: we have a statuses input somewhere already we should use --}}
         <div class="form-group status-input outcome-input" style="display:none;">
-            <label for="outcome-status">{{localize "RSK.Status"}}:</label>
-            <input type="text" id="outcome-status-{{group}}" name="outcomeStatus">
+            <label>{{localize "RSK.Status"}}:
+                <input type="text" id="outcome-status">
+            </label>
         </div>
 
         {{!-- todo: wonder if this can replace the 'damage entries' in the model, and those could exist on a sheet for
@@ -42,38 +45,45 @@
         viewing in the context
         of a weapon it could still be shown in a way that makes sense. ie the way damage entires is shown now. --}}
         <div class="form-group damage-input outcome-input" style="display:none;">
-            <label>{{localize "RSK.DamageTypes"}}:</label>
             <div class="form-group">
-                <label for="damage-typeless">{{localize "RSK.Typeless"}}:</label>
-                <input type="number" id="damage-typeless-{{group}}" name="damageTypeless" value="0" min="0">
+                <label>{{localize "RSK.Typeless"}}:
+                    <input type="number" class="damage-input-typeless" value="0" min="0">
+                </label>
             </div>
             <div class="form-group">
-                <label for="damage-stab">{{localize "RSK.Stab"}}:</label>
-                <input type="number" id="damage-stab-{{group}}" name="damageStab" value="0" min="0">
+                <label>{{localize "RSK.Stab"}}:
+                    <input type="number" class="damage-input-stab" value="0" min="0">
+                </label>
             </div>
             <div class="form-group">
-                <label for="damage-slash">{{localize "RSK.Slash"}}:</label>
-                <input type="number" id="damage-slash-{{group}}" name="damageSlash" value="0" min="0">
+                <label>{{localize "RSK.Slash"}}:
+                    <input type="number" class="damage-input-slash" value="0" min="0">
+                </label>
             </div>
             <div class="form-group">
-                <label for="damage-crush">{{localize "RSK.Crush"}}:</label>
-                <input type="number" id="damage-crush-{{group}}" name="damageCrush" value="0" min="0">
+                <label>{{localize "RSK.Crush"}}:
+                    <input type="number" class="damage-input-crush" value="0" min="0">
+                </label>
             </div>
             <div class="form-group">
-                <label for="damage-air">{{localize "RSK.Air"}}:</label>
-                <input type="number" id="damage-air-{{group}}" name="damageAir" value="0" min="0">
+                <label>{{localize "RSK.Air"}}:
+                    <input type="number" class="damage-input-air" value="0" min="0">
+                </label>
             </div>
             <div class="form-group">
-                <label for="damage-fire">{{localize "RSK.Fire"}}:</label>
-                <input type="number" id="damage-fire-{{group}}" name="damageFire" value="0" min="0">
+                <label>{{localize "RSK.Fire"}}:
+                    <input type="number" class="damage-input-fire" value="0" min="0">
+                </label>
             </div>
             <div class="form-group">
-                <label for="damage-water">{{localize "RSK.Water"}}:</label>
-                <input type="number" id="damage-water-{{group}}" name="damageWater" value="0" min="0">
+                <label>{{localize "RSK.Water"}}:
+                    <input type="number" class="damage-input-water" value="0" min="0">
+                </label>
             </div>
             <div class="form-group">
-                <label for="damage-earth">{{localize "RSK.Earth"}}:</label>
-                <input type="number" id="damage-earth-{{group}}" name="damageEarth" value="0" min="0">
+                <label>{{localize "RSK.Earth"}}:
+                    <input type="number" class="damage-input-earth" value="0" min="0">
+                </label>
             </div>
         </div>
         <button type="button" class="add-outcome">{{localize "RSK.AddOutcome"}}</button>

@@ -10,8 +10,7 @@ export default class RSKItemSheet extends ItemSheet {
     }
 
     get template() {
-        //return `systems/rsk/templates/items/${this.item.type}-sheet.hbs`
-        return 'systems/rsk/templates/items/item-sheet.hbs'
+        return `systems/rsk/templates/items/${this.item.type}-sheet.hbs`;
     }
 
     getData() {

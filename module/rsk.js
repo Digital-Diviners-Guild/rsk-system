@@ -37,6 +37,7 @@ import { setBoxes } from "../templates/helpers/rsk-helpers.js";
 import { localizeText } from "./rsk-localize.js";
 import RSKCastable from "./data/items/RSKCastable.js";
 import RSKItemType from "./data/items/RSKItemType.js";
+import RSKItemSheet2 from "./sheets/items/RSKItemSheet2.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -103,6 +104,7 @@ Hooks.once("init", function () {
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
+    Items.registerSheet("rsk", RSKItemSheet2, { types: ["item"], makeDefault: true });
     Items.registerSheet("rsk", RSKConsumableSheet, { types: ["consumable"], makeDefault: true });
     Items.registerSheet("rsk", RSKWeaponSheet, { types: ["weapon"], makeDefault: true });
     Items.registerSheet("rsk", RSKNpcActionSheet, { types: ["npcAction"], makeDefault: true });
