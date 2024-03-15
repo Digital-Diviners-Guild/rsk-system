@@ -37,7 +37,6 @@ export default class RSKItemSheet2 extends ItemSheet {
     _onOutcomeChange(event, html, group) {
         const operation = $(event.currentTarget).val();
         html.find(`[data-group='${group}'] .outcome-input`).hide();
-        debugger;
         try {
             const handler = OperationInputComponentFactory.getComponent(operation, html, group);
             handler.showInputs();
@@ -114,8 +113,12 @@ class AddStatusesInputComponent extends OperationInputComponent {
     }
 
     getUserInput() {
-        const operationStatus = this.html.find(``).val().split(",");
-        return { statusIds: [...operationStatus] };
+        const value = this.html.find(`[data-group='${this.group}'] .outcome-status`).val();
+        const operationStatus = value.split(",");
+        return {
+            description: `Add Status: ${value}`,
+            statusIds: [...operationStatus]
+        };
     }
 }
 
@@ -126,7 +129,10 @@ class RestoreLifePointsInputComponent extends OperationInputComponent {
 
     getUserInput() {
         const operationAmount = parseInt(this.html.find(``).val(), 10) || 1;
-        return { amount: operationAmount };
+        return {
+            description: `Restore Life Points: ${operationAmount}`,
+            amount: operationAmount
+        };
     }
 }
 
@@ -144,6 +150,13 @@ class ReceiveDamageInputComponent extends OperationInputComponent {
         const water = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-water`).val(), 10) || 0;
         const fire = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-fire`).val(), 10) || 0;
         const typeless = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-typeless`).val(), 10) || 0;
-        return { stab, slash, crush, air, earth, water, fire, typeless };
+        const damage = { stab, slash, crush, air, earth, water, fire, typeless }
+        return {
+            description: `Receive Damage: ${Object.keys(damage)
+                .filter((i) => damage[i] > 0)
+                .map((i) => `${damage[i]} (${i})`)
+                .join(', ')}`,
+            damage
+        };
     }
 }

@@ -2,12 +2,11 @@
     <div class="form-group">
         <strong>{{localize "RSK.ConfiguredOutcomes"}}</strong>
         <ul class="target-state-changes-list">
-            {{!-- todo: what was changes in our lab project? --}}
             {{#each changes as |change index|}}
-            <li class="operation" data-index="{{index}}">
-                <span>{{change.displayParams}}</span>
-                {{!-- todo: use our remove trash can icon --}}
-                <button type="button" class="delete-operation" data-index="{{index}}">Delete</button>
+            <li class="outcome" data-index="{{index}}">
+                <span>{{change.context.description}}</span>
+                <a class="item-control delete-outcome" title="Delete Item" data-index="{{index}}"><i
+                        class="fas fa-trash"></i></a>
             </li>
             {{/each}}
         </ul>
@@ -29,13 +28,13 @@
 
         <div class="form-group amount-input outcome-input" style="display:none;">
             <label>{{localize "RSK.Amount"}}:
-                <input type="number" id="outcome-amount" value="1" min="1">
+                <input type="number" class="outcome-amount" value="1" min="1">
             </label>
         </div>
         {{!-- todo: we have a statuses input somewhere already we should use --}}
         <div class="form-group status-input outcome-input" style="display:none;">
             <label>{{localize "RSK.Status"}}:
-                <input type="text" id="outcome-status">
+                <input type="text" class="outcome-status">
             </label>
         </div>
 
