@@ -35,13 +35,20 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             //todo: do we want 'damage entries' or should we render that out of the targetOutcomes with 'recieve dmage'
             targetOutcomes: new fields.ArrayField(new fields.ObjectField()),
             usageOutcomes: new fields.ArrayField(new fields.ObjectField()),
-            target: new fields.SchemaField({
-                range: new fields.StringField({
-                    initial: "near",
-                    choices: [...Object.keys(CONFIG.RSK.ranges)]
-                }),
-                type: new fields.StringField(),
-                amount: new fields.NumberField()
+            //todo: new target model to help with targetting rules
+            // target: new fields.SchemaField({
+            //     range: new fields.StringField({
+            //         initial: "near",
+            //         choices: [...Object.keys(CONFIG.RSK.ranges)]
+            //     }),
+            //     type: new fields.StringField(),
+            //     amount: new fields.NumberField()
+            // }),
+
+            range: new fields.StringField({
+                required: true,
+                initial: "near",
+                choices: [...Object.keys(CONFIG.RSK.ranges)]
             }),
 
             // what types of stuff could we utilize flags for?
@@ -64,4 +71,10 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             isEquipped: new fields.BooleanField({ initial: false }),
         };
     }
+
+    //todo: if we have canUse based on if there are outcomes
+    // then a use that sends the outcomes what do we need the other types for?
+    // weapon - can use is only when equipped
+    // armour - only applies when equipped
+    // anything else?
 }

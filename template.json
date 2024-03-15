@@ -16,12 +16,7 @@
             "consumable",
             "weapon",
             "armour",
-
-            "rune",
-
             "quality",
-            "specialFeature",
-            "specialEffect",
             "npcAction",
             "background",
             "codex",
@@ -31,12 +26,7 @@
         "consumable": {},
         "weapon": {},
         "armour": {},
-
-        "rune": {},
-
         "quality": {},
-        "specialFeature": {},
-        "specialEffect": {},
         "npcAction": {},
         "background": {},
         "codex": {},

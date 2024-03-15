@@ -1,7 +1,5 @@
 import RSKArmourType from "./data/items/RSKArmourType.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
-import RSKSpecialEffect from "./data/items/RSKSpecialEffect.js";
-import RSKSpecialFeature from "./data/items/RSKSpecialFeature.js";
 import RSKConsumable from "./data/items/RSKConsumable.js"
 import RSKConsumableSheet from "./sheets/items/RSKConsumableSheet.js"
 
@@ -17,7 +15,6 @@ import RSKItem from "./documents/items/RSKItem.js";
 import RSKItemSheet from "./sheets/items/RSKItemSheet.js";
 import RSKChatLog, { onRenderChatMessage, registerActorEventHandlers } from "./applications/RSKChatLog.js";
 import RSK from "./config.js";
-import RSKRuneType from "./data/items/RSKRune.js";
 import { customizeStatusEffects } from "./effects/statuses.js";
 import RSKDice from "./rsk-dice.js";
 import RSKMath from "./rsk-math.js";
@@ -92,11 +89,6 @@ Hooks.once("init", function () {
         castable: RSKCastable,
         weapon: RSKWeapon,
         armour: RSKArmourType,
-
-        rune: RSKRuneType,
-
-        specialEffect: RSKSpecialEffect,
-        specialFeature: RSKSpecialFeature,
         npcAction: RSKNpcAction,
         background: RSKBackgroundType,
         codex: RSKCodexType,
@@ -111,7 +103,6 @@ Hooks.once("init", function () {
     //todo: Items.registerSheet("rsk", RSKCastableSheet, { types: ["castable"], makeDefault: true });
     Items.registerSheet("rsk", RSKCodexSheet, { types: ["codex"], makeDefault: true });
     Items.registerSheet("rsk", RSKItemCollectionSheet, { types: ["itemCollection"], makeDefault: true });
-    Items.registerSheet("rsk", RSKRuneSheet, { types: ["rune"], makeDefault: true });
 
     CONFIG.Actor.documentClass = RSKActor;
     CONFIG.Actor.dataModels = {
