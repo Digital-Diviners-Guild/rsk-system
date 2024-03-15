@@ -124,11 +124,11 @@ class AddStatusesInputComponent extends OperationInputComponent {
 
 class RestoreLifePointsInputComponent extends OperationInputComponent {
     showInputs() {
-        this.html.find(`[data-group='${this.group}'] .amount-input`).show();
+        this.html.find(`[data-group='${this.group}'] .receive-life-input`).show();
     }
 
     getUserInput() {
-        const operationAmount = parseInt(this.html.find(``).val(), 10) || 1;
+        const operationAmount = parseInt(this.html.find(`[data-group='${this.group}'] .receive-life-amount`).val(), 10) || 1;
         return {
             description: `Restore Life Points: ${operationAmount}`,
             amount: operationAmount
