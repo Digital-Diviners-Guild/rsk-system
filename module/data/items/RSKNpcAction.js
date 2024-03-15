@@ -1,5 +1,6 @@
 import { fields, positiveNumberField } from "../fields.js";
 export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
+    //todo: could this utilize the 'outcomes' too?
     static defineSchema() {
         return {
             type: new fields.StringField({

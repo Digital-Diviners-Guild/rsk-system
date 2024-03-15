@@ -1,5 +1,6 @@
 import { localizeText } from "../../rsk-localize.js";
 import { uiService } from "../../rsk-ui-service.js";
+import RSKItemType from "./RSKItemType.js";
 
 //todo: need to refactor equppables
 // we use a few fields to track things, and even a flag
@@ -7,7 +8,9 @@ import { uiService } from "../../rsk-ui-service.js";
 // also need to decide how we want to do the disable slots.
 // do things like 2 handed weapons have a designated slot to disable
 // mean while 'heavy's give the option to pick a slot?
-export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
+
+//todo: I wonder if we can kill the 'equppabletype'
+export default class RSKEquippableType extends RSKItemType {
     async equip(slot) {
         let slotToDisable;
         if (this.hasOwnProperty("disablesSlot") && this.disablesSlot) {
@@ -45,5 +48,4 @@ export default class RSKEquippableType extends foundry.abstract.TypeDataModel {
         });
         return { freedSlot };
     }
-
 }
