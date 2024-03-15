@@ -1,4 +1,4 @@
-import { fields, positiveNumberField } from "../fields.js";
+import { fields } from "../fields.js";
 
 export default class RSKItemType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -13,11 +13,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
             awardedFor: new fields.StringField(),
-            requiredMaterials: new fields.ArrayField(
-                new fields.SchemaField({
-                    material: new fields.StringField(),
-                    amountNeeded: new fields.NumberField()
-                })),
+            requiredMaterials: new fields.StringField(), //eventually this will need to be more
             equipmentNeeded: new fields.StringField(),
             targetNumberModifier: new fields.NumberField(),
             qualities: new fields.ArrayField(

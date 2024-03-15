@@ -1,110 +1,85 @@
 {{!-- todo: finish converting to generic sheet --}}
 <form class="{{cssClass}}" autocomplete="off" data-can-drop="true">
     <header class="sheet-header">
-        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" style="height: 128px; width: 128px" />
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
         <a class="item" data-tab="crafting">{{localize "RSK.Crafting"}}</a>
         <a class="item" data-tab="actions">{{localize "RSK.Actions"}}</a>
-        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div style="display: flex;">
                 <div class="w-50">
-                    <strong>{{localize "RSK.Category"}}</strong>
-                    {{system.category}}
+                    <label>{{localize "RSK.Category"}}: <input type="text" name="system.category"
+                            value="{{system.category}}"></label>
                 </div>
                 <div class="w-50">
-                    <strong>{{localize "RSK.SubCategory"}}</strong>
-                    {{system.subCategory}}
+                    <label>{{localize "RSK.SubCategory"}}: <input type="text" name="system.subCategory"
+                            value="{{system.subCategory}}"></label>
                 </div>
             </div>
             <div>
-                <strong>{{localize "RSK.Description"}}</strong>
-                {{system.description}}
+                <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
+                        value="{{system.description}}"></label>
             </div>
             <div style="display: flex;">
                 <div class="w-50">
-                    <strong>{{localize "RSK.Cost"}}</strong>
-                    {{system.cost}}
+                    <label>{{localize "RSK.Cost"}}: <input type="number" name="system.cost"
+                            value="{{system.cost}}"></label>
                 </div>
                 <div class="w-50">
-                    <strong>{{localize "RSK.Material"}}</strong>
-                    {{system.material}}
+                    <label>{{localize "RSK.Material"}}: <input type="text" name="system.material"
+                            value="{{system.material}}"></label>
                 </div>
             </div>
             <div>
-                <strong>{{localize "RSK.Uses"}}</strong>
-                {{system.uses}}
+                <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
             </div>
             <div>
-                <strong>{{localize "RSK.EffectDescription"}}</strong>
-                {{system.effectDescription}}
+                <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
+                        value="{{system.effectDescription}}"></label>
             </div>
             <div>
-                <strong>{{localize "RSK.Location"}}</strong>
-                {{system.location}}
+                <label>{{localize "RSK.AwardedFor"}}: <input type="text" name="system.awardedFor"
+                        value="{{system.awardedFor}}"></label>
             </div>
-
-            <div>
-                <strong>{{localize "RSK.AwardedFor"}}</strong>
-                {{system.awardedFor}}
-            </div>
-
-            <div>
-                <strong>{{localize "RSK.TargetNumberModifier"}}</strong>
-                {{system.targetNumberModifier}}
-            </div>
-
+            <label>{{localize "RSK.TargetNumberModifier"}}: <input type="number" name="system.targetNumberModifier"
+                    value="{{system.targetNumberModifier}}"></label>
             <div style="display: flex;">
-                <div class="w-50">
-                    <strong>{{localize "RSK.Quantity"}}</strong>
-                    {{system.quantity}}
+                <label>{{localize "RSK.Bulk"}} <input type="number" name="system.bulk.value"
+                        value="{{system.bulk.value}}"></label>
+                <div>
+                    <label>{{localize "RSK.Quantity"}}: <input type="number" name="system.quantity"
+                            value="{{system.quantity}}"></label>
                 </div>
-                <div class="w-50">
-                    <strong>{{localize "RSK.MaxStackSize"}}</strong>
-                    {{system.maxStackSize}}
+                <div>
+                    <label>{{localize "RSK.MaxStackSize"}}: <input type="number" name="system.maxStackSize"
+                            value="{{system.maxStackSize}}"></label>
                 </div>
             </div>
+            <strong>Qualities</strong>
+            <strong>Effects</strong>
         </div>
 
-        <div class="tab features" data-group="primary" data-tab="edit">
-            <h3>Item Details</h3>
-            <label>Name: <input type="text" name="item.name" value="{{item.name}}"></label>
-            <label>category: <input type="text" name="system.category" value="{{system.category}}"></label>
-            <label>subCategory: <input type="text" name="system.subCategory" value="{{system.subCategory}}"></label>
-            <label>Description: <input type="text" name="system.description" value="{{system.description}}"></label>
-            <label>Awarded For: <input type="text" name="system.awardedFor" value="{{system.awardedFor}}"></label>
-            <label>Location: <input type="text" name="system.location" value="{{system.location}}"></label>
-            <label>Material: <input type="text" name="system.material" value="{{system.material}}"></label>
-            <label>Cost: <input type="number" name="system.cost" value="{{system.cost}}"></label>
-            <label>Uses: <input type="text" name="system.uses" value="{{system.uses}}"></label>
-            <label>Soak Value: <input type="number" name="system.soakValue" value="{{system.soakValue}}"></label>
-            <label>Effect Description: <input type="text" name="system.effectDescription"
-                    value="{{system.effectDescription}}"></label>
-            <label>Equipment Needed: <input type="text" name="system.equipmentNeeded"
+        <div class="tab features" data-group="primary" data-tab="crafting">
+            <label>{{localize "RSK.Location"}}: <input type="text" name="system.location"
+                    value="{{system.location}}"></label>
+            <label>{{localize "RSK.Required Materials"}}: <input type="text" name="system.requiredMaterials"
+                    value="{{system.requiredMaterials}}"></label>
+            <label>{{localize "RSK.EquipmentNeeded"}}: <input type="text" name="system.equipmentNeeded"
                     value="{{system.equipmentNeeded}}"></label>
-            <label>Target Number Modifier: <input type="number" name="system.targetNumberModifier"
-                    value="{{system.targetNumberModifier}}"></label>
-            <label>Max Stack Size: <input type="number" name="system.maxStackSize"
-                    value="{{system.maxStackSize}}"></label>
-            <label>Quantity: <input type="number" name="system.quantity" value="{{system.quantity}}"></label>
-            <label>Bulk: <input type="number" name="system.bulk.value" value="{{system.bulk.value}}"></label>
+        </div>
+
+        <div class="tab features" data-group="primary" data-tab="actions">
+            <strong>Usage Cost</strong>
+            <strong>Targets</strong>
             {{> "/systems/rsk/templates/items/parts/outcome.hbs" group="usage"
             changes=system.usageOutcomes}}
             {{> "/systems/rsk/templates/items/parts/outcome.hbs" group="target"
             changes=system.targetOutcomes}}
-
-            {{!-- todo: --}}
-            <strong>Required Materials</strong>
-            <strong>Equipment Needed</strong>
-            <strong>Qualities</strong>
-            <strong>Effects</strong>
-            <strong>Usage Cost</strong>
-            <strong>Targets</strong>
         </div>
     </section>
 </form>
