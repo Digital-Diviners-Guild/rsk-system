@@ -87,8 +87,34 @@ export async function onActorRest(data) {
     });
 }
 
+export async function onActorIncreasedSkillLevel(data) {
+    await ChatMessage.create({
+        content: `
+        Increased Skill Level:
+        ${JSON.stringify({
+            name: data.targetActor.name,
+            skill: data.skill,
+            newLevel: data.newLevel
+        })}`
+    });
+}
+
+export async function onActorIncreasedAbilityLevel(data) {
+    await ChatMessage.create({
+        content: `
+        Increased Ability Level:
+        ${JSON.stringify({
+            name: data.targetActor.name,
+            ability: data.ability,
+            newLevel: data.newLevel
+        })}`
+    });
+}
+
 export function registerActorEventHandlers() {
     Hooks.on("actorReceivedDamage", onActorReceivedDamage);
     Hooks.on("actorRestoredLifePoints", onActorRestoredLifePoints);
     Hooks.on("actorRest", onActorRest);
+    Hooks.on("actorIncreasedSkillLevel", onActorIncreasedSkillLevel);
+    Hooks.on("actorIncreasedAbilityLevel", onActorIncreasedAbilityLevel);
 }

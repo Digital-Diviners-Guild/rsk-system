@@ -81,6 +81,7 @@ export default class RSKCharacterType extends RSKActorType {
     increaseSkillLevel(skill, amount = 1) {
         const newLevel = this.skills[skill].level + amount;
         this.updateLevel("skills", skill, newLevel, { min: this.minSkillLevel, max: this.maxSkillLevel });
+        Hooks.call("actorIncreasedSkillLevel", { targetActor: this.parent, skill: skill, newLevel: newLevel });
         return newLevel === this.abilityAwardedAtLevel;
     }
 
@@ -92,6 +93,7 @@ export default class RSKCharacterType extends RSKActorType {
     increaseAbilityLevel(ability, amount = 1) {
         const newLevel = this.abilities[ability].level + amount;
         this.updateLevel("abilities", ability, newLevel, { min: this.minAbilityLevel, max: this.maxAbilityLevel });
+        Hooks.call("actorIncreasedAbilityLevel", { targetActor: this.parent, ability: ability, newLevel: newLevel });
     }
 
     decreaseAbilityLevel(ability, amount = 1) {
