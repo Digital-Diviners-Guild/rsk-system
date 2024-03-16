@@ -26,6 +26,32 @@ export default class RSKItemSheet2 extends ItemSheet {
         super.activateListeners(html);
         this.addListeners(html, "usage");
         this.addListeners(html, "target");
+        html.find('.effect-edit').click(ev => {
+            const effectId = $(ev.currentTarget)
+                .parents(".item")
+                .data("effectId");
+            const effect = this.item.effects.get(effectId);
+            effect.sheet.render(true);
+        });
+        if (!this.isEditable) return;
+
+        html.find('.effect-create').on('click', ev => {
+            CONFIG.ActiveEffect.documentClass.create({
+                label: "New Effect",
+                icon: "icons/svg/aura.svg",
+                transfer: true,
+            }, { parent: this.item }).then(effect => effect?.sheet?.render(true));
+        });
+
+        html.find('.effect-delete').click(ev => {
+            const effectId = $(ev.currentTarget)
+                .parents(".item")
+                .data("effectId");
+            this.item.deleteEmbeddedDocuments("ActiveEffect",
+                this.item.effects
+                    .filter(x => x._id === effectId)
+                    .map(x => x._id));
+        });
     }
 
     addListeners(html, group) {
@@ -71,29 +97,55 @@ export default class RSKItemSheet2 extends ItemSheet {
             await this.item.update({ [`system.${group}Outcomes`]: outcomes });
         }
     }
+
+    _onDrop(event) {
+        const transferString = event.dataTransfer.getData("text/plain");
+        const transferObj = JSON.parse(transferString);
+        if (!(transferObj.uuid && transferObj.type)) return;
+        switch (transferObj.type) {
+            case "Item":
+                return this._onDropItem(event, transferObj);
+        }
+    }
+
+    _onDropItem(event, transferObj) {
+        const itemId = transferObj.uuid.split(".")[1];
+        if (!itemId) return;
+
+        const droppedItem = Item.get(itemId);
+        if (!droppedItem) return;
+
+        const droppedEffects = droppedItem.effects.map(e => {
+            let eObj = e.toObject();
+            delete eObj._id;
+            return eObj;
+        });
+        this.item.createEmbeddedDocuments("ActiveEffect", [...droppedEffects]);
+        this.render(true);
+    }
 }
 
-
+//todo: need to support inputting dice formula for outcome amounts like healing/damaging 1d4 etc
 class OperationInputComponentFactory {
     static getComponent(operation, html, group) {
         const components = {
-            addStatuses: AddStatusesInputComponent,
-            //removeStatuses: AddStatusesInputComponent,
-            receiveDamage: ReceiveDamageInputComponent,
-            restoreLifePoints: RestoreLifePointsInputComponent,
+            addStatuses: () => new StatusesInputComponent(html, group, "Add Statuses"),
+            removeStatuses: () => new StatusesInputComponent(html, group, "Remove Statuses"),
+            receiveDamage: () => new ReceiveDamageInputComponent(html, group),
+            restoreLifePoints: () => new RestoreLifePointsInputComponent(html, group),
         };
 
-        const componentClass = components[operation];
-        if (!componentClass) {
+        const componentFactory = components[operation];
+        if (!componentFactory) {
             throw new Error("Unsupported operation type: " + operation);
         }
 
-        return new componentClass(html, group);
+        return componentFactory();
     }
 }
 
 class OperationInputComponent {
-    constructor(html, group) {
+    constructor(html, group, options = {}) {
         this.html = html;
         this.group = group;
     }
@@ -107,7 +159,12 @@ class OperationInputComponent {
     }
 }
 
-class AddStatusesInputComponent extends OperationInputComponent {
+class StatusesInputComponent extends OperationInputComponent {
+    constructor(html, group, statusType) {
+        super(html, group);
+        this.statusType = statusType;
+    }
+
     showInputs() {
         this.html.find(`[data-group='${this.group}'] .status-input`).show();
     }
@@ -116,7 +173,7 @@ class AddStatusesInputComponent extends OperationInputComponent {
         const value = this.html.find(`[data-group='${this.group}'] .outcome-status`).val();
         const operationStatus = value.split(",");
         return {
-            description: `Add Status: ${value}`,
+            description: `${this.statusType}: ${value}`,
             statusIds: [...operationStatus]
         };
     }
