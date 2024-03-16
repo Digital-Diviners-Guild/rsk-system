@@ -213,8 +213,10 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             weapon = weapons.find(i => i._id === result.id);
         } else if (weapons?.length > 0) {
             weapon = weapons[0];
+            await weapon.system.use();
+        } else {
+            attackAction(this.actor, weapon);
         }
-        attackAction(this.actor, weapon);
     }
 
     async characterCastSpell() {

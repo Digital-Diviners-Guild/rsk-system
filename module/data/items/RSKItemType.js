@@ -1,4 +1,5 @@
 import { fields } from "../fields.js";
+import { uiService } from "../../rsk-ui-service.js";
 
 export default class RSKItemType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -77,4 +78,105 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
     // weapon - can use is only when equipped
     // armour - only applies when equipped
     // anything else?
+
+    //todo: implement in subtype - weapons would check it is equipped
+    canUse() {
+        return false;
+    }
+
+    //usage 
+    // get rollData and TargetNumberModifier
+    // confirm roll
+    // roll 
+    // handle usage cost if any
+    // send chat with outcomes
+
+    async use() {
+        const rollData = this._prepareRollData();
+        const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
+        if (!confirmRollResult.confirmed) return false;
+        const skillResult = await this.parent.actor.system.useSkill(confirmRollResult);
+
+        //todo: handle usageCost here?
+
+        this._handleUsageCost(skillResult);
+
+        //todo: where does the action details come from?
+        const actionData = {
+            name: this.parent.name,
+            description: this.effectDescription,
+            actionType: "melee",
+            img: this.parent.img
+        };
+        const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
+            {
+                ...skillResult,
+                ...actionData
+            });
+        await skillResult.toMessage({
+            flavor: flavor,
+            flags: {
+                rsk: {
+                    ...skillResult,
+                    ...actionData,
+                    targetOutcomes: [...this.targetOutcomes]
+                }
+            }
+        });
+    }
+
+
+    _handleUsageCost(skillResult) {
+        // spend resources
+        // consume conumables
+        // deduct ammo
+        //etc (these are the 'usage' statechanges)
+    }
+
+    //todo: implement in subtype
+    _prepareRollData() {
+        return {
+            ...this.parent.actor.system.getRollData(),
+            skill: "attack",
+            ability: "strength",
+            targetNumberModifier: this.targetNumberModifier
+        };
+    }
 }
+
+// apply outcome
+// gather targets
+// apply target outcomes
+export const applyOutcome2 = async (actionData) => {
+    const isGM = game.user?.isGM;
+    const targets = isGM
+        ? [...game.user.targets.map(t => t.actor)]
+        : [game.user.character];
+    for (let target of targets) {
+        await applyStateChanges2(target, actionData.targetOutcomes);
+    }
+}
+
+const addLifePoints = (actor, lifePointsAdded) => {
+    actor.system.restoreLifePoints(lifePointsAdded);
+}
+
+const receiveDamage = async (actor, context) => {
+    await actor.system.receiveDamage({ damageEntries: context.damage });
+};
+
+const operations = {
+    addLifePoints,
+    receiveDamage,
+};
+
+export const applyStateChanges2 = async (actor, stateChanges) => {
+    for (let stateChange of stateChanges) {
+        const operationFunc = operations[stateChange.operation];
+        if (operationFunc) {
+            await operationFunc(actor, { ...stateChange.context });
+        } else {
+            console.error(`Unknown operation: ${stateChange.operation}`);
+        }
+    }
+};

@@ -1,3 +1,4 @@
+import { applyOutcome2 } from "../data/items/RSKItemType.js";
 import { applyOutcome } from "../rsk-action-results.js";
 import { localizeText } from "../rsk-localize.js";
 
@@ -19,7 +20,7 @@ export function onRenderChatMessage(app, html, data) {
         ? [...game.user.targets.map(t => t.actor)]
         : [game.user.character];
     const outcomeData = message.flags.rsk;
-    addApplyOutcomeButton(html, () => applyOutcome(targets(), outcomeData));
+    addApplyOutcomeButton(html, () => applyOutcome2(outcomeData));
 }
 
 const addApplyOutcomeButton = (html, handler) => {
