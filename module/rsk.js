@@ -1,14 +1,10 @@
 import RSKArmourType from "./data/items/RSKArmourType.js";
 import RSKBackgroundType from "./data/items/RSKBackgroundType.js";
 import RSKConsumable from "./data/items/RSKConsumable.js"
-import RSKConsumableSheet from "./sheets/items/RSKConsumableSheet.js"
-
 import RSKCharacterType from "./data/actors/RSKCharacterType.js";
 import RSKNpc from "./data/actors/RSKNpcType.js";
 import RSKDeath from "./data/actors/RSKDeath.js";
-
 import RSKActiveEffect from "./documents/effects/RSKActiveEffect.js";
-
 import RSKActor from "./documents/actors/RSKActor.js";
 import RSKActorSheet from "./sheets/actors/RSKActorSheet.js";
 import RSKItem from "./documents/items/RSKItem.js";
@@ -33,7 +29,6 @@ import { setBoxes } from "../templates/helpers/rsk-helpers.js";
 import { localizeText } from "./rsk-localize.js";
 import RSKCastable from "./data/items/RSKCastable.js";
 import RSKItemType from "./data/items/RSKItemType.js";
-import RSKItemSheet2 from "./sheets/items/RSKItemSheet2.js";
 
 globalThis.rsk = {
     config: RSK,
@@ -95,11 +90,8 @@ Hooks.once("init", function () {
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
-    Items.registerSheet("rsk", RSKItemSheet2, { types: ["item"], makeDefault: true });
-    Items.registerSheet("rsk", RSKConsumableSheet, { types: ["consumable"], makeDefault: true });
     Items.registerSheet("rsk", RSKWeaponSheet, { types: ["weapon"], makeDefault: true });
     Items.registerSheet("rsk", RSKNpcActionSheet, { types: ["npcAction"], makeDefault: true });
-    //todo: Items.registerSheet("rsk", RSKCastableSheet, { types: ["castable"], makeDefault: true });
     Items.registerSheet("rsk", RSKCodexSheet, { types: ["codex"], makeDefault: true });
     Items.registerSheet("rsk", RSKItemCollectionSheet, { types: ["itemCollection"], makeDefault: true });
 

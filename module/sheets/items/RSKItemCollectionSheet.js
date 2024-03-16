@@ -1,7 +1,6 @@
-import RSKItemSheet from "./RSKItemSheet.js";
 import { canAddItem } from "../../rsk-inventory.js";
 
-export default class RSKItemCollectionSheet extends RSKItemSheet {
+export default class RSKItemCollectionSheet extends ItemSheet {
     invalidTypes = ["action", "spell", "prayer", "summoning"];
 
     activateListeners(html) {

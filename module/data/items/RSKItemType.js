@@ -10,6 +10,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             cost: new fields.NumberField({ initial: 0, min: 0 }),
             uses: new fields.StringField(),
             location: new fields.StringField(),
+            upgrades: new fields.StringField(), // perhaps an object with details about the upgrade?
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
             awardedFor: new fields.StringField(),
