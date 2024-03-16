@@ -125,8 +125,6 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
     _prepareRollData() {
         return {
             ...this.parent.actor.system.getRollData(),
-            skill: "attack",
-            ability: "strength",
             targetNumberModifier: this.targetNumberModifier
         };
     }
@@ -137,13 +135,12 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
         return {
             name: this.parent.name,
             description: this.effectDescription,
-            actionType: "melee",
             img: this.parent.img,
-            outcomes: this.targetOutcomes
         };
     }
 }
 
+//todo: put this stuff somewhere
 // apply outcome
 // gather targets
 // apply target outcomes
@@ -153,12 +150,12 @@ export const applyOutcome2 = async (actionData) => {
         ? [...game.user.targets.map(t => t.actor)]
         : [game.user.character];
     for (let target of targets) {
-        await applyStateChanges2(target, actionData.targetOutcomes);
+        await applyStateChanges2(target, actionData.outcomes);
     }
 }
 
-const addLifePoints = (actor, lifePointsAdded) => {
-    actor.system.restoreLifePoints(lifePointsAdded);
+const restoreLifePoints = (actor, context) => {
+    actor.system.restoreLifePoints(context.amount);
 }
 
 const receiveDamage = async (actor, context) => {
@@ -166,7 +163,7 @@ const receiveDamage = async (actor, context) => {
 };
 
 const operations = {
-    addLifePoints,
+    restoreLifePoints,
     receiveDamage,
 };
 

@@ -24,4 +24,15 @@ export default class RSKWeapon extends RSKEquippableType {
             })
         }
     };
+
+    //todo: default attack is unarmed, we need to not forget about that.
+    _prepareOutcomeData() {
+        return {
+            name: this.parent.name,
+            description: this.effectDescription,
+            actionType: "melee",
+            img: this.parent.img,
+            outcomes: this.targetOutcomes
+        };
+    }
 }
