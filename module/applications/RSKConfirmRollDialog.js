@@ -31,12 +31,12 @@ export default class RSKConfirmRollDialog extends RSKDialog {
         this.resolve = resolve;
         this.context = context;
 
-        this.selectedAbility = options.hasOwnProperty("defaultAbility") ? options.defaultAbility : "strength";
-        this.selectedSkill = options.hasOwnProperty("defaultSkill") ? options.defaultSkill : "attack";
+        this.selectedAbility = context.hasOwnProperty("defaultAbility") ? context.defaultAbility : "strength";
+        this.selectedSkill = context.hasOwnProperty("defaultSkill") ? context.defaultSkill : "attack";
+        this.targetNumberModifier = context.hasOwnProperty("targetNumberModifier") ? context.targetNumberModifier : 0;
         this.rollMode = CONFIG.Dice.rollModes.publicroll;
         this.advantageDisadvantageOptions = { normal: "RSK.Normal", advantage: "RSK.Advantage", disadvantage: "RSK.Disadvantage" };
         this.advantageDisadvantage = "normal";
-        this.targetNumberModifier = options.hasOwnProperty("targetNumberModifier") ? options.targetNumberModifier : 0;
         this.keypressId = "confirmRoll";
     }
 

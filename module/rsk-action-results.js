@@ -141,12 +141,13 @@ const outcomeHandlers = {
             : []
     }
 };
+
 export const applyOutcome = async (targets, actionResult) => {
     const outcomeHandler = outcomeHandlers[actionResult.actionType]
     for (let target of targets) {
-        let stateChanges = actionResult.actionData.targetOutcomes;
+        let stateChanges = actionResult.targetOutcomes;
         if (outcomeHandler) {
-            stateChanges = await outcomeHandler(target, actionResult.actionData.targetOutcomes);
+            stateChanges = await outcomeHandler(target, actionResult.targetOutcomes);
         }
         await applyStateChanges(target, stateChanges);
     }
