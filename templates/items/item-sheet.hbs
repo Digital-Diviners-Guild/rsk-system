@@ -62,6 +62,14 @@
             </div>
         </div>
         <div class="tab features" data-group="primary" data-tab="actions">
+            <div class="form-group">
+                <label>{{localize "RSK.ActiveSlot"}}:
+                    <input type="text" name="system.activeSlot" value="{{system.activeSlot}}">
+                    {{!-- <select name="system.activeSlot">
+                        {{selectOptions config.weaponActiveSlotType.values selected=system.activeSlot localize=true}}
+                    </select> --}}
+                </label>
+            </div>
             <div>
                 <label>{{localize "RSK.Qualities"}}: <input type="text" name="system.qualities"
                         value="{{system.qualities}}"></label>

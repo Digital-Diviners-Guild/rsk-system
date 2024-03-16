@@ -95,6 +95,8 @@ const getDefenseRoll = async (target, skill, ability) => {
 // this will come from a defense roll dictated by the outcome 
 // if an npc is attacking a character
 const outcomeHandlers = {
+    // todo: will we need these handlers moving forward?
+    //perhaps... how else could we enforce one prayer with the new direction?
     prayer: async (target, outcome) => {
         const activePrayers = target.effects.filter(e =>
             e.statuses.some(s => rskPrayerStatusEffects.map(se => se.id).includes(s)))
@@ -107,12 +109,22 @@ const outcomeHandlers = {
         //todo: add summoned token to the board
         return [];
     },
+    // const { puncture, damageEntries, attackType, defenseRoll } = { ...damage };
     melee: async (target, outcome) => {
         const defenseRollMargin = await getDefenseRoll(target, "defense", "strength");
         const result = await uiService.showDialog("apply-damage", outcome, { defenseRoll: defenseRollMargin });
+        const test = outcome.map(x => x.context.damage)[0];
         return result && result.confirmed
-            ? [{ operation: "receiveDamage", params: [{ ...result }] }]
-            : []
+            ? [{
+                operation: "receiveDamage", params: [
+                    {
+                        puncture: result.puncture,
+                        damageEntries: test,
+                        attackType: "melee",
+                        defenseRoll: defenseRollMargin
+                    }]
+            }]
+            : [];
     },
     magic: async (target, outcome) => {
         const defenseRollMargin = await getDefenseRoll(target, "magic", "intellect");
@@ -132,9 +144,9 @@ const outcomeHandlers = {
 export const applyOutcome = async (targets, actionResult) => {
     const outcomeHandler = outcomeHandlers[actionResult.actionType]
     for (let target of targets) {
-        let stateChanges = actionResult.targetStateChanges;
+        let stateChanges = actionResult.actionData.targetOutcomes;
         if (outcomeHandler) {
-            stateChanges = await outcomeHandler(target, actionResult);
+            stateChanges = await outcomeHandler(target, actionResult.actionData.targetOutcomes);
         }
         await applyStateChanges(target, stateChanges);
     }

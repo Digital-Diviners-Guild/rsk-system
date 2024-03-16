@@ -90,7 +90,7 @@ Hooks.once("init", function () {
     };
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("rsk", RSKItemSheet, { makeDefault: true });
-    Items.registerSheet("rsk", RSKWeaponSheet, { types: ["weapon"], makeDefault: true });
+    // Items.registerSheet("rsk", RSKWeaponSheet, { types: ["weapon"], makeDefault: true });
     Items.registerSheet("rsk", RSKNpcActionSheet, { types: ["npcAction"], makeDefault: true });
     Items.registerSheet("rsk", RSKCodexSheet, { types: ["codex"], makeDefault: true });
     Items.registerSheet("rsk", RSKItemCollectionSheet, { types: ["itemCollection"], makeDefault: true });

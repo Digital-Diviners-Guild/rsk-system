@@ -10,6 +10,7 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
     //todo: defense roll is only applicable when applying to a character
     // this could be refactored a bit
     async receiveDamage(damage) {
+        debugger;
         const { puncture, damageEntries, attackType, defenseRoll } = { ...damage };
         const damageTaken = this.calculateDamageTaken(damageEntries, attackType, puncture, defenseRoll);
         const remainingLifePoints = game.rsk.math.clamp_value(

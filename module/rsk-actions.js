@@ -88,7 +88,7 @@ const meleeAttackAction = async (actor, weapon) => {
     if (weapon.system.weaponType !== "simple" && actor.system.skills["attack"].level < 5) {
         return { error: "RSK.AttackLevelTooLow" };
     };
-    const actionResult = await useAction(actor, "attack", getAbility(weapon));
+    const actionResult = await useAction(actor, "attack", getAbility(weapon), { targetNumberModifier: weapon.system.targetNumberModifier });
     if (!actionResult) return false;
     return {
         name: weapon.name,
@@ -122,8 +122,9 @@ const rangedAttackAction = async (actor, weapon) => {
                 img: weapon.img,
                 description: `${weapon.system.description}\n${ammo.system.description}`,
                 effectDescription: `${weapon.system.effectDescription}\n${ammo.system.effectDescription}`,
-                damageEntries: combineDamage(weapon.system.damageEntries, ammo.system.damageEntries),
-                specialEffects: ammo.system.specialEffects
+                //todo: this stuff with new model
+                // damageEntries: combineDamage(weapon.system.damageEntries, ammo.system.damageEntries),
+                // specialEffects: ammo.system.specialEffects
             }
     };
 }
