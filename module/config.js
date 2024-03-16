@@ -113,7 +113,7 @@ RSK.runeType = {
 RSK.usageCostResources = {
     summoningPoints: "RSK.SummoningPoints",
     prayerPoints: "RSK.PrayerPoints",
-    //...RSK.ammunitionType, //could we maybe do this?
+    ...RSK.ammunitionType,
     ...RSK.runeType
 }
 

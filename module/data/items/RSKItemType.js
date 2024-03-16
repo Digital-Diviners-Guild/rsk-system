@@ -96,7 +96,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
         const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
         if (!confirmRollResult.confirmed) return false;
         const skillResult = await this.parent.actor.system.useSkill(confirmRollResult);
-        this._handleUsageCost(skillResult);
+        this._handleUsage(skillResult);
         const actionOutcome = this._prepareOutcomeData();
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
@@ -114,7 +114,8 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
         });
     }
 
-    _handleUsageCost(skillResult) {
+    //wonder if this can be an event handler on the actor. it is reactive sideeffecting
+    _handleUsage(skillResult) {
         // spend resources
         // consume conumables
         // deduct ammo
@@ -162,9 +163,14 @@ const receiveDamage = async (actor, context) => {
     await actor.system.receiveDamage({ damageEntries: context.damage });
 };
 
+const spendResource = async (actor, context) => {
+
+};
+
 const operations = {
     restoreLifePoints,
     receiveDamage,
+    spendResource, // is this and receiveDamage the same? we want to split out the calculate damage and if so, then lifePoints is just a resource
 };
 
 export const applyStateChanges2 = async (actor, stateChanges) => {
