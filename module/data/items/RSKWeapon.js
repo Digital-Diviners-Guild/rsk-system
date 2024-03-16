@@ -1,3 +1,4 @@
+import { uiService } from "../../rsk-ui-service.js";
 import { fields } from "../fields.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 import RSKItemType from "./RSKItemType.js";
@@ -25,8 +26,35 @@ export default class RSKWeapon extends RSKEquippableType {
         }
     };
 
-    //todo: default attack is unarmed, we need to not forget about that.
+    canUse() {
+        if (this.parent.isMeleeWeapon()) {
+            return this.isEquipped;
+        }
+        const ammo = this._getAmmo();
+        if (!ammo || ammo.quantity < 1) {
+            uiService.showNotification(localizeText(result.error));
+            return false;
+        }
+        return this.isEquipped;
+    }
+
+    _handleUsage(skillResult) {
+        if (this.parent.isMeleeWeapon()) {
+            return;
+        }
+
+        const ammo = this._getAmmo();
+        this.parent.actor.system.removeItem(ammo);
+    }
+
+    _getAmmo() {
+        return this.parent.isThrownWeapon()
+            ? this
+            : this.parent.actor.system.getActiveItems().find(i => this.parent.usesItemAsAmmo(i));
+    }
+
     _prepareOutcomeData() {
+        //todo: outcomes of ranged attacks that pull outcomes from ammo
         return {
             name: this.parent.name,
             description: this.effectDescription,
