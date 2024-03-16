@@ -1,16 +1,18 @@
+import { OutcomeInputComponentFactory } from "./OutcomeInputComponent.js";
+
 export default class RSKItemSheet extends ItemSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["rsk", "sheet", "item"],
             width: 600,
-            height: 420,
+            height: 600,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
             dragDrop: [{ dropSelector: "[data-can-drop=true]" }],
         });
     }
 
     get template() {
-        return `systems/rsk/templates/items/${this.item.type}-sheet.hbs`;
+        return 'systems/rsk/templates/items/item-sheet.hbs';
     }
 
     getData() {
@@ -19,11 +21,6 @@ export default class RSKItemSheet extends ItemSheet {
         context.system = itemData.system;
         context.flags = itemData.flags;
         context.config = CONFIG.RSK;
-        context.dealsDamage = itemData.system.damageEntries
-            && Object.values(itemData.system.damageEntries)
-                .filter(x => x > 0).length > 0;
-        context.effects = itemData.effects;
-        context.tierOptions = CONFIG.RSK.tierOption?.[itemData.system.type] ?? false;
         return context;
     }
 
@@ -37,6 +34,31 @@ export default class RSKItemSheet extends ItemSheet {
             effect.sheet.render(true);
         });
         if (!this.isEditable) return;
+        this.addListeners(html, "usage");
+        this.addListeners(html, "target");
+
+        html.find(".add-usage-cost").click(async (ev) => {
+            const type = $("#type");
+            const amount = $("#amount");
+            const typeVal = type.val();
+            const amountVal = Number(amount.val());
+
+            const usageCost = this.item.system.usageCost.filter(c => c.type !== typeVal);
+            usageCost.push({ type: typeVal, amount: amountVal });
+            await this.item.update({ "system.usageCost": usageCost });
+
+            type.value = "";
+            amount.value = 0;
+        });
+
+        html.find(".remove-usage-cost").click((ev) => {
+            const type = $(ev.currentTarget)
+                .parents(".item")
+                .data("type");
+
+            const updatedUsageCost = this.item.system.usageCost.filter(c => c.type !== type);
+            this.item.update({ "system.usageCost": updatedUsageCost });
+        });
 
         html.find('.effect-create').on('click', ev => {
             CONFIG.ActiveEffect.documentClass.create({
@@ -57,15 +79,48 @@ export default class RSKItemSheet extends ItemSheet {
         });
     }
 
-    _prepareSpellCost(context) {
-        context.spellCost = Object.keys(context.system.cost)
-            .map(function (index) {
-                return {
-                    index: index,
-                    cost: context.system.cost[index],
-                    type: game.i18n.format(CONFIG.RSK.runeType[index]),
-                }
-            });
+    addListeners(html, group) {
+        html.find(`[data-group='${group}'] .new-outcome`).change(event => this._onOutcomeChange(event, html, group));
+        html.find(`[data-group='${group}'] .add-outcome`).click((event) => this._onAddOutcome(event, html, group));
+        html.find(`[data-group='${group}'] .delete-outcome`).click((event) => this._onDeleteOutcome(event, group));
+    }
+
+    _onOutcomeChange(event, html, group) {
+        const operation = $(event.currentTarget).val();
+        html.find(`[data-group='${group}'] .outcome-input`).hide();
+        try {
+            const handler = OutcomeInputComponentFactory.getComponent(operation, html, group);
+            handler.showInputs();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async _onAddOutcome(event, html, group) {
+        event.preventDefault();
+        const operationSelect = html.find(`[data-group='${group}'] .new-outcome`);
+        const operation = operationSelect.val();
+        try {
+            const handler = OutcomeInputComponentFactory.getComponent(operation, html, group);
+            const data = handler.getUserInput();
+
+            const newOutcome = { operation, context: data };
+            const outcomes = foundry.utils.deepClone(this.item.system[`${group}Outcomes`] || []);
+            outcomes.push(newOutcome);
+            await this.item.update({ [`system.${group}Outcomes`]: outcomes });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    async _onDeleteOutcome(event, group) {
+        event.preventDefault();
+        const index = parseInt(event.currentTarget.dataset.index, 10);
+        const outcomes = foundry.utils.deepClone(this.item.system[`${group}Outcomes`] || []);
+        if (index >= 0 && index < outcomes.length) {
+            outcomes.splice(index, 1);
+            await this.item.update({ [`system.${group}Outcomes`]: outcomes });
+        }
     }
 
     _onDrop(event) {

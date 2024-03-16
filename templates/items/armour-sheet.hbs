@@ -15,9 +15,9 @@
                         <div class="stats-label">{{localize "RSK.ArmourValue"}}</div>
                         <div class="stats-values">
                             {{localize "RSK.Soak"}}
-                            <div class="stats-value-center">{{system.values.soak}}</div>
+                            <div class="stats-value-center">{{system.soakValue}}</div>
                             {{localize "RSK.Material"}}
-                            <div class="stats-value-center">{{system.values.material}}</div>
+                            <div class="stats-value-center">{{system.material}}</div>
                         </div>
                     </div>
                     <div class="stats-box">
@@ -84,13 +84,13 @@
                     </div>
                     <div class="form-group">
                         <label>{{localize "RSK.Material"}}</label>
-                        <select name="system.values.material">
-                            {{selectOptions config.armourMaterials selected=system.values.material localize=true}}
+                        <select name="system.material">
+                            {{selectOptions config.armourMaterials selected=system.material localize=true}}
                         </select>
                     </div>
                     <div>
                         <label>{{localize "RSK.Soak"}}:</label>
-                        <input type="number" name="system.values.soak" value="{{system.values.soak}}">
+                        <input type="number" name="system.soakValue" value="{{system.soakValue}}">
                     </div>
 
                     <strong>{{localize "RSK.MaxStackSize"}}: </strong>

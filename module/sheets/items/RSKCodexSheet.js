@@ -1,6 +1,7 @@
-import RSKItemSheet from "./RSKItemSheet.js";
-
-export default class RSKCodexSheet extends RSKItemSheet {
+export default class RSKCodexSheet extends ItemSheet {
+    get template() {
+        return 'systems/rsk/templates/items/codex-sheet.hbs';
+    }
 
     activateListeners(html) {
         super.activateListeners(html);
