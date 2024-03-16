@@ -1,3 +1,5 @@
+import { OutcomeInputComponentFactory } from "./OutcomeInputComponent.js";
+
 export default class RSKItemSheet2 extends ItemSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -24,8 +26,6 @@ export default class RSKItemSheet2 extends ItemSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
-        this.addListeners(html, "usage");
-        this.addListeners(html, "target");
         html.find('.effect-edit').click(ev => {
             const effectId = $(ev.currentTarget)
                 .parents(".item")
@@ -34,6 +34,31 @@ export default class RSKItemSheet2 extends ItemSheet {
             effect.sheet.render(true);
         });
         if (!this.isEditable) return;
+        this.addListeners(html, "usage");
+        this.addListeners(html, "target");
+
+        html.find(".add-usage-cost").click(async (ev) => {
+            const type = $("#type");
+            const amount = $("#amount");
+            const typeVal = type.val();
+            const amountVal = Number(amount.val());
+
+            const usageCost = this.item.system.usageCost.filter(c => c.type !== typeVal);
+            usageCost.push({ type: typeVal, amount: amountVal });
+            await this.item.update({ "system.usageCost": usageCost });
+
+            type.value = "";
+            amount.value = 0;
+        });
+
+        html.find(".remove-usage-cost").click((ev) => {
+            const type = $(ev.currentTarget)
+                .parents(".item")
+                .data("type");
+
+            const updatedUsageCost = this.item.system.usageCost.filter(c => c.type !== type);
+            this.item.update({ "system.usageCost": updatedUsageCost });
+        });
 
         html.find('.effect-create').on('click', ev => {
             CONFIG.ActiveEffect.documentClass.create({
@@ -64,7 +89,7 @@ export default class RSKItemSheet2 extends ItemSheet {
         const operation = $(event.currentTarget).val();
         html.find(`[data-group='${group}'] .outcome-input`).hide();
         try {
-            const handler = OperationInputComponentFactory.getComponent(operation, html, group);
+            const handler = OutcomeInputComponentFactory.getComponent(operation, html, group);
             handler.showInputs();
         } catch (error) {
             console.error(error);
@@ -76,7 +101,7 @@ export default class RSKItemSheet2 extends ItemSheet {
         const operationSelect = html.find(`[data-group='${group}'] .new-outcome`);
         const operation = operationSelect.val();
         try {
-            const handler = OperationInputComponentFactory.getComponent(operation, html, group);
+            const handler = OutcomeInputComponentFactory.getComponent(operation, html, group);
             const data = handler.getUserInput();
 
             const newOutcome = { operation, context: data };
@@ -122,98 +147,5 @@ export default class RSKItemSheet2 extends ItemSheet {
         });
         this.item.createEmbeddedDocuments("ActiveEffect", [...droppedEffects]);
         this.render(true);
-    }
-}
-
-//todo: need to support inputting dice formula for outcome amounts like healing/damaging 1d4 etc
-class OperationInputComponentFactory {
-    static getComponent(operation, html, group) {
-        const components = {
-            addStatuses: () => new StatusesInputComponent(html, group, "Add Statuses"),
-            removeStatuses: () => new StatusesInputComponent(html, group, "Remove Statuses"),
-            receiveDamage: () => new ReceiveDamageInputComponent(html, group),
-            restoreLifePoints: () => new RestoreLifePointsInputComponent(html, group),
-        };
-
-        const componentFactory = components[operation];
-        if (!componentFactory) {
-            throw new Error("Unsupported operation type: " + operation);
-        }
-
-        return componentFactory();
-    }
-}
-
-class OperationInputComponent {
-    constructor(html, group, options = {}) {
-        this.html = html;
-        this.group = group;
-    }
-
-    showInputs() {
-        // Implementation specific to the operation
-    }
-
-    getUserInput() {
-        // Implementation specific to the operation
-    }
-}
-
-class StatusesInputComponent extends OperationInputComponent {
-    constructor(html, group, statusType) {
-        super(html, group);
-        this.statusType = statusType;
-    }
-
-    showInputs() {
-        this.html.find(`[data-group='${this.group}'] .status-input`).show();
-    }
-
-    getUserInput() {
-        const value = this.html.find(`[data-group='${this.group}'] .outcome-status`).val();
-        const operationStatus = value.split(",");
-        return {
-            description: `${this.statusType}: ${value}`,
-            statusIds: [...operationStatus]
-        };
-    }
-}
-
-class RestoreLifePointsInputComponent extends OperationInputComponent {
-    showInputs() {
-        this.html.find(`[data-group='${this.group}'] .receive-life-input`).show();
-    }
-
-    getUserInput() {
-        const operationAmount = parseInt(this.html.find(`[data-group='${this.group}'] .receive-life-amount`).val(), 10) || 1;
-        return {
-            description: `Restore Life Points: ${operationAmount}`,
-            amount: operationAmount
-        };
-    }
-}
-
-class ReceiveDamageInputComponent extends OperationInputComponent {
-    showInputs() {
-        this.html.find(`[data-group='${this.group}'] .damage-input`).show();
-    }
-
-    getUserInput() {
-        const stab = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-stab`).val(), 10) || 0;
-        const slash = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-slash`).val(), 10) || 0;
-        const crush = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-crush`).val(), 10) || 0;
-        const air = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-air`).val(), 10) || 0;
-        const earth = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-earth`).val(), 10) || 0;
-        const water = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-water`).val(), 10) || 0;
-        const fire = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-fire`).val(), 10) || 0;
-        const typeless = parseInt(this.html.find(`[data-group='${this.group}'] .damage-input-typeless`).val(), 10) || 0;
-        const damage = { stab, slash, crush, air, earth, water, fire, typeless }
-        return {
-            description: `Receive Damage: ${Object.keys(damage)
-                .filter((i) => damage[i] > 0)
-                .map((i) => `${damage[i]} (${i})`)
-                .join(', ')}`,
-            damage
-        };
     }
 }

@@ -16,21 +16,20 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             requiredMaterials: new fields.StringField(), //eventually this will need to be more
             equipmentNeeded: new fields.StringField(),
             targetNumberModifier: new fields.NumberField(),
-            qualities: new fields.ArrayField(
-                new fields.SchemaField({
-                    name: new fields.StringField(),
-                    type: new fields.StringField(),
-                    x: new fields.StringField(),
-                    y: new fields.StringField()
-                })
-            ),
+            qualities: new fields.StringField(), // todo: use new model
+            // qualities: new fields.ArrayField(
+            //     new fields.SchemaField({
+            //         name: new fields.StringField(),
+            //         type: new fields.StringField(),
+            //         x: new fields.StringField(),
+            //         y: new fields.StringField()
+            //     })
+            // ),
             soakValue: new fields.NumberField(),
             usageCost: new fields.ArrayField(
                 new fields.SchemaField({
-                    schema: new fields.SchemaField({
-                        type: new fields.StringField(),
-                        amount: new fields.NumberField()
-                    })
+                    type: new fields.StringField(),
+                    amount: new fields.NumberField()
                 })),
             //todo: do we want 'damage entries' or should we render that out of the targetOutcomes with 'recieve dmage'
             targetOutcomes: new fields.ArrayField(new fields.ObjectField()),
