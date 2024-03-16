@@ -96,35 +96,23 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
         const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
         if (!confirmRollResult.confirmed) return false;
         const skillResult = await this.parent.actor.system.useSkill(confirmRollResult);
-
-        //todo: handle usageCost here?
-
         this._handleUsageCost(skillResult);
-
-        //todo: where does the action details come from?
-        const actionData = {
-            name: this.parent.name,
-            description: this.effectDescription,
-            actionType: "melee",
-            img: this.parent.img
-        };
+        const actionOutcome = this._prepareOutcomeData();
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
                 ...skillResult,
-                ...actionData
+                ...actionOutcome
             });
         await skillResult.toMessage({
             flavor: flavor,
             flags: {
                 rsk: {
                     ...skillResult,
-                    ...actionData,
-                    targetOutcomes: [...this.targetOutcomes]
+                    ...actionOutcome
                 }
             }
         });
     }
-
 
     _handleUsageCost(skillResult) {
         // spend resources
@@ -140,6 +128,18 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             skill: "attack",
             ability: "strength",
             targetNumberModifier: this.targetNumberModifier
+        };
+    }
+
+    _prepareOutcomeData() {
+        //todo: in subtypes this is where we may 'merge' outcomes
+        // like with range weapon and ammo
+        return {
+            name: this.parent.name,
+            description: this.effectDescription,
+            actionType: "melee",
+            img: this.parent.img,
+            outcomes: this.targetOutcomes
         };
     }
 }
