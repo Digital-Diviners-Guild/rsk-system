@@ -1,19 +1,38 @@
-//POC: todo: integrate in new model when we update npc attack.  that is really the 
-// only time it is needed, when a character is receving an outcome from an npc
-const getDefenseRoll = async (target, skill, ability) => {
+//todo: how are we going to handle defense rolls
+// step one) I think we need to define a better action model in the chatlogs
+// - this model needs to detail the outcomes
+// - if the sender was an npc
+// - if the target is a character
+//  (some way to know its npc>character and a defense roll is needed)
+// - what defense roll to make
+// - what outcomes apply when
+// (ie. on success defense roll, only damage is applied and its reduced by the defense roll margin)
+// step two) make sure our actions are sending that model
+// step three/zero) need to thing of the action pipeline from start to finish
+// so we know what data we will want. 
+
+
+
+// todo: I think we need to backpeddle on the individual operation configuration
+// and just have a model for outcome, and it is applied as one thing.
+// that will be easier for a lot of things.
+const getDefenseRoll = async (target, actionType) => {
     if (!game?.rsk?.featureFlags?.characterDefenseTests) return 0;
 
+    const checks = {
+        melee: { skill: "defense", ability: "strength" },
+        ranged: { skill: "defense", ability: "agility" }, // is this ranged skill?
+        //todo: which of these do we need?
+        magic: { skill: "magic", ability: "intellect" },
+        spell: { skill: "magic", ability: "intellect" }
+    }
     let defenseRollMargin = 0;
-    if (target.type === "character") {
-        const rollData = target.system.getRollData();
-        const confirmRollResult = await uiService.showDialog("confirm-roll",
-            rollData, { defaultSkill: skill, defaultAbility: ability });
-        if (confirmRollResult.confirmed) {
-            const skillResult = await target.system.useSkill(confirmRollResult);
-            defenseRollMargin = skillResult.margin;
-            defenseRollMargin = skillResult.margin;
-            await skillResult.toMessage();
-        }
+    const rollData = target.system.getRollData();
+    const confirmRollResult = await uiService.showDialog("confirm-roll", rollData, checks[actionType]);
+    if (confirmRollResult.confirmed) {
+        const skillResult = await target.system.useSkill(confirmRollResult);
+        defenseRollMargin = skillResult.margin;
+        await skillResult.toMessage();
     }
     return defenseRollMargin;
 }
@@ -35,7 +54,6 @@ const removeStatuses = async (actor, statuses) => {
     await removeEffects(actor, effectIds);
 };
 
-
 const restoreLifePoints = (actor, context) => {
     actor.system.restoreLifePoints(context.amount);
 }
@@ -44,22 +62,9 @@ const receiveDamage = async (actor, context) => {
     await actor.system.receiveDamage({ damageEntries: context.damage });
 };
 
-const spendResource = async (actor, context) => {
-    switch (context.type) {
-        case 'prayerPoints':
-        case 'summoningPoints':
-            actor.system.spendPoints(context.type, context.amount);
-            break;
-        default:
-            actor.system.spendRunes(context.type, context.amount);
-            break;
-    }
-};
-
 const operations = {
     restoreLifePoints,
     receiveDamage,
-    spendResource, // is this and receiveDamage the same? we want to split out the calculate damage and if so, then lifePoints is just a resource
     addEffects,
     addStatuses,
     removeStatuses

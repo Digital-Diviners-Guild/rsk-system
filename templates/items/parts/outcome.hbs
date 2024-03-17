@@ -1,34 +1,23 @@
 <div data-group="{{group}}">
-    <div class="form-group">
-        <ul class="target-state-changes-list">
-            {{#each changes as |change index|}}
-            <li class="outcome" data-index="{{index}}">
-                <span>{{change.context.description}}</span>
-                <a class="item-control delete-outcome" title="{{localize " RSK.DeleteItem"}}" data-index="{{index}}"><i
-                        class="fas fa-trash"></i></a>
-            </li>
-            {{/each}}
-        </ul>
-    </div>
     <div>
-        <div class="form-group receive-life-input outcome-input" style="display:none;">
-            <label>{{localize "RSK.Amount"}}:
-                <input type="number" class="receive-life-amount" min="1">
+        <div class="form-group restore-life-input outcome-input">
+            <label>{{localize "RSK.RestoresLifePoints"}}:
+                <input type="number" class="restore-life-amount" min="1">
             </label>
         </div>
         {{!-- todo: we have a statuses input somewhere already we should use --}}
-        <div class="form-group status-input outcome-input" style="display:none;">
-            <label>{{localize "RSK.Status"}}:
-                <input type="text" class="outcome-status">
+        <div class="form-group status-input outcome-input">
+            <label>{{localize "RSK.AddsStatuses"}}:
+                <input type="text" class="outcome-add-status">
             </label>
         </div>
-
-        {{!-- todo: wonder if this can replace the 'damage entries' in the model, and those could exist on a sheet for
-        display, but
-        configured through outcomes. the benefit would be one way to input damage regardless of the scenario, but for
-        viewing in the context
-        of a weapon it could still be shown in a way that makes sense. ie the way damage entires is shown now. --}}
-        <div class="form-group damage-input outcome-input" style="display:none;">
+        {{!-- todo: we have a statuses input somewhere already we should use --}}
+        <div class="form-group status-input outcome-input">
+            <label>{{localize "RSK.RemovesStatuses"}}:
+                <input type="text" class="outcome-remove-status">
+            </label>
+        </div>
+        <div class="form-group damage-input outcome-input">
             <div class="form-group">
                 <label>{{localize "RSK.Typeless"}}:
                     <input type="number" class="damage-input-typeless" value="0" min="0">
@@ -69,19 +58,6 @@
                     <input type="number" class="damage-input-earth" value="0" min="0">
                 </label>
             </div>
-        </div>
-        <div class="inline-form-group">
-            <label>{{localize "RSK.Outcome"}}:
-                <select class="new-outcome">
-                    <option value="">{{localize "RSK.SelectOutcome"}}</option>
-                    <option value="restoreLifePoints">{{localize "RSK.RestoreLifePoints"}}</option>
-                    <option value="receiveDamage">{{localize "RSK.ReceiveDamage"}}</option>
-                    <option value="addStatuses">{{localize "RSK.AddStatuses"}}</option>
-                    <option value="removeStatuses">{{localize "RSK.RemoveStatuses"}}</option>
-                </select>
-            </label>
-            <a class="item-control add-outcome" title="{{localize " RSK.AddItem"}}">{{localize "RSK.AddOutcome"}} <i
-                    class="fas fa-plus"></i></a>
         </div>
     </div>
 </div>
