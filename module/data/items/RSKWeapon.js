@@ -26,8 +26,8 @@ export default class RSKWeapon extends RSKEquippableType {
         }
     };
 
+    //todo: refactor canuse/use to better handle melee/thrown/regular ranged
     canUse() {
-        //todo: refactor
         if (this.parent.isMeleeWeapon()) {
             //todo: use subCategory instead of weaponType?
             // this might allow us to remove the weaponType property.
@@ -35,7 +35,7 @@ export default class RSKWeapon extends RSKEquippableType {
                 uiService.showNotification(localizeText("RSK.AttackLevelTooLow"));
                 return false;// maybe we should return the message as an error?
             }
-            return this.isEquipped && super.canUse();
+            return this.isEquipped;
         }
 
         if (this.weaponType === "martial" && actor.system.skills["ranged"].level < 5) {
@@ -50,24 +50,54 @@ export default class RSKWeapon extends RSKEquippableType {
         return this.isEquipped;
     }
 
+    async use() {
+        if (!this.canUse()) return;
+
+        const rollData = this._prepareRollData();
+        const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
+        if (!confirmRollResult.confirmed) return;
+
+        const skillResult = await this.parent.actor.system.useSkill(confirmRollResult);
+        const actionOutcome = this._prepareOutcomeData();
+        const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
+            {
+                ...skillResult,
+                ...actionOutcome
+            });
+        await skillResult.toMessage({
+            flavor: flavor,
+            flags: {
+                rsk: {
+                    ...skillResult,
+                    ...actionOutcome
+                }
+            }
+        });
+
+        if (!this.parent.isMeleeWeapon()) {
+            const ammo = this._getAmmo();
+            this.parent.actor.system.removeItem(ammo);
+        }
+    }
+
     _prepareRollData() {
         return {
-            ...super._prepareRollData(),
+            ...this.parent.actor.system.getRollData(),
+            targetNumberModifier: this.targetNumberModifier,
             skill: this.parent.isMeleeWeapon() ? "attack" : "ranged",
             //todo: use subCategory === martial?
             ability: this.weaponType === "martial" ? "agility" : "strength"
         };
     }
 
-    _handleUsage(skillResult) {
-        super._handleUsage();
-        if (this.parent.isMeleeWeapon()) {
-            return;
-        }
-
-        const ammo = this._getAmmo();
-        this.parent.actor.system.removeItem(ammo);
-    }
+    //any of this applicable to weapons?
+    // _handleUsage(skillResult) {
+    //     const outcomes = [...this.usageOutcomes, ...this.usageCost.map(c => ({
+    //         operation: 'spendResource',
+    //         context: { type: c.type, amount: c.amount }
+    //     }))]
+    //     applyStateChanges2(this.parent.actor, outcomes);
+    // }
 
     _getAmmo() {
         return this.parent.isThrownWeapon()
@@ -86,11 +116,6 @@ export default class RSKWeapon extends RSKEquippableType {
                 qualities: [...this.qualities]
             };
         } else {
-            // we do this getammo call a lot, I wonder if it would be better to 
-            // just implement use() rather than try and do this template method pattern.  its getting weird. 
-            // at the end of the day, use really just needs to prepape a message
-            // I wonder if usage outcomes should wait and be applied through chat like the target outcomes.
-            // then the application would need to know the actor that initiated and the target.
             const ammo = this._getAmmo();
             return {
                 name: this.parent.name,
