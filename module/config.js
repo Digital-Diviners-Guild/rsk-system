@@ -5,7 +5,7 @@ RSK.defaultWeapon = {
     weaponType: "simple",
     attackType: "melee",
     attackMethods: ["melee"],
-    targetOutcomes: [{ operation: "receiveDamage", context: { crush: 1 } }]
+    targetOutcomes: [{ operation: "receiveDamage", context: { damage: { crush: 1 } } }]
 };
 
 RSK.skills = {
