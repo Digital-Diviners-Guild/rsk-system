@@ -1,5 +1,5 @@
-import { applyOutcome2 } from "../data/items/RSKItemType.js";
 import { localizeText } from "../rsk-localize.js";
+import { applyOutcome } from "../rsk-outcome-application.js";
 
 export default class RSKChatLog extends ChatLog {
 
@@ -20,7 +20,7 @@ export function onRenderChatMessage(app, html, data) {
     //     ? [...game.user.targets.map(t => t.actor)]
     //     : [game.user.character];
     const outcomeData = message.flags.rsk;
-    addApplyOutcomeButton(html, () => applyOutcome2(outcomeData));
+    addApplyOutcomeButton(html, () => applyOutcome(outcomeData));
 }
 
 const addApplyOutcomeButton = (html, handler) => {

@@ -28,6 +28,12 @@ export default class RSKWeapon extends RSKEquippableType {
         }
     };
 
+    usesItemAsAmmo(item) {
+        return this.attackMethods.has("ranged")
+            && item.attackMethods.has("ammo")
+            && this.ammoType === item.ammoType;
+    }
+
     //todo: refactor canuse/use to better handle melee/thrown/regular ranged
     canUse(actor) {
         if (this.attackMethods.has("melee")) {
@@ -90,21 +96,6 @@ export default class RSKWeapon extends RSKEquippableType {
             //todo: use subCategory === martial?
             ability: this.weaponType === "martial" ? "agility" : "strength"
         };
-    }
-
-    //any of this applicable to weapons?
-    // _handleUsage(skillResult) {
-    //     const outcomes = [...this.usageOutcomes, ...this.usageCost.map(c => ({
-    //         operation: 'spendResource',
-    //         context: { type: c.type, amount: c.amount }
-    //     }))]
-    //     applyStateChanges2(this.parent.actor, outcomes);
-    // }
-
-    usesItemAsAmmo(item) {
-        return this.attackMethods.has("ranged")
-            && item.attackMethods.has("ammo")
-            && this.ammoType === item.ammoType;
     }
 
     _getAmmo(actor) {
