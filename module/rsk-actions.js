@@ -179,7 +179,7 @@ const castingHandlers = {
             };
         }
     },
-    magic: {
+    spell: {
         getCastables: (actor) => actor.items.filter(s => s.type === "spell"
             && s.system.usageCost.every(uc =>
                 actor.items.find(r => r.type === "rune"

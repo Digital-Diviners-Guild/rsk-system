@@ -2,11 +2,12 @@ const RSK = {};
 
 RSK.defaultWeapon = {
     name: "Unarmed",
-    isMeleeWeapon: () => true,
+    type: "weapon",
     system: {
         weaponType: "simple",
         attackType: "melee",
-        damageEntries: { crush: 1 }
+        attackMethods: ["melee"],
+        targetOutcomes: { operation: "receiveDamage", context: { crush: 1 } }
     }
 };
 

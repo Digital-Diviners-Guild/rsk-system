@@ -2,11 +2,11 @@ import RSKItemType from "./RSKItemType.js";
 
 //todo: add effects
 export default class RSKConsumable extends RSKItemType {
-    async use() {
+    async use(actor) {
         const addedEffects = this.parent.effects.map(e => foundry.utils.deepClone(e.toObject()));
         const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
-                name: `${this.parent.actor.name} ${localizeText("RSK.Uses")} ${this.parent.name}`,
+                name: `${actor.name} ${localizeText("RSK.Uses")} ${this.parent.name}`,
                 hideRollResults: true
             });
         await ChatMessage.create({
@@ -21,6 +21,6 @@ export default class RSKConsumable extends RSKItemType {
                 }
             }
         });
-        this.parent.actor.system.removeItem(this);
+        actor.system.removeItem(this);
     }
 }

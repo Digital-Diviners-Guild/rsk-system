@@ -29,8 +29,8 @@ export default class RSKWeapon extends RSKEquippableType {
     };
 
     //todo: refactor canuse/use to better handle melee/thrown/regular ranged
-    canUse() {
-        if (this.parent.isMeleeWeapon()) {
+    canUse(actor) {
+        if (this.attackMethods.has("melee")) {
             //todo: use subCategory instead of weaponType?
             // this might allow us to remove the weaponType property.
             if (this.weaponType === "martial" && actor.system.skills["attack"].level < 5) {
@@ -52,14 +52,14 @@ export default class RSKWeapon extends RSKEquippableType {
         return this.isEquipped;
     }
 
-    async use() {
-        if (!this.canUse()) return;
+    async use(actor) {
+        if (!this.canUse(actor)) return;
 
         const rollData = this._prepareRollData();
         const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
         if (!confirmRollResult.confirmed) return;
 
-        const skillResult = await this.parent.actor.system.useSkill(confirmRollResult);
+        const skillResult = await actor.system.useSkill(confirmRollResult);
         const actionOutcome = this._prepareOutcomeData();
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
@@ -76,17 +76,17 @@ export default class RSKWeapon extends RSKEquippableType {
             }
         });
 
-        if (!this.parent.isMeleeWeapon()) {
+        if (!this.attackMethods.has("melee")) {
             const ammo = this._getAmmo();
-            this.parent.actor.system.removeItem(ammo);
+            actor.system.removeItem(ammo);
         }
     }
 
-    _prepareRollData() {
+    _prepareRollData(actor) {
         return {
-            ...this.parent.actor.system.getRollData(),
+            ...actor.system.getRollData(),
             targetNumberModifier: this.targetNumberModifier,
-            skill: this.parent.isMeleeWeapon() ? "attack" : "ranged",
+            skill: this.attackMethods.has("melee") ? "attack" : "ranged",
             //todo: use subCategory === martial?
             ability: this.weaponType === "martial" ? "agility" : "strength"
         };
@@ -101,29 +101,35 @@ export default class RSKWeapon extends RSKEquippableType {
     //     applyStateChanges2(this.parent.actor, outcomes);
     // }
 
-    _getAmmo() {
-        return this.parent.isThrownWeapon()
+    usesItemAsAmmo(item) {
+        return this.attackMethods.has("ranged")
+            && item.attackMethods.has("ammo")
+            && this.ammoType === item.ammoType;
+    }
+
+    _getAmmo(actor) {
+        return this.attackMethods.has("thrown")
             ? this
-            : this.parent.actor.system.getActiveItems().find(i => this.parent.usesItemAsAmmo(i));
+            : actor.system.getActiveItems().find(i => usesItemAsAmmo(i.system));
     }
 
     _prepareOutcomeData() {
-        if (this.parent.isMeleeWeapon()) {
+        if (this.attackMethods.has("melee")) {
             return {
-                name: this.parent.name,
+                name: this.parent?.name ?? "Unarmed",
                 description: this.effectDescription,
                 actionType: "melee", //todo: action type? what does actionType do? I think it helps with damage typing for resistance and prayer, might need a better way
-                img: this.parent.img,
+                img: this.parent?.img ?? "",
                 outcomes: [...this.targetOutcomes],
                 qualities: [...this.qualities]
             };
         } else {
-            const ammo = this._getAmmo();
+            const ammo = this._getAmmo(actor);
             return {
-                name: this.parent.name,
+                name: this.parent?.name ?? "Unarmed",
                 description: `${this.description}\n${ammo.description}`,
                 actionType: "ranged", //todo: action type? what does actionType do? I think it helps with damage typing for resistance and prayer, might need a better way
-                img: weapon.img,
+                img: this.parent?.img ?? "",
                 effectDescription: `${this.effectDescription}\n${ammo.effectDescription}`,
                 outcomes: [this.targetOutcomes, ammo.targetOutcomes],
                 qualities: [...ammo.qualities]
