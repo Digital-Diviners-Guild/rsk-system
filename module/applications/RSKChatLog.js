@@ -1,5 +1,4 @@
 import { applyOutcome2 } from "../data/items/RSKItemType.js";
-import { applyOutcome } from "../rsk-action-results.js";
 import { localizeText } from "../rsk-localize.js";
 
 export default class RSKChatLog extends ChatLog {
@@ -16,9 +15,10 @@ export function onRenderChatMessage(app, html, data) {
     const possibleTargets = message.flags.rsk.targetUuids ?? [];
     const canClickButton = isGM || possibleTargets.includes(currentCharacterUuid)
     if (!canClickButton) return;
-    const targets = () => isGM
-        ? [...game.user.targets.map(t => t.actor)]
-        : [game.user.character];
+    //todo: need this here still?
+    // const targets = () => isGM
+    //     ? [...game.user.targets.map(t => t.actor)]
+    //     : [game.user.character];
     const outcomeData = message.flags.rsk;
     addApplyOutcomeButton(html, () => applyOutcome2(outcomeData));
 }
