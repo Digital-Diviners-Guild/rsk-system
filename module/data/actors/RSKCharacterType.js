@@ -159,7 +159,7 @@ export default class RSKCharacterType extends RSKActorType {
     }
 
     spendRunes(type, amount) {
-        const rune = this.parent.items.find(i => i.type === "rune" && i.system.type === type);
+        const rune = this.parent.items.find(i => i.system.category === "rune" && i.system.subCategory === type);
         const newAmount = rune.system.quantity - amount;
         if (newAmount < 1) {
             this.parent.deleteEmbeddedDocuments("Item", [rune.id]);
@@ -170,9 +170,9 @@ export default class RSKCharacterType extends RSKActorType {
     }
 
     spendPoints(type, amount) {
-        const points = this[`${type}Points`];
+        const points = this[type];
         const newAmount = game.rsk.math.clamp_value(points.value - amount, points);
-        this.parent.update({ [`system.${type}Points.value`]: newAmount });
+        this.parent.update({ [`system.${type}.value`]: newAmount });
     }
 
     addItem(itemToAdd, quantity = 1) {

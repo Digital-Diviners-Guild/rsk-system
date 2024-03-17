@@ -1,5 +1,6 @@
 import { fields } from "../fields.js";
 import { uiService } from "../../rsk-ui-service.js";
+import { localizeText } from "../../rsk-localize.js";
 
 export default class RSKItemType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -81,23 +82,31 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
 
     //todo: implement in subtype - weapons would check it is equipped
     canUse() {
-        return false;
+        const can = this.targetOutcomes.length + this.usageOutcomes.length > 0
+            && this.usageCost.every(uc =>
+                ["summoningPoints", "prayerPoints"].includes(uc.type)
+                    ? this.parent.actor.system[uc.type].value >= uc.amount
+                    //todo: this might be insufficient, but it works for now 
+                    : this.parent.actor.items.find(i =>
+                        i.system.subCategory === uc.type
+                        && i.system.quantity >= uc.amount
+                    ));
+        if (!can) {
+            uiService.showNotification(localizeText("RSK.RequirementsNotMet")); // would be good to know if it was level or cost.
+        }
+        return can;
     }
 
-    //usage 
-    // get rollData and TargetNumberModifier
-    // confirm roll
-    // roll 
-    // handle usage cost if any
-    // send chat with outcomes
-
     async use() {
+        if (!this.canUse()) return;
+
         const rollData = this._prepareRollData();
         const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
-        if (!confirmRollResult.confirmed) return false;
+        if (!confirmRollResult.confirmed) return;
+
         const skillResult = await this.parent.actor.system.useSkill(confirmRollResult);
-        this._handleUsage(skillResult);
         const actionOutcome = this._prepareOutcomeData();
+        this._handleUsage(skillResult);
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
                 ...skillResult,
@@ -114,12 +123,13 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
         });
     }
 
-    //wonder if this can be an event handler on the actor. it is reactive sideeffecting
+    // what if usageOutcomes depend on success and some don't, how would we know?
     _handleUsage(skillResult) {
-        // spend resources
-        // consume conumables
-        // deduct ammo
-        //etc (these are the 'usage' statechanges)
+        const outcomes = [...this.usageOutcomes, ...this.usageCost.map(c => ({
+            operation: 'spendResource',
+            context: { type: c.type, amount: c.amount }
+        }))]
+        applyStateChanges2(this.parent.actor, outcomes);
     }
 
     //todo: implement in subtype
@@ -164,7 +174,15 @@ const receiveDamage = async (actor, context) => {
 };
 
 const spendResource = async (actor, context) => {
-
+    switch (context.type) {
+        case 'prayerPoints':
+        case 'summoningPoints':
+            actor.system.spendPoints(context.type, context.amount);
+            break;
+        default:
+            actor.system.spendRunes(context.type, context.amount);
+            break;
+    }
 };
 
 const operations = {
