@@ -2,9 +2,11 @@ import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject, localizeText } from "../../rsk-localize.js";
-import { attackAction, castAction, consumeAction } from "../../rsk-actions.js";
+import { consumeAction } from "../../rsk-actions.js";
 import { calculateUsedSlots } from "../../rsk-inventory.js";
 import { uiService } from "../../rsk-ui-service.js";
+import RSKItem from "../../documents/items/RSKItem.js";
+import RSKWeapon from "../../data/items/RSKWeapon.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
     getData() {
@@ -202,7 +204,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     async characterAttackAction() {
         const weapons = this.actor.system.getActiveItems().filter(i => i.isWeapon() && i.system.equippedInSlot !== "ammo");
-        let weapon = CONFIG.RSK.defaultWeapon;
         if (weapons?.length > 1) {
             //todo: better flow, maybe a dual wield dialog
             // that allows you to select the weapon and if it is a 'map' or not for disadvantage
@@ -210,25 +211,65 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             // two dialogs?
             const result = await uiService.showDialog("select-item", { items: weapons });
             if (!result.confirmed) return;
-            weapon = weapons.find(i => i._id === result.id);
-        } else if (weapons?.length > 0) {
-            weapon = weapons[0];
+
+            const weapon = weapons.find(i => i._id === result.id);
             await weapon.system.use();
+        } else if (weapons?.length > 0) {
+            await weapons[0].system.use()
         } else {
-            attackAction(this.actor, weapon);
+            const weaponSrc = CONFIG.RSK.defaultWeapon;
+            const weapon = RSKWeapon.fromSource(weaponSrc);
+            await weapon.use();
         }
     }
 
+
     async characterCastSpell() {
-        await castAction(this.actor, "magic");
+        const castables = this.actor.items.filter(s => s.system.category === "spell" && s.system.canUse());
+        if (castables.length < 1) {
+            uiService.showNotification("RSK.NoCastablesAvailable");
+            return false;
+        }
+
+        const selectCastableResult = await uiService.showDialog('select-item', { items: castables });
+        if (!selectCastableResult || !selectCastableResult.confirmed) return false;
+
+        const castable = this.actor.items.find(x => x._id === selectCastableResult.id);
+        if (!castable) return false;
+
+        await castable.use();
     }
 
     async characterCastPrayer() {
-        await castAction(this.actor, "prayer");
+        const castables = this.actor.items.filter(i => i.system.category === "prayer" && i.system.canUse());;
+        if (castables.length < 1) {
+            uiService.showNotification("RSK.NoCastablesAvailable");
+            return false;
+        }
+
+        const selectCastableResult = await uiService.showDialog('select-item', { items: castables });
+        if (!selectCastableResult || !selectCastableResult.confirmed) return false;
+
+        const castable = this.actor.items.find(x => x._id === selectCastableResult.id);
+        if (!castable) return false;
+
+        await castable.use();
     }
 
     async characterCastSummons() {
-        await castAction(this.actor, "summoning");
+        const castables = this.actor.items.filter(i => i.system.category === "summoning" && i.system.canUse());;
+        if (castables.length < 1) {
+            uiService.showNotification("RSK.NoCastablesAvailable");
+            return false;
+        }
+
+        const selectCastableResult = await uiService.showDialog('select-item', { items: castables });
+        if (!selectCastableResult || !selectCastableResult.confirmed) return false;
+
+        const castable = this.actor.items.find(x => x._id === selectCastableResult.id);
+        if (!castable) return false;
+
+        await castable.use();
     }
 
     async characterTravel() {
