@@ -55,12 +55,12 @@ export default class RSKWeapon extends RSKEquippableType {
     async use(actor) {
         if (!this.canUse(actor)) return;
 
-        const rollData = this._prepareRollData();
+        const rollData = this._prepareRollData(actor);
         const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
         if (!confirmRollResult.confirmed) return;
 
         const skillResult = await actor.system.useSkill(confirmRollResult);
-        const actionOutcome = this._prepareOutcomeData();
+        const actionOutcome = this._prepareOutcomeData(actor);
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
                 ...skillResult,
@@ -77,7 +77,7 @@ export default class RSKWeapon extends RSKEquippableType {
         });
 
         if (!this.attackMethods.has("melee")) {
-            const ammo = this._getAmmo();
+            const ammo = this._getAmmo(actor);
             actor.system.removeItem(ammo);
         }
     }
@@ -120,8 +120,8 @@ export default class RSKWeapon extends RSKEquippableType {
                 description: this.effectDescription,
                 actionType: "melee", //todo: action type? what does actionType do? I think it helps with damage typing for resistance and prayer, might need a better way
                 img: this.parent?.img ?? "",
-                outcomes: [...this.targetOutcomes],
-                qualities: [...this.qualities]
+                outcomes: [...(this.targetOutcomes || [])],
+                qualities: [...(this.qualities || [])]
             };
         } else {
             const ammo = this._getAmmo(actor);
@@ -132,7 +132,7 @@ export default class RSKWeapon extends RSKEquippableType {
                 img: this.parent?.img ?? "",
                 effectDescription: `${this.effectDescription}\n${ammo.effectDescription}`,
                 outcomes: [this.targetOutcomes, ammo.targetOutcomes],
-                qualities: [...ammo.qualities]
+                qualities: [...(ammo.qualities || [])]
             }
         }
     }
