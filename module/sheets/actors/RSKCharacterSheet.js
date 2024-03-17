@@ -213,19 +213,19 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             if (!result.confirmed) return;
 
             const weapon = weapons.find(i => i._id === result.id);
-            await weapon.system.use();
+            await weapon.system.use(this.actor);
         } else if (weapons?.length > 0) {
-            await weapons[0].system.use()
+            await weapons[0].system.use(this.actor)
         } else {
             const weaponSrc = CONFIG.RSK.defaultWeapon;
-            const weapon = RSKWeapon.fromSource(weaponSrc);
-            await weapon.use();
+            const weapon = RSKWeapon.fromSource({ ...weaponSrc });
+            await weapon.use(this.actor);
         }
     }
 
 
     async characterCastSpell() {
-        const castables = this.actor.items.filter(s => s.system.category === "spell" && s.system.canUse());
+        const castables = this.actor.items.filter(s => s.system.category === "spell" && s.system.canUse(this.actor));
         if (castables.length < 1) {
             uiService.showNotification("RSK.NoCastablesAvailable");
             return false;
@@ -237,11 +237,11 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const castable = this.actor.items.find(x => x._id === selectCastableResult.id);
         if (!castable) return false;
 
-        await castable.use();
+        await castable.use(this.actor);
     }
 
     async characterCastPrayer() {
-        const castables = this.actor.items.filter(i => i.system.category === "prayer" && i.system.canUse());;
+        const castables = this.actor.items.filter(i => i.system.category === "prayer" && i.system.canUse(this.actor));;
         if (castables.length < 1) {
             uiService.showNotification("RSK.NoCastablesAvailable");
             return false;
@@ -253,11 +253,11 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const castable = this.actor.items.find(x => x._id === selectCastableResult.id);
         if (!castable) return false;
 
-        await castable.use();
+        await castable.use(this.actor);
     }
 
     async characterCastSummons() {
-        const castables = this.actor.items.filter(i => i.system.category === "summoning" && i.system.canUse());;
+        const castables = this.actor.items.filter(i => i.system.category === "summoning" && i.system.canUse(this.actor));;
         if (castables.length < 1) {
             uiService.showNotification("RSK.NoCastablesAvailable");
             return false;
@@ -269,7 +269,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const castable = this.actor.items.find(x => x._id === selectCastableResult.id);
         if (!castable) return false;
 
-        await castable.use();
+        await castable.use(this.actor);
     }
 
     async characterTravel() {
