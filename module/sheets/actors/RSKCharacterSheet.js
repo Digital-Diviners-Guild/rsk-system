@@ -2,10 +2,8 @@ import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject, localizeText } from "../../rsk-localize.js";
-import { consumeAction } from "../../rsk-actions.js";
 import { calculateUsedSlots } from "../../rsk-inventory.js";
 import { uiService } from "../../rsk-ui-service.js";
-import RSKItem from "../../documents/items/RSKItem.js";
 import RSKWeapon from "../../data/items/RSKWeapon.js";
 
 export default class RSKCharacterSheet extends RSKActorSheet {
@@ -120,7 +118,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             const li = $(ev.currentTarget).parents(".item");
             const item = this.actor.items.get(li.data("itemId"));
             if (!item) return;
-            await consumeAction(this.actor, item);
+
+            await item.system.use(this.actor);
         });
 
         html.find('.apply-backgrounds').click(ev => {
