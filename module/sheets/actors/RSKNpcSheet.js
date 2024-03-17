@@ -1,4 +1,3 @@
-import { npcAction } from "../../rsk-actions.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 
 export default class RSKNpcSheet extends RSKActorSheet {
@@ -8,12 +7,9 @@ export default class RSKNpcSheet extends RSKActorSheet {
             const actionId = target.data("itemId");
             const action = this.actor.items.find(i => i._id === actionId);
             if (!action) return;
-            await this.useAction(action);
+
+            await action.system.use(this.actor);
         });
         super.activateListeners(html);
-    }
-
-    async useAction(action) {
-        await npcAction(this.actor, action);
     }
 }
