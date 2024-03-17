@@ -39,15 +39,21 @@
                 <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
             </div>
             <div>
+                <label>{{localize "RSK.AwardedFor"}}: <input type="text" name="system.awardedFor"
+                        value="{{system.awardedFor}}"></label>
+            </div>
+            <div>
                 <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
                         value="{{system.effectDescription}}"></label>
             </div>
             <div>
-                <label>{{localize "RSK.AwardedFor"}}: <input type="text" name="system.awardedFor"
-                        value="{{system.awardedFor}}"></label>
+                <label>{{localize "RSK.Qualities"}}: <input type="text" name="system.qualities"
+                        value="{{system.qualities}}"></label>
             </div>
-            <label>{{localize "RSK.TargetNumberModifier"}}: <input type="number" name="system.targetNumberModifier"
-                    value="{{system.targetNumberModifier}}"></label>
+            <div>
+                <label>{{localize "RSK.Effects"}}</label>
+                {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+            </div>
             <div style="display: flex;">
                 <label>{{localize "RSK.Bulk"}} <input type="number" name="system.bulk.value"
                         value="{{system.bulk.value}}"></label>
@@ -62,6 +68,10 @@
             </div>
         </div>
         <div class="tab features" data-group="primary" data-tab="actions">
+            <div>
+                <label>{{localize "RSK.TargetNumberModifier"}}: <input type="number" name="system.targetNumberModifier"
+                        value="{{system.targetNumberModifier}}"></label>
+            </div>
             <div class="form-group">
                 <label>{{localize "RSK.ActiveSlot"}}:
                     <input type="text" name="system.activeSlot" value="{{system.activeSlot}}">
@@ -69,14 +79,6 @@
                         {{selectOptions config.weaponActiveSlotType.values selected=system.activeSlot localize=true}}
                     </select> --}}
                 </label>
-            </div>
-            <div>
-                <label>{{localize "RSK.Qualities"}}: <input type="text" name="system.qualities"
-                        value="{{system.qualities}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.Effects"}}</label>
-                {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
             </div>
             <div>
                 <div class="form-group">

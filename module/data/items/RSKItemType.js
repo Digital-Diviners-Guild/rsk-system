@@ -1,6 +1,4 @@
 import { fields } from "../fields.js";
-import { uiService } from "../../rsk-ui-service.js";
-import { localizeText } from "../../rsk-localize.js";
 
 export default class RSKItemType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -79,76 +77,6 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
     // weapon - can use is only when equipped
     // armour - only applies when equipped
     // anything else?
-
-    //todo: implement in subtype - weapons would check it is equipped
-    canUse() {
-        const can = this.targetOutcomes.length + this.usageOutcomes.length > 0
-            && this.usageCost.every(uc =>
-                ["summoningPoints", "prayerPoints"].includes(uc.type)
-                    ? this.parent.actor.system[uc.type].value >= uc.amount
-                    //todo: this might be insufficient, but it works for now 
-                    : this.parent.actor.items.find(i =>
-                        i.system.subCategory === uc.type
-                        && i.system.quantity >= uc.amount
-                    ));
-        if (!can) {
-            uiService.showNotification(localizeText("RSK.RequirementsNotMet")); // would be good to know if it was level or cost.
-        }
-        return can;
-    }
-
-    async use() {
-        if (!this.canUse()) return;
-
-        const rollData = this._prepareRollData();
-        const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
-        if (!confirmRollResult.confirmed) return;
-
-        const skillResult = await this.parent.actor.system.useSkill(confirmRollResult);
-        const actionOutcome = this._prepareOutcomeData();
-        this._handleUsage(skillResult);
-        const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
-            {
-                ...skillResult,
-                ...actionOutcome
-            });
-        await skillResult.toMessage({
-            flavor: flavor,
-            flags: {
-                rsk: {
-                    ...skillResult,
-                    ...actionOutcome
-                }
-            }
-        });
-    }
-
-    // what if usageOutcomes depend on success and some don't, how would we know?
-    _handleUsage(skillResult) {
-        const outcomes = [...this.usageOutcomes, ...this.usageCost.map(c => ({
-            operation: 'spendResource',
-            context: { type: c.type, amount: c.amount }
-        }))]
-        applyStateChanges2(this.parent.actor, outcomes);
-    }
-
-    //todo: implement in subtype
-    _prepareRollData() {
-        return {
-            ...this.parent.actor.system.getRollData(),
-            targetNumberModifier: this.targetNumberModifier
-        };
-    }
-
-    _prepareOutcomeData() {
-        //todo: in subtypes this is where we may 'merge' outcomes
-        // like with range weapon and ammo
-        return {
-            name: this.parent.name,
-            description: this.effectDescription,
-            img: this.parent.img,
-        };
-    }
 }
 
 //todo: put this stuff somewhere
