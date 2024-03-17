@@ -33,8 +33,19 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                     amount: new fields.NumberField()
                 })),
             //todo: do we want 'damage entries' or should we render that out of the targetOutcomes with 'recieve dmage'
-            targetOutcomes: new fields.ArrayField(new fields.ObjectField()),
-            usageOutcomes: new fields.ArrayField(new fields.ObjectField()),
+            usageOutcomes: new fields.SchemaField({
+                damage: new fields.ObjectField(),
+                restoresLifePoints: new fields.NumberField({ min: 0 }),
+                addsStatuses: new fields.StringField(),
+                removesStatuses: new fields.StringField(),
+            }),
+            //todo: idea(quality stuff defined here? - may not work ie block)
+            targetOutcome: new fields.SchemaField({
+                damage: new fields.ObjectField(),
+                restoresLifePoints: new fields.NumberField({ min: 0 }),
+                addsStatuses: new fields.StringField(),
+                removesStatuses: new fields.StringField(),
+            }),
             //todo: new target model to help with targetting rules
             // target: new fields.SchemaField({
             //     range: new fields.StringField({
