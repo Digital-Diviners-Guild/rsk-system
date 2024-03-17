@@ -1,6 +1,9 @@
 import { fields } from "../fields.js";
 export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
     //todo: need to update sheet to use outcomes
+    //todo: in general we need melee, ranged, magic closer to the 'damage' model
+    // in fact, we don't really have a damage model yet, we need one.
+    // damage.melee({stab: 1})? damage.magic({fire: 2})? that might be nice!
     static defineSchema() {
         return {
             type: new fields.StringField({
@@ -8,10 +11,22 @@ export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
                 initial: "melee",
                 choices: [...Object.keys(CONFIG.RSK.attackType)]
             }),
+            defenseCheck: new fields.StringField(),
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
-            targetOutcomes: new fields.ArrayField(new fields.ObjectField()),
-            usageOutcomes: new fields.ArrayField(new fields.ObjectField()),
+            usageOutcomes: new fields.SchemaField({
+                damage: new fields.ObjectField(),
+                restoresLifePoints: new fields.NumberField({ min: 0 }),
+                addsStatuses: new fields.StringField(),
+                removesStatuses: new fields.StringField(),
+            }),
+            //todo: idea(quality stuff defined here? - may not work ie block)
+            targetOutcome: new fields.SchemaField({
+                damage: new fields.ObjectField(),
+                restoresLifePoints: new fields.NumberField({ min: 0 }),
+                addsStatuses: new fields.StringField(),
+                removesStatuses: new fields.StringField(),
+            }),
             range: new fields.StringField({ required: true, initial: "near", choices: [...Object.keys(CONFIG.RSK.ranges)] }),
         };
     }
@@ -28,7 +43,7 @@ export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
             content: content,
             flags: {
                 rsk: {
-                    actionType: this.type,
+                    actionType: this.type, //needs to move into damage model?
                     ...this,
                     outcomes: [...this.targetOutcomes]
                 }
