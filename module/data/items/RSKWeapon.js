@@ -15,11 +15,13 @@ export default class RSKWeapon extends RSKEquippableType {
                 initial: ["melee"],
                 choices: [...Object.keys(CONFIG.RSK.attackMethods)]
             }),
+            // might be able to use subCategory for this.
             weaponType: new fields.StringField({
                 required: true,
                 initial: "simple",
                 choices: [...Object.keys(CONFIG.RSK.weaponTypes)]
             }),
+            // might be able to use category for this.
             ammoType: new fields.StringField({
                 choices: [...Object.keys(CONFIG.RSK.ammunitionType)]
             })
@@ -110,7 +112,7 @@ export default class RSKWeapon extends RSKEquippableType {
             return {
                 name: this.parent.name,
                 description: this.effectDescription,
-                actionType: "melee", //todo: base action type? what does actionType do? I think it helps with damage typing for resistence and prayer, might need a better way
+                actionType: "melee", //todo: action type? what does actionType do? I think it helps with damage typing for resistance and prayer, might need a better way
                 img: this.parent.img,
                 outcomes: [...this.targetOutcomes],
                 qualities: [...this.qualities]
@@ -120,6 +122,7 @@ export default class RSKWeapon extends RSKEquippableType {
             return {
                 name: this.parent.name,
                 description: `${this.description}\n${ammo.description}`,
+                actionType: "ranged", //todo: action type? what does actionType do? I think it helps with damage typing for resistance and prayer, might need a better way
                 img: weapon.img,
                 effectDescription: `${this.effectDescription}\n${ammo.effectDescription}`,
                 outcomes: [this.targetOutcomes, ammo.targetOutcomes],

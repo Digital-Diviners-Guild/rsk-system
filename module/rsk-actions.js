@@ -196,7 +196,6 @@ const castingHandlers = {
     }
 };
 
-// todo: explore if this could be a macro handler we drag and drop onto the hotbar
 export const castAction = async (actor, castType) => {
     const castHandler = castingHandlers[castType];
     const castables = castHandler.getCastables(actor);
@@ -205,6 +204,8 @@ export const castAction = async (actor, castType) => {
         return false;
     }
 
+    //todo: this needs to move up into the character sheet to select a castable
+    // the logic for use has moved into the type
     const selectCastableResult = await uiService.showDialog('select-item', { items: castables });
     if (!selectCastableResult || !selectCastableResult.confirmed) return false;
 
