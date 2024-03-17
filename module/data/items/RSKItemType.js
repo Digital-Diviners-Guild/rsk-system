@@ -93,6 +93,24 @@ export const applyOutcome2 = async (actionData) => {
     }
 }
 
+const addStatuses = async (actor, statuses) => {
+    const addedStatusEffects = statuses.map(s => statusToEffect(
+        CONFIG.statusEffects.find(se => se.id === s)));
+    await addEffects(actor, addedStatusEffects);
+}
+
+const addEffects = async (actor, effects) => {
+    await actor.createEmbeddedDocuments("ActiveEffect", [...effects]);
+};
+
+const removeStatuses = async (actor, statuses) => {
+    const effectIds = actor.effects.filter(e =>
+        e.statuses.some(s => statuses.includes(s)))
+        .map(e => e._id);
+    await removeEffects(actor, effectIds);
+};
+
+
 const restoreLifePoints = (actor, context) => {
     actor.system.restoreLifePoints(context.amount);
 }
@@ -117,6 +135,9 @@ const operations = {
     restoreLifePoints,
     receiveDamage,
     spendResource, // is this and receiveDamage the same? we want to split out the calculate damage and if so, then lifePoints is just a resource
+    addEffects,
+    addStatuses,
+    removeStatuses
 };
 
 export const applyStateChanges2 = async (actor, stateChanges) => {
