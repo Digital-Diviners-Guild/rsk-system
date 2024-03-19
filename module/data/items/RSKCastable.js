@@ -58,7 +58,7 @@ export default class RSKCastable extends RSKItemType {
             description: this.effectDescription,
             actionType: this.category,
             img: this.parent.img,
-            outcomes: [...this.targetOutcomes],
+            outcome: { ...this.targetOutcomes },
             qualities: [...this.qualities]
         };
     }
