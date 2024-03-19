@@ -1,3 +1,11 @@
+//idea: in chat message, have the select for defense roll in the message so you can 
+// just click apply instead of needing another pop up?
+
+//todo: need button for x2 damage, maybe one for defense roll?
+//todo: handle special effect logic. maybe in 'apply outcome'?
+// needs to see if margin > threshold and either modify the outcome
+// or open a dialog to configure changes if needed.
+// not all special effects need this. for example bleed wouldn't need a dialog
 import { localizeText } from "../rsk-localize.js";
 import { applyOutcome } from "../rsk-outcome-application.js";
 
