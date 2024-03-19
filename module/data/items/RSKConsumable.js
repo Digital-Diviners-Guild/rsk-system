@@ -14,10 +14,10 @@ export default class RSKConsumable extends RSKItemType {
             flags: {
                 rsk: {
                     actionType: "consume",
-                    outcomes: [
+                    outcome: {
                         ...this.targetOutcomes,
-                        { operation: "addEffects", context: { effects: [...addedEffects] } }
-                    ],
+                        addsEffects: [...addedEffects]
+                    },
                 }
             }
         });
