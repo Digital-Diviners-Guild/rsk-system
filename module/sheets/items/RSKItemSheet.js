@@ -1,5 +1,3 @@
-import { OutcomeInputComponentFactory } from "./OutcomeInputComponent.js";
-
 export default class RSKItemSheet extends ItemSheet {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -34,8 +32,6 @@ export default class RSKItemSheet extends ItemSheet {
             effect.sheet.render(true);
         });
         if (!this.isEditable) return;
-        this.addListeners(html, "usage");
-        this.addListeners(html, "target");
 
         html.find(".add-usage-cost").click(async (ev) => {
             const type = $("#type");
@@ -77,50 +73,6 @@ export default class RSKItemSheet extends ItemSheet {
                     .filter(x => x._id === effectId)
                     .map(x => x._id));
         });
-    }
-
-    addListeners(html, group) {
-        html.find(`[data-group='${group}'] .new-outcome`).change(event => this._onOutcomeChange(event, html, group));
-        html.find(`[data-group='${group}'] .add-outcome`).click((event) => this._onAddOutcome(event, html, group));
-        html.find(`[data-group='${group}'] .delete-outcome`).click((event) => this._onDeleteOutcome(event, group));
-    }
-
-    _onOutcomeChange(event, html, group) {
-        const operation = $(event.currentTarget).val();
-        html.find(`[data-group='${group}'] .outcome-input`).hide();
-        try {
-            const handler = OutcomeInputComponentFactory.getComponent(operation, html, group);
-            handler.showInputs();
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    async _onAddOutcome(event, html, group) {
-        event.preventDefault();
-        const operationSelect = html.find(`[data-group='${group}'] .new-outcome`);
-        const operation = operationSelect.val();
-        try {
-            const handler = OutcomeInputComponentFactory.getComponent(operation, html, group);
-            const data = handler.getUserInput();
-
-            const newOutcome = { operation, context: data };
-            const outcomes = foundry.utils.deepClone(this.item.system[`${group}Outcomes`] || []);
-            outcomes.push(newOutcome);
-            await this.item.update({ [`system.${group}Outcomes`]: outcomes });
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    async _onDeleteOutcome(event, group) {
-        event.preventDefault();
-        const index = parseInt(event.currentTarget.dataset.index, 10);
-        const outcomes = foundry.utils.deepClone(this.item.system[`${group}Outcomes`] || []);
-        if (index >= 0 && index < outcomes.length) {
-            outcomes.splice(index, 1);
-            await this.item.update({ [`system.${group}Outcomes`]: outcomes });
-        }
     }
 
     _onDrop(event) {
