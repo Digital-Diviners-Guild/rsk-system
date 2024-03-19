@@ -10,9 +10,8 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
     //todo: defense roll is only applicable when applying to a character
     // this could be refactored a bit
     async receiveDamage(damage) {
-        debugger;
-        const { puncture, damageEntries, attackType, defenseRoll } = { ...damage };
-        const damageTaken = this.calculateDamageTaken(damageEntries, attackType, puncture, defenseRoll);
+        const { puncture, damageEntries, attackType, defense } = { ...damage };
+        const damageTaken = this.calculateDamageTaken(damageEntries, attackType, puncture, defense);
         const remainingLifePoints = game.rsk.math.clamp_value(
             this.lifePoints.value - damageTaken,
             { min: 0 });
@@ -26,7 +25,7 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
         Hooks.call("actorReceivedDamage", { targetActor: this.parent, damageTaken, remainingLifePoints });
     }
 
-    calculateDamageTaken(damageEntries, attackType = "melee", puncture = 0, defenseRoll = 0) {
+    calculateDamageTaken(damageEntries, attackType = "melee", puncture = 0, defense = 0) {
         const armour = this.getArmourValue();
         const applicablePuncture = game.rsk.math.clamp_value(puncture, { min: 0, max: armour });
         const remainingArmourSoak = armour - applicablePuncture;
@@ -38,7 +37,7 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
             return acc;
         }, { totalDamage: 0, damageResistance: 0 });
         const attackTypeResistance = this.getBonusArmourValue(attackType);
-        const defenseValue = remainingArmourSoak + damageResistance + attackTypeResistance + defenseRoll;
+        const defenseValue = remainingArmourSoak + damageResistance + attackTypeResistance + defense;
         return game.rsk.math.clamp_value(totalDamage - defenseValue, { min: 0 });
     }
 
