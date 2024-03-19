@@ -70,6 +70,15 @@ const operations = {
     removeStatuses
 };
 
+//todo: things we need to know:
+// is an npc attacking a character? (or in otherwords: do we need  def check?)
+// - did the fail check and there are npc special effects to apply? - augment outcome with special effects
+// is the players action triggering a special effect? (had one and margin > threshold)
+// - is the special effect something that needs input? ie rejuvination?
+// - augment outcome with special effects
+// what about usage special effects, like block?
+//types of effects? - on usage, on equip, on success
+
 export const applyOutcome = async (actionData) => {
     const isGM = game.user?.isGM;
     const targets = isGM
