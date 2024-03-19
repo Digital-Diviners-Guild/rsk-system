@@ -14,7 +14,7 @@ export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
             defenseCheck: new fields.StringField(),
             description: new fields.StringField(),
             effectDescription: new fields.StringField(),
-            usageOutcomes: new fields.SchemaField({
+            usageOutcome: new fields.SchemaField({
                 damage: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
                 addsStatuses: new fields.StringField(),
@@ -31,6 +31,7 @@ export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
         };
     }
 
+    //todo: if we had a familiar action type we could have it make the skill check
     async use(actor) {
         const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {

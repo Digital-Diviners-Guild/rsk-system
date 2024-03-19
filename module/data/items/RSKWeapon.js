@@ -29,7 +29,8 @@ export default class RSKWeapon extends RSKEquippableType {
     };
 
     usesItemAsAmmo(item) {
-        return this.attackMethods.has("ranged")
+        return this !== item
+            && this.attackMethods.has("ranged")
             && item.attackMethods.has("ammo")
             && this.ammoType === item.ammoType;
     }
@@ -104,27 +105,72 @@ export default class RSKWeapon extends RSKEquippableType {
             : actor.system.getActiveItems().find(i => usesItemAsAmmo(i.system));
     }
 
-    _prepareOutcomeData() {
+    _prepareOutcomeData(actor) {
         if (this.attackMethods.has("melee")) {
+            //todo: qualities apply when the attack is successful
+            // should we add the qualities outcomes to outcome
+            // here before it is sent?
+            // in that case, quality really is just a names outcome
+            // then on use, we could combine qualities outcomes with base outcome
+            // then send.
+            // we only apply a char outcome on success, and the margin depends on the thing being used
+            /// ie spells can control when they add their outcome.
+            // for npc actions, how would this work? is there value in keeping things more separate?
+            // npc actions qualities apply to a char if they fail a defense check... 
+            // what other types of actions could an npc do to a character? do we need a success outcome
+            // and fail outcome?
+            // as I understand it, npc's -> character, only damage applies (less def margin) when succeeding
+            // maybe that system rule is enough.
+
             return {
+                actor,
                 name: this.parent?.name ?? "Unarmed",
-                description: this.effectDescription,
-                actionType: "melee", //todo: action type? what does actionType do? I think it helps with damage typing for resistance and prayer, might need a better way
+                description: this.description,
+                effectDescription: this.effectDescription,
                 img: this.parent?.img ?? "",
-                outcomes: [...(this.targetOutcomes || [])],
+                actionType: "melee", // should this maybe be 'attackType' in the damage model?
+                outcome: { ...this.targetOutcome },
                 qualities: [...(this.qualities || [])]
             };
         } else {
             const ammo = this._getAmmo(actor);
+            const outcome = this === ammo
+                ? this.targetOutcome
+                : { ...this.combineOutcomes(this.targetOutcome, ammo.targetOutcome) };
             return {
+                actor,
                 name: this.parent?.name ?? "Unarmed",
                 description: `${this.description}\n${ammo.description}`,
-                actionType: "ranged", //todo: action type? what does actionType do? I think it helps with damage typing for resistance and prayer, might need a better way
-                img: this.parent?.img ?? "",
                 effectDescription: `${this.effectDescription}\n${ammo.effectDescription}`,
-                outcomes: [this.targetOutcomes, ammo.targetOutcomes],
+                img: this.parent?.img ?? "",
+                actionType: "ranged",
+                outcome: outcome,
                 qualities: [...(ammo.qualities || [])]
             }
         }
+    }
+
+    combineOutcomes(outcome1, outcome2) {
+        return {
+            damage: this.combineDamage(outcome1.damage, outcome2.damage),
+            restoresLifePoints: outcome1.restoresLifePoints + outcome2.restoresLifePoints,
+            addsStatuses: [...outcome1.addsStatuses, ...outcome2.addsStatuses],
+            removesStatuses: [...outcome1.removesStatuses, ...outcome2.removesStatuses],
+        }
+    }
+
+    combineDamage(damageEntries1, damageEntries2) {
+        const result = { ...damageEntries1 };
+        Object.keys(damageEntries2).forEach(key => {
+            if (result[key]) {
+                result[key] += damageEntries2[key];
+            } else {
+                result[key] = damageEntries2[key];
+            }
+            if (result[key] === 0) {
+                delete result[key];
+            }
+        });
+        return result;
     }
 }
