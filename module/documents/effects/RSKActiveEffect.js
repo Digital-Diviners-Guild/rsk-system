@@ -4,6 +4,7 @@ export default class RSKActiveEffect extends ActiveEffect {
     }
 
     determineSuppression() {
+        // todo: this doesn't work anymore
         if (this.parent.system.hasOwnProperty("equippedInSlot")) {
             return !this.parent.system.isEquipped;
         }

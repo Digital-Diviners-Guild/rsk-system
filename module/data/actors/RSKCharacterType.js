@@ -310,4 +310,23 @@ export default class RSKCharacterType extends RSKActorType {
                 { min: this.minSkillLevel, max: this.maxSkillLevel });
         }
     }
+
+    //should this be here?
+    // async applyActionOutcome(actionData) {
+    //     if (actionData.outcome.damage) {
+    //         await receiveDamage(target, { damage: actionData.outcome.damage });
+    //     }
+    //     if (actionData.outcome.restoresLifePoints) {
+    //         await restoreLifePoints(target, actionData.outcome.restoresLifePoints);
+    //     }
+    //     if (actionData.outcome.addsEffects?.length > 0) {
+    //         await addEffects(target, actionData.outcome.addsEffects);
+    //     }
+    //     if (actionData.outcome.addsStatuses?.length > 0) {
+    //         await addStatuses(target, actionData.outcome.addsStatuses);
+    //     }
+    //     if (actionData.outcome.removesStatuses?.length > 0) {
+    //         await removeStatuses(target, actionData.outcome.removesStatuses);
+    //     }
+    // }
 }
