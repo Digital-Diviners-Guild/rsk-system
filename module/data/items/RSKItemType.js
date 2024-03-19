@@ -17,15 +17,6 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             requiredMaterials: new fields.StringField(), //eventually this will need to be more
             equipmentNeeded: new fields.StringField(),
             targetNumberModifier: new fields.NumberField(),
-            qualities: new fields.StringField(), // todo: use new model
-            // qualities: new fields.ArrayField(
-            //     new fields.SchemaField({
-            //         name: new fields.StringField(),
-            //         type: new fields.StringField(),
-            //         x: new fields.StringField(),
-            //         y: new fields.StringField()
-            //     })
-            // ),
             soakValue: new fields.NumberField(),
             usageCost: new fields.ArrayField(
                 new fields.SchemaField({
@@ -33,7 +24,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                     amount: new fields.NumberField()
                 })),
             //todo: do we want 'damage entries' or should we render that out of the targetOutcomes with 'recieve dmage'
-            usageOutcomes: new fields.SchemaField({
+            usageOutcome: new fields.SchemaField({
                 damage: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
                 addsStatuses: new fields.StringField(),
@@ -45,6 +36,25 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
                 addsStatuses: new fields.StringField(),
                 removesStatuses: new fields.StringField(),
+            }),
+            // things that can happen when margin > threshold
+            // this is mostly about adding active effects and may need a different model
+            // some special effects are also not on an outcome, but on equip, or passive
+            // how do we want to model special effects and their 'conditions'
+            // could we override active effects with new conditions?
+            // do we also need to capture effects here?
+            // the parent can have effects but we need a way to only apply when success margin met
+
+            // todo: special effects are either on equip (handled by active effects)
+            // or on success, which can be in the outcome automation
+            // special effects can provide an outcome or other in which case could be manually resolved?
+            // or utilize flags to toggle actions (ie block)
+            specialEffectsOutcome: new fields.SchemaField({
+                //do we need this prop? what fields would it have?
+                // damage: new fields.ObjectField(),
+                // restoresLifePoints: new fields.NumberField({ min: 0 }),
+                // addsStatuses: new fields.StringField(),
+                // removesStatuses: new fields.StringField(),
             }),
             //todo: new target model to help with targetting rules
             // target: new fields.SchemaField({
