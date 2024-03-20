@@ -1,4 +1,7 @@
 import { fields } from "../fields.js";
+//todo: should we have an action model for things like
+// attack, cast, block, etc?
+
 export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
     //todo: need to update sheet to use outcomes
     //todo: in general we need melee, ranged, magic closer to the 'damage' model
