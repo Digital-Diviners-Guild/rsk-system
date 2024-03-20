@@ -45,17 +45,21 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             // do we also need to capture effects here?
             // the parent can have effects but we need a way to only apply when success margin met
 
-            // todo: special effects are either on equip (handled by active effects)
-            // or on success, which can be in the outcome automation
-            // special effects can provide an outcome or other in which case could be manually resolved?
-            // or utilize flags to toggle actions (ie block)
-            specialEffectsOutcome: new fields.SchemaField({
-                //do we need this prop? what fields would it have?
-                // damage: new fields.ObjectField(),
-                // restoresLifePoints: new fields.NumberField({ min: 0 }),
-                // addsStatuses: new fields.StringField(),
-                // removesStatuses: new fields.StringField(),
+            // is this how we could model specialEffects?
+            // I think most of them can be implemented via status and effect
+            // but we need to control when the happen
+            specialEffect: new fields.SchemaField({
+                // do we need something like this?
+                // could be 'success', 'equip', 'usage'
+                condition: new fields.StringField(),
+                addsStatuses: new fields.StringField(), // for things like 'block' we could have a 'blocking' status that uses a flag for the X value?
+                removesStatuses: new fields.StringField(),
+                addsEffects: new fields.ObjectField(), // could we store effects here too?
+                x: new fields.ObjectField(),
+                y: new fields.ObjectField(),
+                duration: new fields.StringField()
             }),
+            
             //todo: new target model to help with targetting rules
             // target: new fields.SchemaField({
             //     range: new fields.StringField({
@@ -92,10 +96,4 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             isEquipped: new fields.BooleanField({ initial: false }),
         };
     }
-
-    //todo: if we have canUse based on if there are outcomes
-    // then a use that sends the outcomes what do we need the other types for?
-    // weapon - can use is only when equipped
-    // armour - only applies when equipped
-    // anything else?
 }

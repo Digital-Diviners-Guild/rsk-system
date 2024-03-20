@@ -68,6 +68,13 @@ export default class RSKWeapon extends RSKEquippableType {
 
         const skillResult = await actor.system.useSkill(confirmRollResult);
         const actionOutcome = this._prepareOutcomeData(actor);
+        //todo: if the specialEffect is success based, now is the time to alter the outcome
+        if (skillResult.margin > 0) {
+            // add specialEffect
+            //  - some special effects require a prompt (ie rejuvination) how do we want to handle that?
+            // add damage
+        }
+
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
                 ...skillResult,
@@ -129,8 +136,7 @@ export default class RSKWeapon extends RSKEquippableType {
                 effectDescription: this.effectDescription,
                 img: this.parent?.img ?? "",
                 actionType: "melee", // should this maybe be 'attackType' in the damage model?
-                outcome: { ...this.targetOutcome },
-                qualities: [...(this.qualities || [])]
+                outcome: { ...this.targetOutcome }
             };
         } else {
             const ammo = this._getAmmo(actor);
@@ -144,8 +150,7 @@ export default class RSKWeapon extends RSKEquippableType {
                 effectDescription: `${this.effectDescription}\n${ammo.effectDescription}`,
                 img: this.parent?.img ?? "",
                 actionType: "ranged",
-                outcome: outcome,
-                qualities: [...(ammo.qualities || [])]
+                outcome: { ...outcome }
             }
         }
     }
@@ -172,5 +177,17 @@ export default class RSKWeapon extends RSKEquippableType {
             }
         });
         return result;
+    }
+}
+
+
+// special effects that are not simply a status
+// could be controlled this way?
+// probably want some interface to this for mods to build on
+const specialEffects = {
+    rejuvenate: () => {
+        // show damage slider
+        // get healing/damage amount
+        // return new outcome
     }
 }
