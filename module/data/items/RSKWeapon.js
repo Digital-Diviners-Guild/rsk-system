@@ -1,8 +1,13 @@
+import { getSpecialEffectHandler } from "../../effects/specialEffect.js";
 import { uiService } from "../../rsk-ui-service.js";
 import { fields } from "../fields.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 import RSKItemType from "./RSKItemType.js";
 
+//todo: maybe we want to have meleeWeapon and rangedWeapon
+// rangedWeapon is when ammo/throwables matter
+// meleeWeapons don't need that, and apply their own special effect rather than the ammos
+// this would remove the possibility of having a crossbow shoot a sword... which could have been fun lol
 export default class RSKWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
@@ -69,10 +74,19 @@ export default class RSKWeapon extends RSKEquippableType {
         const skillResult = await actor.system.useSkill(confirmRollResult);
         const actionOutcome = this._prepareOutcomeData(actor);
         //todo: if the specialEffect is success based, now is the time to alter the outcome
-        if (skillResult.margin > 0) {
+        if (skillResult.margin >= this.specialEffect.marginThreshold) {
             // add specialEffect
             //  - some special effects require a prompt (ie rejuvination) how do we want to handle that?
-            // add damage
+            if (this.specialEffect.condition === "success") {
+                // if condition === equip, we will assume an active effect is handling the change
+                const handler = getSpecialEffectHandler(this.specialEffect.name);
+                actionOutcome.outcome = await handler(actionOutcome.outcome);
+            }
+            const bonusDamage = skillResult.margin - 1;
+            const damageKey = Object.keys(actionOutcome.outcome.damage).find((k) => actionOutcome.outcome.damage[k] > 0);
+            if (damageKey) {
+                actionOutcome.outcome.damage[damageKey] += bonusDamage;
+            }
         }
 
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
@@ -177,17 +191,5 @@ export default class RSKWeapon extends RSKEquippableType {
             }
         });
         return result;
-    }
-}
-
-
-// special effects that are not simply a status
-// could be controlled this way?
-// probably want some interface to this for mods to build on
-const specialEffects = {
-    rejuvenate: () => {
-        // show damage slider
-        // get healing/damage amount
-        // return new outcome
     }
 }
