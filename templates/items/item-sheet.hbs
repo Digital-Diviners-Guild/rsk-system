@@ -25,6 +25,10 @@
                 <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
                         value="{{system.description}}"></label>
             </div>
+            <div>
+                <label>{{localize "RSK.AwardedFor"}}: <input type="text" name="system.awardedFor"
+                        value="{{system.awardedFor}}"></label>
+            </div>
             <div style="display: flex;">
                 <div class="w-50">
                     <label>{{localize "RSK.Cost"}}: <input type="number" name="system.cost"
@@ -34,25 +38,6 @@
                     <label>{{localize "RSK.Material"}}: <input type="text" name="system.material"
                             value="{{system.material}}"></label>
                 </div>
-            </div>
-            <div>
-                <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.AwardedFor"}}: <input type="text" name="system.awardedFor"
-                        value="{{system.awardedFor}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
-                        value="{{system.effectDescription}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.Qualities"}}: <input type="text" name="system.qualities"
-                        value="{{system.qualities}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.Effects"}}</label>
-                {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
             </div>
             <div style="display: flex;">
                 <label>{{localize "RSK.Bulk"}} <input type="number" name="system.bulk.value"
@@ -66,12 +51,27 @@
                             value="{{system.maxStackSize}}"></label>
                 </div>
             </div>
-        </div>
-        <div class="tab features" data-group="primary" data-tab="actions">
+            <div>
+                <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
+            </div>
             <div>
                 <label>{{localize "RSK.TargetNumberModifier"}}: <input type="number" name="system.targetNumberModifier"
                         value="{{system.targetNumberModifier}}"></label>
             </div>
+            <div>
+                <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
+                        value="{{system.effectDescription}}"></label>
+            </div>
+            <div>
+                <label>{{localize "RSK.SpecialEffect"}}: <input type="text" name="system.specialEffect"
+                        value="{{system.specialEffect}}"></label>
+            </div>
+            <div>
+                <label>{{localize "RSK.Effects"}}</label>
+                {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+            </div>
+        </div>
+        <div class="tab features" data-group="primary" data-tab="actions">
             <div class="form-group">
                 <label>{{localize "RSK.ActiveSlot"}}:
                     <input type="text" name="system.activeSlot" value="{{system.activeSlot}}">
