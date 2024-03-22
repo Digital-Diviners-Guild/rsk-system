@@ -37,21 +37,23 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 addsStatuses: new fields.StringField(),
                 removesStatuses: new fields.StringField(),
             }),
-            // things that can happen when margin > threshold
-            // this is mostly about adding active effects and may need a different model
-            // some special effects are also not on an outcome, but on equip, or passive
-            // how do we want to model special effects and their 'conditions'
-            // could we override active effects with new conditions?
-            // do we also need to capture effects here?
-            // the parent can have effects but we need a way to only apply when success margin met
-
+            // specialEffect: new fields.SchemaField({
+            //     // select pre built special effect for now?
+            //     // later we can explore a customizable model
+            //     name: new fields.StringField(),
+            //     x: new fields.ObjectField(),
+            //     y: new fields.ObjectField(),
+            // }),
             // is this how we could model specialEffects?
             // I think most of them can be implemented via status and effect
             // but we need to control when the happen
             specialEffect: new fields.SchemaField({
                 // do we need something like this?
+                name: new fields.StringField(),
+                type: new fields.StringField(),
                 // could be 'success', 'equip', 'usage'
                 condition: new fields.StringField(),
+                marginThreshold: new fields.NumberField({ initial: 1, min: 0 }),
                 addsStatuses: new fields.StringField(), // for things like 'block' we could have a 'blocking' status that uses a flag for the X value?
                 removesStatuses: new fields.StringField(),
                 addsEffects: new fields.ObjectField(), // could we store effects here too?
@@ -59,7 +61,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 y: new fields.ObjectField(),
                 duration: new fields.StringField()
             }),
-            
+
             //todo: new target model to help with targetting rules
             // target: new fields.SchemaField({
             //     range: new fields.StringField({
