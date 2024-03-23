@@ -54,12 +54,12 @@ const removeStatuses = async (actor, statuses) => {
     await removeEffects(actor, effectIds);
 };
 
-const restoreLifePoints = (actor, context) => {
-    actor.system.restoreLifePoints(context.amount);
+const restoreLifePoints = (actor, amount) => {
+    actor.system.restoreLifePoints(amount);
 }
 
-const receiveDamage = async (actor, context) => {
-    await actor.system.receiveDamage({ damageEntries: context.damage });
+const receiveDamage = async (actor, damageEntries) => {
+    await actor.system.receiveDamage({ damageEntries });
 };
 
 const operations = {
@@ -85,17 +85,20 @@ export const applyOutcome = async (actionData) => {
         ? [...game.user.targets.map(t => t.actor)]
         : [game.user.character];
     for (let target of targets) {
-        await applyStateChanges(target, actionData.outcomes);
-    }
-}
-
-export const applyStateChanges = async (actor, stateChanges) => {
-    for (let stateChange of stateChanges) {
-        const operationFunc = operations[stateChange.operation];
-        if (operationFunc) {
-            await operationFunc(actor, { ...stateChange.context });
-        } else {
-            console.error(`Unknown operation: ${stateChange.operation}`);
+        if (actionData.outcome.damageEntries) {
+            await receiveDamage(target, actionData.outcome.damageEntries);
+        }
+        if (actionData.outcome.restoresLifePoints) {
+            await restoreLifePoints(target, actionData.outcome.restoresLifePoints);
+        }
+        if (actionData.outcome.addsEffects?.length > 0) {
+            await addEffects(target, actionData.outcome.addsEffects);
+        }
+        if (actionData.outcome.addsStatuses?.length > 0) {
+            await addStatuses(target, actionData.outcome.addsStatuses);
+        }
+        if (actionData.outcome.removesStatuses?.length > 0) {
+            await removeStatuses(target, actionData.outcome.removesStatuses);
         }
     }
-};
+}
