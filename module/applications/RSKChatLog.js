@@ -7,7 +7,7 @@
 // or open a dialog to configure changes if needed.
 // not all special effects need this. for example bleed wouldn't need a dialog
 import { localizeText } from "../rsk-localize.js";
-import { applyOutcome } from "../rsk-outcome-application.js";
+import { applyOutcome, applyOutcome2 } from "../rsk-outcome-application.js";
 
 export default class RSKChatLog extends ChatLog {
 
@@ -29,7 +29,7 @@ export async function onRenderChatMessage(app, html, data) {
     //     : [game.user.character];
     const outcomeData = message.flags.rsk;
 
-    addApplyOutcomeButton(html, () => applyOutcome(outcomeData));
+    addApplyOutcomeButton(html, () => applyOutcome2(outcomeData));
 }
 
 const addApplyOutcomeButton = (html, handler) => {

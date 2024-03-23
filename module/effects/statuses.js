@@ -7,12 +7,15 @@ export function customizeStatusEffects() {
     CONFIG.statusEffects = [...rskStatusEffects, ...rskMagicStatusEffects, ...rskPrayerStatusEffects];
 };
 
-//todo: duration
-export function statusToEffect(status, statusFlags = {}) {
+export function statusToEffect(status, duration, statusFlags = {}) {
     return {
         name: status.label,
         icon: status.icon,
         statuses: [status.id],
+        duration: {
+            type: "turns",
+            turns: duration
+        },
         changes: status.changes,
         flags: {
             rsk: {
