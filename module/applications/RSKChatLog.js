@@ -13,7 +13,7 @@ export default class RSKChatLog extends ChatLog {
 
 }
 
-export function onRenderChatMessage(app, html, data) {
+export async function onRenderChatMessage(app, html, data) {
     const message = data.message;
     const isActionMessage = message?.flags?.rsk?.actionType;
     const currentCharacterUuid = game.user?.character?.uuid;
@@ -28,6 +28,7 @@ export function onRenderChatMessage(app, html, data) {
     //     ? [...game.user.targets.map(t => t.actor)]
     //     : [game.user.character];
     const outcomeData = message.flags.rsk;
+
     addApplyOutcomeButton(html, () => applyOutcome(outcomeData));
 }
 

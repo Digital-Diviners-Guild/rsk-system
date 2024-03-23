@@ -16,7 +16,7 @@ export default class RSKConsumable extends RSKItemType {
                     actionType: "consume",
                     outcome: {
                         ...this.targetOutcomes,
-                        addsEffects: [...addedEffects]
+                        effectsAdded: [...addedEffects]
                     },
                 }
             }

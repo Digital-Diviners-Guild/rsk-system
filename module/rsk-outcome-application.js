@@ -11,6 +11,9 @@
 // step three/zero) need to thing of the action pipeline from start to finish
 // so we know what data we will want. 
 
+import { statusToEffect } from "./effects/statuses.js";
+import { getSpecialEffectHandler } from "./effects/specialEffect.js";
+
 
 
 // todo: I think we need to backpeddle on the individual operation configuration
@@ -37,9 +40,9 @@ const getDefenseRoll = async (target, actionType) => {
     return defenseRollMargin;
 }
 
-const addStatuses = async (actor, statuses) => {
+const addStatuses = async (actor, statuses, flags = {}) => {
     const addedStatusEffects = statuses.map(s => statusToEffect(
-        CONFIG.statusEffects.find(se => se.id === s)));
+        CONFIG.statusEffects.find(se => se.id === s), flags));
     await addEffects(actor, addedStatusEffects);
 }
 
@@ -84,6 +87,21 @@ export const applyOutcome = async (actionData) => {
     const targets = isGM
         ? [...game.user.targets.map(t => t.actor)]
         : [game.user.character];
+    // as long as the message has the original actor
+    // we could handle specialEffects, even ones like 'rejuvenate' here
+    // and alter the outcome at this point as needed.
+
+    // if (margin > 1) {
+    //     const bonusDamage = margin - 1;
+    //     const damageKey = Object.keys(actionData.outcome.damageEntries).find((k) => actionData.outcome.damageEntries[k] > 0);
+    //     if (damageKey) {
+    //         actionData.outcome.damageEntries[damageKey] += bonusDamage;
+    //     }
+    // }
+    //if (actionData.specialEffect.condition === "success" && margin >= actionData.specialEffect.marginThreshold) {
+    const handler = getSpecialEffectHandler("rejuvenate"); //this.specialEffect.name);
+    actionData.outcome = await handler(game.user.character, actionData.outcome);
+    //}
     for (let target of targets) {
         if (actionData.outcome.damageEntries) {
             await receiveDamage(target, actionData.outcome.damageEntries);
@@ -91,14 +109,14 @@ export const applyOutcome = async (actionData) => {
         if (actionData.outcome.restoresLifePoints) {
             await restoreLifePoints(target, actionData.outcome.restoresLifePoints);
         }
-        if (actionData.outcome.addsEffects?.length > 0) {
-            await addEffects(target, actionData.outcome.addsEffects);
+        if (actionData.outcome.effectsAdded?.length > 0) {
+            await addEffects(target, actionData.outcome.effectsAdded);
         }
-        if (actionData.outcome.addsStatuses?.length > 0) {
-            await addStatuses(target, actionData.outcome.addsStatuses);
+        if (actionData.outcome.statusesAdded?.length > 0) {
+            await addStatuses(target, actionData.outcome.statusesAdded);
         }
-        if (actionData.outcome.removesStatuses?.length > 0) {
-            await removeStatuses(target, actionData.outcome.removesStatuses);
+        if (actionData.outcome.statusesRemoved?.length > 0) {
+            await removeStatuses(target, actionData.outcome.statusesRemoved);
         }
     }
 }
