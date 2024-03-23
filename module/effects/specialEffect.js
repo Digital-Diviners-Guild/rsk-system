@@ -13,27 +13,22 @@ import { localizeText } from "../rsk-localize.js";
 
 const specialEffects = {
     //on use
-    // idealy this probably shouldn't apply 
-    // until we click apply, and it can be part of that same message
-    rejuvenate: async (actor, outcome) => {
+    rejuvenate: async (outcome) => {
         const newOutcome = { ...outcome };
         const healing = await Dialog.prompt({
-            title: localizeText("RSK.Rejuvenate"),
+            title: localizeText("RSK.Confirm"),
             content: `
 <div>
-    <label>Healing: <input class="amount" type="number"></label>
+${localizeText("RSK.Confirm")} ${localizeText("RSK.Rejuvenate")}
 </div>`,
-            callback: dialog => {
-                return {
-                    amount: Number(dialog.find("input.amount")[0].value),
-                }
-            }
+            callback: dialog => true
         });
         if (healing) {
-            const damageKey = Object.keys(outcome.damageEntries).find((k) => outcome.damageEntries[k] > 0);
+            const damageKey = Object.keys(outcome.targetOutcome.damageEntries).find((k) => outcome.targetOutcome.damageEntries[k] > 0);
             if (damageKey) {
-                await actor.system.restoreLifePoints(game.rsk.math.clamp_value(healing.amount, { max: newOutcome.damageEntries[damageKey] }));
-                newOutcome.damageEntries[damageKey] = game.rsk.math.clamp_value(newOutcome.damageEntries[damageKey] -= healing.amount, { min: 0 });
+                const amount = 1; //from special effect config
+                newOutcome.actorOutcome.restoresLifePoints = amount;
+                newOutcome.targetOutcome.damageEntries[damageKey] = game.rsk.math.clamp_value(newOutcome.targetOutcome.damageEntries[damageKey] -= amount, { min: 0 });
             }
         }
         return newOutcome;

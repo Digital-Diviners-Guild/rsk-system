@@ -26,37 +26,43 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             usageOutcome: new fields.SchemaField({
                 damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
-                statusesAdded: new fields.ArrayField(new fields.SchemaField({
+                statusesAdded: new fields.SchemaField({
                     name: new fields.StringField(),
-                    duration: new fields.StringField()
-                })),
+                    duration: new fields.NumberField(),
+                }),
                 statusesRemoved: new fields.StringField(),
             }),
             targetOutcome: new fields.SchemaField({
                 damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
-                statusesAdded: new fields.ArrayField(new fields.SchemaField({
+                statusesAdded: new fields.SchemaField({
                     name: new fields.StringField(),
-                    duration: new fields.StringField()
-                })),
+                    duration: new fields.NumberField(),
+                }),
                 statusesRemoved: new fields.StringField(),
             }),
             // do we need something like this?
+            // or should we just have them pre implemented and use a drop down?
+            // this would allow for homebrew though
             specialEffect: new fields.SchemaField({
                 name: new fields.StringField(),
                 type: new fields.StringField(),
-                // could be 'success', 'equip', 'usage'
+                // could be 'success', 'equip'
                 condition: new fields.StringField(),
                 marginThreshold: new fields.NumberField({ initial: 1, min: 0 }),
                 statusesAdded: new fields.SchemaField({
                     name: new fields.StringField(),
-                    duration: new fields.StringField(),
+                    duration: new fields.NumberField(),
                 }), // for things like 'block' we could have a 'blocking' status that uses a flag for the X value?
                 statusesRemoved: new fields.StringField(),
                 x: new fields.ObjectField(),
-                y: new fields.ObjectField(),
-                duration: new fields.StringField()
+                y: new fields.ObjectField()
+                // if we wanted to model effects, this is the props we'd need
+                // key
+                // mode
+                // value
             }),
+
 
             //todo: new target model to help with targetting rules
             // target: new fields.SchemaField({
@@ -94,16 +100,4 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             isEquipped: new fields.BooleanField({ initial: false }),
         };
     }
-}
-
-
-class ActionCommand {
-    actor = {};
-    targets = [];
-    targetOutcome = {
-
-    };
-    actorOutcome = {
-
-    };
 }

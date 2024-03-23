@@ -40,9 +40,9 @@ const getDefenseRoll = async (target, actionType) => {
     return defenseRollMargin;
 }
 
-const addStatuses = async (actor, statuses, flags = {}) => {
+const addStatuses = async (actor, statuses) => {
     const addedStatusEffects = statuses.map(s => statusToEffect(
-        CONFIG.statusEffects.find(se => se.id === s), flags));
+        CONFIG.statusEffects.find(se => se.id === s), s.duration, s.flags));
     await addEffects(actor, addedStatusEffects);
 }
 
@@ -87,21 +87,6 @@ export const applyOutcome = async (actionData) => {
     const targets = isGM
         ? [...game.user.targets.map(t => t.actor)]
         : [game.user.character];
-    // as long as the message has the original actor
-    // we could handle specialEffects, even ones like 'rejuvenate' here
-    // and alter the outcome at this point as needed.
-
-    // if (margin > 1) {
-    //     const bonusDamage = margin - 1;
-    //     const damageKey = Object.keys(actionData.outcome.damageEntries).find((k) => actionData.outcome.damageEntries[k] > 0);
-    //     if (damageKey) {
-    //         actionData.outcome.damageEntries[damageKey] += bonusDamage;
-    //     }
-    // }
-    //if (actionData.specialEffect.condition === "success" && margin >= actionData.specialEffect.marginThreshold) {
-    const handler = getSpecialEffectHandler("rejuvenate"); //this.specialEffect.name);
-    actionData.outcome = await handler(game.user.character, actionData.outcome);
-    //}
     for (let target of targets) {
         if (actionData.outcome.damageEntries) {
             await receiveDamage(target, actionData.outcome.damageEntries);
@@ -118,5 +103,51 @@ export const applyOutcome = async (actionData) => {
         if (actionData.outcome.statusesRemoved?.length > 0) {
             await removeStatuses(target, actionData.outcome.statusesRemoved);
         }
+    }
+}
+
+export const applyOutcome2 = async (actionData) => {
+    if (actionData.rollMargin > 1) {
+        const bonusDamage = actionData.rollMargin - 1;
+        const damageKey = Object.keys(actionData.targetOutcome.damageEntries).find((k) => actionData.targetOutcome.damageEntries[k] > 0);
+        if (damageKey) {
+            actionData.targetOutcome.damageEntries[damageKey] += bonusDamage;
+        }
+    }
+
+    if (actionData.specialEffect.condition === "success" && actionData.rollMargin >= actionData.specialEffect.marginThreshold) {
+        const handler = getSpecialEffectHandler(actionData.specialEffect.name);
+        actionData = await handler(actionData);
+    }
+
+    const isGM = game.user?.isGM;
+    const targets = isGM
+        ? [...game.user.targets.map(t => t.actor)]
+        : [game.user.character];
+    for (let target of targets) {
+        await apply(target, actionData.targetOutcome);
+    }
+
+    const actor = fromUuidSync(actionData.actorUuid);
+    await apply(actor, actionData.actorOutcome);
+}
+
+const apply = async (target, outcome) => {
+    if (!target) return;
+
+    if (outcome.damageEntries) {
+        await target.system.receiveDamage({ damageEntries: outcome.damageEntries });
+    }
+    if (outcome.restoresLifePoints) {
+        await target.system.restoreLifePoints(outcome.restoresLifePoints);
+    }
+    if (outcome.effectsAdded?.length > 0) {
+        await target.system.addEffects(outcome.effectsAdded);
+    }
+    if (outcome.statusesAdded?.length > 0) {
+        await target.system.addStatuses(outcome.statusesAdded);
+    }
+    if (outcome.statusesRemoved?.length > 0) {
+        await target.system.removeStatuses(outcome.statusesRemoved);
     }
 }

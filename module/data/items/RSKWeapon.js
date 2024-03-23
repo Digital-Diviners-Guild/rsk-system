@@ -73,19 +73,6 @@ export default class RSKWeapon extends RSKEquippableType {
 
         const skillResult = await actor.system.useSkill(confirmRollResult);
         const actionOutcome = this._prepareOutcomeData(actor);
-        // if (skillResult.margin > 1) {
-        //     const bonusDamage = skillResult.margin - 1;
-        //     const damageKey = Object.keys(actionOutcome.outcome.damageEntries).find((k) => actionOutcome.outcome.damageEntries[k] > 0);
-        //     if (damageKey) {
-        //         actionOutcome.outcome.damageEntries[damageKey] += bonusDamage;
-        //     }
-        // }
-
-        // // if (this.specialEffect.condition === "success" && skillResult.margin >= this.specialEffect.marginThreshold) {
-        // const handler = getSpecialEffectHandler("rejuvenate"); //this.specialEffect.name);
-        // actionOutcome.outcome = await handler(actor, actionOutcome.outcome);
-        // // }
-
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
                 ...skillResult,
@@ -96,7 +83,8 @@ export default class RSKWeapon extends RSKEquippableType {
             flags: {
                 rsk: {
                     ...skillResult,
-                    ...actionOutcome
+                    ...actionOutcome,
+                    rollMargin: skillResult.margin
                 }
             }
         });
@@ -141,13 +129,18 @@ export default class RSKWeapon extends RSKEquippableType {
             // maybe that system rule is enough.
 
             return {
-                actor,
                 name: this.parent?.name ?? "Unarmed",
                 description: this.description,
                 effectDescription: this.effectDescription,
                 img: this.parent?.img ?? "",
                 actionType: "melee", // should this maybe be 'attackType' in the damage model?
-                outcome: { ...this.targetOutcome }
+                outcome: { ...this.targetOutcome },
+                actorUuid: actor.uuid,
+                //targetUuids: [];
+                targetOutcome: { ...this.targetOutcome },
+                actorOutcome: {},
+                specialEffect: { condition: "success", name: "rejuvenate", marginThreshold: 1 }
+                // specialEffect: { ...this.specialEffect },
             };
         } else {
             const ammo = this._getAmmo(actor);
@@ -189,4 +182,13 @@ export default class RSKWeapon extends RSKEquippableType {
         });
         return result;
     }
+}
+
+class ActionCommand {
+    actorUuid = "";
+    targetUuids = [];
+    targetOutcome = {};
+    actorOutcome = {};
+    specialEffect = {};
+    rollMargin = 0;
 }
