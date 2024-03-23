@@ -26,14 +26,20 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             usageOutcome: new fields.SchemaField({
                 damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
-                addsStatuses: new fields.StringField(),
-                removesStatuses: new fields.StringField(),
+                statusesAdded: new fields.ArrayField(new fields.SchemaField({
+                    name: new fields.StringField(),
+                    duration: new fields.StringField()
+                })),
+                statusesRemoved: new fields.StringField(),
             }),
             targetOutcome: new fields.SchemaField({
                 damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
-                addsStatuses: new fields.StringField(),
-                removesStatuses: new fields.StringField(),
+                statusesAdded: new fields.ArrayField(new fields.SchemaField({
+                    name: new fields.StringField(),
+                    duration: new fields.StringField()
+                })),
+                statusesRemoved: new fields.StringField(),
             }),
             // do we need something like this?
             specialEffect: new fields.SchemaField({
@@ -42,9 +48,11 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 // could be 'success', 'equip', 'usage'
                 condition: new fields.StringField(),
                 marginThreshold: new fields.NumberField({ initial: 1, min: 0 }),
-                addsStatuses: new fields.StringField(), // for things like 'block' we could have a 'blocking' status that uses a flag for the X value?
-                removesStatuses: new fields.StringField(),
-                addsEffects: new fields.ObjectField(), // could we store effects here too?
+                statusesAdded: new fields.SchemaField({
+                    name: new fields.StringField(),
+                    duration: new fields.StringField(),
+                }), // for things like 'block' we could have a 'blocking' status that uses a flag for the X value?
+                statusesRemoved: new fields.StringField(),
                 x: new fields.ObjectField(),
                 y: new fields.ObjectField(),
                 duration: new fields.StringField()
@@ -86,4 +94,16 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             isEquipped: new fields.BooleanField({ initial: false }),
         };
     }
+}
+
+
+class ActionCommand {
+    actor = {};
+    targets = [];
+    targetOutcome = {
+
+    };
+    actorOutcome = {
+
+    };
 }

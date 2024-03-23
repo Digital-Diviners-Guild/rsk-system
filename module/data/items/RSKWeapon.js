@@ -73,18 +73,18 @@ export default class RSKWeapon extends RSKEquippableType {
 
         const skillResult = await actor.system.useSkill(confirmRollResult);
         const actionOutcome = this._prepareOutcomeData(actor);
-        if (skillResult.margin > 1) {
-            const bonusDamage = skillResult.margin - 1;
-            const damageKey = Object.keys(actionOutcome.outcome.damageEntries).find((k) => actionOutcome.outcome.damageEntries[k] > 0);
-            if (damageKey) {
-                actionOutcome.outcome.damageEntries[damageKey] += bonusDamage;
-            }
-        }
-
-        // if (this.specialEffect.condition === "success" && skillResult.margin >= this.specialEffect.marginThreshold) {
-        const handler = getSpecialEffectHandler("rejuvenate"); //this.specialEffect.name);
-        actionOutcome.outcome = await handler(actor, actionOutcome.outcome);
+        // if (skillResult.margin > 1) {
+        //     const bonusDamage = skillResult.margin - 1;
+        //     const damageKey = Object.keys(actionOutcome.outcome.damageEntries).find((k) => actionOutcome.outcome.damageEntries[k] > 0);
+        //     if (damageKey) {
+        //         actionOutcome.outcome.damageEntries[damageKey] += bonusDamage;
+        //     }
         // }
+
+        // // if (this.specialEffect.condition === "success" && skillResult.margin >= this.specialEffect.marginThreshold) {
+        // const handler = getSpecialEffectHandler("rejuvenate"); //this.specialEffect.name);
+        // actionOutcome.outcome = await handler(actor, actionOutcome.outcome);
+        // // }
 
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
@@ -170,8 +170,8 @@ export default class RSKWeapon extends RSKEquippableType {
         return {
             damage: this.combineDamage(outcome1.damageEntries, outcome2.damageEntries),
             restoresLifePoints: outcome1.restoresLifePoints + outcome2.restoresLifePoints,
-            addsStatuses: [...outcome1.addsStatuses, ...outcome2.addsStatuses],
-            removesStatuses: [...outcome1.removesStatuses, ...outcome2.removesStatuses],
+            statusesAdded: [...outcome1.statusesAdded, ...outcome2.statusesAdded],
+            statusesRemoved: [...outcome1.statusesRemoved, ...outcome2.statusesRemoved],
         }
     }
 

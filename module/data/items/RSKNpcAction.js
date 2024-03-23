@@ -20,15 +20,15 @@ export default class RSKNpcAction extends foundry.abstract.TypeDataModel {
             usageOutcome: new fields.SchemaField({
                 damage: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
-                addsStatuses: new fields.StringField(),
-                removesStatuses: new fields.StringField(),
+                statusesAdded: new fields.StringField(),
+                statusesRemoved: new fields.StringField(),
             }),
             //todo: idea(quality stuff defined here? - may not work ie block)
             targetOutcome: new fields.SchemaField({
                 damage: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
-                addsStatuses: new fields.StringField(),
-                removesStatuses: new fields.StringField(),
+                statusesAdded: new fields.StringField(),
+                statusesRemoved: new fields.StringField(),
             }),
             range: new fields.StringField({ required: true, initial: "near", choices: [...Object.keys(CONFIG.RSK.ranges)] }),
         };

@@ -319,14 +319,14 @@ export default class RSKCharacterType extends RSKActorType {
     //     if (actionData.outcome.restoresLifePoints) {
     //         await restoreLifePoints(target, actionData.outcome.restoresLifePoints);
     //     }
-    //     if (actionData.outcome.addsEffects?.length > 0) {
-    //         await addEffects(target, actionData.outcome.addsEffects);
+    //     if (actionData.outcome.effectsAdded?.length > 0) {
+    //         await addEffects(target, actionData.outcome.effectsAdded);
     //     }
-    //     if (actionData.outcome.addsStatuses?.length > 0) {
-    //         await addStatuses(target, actionData.outcome.addsStatuses);
+    //     if (actionData.outcome.statusesAdded?.length > 0) {
+    //         await addStatuses(target, actionData.outcome.statusesAdded);
     //     }
-    //     if (actionData.outcome.removesStatuses?.length > 0) {
-    //         await removeStatuses(target, actionData.outcome.removesStatuses);
+    //     if (actionData.outcome.statusesRemoved?.length > 0) {
+    //         await removeStatuses(target, actionData.outcome.statusesRemoved);
     //     }
     // }
 }
