@@ -1,12 +1,32 @@
 //todo: implement special effects in the system
+
+import { localizeText } from "../rsk-localize.js";
+
 // then from there we can figure out how to abstract them for custom special effects
 const specialEffects = {
     //on use
-    rejuvenate: (outcome) => {
-        // show damage slider
-        // get healing/damage amount
-        // return new outcome
+    rejuvenate: async (actor, outcome) => {
         const newOutcome = { ...outcome };
+        const healing = await Dialog.prompt({
+            title: localizeText("RSK.Rejuvenate"),
+            content: `
+<div>
+    <label>Healing: <input class="amount" type="number"></label>
+</div>`,
+            callback: dialog => {
+                return {
+                    amount: Number(dialog.find("input.amount")[0].value),
+                }
+            }
+        });
+        if (healing) {
+            const damageKey = Object.keys(outcome.damageEntries).find((k) => outcome.damageEntries[k] > 0);
+            if (damageKey) {
+                debugger;
+                await actor.system.restoreLifePoints(game.rsk.math.clamp_value(healing.amount, { max: newOutcome.damageEntries[damageKey] }));
+                newOutcome.damageEntries[damageKey] = game.rsk.math.clamp_value(newOutcome.damageEntries[damageKey] -= healing.amount, { min: 0 });
+            }
+        }
         return newOutcome;
     },
     bleed: () => {
