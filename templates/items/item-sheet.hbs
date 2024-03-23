@@ -1,4 +1,3 @@
-{{!-- todo: finish converting to generic sheet --}}
 <form class="{{cssClass}}" autocomplete="off" data-can-drop="true">
     <header class="sheet-header">
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" style="height: 128px; width: 128px" />
@@ -90,46 +89,46 @@
                 </div>
             </div>
             <div>
-                <label>Usage Cost</label>
-                {{usageCost}}
-                <ol class="items-list">
-                    {{#each system.usageCost as |cost|}}
-                    <li class="item flexrow" data-type="{{cost.type}}">
-                        {{cost.type}}
-                        {{cost.amount}}
-                        <div class=" item-controls">
-                            <a class="item-control remove-usage-cost" title="Delete cost"><i
-                                    class="fas fa-trash"></i></a>
-                        </div>
-                    </li>
-                    {{/each}}
-                </ol>
-                <div class="form-group">
-                    <label>{{localize "RSK.Resource"}}
-                        <select id="type">
-                            {{selectOptions config.usageCostResources localize=true}}
-                        </select>
-                    </label>
-                </div>
-
-                <div class="form-group">
-                    <label>{{localize "RSK.Amount"}}</label>
-                    <input id="amount" type="number">
-                    <a class="item-control add-usage-cost" title="add cost">
-                        <i class="fas fa-plus"></i> {{localize "Add Cost"}}
-                    </a>
-                </div>
-            </div>
-            <div>
                 <strong>Usage Outcomes</strong>
-                {{> "/systems/rsk/templates/items/parts/outcome.hbs" group="usage"
-                changes=system.usageOutcomes}}
+                <div>
+                    <label>Usage Cost</label>
+                    {{usageCost}}
+                    <ol class="items-list">
+                        {{#each system.usageCost as |cost|}}
+                        <li class="item flexrow" data-type="{{cost.type}}">
+                            {{cost.type}}
+                            {{cost.amount}}
+                            <div class=" item-controls">
+                                <a class="item-control remove-usage-cost" title="Delete cost"><i
+                                        class="fas fa-trash"></i></a>
+                            </div>
+                        </li>
+                        {{/each}}
+                    </ol>
+                    <div class="form-group">
+                        <label>{{localize "RSK.Resource"}}
+                            <select id="type">
+                                {{selectOptions config.usageCostResources localize=true}}
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{localize "RSK.Amount"}}</label>
+                        <input id="amount" type="number">
+                        <a class="item-control add-usage-cost" title="add cost">
+                            <i class="fas fa-plus"></i> {{localize "Add Cost"}}
+                        </a>
+                    </div>
+                </div>
+                {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.usageOutcome
+                outcomeName="usageOutcome"}}
             </div>
 
             <div>
                 <strong>Target Outcomes</strong>
-                {{> "/systems/rsk/templates/items/parts/outcome.hbs" group="target"
-                changes=system.targetOutcomes}}
+                {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.targetOutcome
+                outcomeName="targetOutcome"}}
             </div>
         </div>
 

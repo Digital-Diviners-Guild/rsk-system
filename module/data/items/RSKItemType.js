@@ -23,32 +23,20 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                     type: new fields.StringField(),
                     amount: new fields.NumberField()
                 })),
-            //todo: do we want 'damage entries' or should we render that out of the targetOutcomes with 'recieve dmage'
             usageOutcome: new fields.SchemaField({
-                damage: new fields.ObjectField(),
+                damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
                 addsStatuses: new fields.StringField(),
                 removesStatuses: new fields.StringField(),
             }),
-            //todo: idea(quality stuff defined here? - may not work ie block)
             targetOutcome: new fields.SchemaField({
-                damage: new fields.ObjectField(),
+                damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
                 addsStatuses: new fields.StringField(),
                 removesStatuses: new fields.StringField(),
             }),
-            // specialEffect: new fields.SchemaField({
-            //     // select pre built special effect for now?
-            //     // later we can explore a customizable model
-            //     name: new fields.StringField(),
-            //     x: new fields.ObjectField(),
-            //     y: new fields.ObjectField(),
-            // }),
-            // is this how we could model specialEffects?
-            // I think most of them can be implemented via status and effect
-            // but we need to control when the happen
+            // do we need something like this?
             specialEffect: new fields.SchemaField({
-                // do we need something like this?
                 name: new fields.StringField(),
                 type: new fields.StringField(),
                 // could be 'success', 'equip', 'usage'

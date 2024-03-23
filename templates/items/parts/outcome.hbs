@@ -1,63 +1,66 @@
-<div data-group="{{group}}">
-    <div>
-        <div class="form-group restore-life-input outcome-input">
-            <label>{{localize "RSK.RestoresLifePoints"}}:
-                <input type="number" class="restore-life-amount" min="1">
+<div>
+    <div class="form-group">
+        <label>{{localize "RSK.RestoresLifePoints"}}:
+            <input type="number" min="1" name="system.{{outcomeName}}.restoresLifePoints"
+                value="{{outcome.restoresLifePoints}}">
+        </label>
+    </div>
+    {{!-- todo: we have a statuses input somewhere already we should use --}}
+    <div class="form-group">
+        <label>{{localize "RSK.AddsStatuses"}}:
+            <input type="text" name="system.{{outcomeName}}.addsStatuses" value="{{outcome.addsStatuses}}">
+        </label>
+    </div>
+    {{!-- todo: we have a statuses input somewhere already we should use --}}
+    <div class="form-group">
+        <label>{{localize "RSK.RemovesStatuses"}}:
+            <input type="text" name="system.{{outcomeName}}.removesStatuses" value="{{outcome.removesStatuses}}">
+        </label>
+    </div>
+
+    {{localize "RSK.Damage"}}
+    <div class="form-group">
+        <div>
+            <label>{{localize "RSK.Stab"}}
+                <input type="number" name="system.{{outcomeName}}.damageEntries.stab"
+                    value="{{outcome.damageEntries.stab}}">
             </label>
         </div>
-        {{!-- todo: we have a statuses input somewhere already we should use --}}
-        <div class="form-group status-input outcome-input">
-            <label>{{localize "RSK.AddsStatuses"}}:
-                <input type="text" class="outcome-add-status">
+        <div>
+            <label>{{localize "RSK.Slash"}}
+                <input type="number" name="system.{{outcomeName}}.damageEntries.slash"
+                    value="{{outcome.damageEntries.slash}}">
             </label>
         </div>
-        {{!-- todo: we have a statuses input somewhere already we should use --}}
-        <div class="form-group status-input outcome-input">
-            <label>{{localize "RSK.RemovesStatuses"}}:
-                <input type="text" class="outcome-remove-status">
+        <div>
+            <label>{{localize "RSK.Crush"}}
+                <input type="number" name="system.{{outcomeName}}.damageEntries.crush"
+                    value="{{outcome.damageEntries.crush}}">
             </label>
         </div>
-        <div class="form-group damage-input outcome-input">
-            <div class="form-group">
-                <label>{{localize "RSK.Typeless"}}:
-                    <input type="number" class="damage-input-typeless" value="0" min="0">
-                </label>
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Stab"}}:
-                    <input type="number" class="damage-input-stab" value="0" min="0">
-                </label>
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Slash"}}:
-                    <input type="number" class="damage-input-slash" value="0" min="0">
-                </label>
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Crush"}}:
-                    <input type="number" class="damage-input-crush" value="0" min="0">
-                </label>
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Air"}}:
-                    <input type="number" class="damage-input-air" value="0" min="0">
-                </label>
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Fire"}}:
-                    <input type="number" class="damage-input-fire" value="0" min="0">
-                </label>
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Water"}}:
-                    <input type="number" class="damage-input-water" value="0" min="0">
-                </label>
-            </div>
-            <div class="form-group">
-                <label>{{localize "RSK.Earth"}}:
-                    <input type="number" class="damage-input-earth" value="0" min="0">
-                </label>
-            </div>
+        <div>
+            <label>{{localize "RSK.Air"}}
+                <input type="number" name="system.{{outcomeName}}.damageEntries.air"
+                    value="{{outcome.damageEntries.air}}">
+            </label>
+        </div>
+        <div>
+            <label>{{localize "RSK.Water"}}
+                <input type="number" name="system.{{outcomeName}}.damageEntries.water"
+                    value="{{outcome.damageEntries.water}}">
+            </label>
+        </div>
+        <div>
+            <label>{{localize "RSK.Earth"}}
+                <input type="number" name="system.{{outcomeName}}.damageEntries.earth"
+                    value="{{outcome.damageEntries.earth}}">
+            </label>
+        </div>
+        <div>
+            <label>{{localize "RSK.Fire"}}
+                <input type="number" name="system.{{outcomeName}}.damageEntries.fire"
+                    value="{{outcome.damageEntries.fire}}">
+            </label>
         </div>
     </div>
 </div>
