@@ -73,21 +73,18 @@ export default class RSKWeapon extends RSKEquippableType {
 
         const skillResult = await actor.system.useSkill(confirmRollResult);
         const actionOutcome = this._prepareOutcomeData(actor);
-        //todo: if the specialEffect is success based, now is the time to alter the outcome
-        if (skillResult.margin >= this.specialEffect.marginThreshold) {
-            // add specialEffect
-            //  - some special effects require a prompt (ie rejuvination) how do we want to handle that?
-            if (this.specialEffect.condition === "success") {
-                // if condition === equip, we will assume an active effect is handling the change
-                const handler = getSpecialEffectHandler(this.specialEffect.name);
-                actionOutcome.outcome = await handler(actionOutcome.outcome);
-            }
+        if (skillResult.margin > 1) {
             const bonusDamage = skillResult.margin - 1;
-            const damageKey = Object.keys(actionOutcome.outcome.damage).find((k) => actionOutcome.outcome.damage[k] > 0);
+            const damageKey = Object.keys(actionOutcome.outcome.damageEntries).find((k) => actionOutcome.outcome.damageEntries[k] > 0);
             if (damageKey) {
-                actionOutcome.outcome.damage[damageKey] += bonusDamage;
+                actionOutcome.outcome.damageEntries[damageKey] += bonusDamage;
             }
         }
+
+        // if (this.specialEffect.condition === "success" && skillResult.margin >= this.specialEffect.marginThreshold) {
+        const handler = getSpecialEffectHandler("rejuvenate"); //this.specialEffect.name);
+        actionOutcome.outcome = await handler(actor, actionOutcome.outcome);
+        // }
 
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
@@ -171,7 +168,7 @@ export default class RSKWeapon extends RSKEquippableType {
 
     combineOutcomes(outcome1, outcome2) {
         return {
-            damage: this.combineDamage(outcome1.damage, outcome2.damage),
+            damage: this.combineDamage(outcome1.damageEntries, outcome2.damageEntries),
             restoresLifePoints: outcome1.restoresLifePoints + outcome2.restoresLifePoints,
             addsStatuses: [...outcome1.addsStatuses, ...outcome2.addsStatuses],
             removesStatuses: [...outcome1.removesStatuses, ...outcome2.removesStatuses],
