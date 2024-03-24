@@ -61,14 +61,23 @@
                 <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
                         value="{{system.effectDescription}}"></label>
             </div>
-            <div>
-                <label>{{localize "RSK.SpecialEffect"}}: <input type="text" name="system.specialEffect"
-                        value="{{system.specialEffect}}"></label>
+            <div class="form-group">
+                <label>{{localize "RSK.SpecialEffect"}}:
+                    <input type="text" name="system.specialEffect.name" value="{{system.specialEffect.name}}">
+                </label>
+                {{!-- todo: show/hide x y as relevant to spec effect--}}
+                <label>X:
+                    <input type="text" name="system.specialEffect.x" value="{{system.specialEffect.x}}">
+                </label>
+                <label>Y:
+                    <input type="text" name="system.specialEffect.y" value="{{system.specialEffect.y}}">
+                </label>
             </div>
-            <div>
-                <label>{{localize "RSK.Effects"}}</label>
-                {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
-            </div>
+        </div>
+        <div>
+            <label>{{localize "RSK.Effects"}}</label>
+            {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+        </div>
         </div>
         <div class="tab features" data-group="primary" data-tab="actions">
             <div class="form-group">

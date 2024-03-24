@@ -26,19 +26,19 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             usageOutcome: new fields.SchemaField({
                 damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
-                statusesAdded: new fields.SchemaField({
+                statusesAdded: new fields.ArrayField(new fields.SchemaField({
                     name: new fields.StringField(),
                     duration: new fields.NumberField(),
-                }),
+                })),
                 statusesRemoved: new fields.StringField(),
             }),
             targetOutcome: new fields.SchemaField({
                 damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
-                statusesAdded: new fields.SchemaField({
+                statusesAdded: new fields.ArrayField(new fields.SchemaField({
                     name: new fields.StringField(),
                     duration: new fields.NumberField(),
-                }),
+                })),
                 statusesRemoved: new fields.StringField(),
             }),
             // do we need something like this?
@@ -46,17 +46,16 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             // this would allow for homebrew though
             specialEffect: new fields.SchemaField({
                 name: new fields.StringField(),
-                condition: new fields.StringField(), // 'success', 'equip'
-                x: new fields.ObjectField(),
-                y: new fields.ObjectField(),
-                marginThreshold: new fields.NumberField({ initial: 1, min: 0 })
-                // type: new fields.StringField(),
+                x: new fields.StringField(),
+                y: new fields.StringField(),
                 // condition: new fields.StringField(),
+                //marginThreshold: new fields.NumberField({ initial: 1, min: 0 })
+                // type: new fields.StringField(),
                 // marginThreshold: new fields.NumberField({ initial: 1, min: 0 }),
-                // statusesAdded: new fields.SchemaField({
+                // statusesAdded: new fields.ArrayField(fields.SchemaField({
                 //     name: new fields.StringField(),
                 //     duration: new fields.NumberField(),
-                // }), // for things like 'block' we could have a 'blocking' status that uses a flag for the X value?
+                // }), // for things like 'block' we co)uld have a 'blocking' status that uses a flag for the X value?
                 // statusesRemoved: new fields.StringField(),
                 // if we wanted to model effects, this is the props we'd need
                 // key

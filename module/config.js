@@ -8,6 +8,24 @@ RSK.defaultWeapon = {
     targetOutcome: { damage: { crush: 1 } }
 };
 
+RSK.weaponSpecialEffects = {
+    rejuvenate: "RSK.Rejuvenate",
+    bleed: "RSK.Bleed",
+    freeze: "RSK.Freeze",
+    incendiary: "RSK.Incendiary",
+    knockdown: "RSK.Knockdown",
+    parry: "RSK.Parry",
+    pin: "RSK.Pin",
+    poison: "RSK.Poison",
+    puncture: "RSK.Puncture",
+    stun: "RSK.Stun",
+    swift: "RSK.Swift",
+    specialTarget: "RSK.Specialtarget",
+    spread: "RSK.Spread",
+    boost: "RSK.Boost",
+    reach: "RSK.Reach",
+}
+
 RSK.skills = {
     archaeology: "RSK.Archaeology",
     attack: "RSK.Attack",
