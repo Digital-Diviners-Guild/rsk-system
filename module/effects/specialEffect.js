@@ -13,7 +13,7 @@ import { localizeText } from "../rsk-localize.js";
 
 const specialEffects = {
     //on use
-    rejuvenate: async (outcome) => {
+    rejuvenate: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         const healing = await Dialog.prompt({
             title: localizeText("RSK.Confirm"),
@@ -26,82 +26,95 @@ ${localizeText("RSK.Confirm")} ${localizeText("RSK.Rejuvenate")}
         if (healing) {
             const damageKey = Object.keys(outcome.targetOutcome.damageEntries).find((k) => outcome.targetOutcome.damageEntries[k] > 0);
             if (damageKey) {
-                const amount = 1; //from special effect config
-                newOutcome.actorOutcome.restoresLifePoints = amount;
-                newOutcome.targetOutcome.damageEntries[damageKey] = game.rsk.math.clamp_value(newOutcome.targetOutcome.damageEntries[damageKey] -= amount, { min: 0 });
+                newOutcome.actorOutcome.restoresLifePoints = x;
+                newOutcome.targetOutcome.damageEntries[damageKey] = game.rsk.math.clamp_value(newOutcome.targetOutcome.damageEntries[damageKey] -= x, { min: 0 });
             }
         }
         return newOutcome;
     },
-    bleed: (outcome) => {
-        // this bleed status needs more than just 'bleed'
-        // we need to set a flag for the 'quality' of it.
-        // we don't yet know the target, so we need a way to 
-        // communicate this 'quality'
+    bleed: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         newOutcome.statusesAdded.push({
-            name: "bleeding",
-            x: 1
-            //            duration: 4,
+            name: "bleeding"
         });
         return newOutcome;
     },
-    freeze: (outcome) => {
+    freeze: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
-        newOutcome.statusesAdded.push({ name: "frozen" });
+        newOutcome.statusesAdded.push({
+            name: "frozen",
+            duration: x
+        });
         return newOutcome;
     },
-    incendiary: (outcome) => {
+    incendiary: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
-        newOutcome.statusesAdded.push({ name: "burning" });
+        newOutcome.statusesAdded.push({
+            name: "burning",
+            duration: x
+        });
         return newOutcome;
     },
-    knockdown: (outcome) => {
+    knockdown: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
-        newOutcome.statusesAdded.push({ name: "prone" });
+        newOutcome.statusesAdded.push({
+            name: "prone",
+            duration: x
+        });
         return newOutcome;
     },
-    parry: (outcome) => {
+    parry: async (outcome, x, y) => {
         //todo:
     },
-    pin: (outcome) => {
+    pin: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
-        newOutcome.statusesAdded.push({ name: "pinned" });
+        newOutcome.statusesAdded.push({
+            name: "pinned",
+            duration: x
+        });
         return newOutcome;
     },
-    poison: (outcome) => {
+    poison: async (outcome, x, y) => {
+        //todo: damage
         const newOutcome = { ...outcome };
-        newOutcome.statusesAdded.push({ name: "poisoned" });
+        const durationRoll = await game.rsk.dice.roll("normal", "1d3");
+        newOutcome.statusesAdded.push({
+            name: "poisoned",
+            duration: durationRoll.total
+        });
         return newOutcome;
     },
-    puncture: (outcome) => {
+    puncture: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         //todo: add puncture to damage model
         return newOutcome;
     },
-    specialTarget: (outcome) => {
+    specialTarget: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         // todo: either this could enable a double dmg button, or that is just always there?
         return newOutcome;
     },
-    spread: (outcome) => {
+    spread: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         // todo: anything to do here other than a message?
         return newOutcome;
     },
-    stun: (outcome) => {
+    stun: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
-        newOutcome.statusesAdded.push({ name: "stunned" });
+        newOutcome.statusesAdded.push({
+            name: "stunned",
+            duration: x
+        });
         return newOutcome;
     },
-    swift: (outcome) => {
+    swift: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         // todo: anything to do here other than a message?
         return newOutcome;
     },
     //on equip
     //
-    boost: (outcome) => {
+    boost: async (outcome, x, y) => {
         //this could be handled through active effect
         // but needs the 'x' in order to set the boost amount
         // and activates on equip
@@ -110,7 +123,7 @@ ${localizeText("RSK.Confirm")} ${localizeText("RSK.Rejuvenate")}
 
         // another option, on create, special effect with non usage can be made into active effects on the item during creation?
     },
-    reach: (outcome) => {
+    reach: async (outcome, x, y) => {
         //same? but might actually be ok to implement through usage
         // it only matters when you succeed, though it does mean it is possible to succeed and not have reach
         // if it is handled through 'usage' so that is important to figure out.
@@ -118,5 +131,5 @@ ${localizeText("RSK.Confirm")} ${localizeText("RSK.Rejuvenate")}
 }
 
 export const getSpecialEffectHandler = (name) => {
-    return specialEffects[name] || ((outcome) => { })
+    return specialEffects[name] || (async (outcome, x, y) => { })
 }

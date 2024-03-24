@@ -46,17 +46,18 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             // this would allow for homebrew though
             specialEffect: new fields.SchemaField({
                 name: new fields.StringField(),
-                type: new fields.StringField(),
-                // could be 'success', 'equip'
-                condition: new fields.StringField(),
-                marginThreshold: new fields.NumberField({ initial: 1, min: 0 }),
-                statusesAdded: new fields.SchemaField({
-                    name: new fields.StringField(),
-                    duration: new fields.NumberField(),
-                }), // for things like 'block' we could have a 'blocking' status that uses a flag for the X value?
-                statusesRemoved: new fields.StringField(),
+                condition: new fields.StringField(), // 'success', 'equip'
                 x: new fields.ObjectField(),
-                y: new fields.ObjectField()
+                y: new fields.ObjectField(),
+                marginThreshold: new fields.NumberField({ initial: 1, min: 0 })
+                // type: new fields.StringField(),
+                // condition: new fields.StringField(),
+                // marginThreshold: new fields.NumberField({ initial: 1, min: 0 }),
+                // statusesAdded: new fields.SchemaField({
+                //     name: new fields.StringField(),
+                //     duration: new fields.NumberField(),
+                // }), // for things like 'block' we could have a 'blocking' status that uses a flag for the X value?
+                // statusesRemoved: new fields.StringField(),
                 // if we wanted to model effects, this is the props we'd need
                 // key
                 // mode
