@@ -13,7 +13,7 @@ import { localizeText } from "../rsk-localize.js";
 
 const specialEffects = {
     //on use
-    rejuvenate: async (outcome) => {
+    rejuvenate: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         const healing = await Dialog.prompt({
             title: localizeText("RSK.Confirm"),
@@ -26,37 +26,37 @@ ${localizeText("RSK.Confirm")} ${localizeText("RSK.Rejuvenate")}
         if (healing) {
             const damageKey = Object.keys(outcome.targetOutcome.damageEntries).find((k) => outcome.targetOutcome.damageEntries[k] > 0);
             if (damageKey) {
-                newOutcome.actorOutcome.restoresLifePoints = outcome.specialEffect.x;
-                newOutcome.targetOutcome.damageEntries[damageKey] = game.rsk.math.clamp_value(newOutcome.targetOutcome.damageEntries[damageKey] -= outcome.specialEffect.x, { min: 0 });
+                newOutcome.actorOutcome.restoresLifePoints = Number(x);
+                newOutcome.targetOutcome.damageEntries[damageKey] = game.rsk.math.clamp_value(newOutcome.targetOutcome.damageEntries[damageKey] -= Number(x), { min: 0 });
             }
         }
         return newOutcome;
     },
-    bleed: async (outcome) => {
+    bleed: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         newOutcome.targetOutcome.statusesAdded.push({
             name: "bleeding",
             flags: {
                 damageEntries: {
-                    typeless: outcome.specialEffect.x
+                    typeless: Number(x),
                 }
             }
         });
         return newOutcome;
     },
-    freeze: async (outcome) => {
+    freeze: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         newOutcome.targetOutcome.statusesAdded.push({
             name: "frozen",
-            duration: outcome.specialEffect.x
+            duration: Number(x),
         });
         return newOutcome;
     },
-    incendiary: async (outcome) => {
+    incendiary: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         newOutcome.targetOutcome.statusesAdded.push({
             name: "burning",
-            duration: outcome.specialEffect.x,
+            duration: Number(x,),
             flags: {
                 damageEntries: {
                     fire: 3
@@ -65,29 +65,29 @@ ${localizeText("RSK.Confirm")} ${localizeText("RSK.Rejuvenate")}
         });
         return newOutcome;
     },
-    knockdown: async (outcome) => {
+    knockdown: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         newOutcome.targetOutcome.statusesAdded.push({
             name: "prone",
-            duration: outcome.specialEffect.x
+            duration: Number(x),
         });
         return newOutcome;
     },
-    parry: async (outcome) => {
+    parry: async (outcome, x, y) => {
         //todo:
         // dialog to get amount to 'parry'
         // add soak for next round (probably done through a status 'parry', that can last 1 round and add the soak that way)
         // add status to actorOutcome
     },
-    pin: async (outcome) => {
+    pin: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         newOutcome.targetOutcome.statusesAdded.push({
             name: "pinned",
-            duration: outcome.specialEffect.x
+            duration: Number(x),
         });
         return newOutcome;
     },
-    poison: async (outcome) => {
+    poison: async (outcome, x, y) => {
         //todo: actually use this damage in the combat tracker
         const newOutcome = { ...outcome };
         const durationRoll = await game.rsk.dice.roll("normal", "1d3");
@@ -96,43 +96,43 @@ ${localizeText("RSK.Confirm")} ${localizeText("RSK.Rejuvenate")}
             duration: durationRoll.total,
             flags: {
                 damageEntries: {
-                    poison: outcome.specialEffect.x
+                    poison: Number(x),
                 }
             }
         });
         return newOutcome;
     },
-    puncture: async (outcome) => {
+    puncture: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
-        newOutcome.targetOutcome.damageEntries["puncture"] = outcome.specialEffect.x;
+        newOutcome.targetOutcome.damageEntries["puncture"] = Number(x);
         return newOutcome;
     },
-    stun: async (outcome) => {
+    stun: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         newOutcome.targetOutcome.statusesAdded.push({
             name: "stunned",
-            duration: outcome.specialEffect.x
+            duration: Number(x),
         });
         return newOutcome;
     },
-    swift: async (outcome) => {
+    swift: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         // todo: anything to do here other than a message?
         return newOutcome;
     },
-    specialTarget: async (outcome) => {
+    specialTarget: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         // todo: either this could enable a double dmg button, or that is just always there?
         return newOutcome;
     },
-    spread: async (outcome) => {
+    spread: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
         // todo: anything to do here other than a message?
         return newOutcome;
     },
     //on equip
     //
-    boost: async (outcome) => {
+    boost: async (outcome, x, y) => {
         //this could be handled through active effect
         // but needs the 'x' in order to set the boost amount
         // and activates on equip
@@ -141,7 +141,7 @@ ${localizeText("RSK.Confirm")} ${localizeText("RSK.Rejuvenate")}
 
         // another option, on create, special effect with non usage can be made into active effects on the item during creation?
     },
-    reach: async (outcome) => {
+    reach: async (outcome, x, y) => {
         //same? but might actually be ok to implement through usage
         // it only matters when you succeed, though it does mean it is possible to succeed and not have reach
         // if it is handled through 'usage' so that is important to figure out.
@@ -149,5 +149,5 @@ ${localizeText("RSK.Confirm")} ${localizeText("RSK.Rejuvenate")}
 }
 
 export const getSpecialEffectHandler = (name) => {
-    return specialEffects[name] || (async (outcome) => { return outcome; })
+    return specialEffects[name] || (async (outcome, x, y) => { return outcome; })
 }

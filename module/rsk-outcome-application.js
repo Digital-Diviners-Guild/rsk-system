@@ -110,8 +110,10 @@ export const applyOutcome2 = async (outcomeData) => {
     const rollMargin = outcomeData.rollMargin;
     let outcome = foundry.utils.deepClone(outcomeData);
     if (rollMargin > 0) {
-        const handler = getSpecialEffectHandler(outcome.specialEffect.name);
-        outcome = await handler(outcome);
+        for (let spfx of outcome.specialEffect) {
+            const handler = getSpecialEffectHandler(spfx.name);
+            outcome = await handler(outcome, spfx.x, spfx.y);
+        }
     }
     if (rollMargin > 1) {
         const bonusDamage = rollMargin - 1;

@@ -137,7 +137,7 @@ export default class RSKWeapon extends RSKEquippableType {
                 //targetUuids: [];
                 targetOutcome: { ...this.targetOutcome },
                 actorOutcome: { ...this.usageOutcome },
-                specialEffect: { ...this.specialEffect }
+                specialEffect: [...this.specialEffect]
                 // specialEffect: { ...this.specialEffect },
             };
         } else {
