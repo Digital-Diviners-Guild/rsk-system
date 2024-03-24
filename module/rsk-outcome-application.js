@@ -42,7 +42,7 @@ const getDefenseRoll = async (target, actionType) => {
 
 const addStatuses = async (actor, statuses) => {
     const addedStatusEffects = statuses.map(s => statusToEffect(
-        CONFIG.statusEffects.find(se => se.id === s), s.duration, s.flags));
+        CONFIG.statusEffects.find(se => se.id === s.name), s.duration, s.flags));
     await addEffects(actor, addedStatusEffects);
 }
 
@@ -106,18 +106,19 @@ export const applyOutcome = async (actionData) => {
     }
 }
 
-export const applyOutcome2 = async (actionData) => {
-    if (actionData.rollMargin > 1) {
-        const bonusDamage = actionData.rollMargin - 1;
-        const damageKey = Object.keys(actionData.targetOutcome.damageEntries).find((k) => actionData.targetOutcome.damageEntries[k] > 0);
-        if (damageKey) {
-            actionData.targetOutcome.damageEntries[damageKey] += bonusDamage;
-        }
+export const applyOutcome2 = async (outcomeData) => {
+    const rollMargin = outcomeData.rollMargin;
+    let outcome = foundry.utils.deepClone(outcomeData);
+    if (rollMargin > 0) {
+        const handler = getSpecialEffectHandler(outcome.specialEffect.name);
+        outcome = await handler(outcome);
     }
-
-    if (actionData.specialEffect.condition === "success" && actionData.rollMargin >= actionData.specialEffect.marginThreshold) {
-        const handler = getSpecialEffectHandler(actionData.specialEffect.name);
-        actionData = await handler(actionData);
+    if (rollMargin > 1) {
+        const bonusDamage = rollMargin - 1;
+        const damageKey = Object.keys(outcome.targetOutcome.damageEntries).find((k) => outcome.targetOutcome.damageEntries[k] > 0);
+        if (damageKey) {
+            outcome.targetOutcome.damageEntries[damageKey] += bonusDamage;
+        }
     }
 
     const isGM = game.user?.isGM;
@@ -125,29 +126,29 @@ export const applyOutcome2 = async (actionData) => {
         ? [...game.user.targets.map(t => t.actor)]
         : [game.user.character];
     for (let target of targets) {
-        await apply(target, actionData.targetOutcome);
+        await apply(target, outcome.targetOutcome);
     }
 
-    const actor = fromUuidSync(actionData.actorUuid);
-    await apply(actor, actionData.actorOutcome);
+    const actor = fromUuidSync(outcome.actorUuid);
+    await apply(actor, outcome.actorOutcome);
 }
 
 const apply = async (target, outcome) => {
     if (!target) return;
 
     if (outcome.damageEntries) {
-        await target.system.receiveDamage({ damageEntries: outcome.damageEntries });
+        await receiveDamage(target, outcome.damageEntries);
     }
     if (outcome.restoresLifePoints) {
-        await target.system.restoreLifePoints(outcome.restoresLifePoints);
+        await restoreLifePoints(target, outcome.restoresLifePoints);
     }
     if (outcome.effectsAdded?.length > 0) {
-        await target.system.addEffects(outcome.effectsAdded);
+        await addEffects(target, outcome.effectsAdded);
     }
     if (outcome.statusesAdded?.length > 0) {
-        await target.system.addStatuses(outcome.statusesAdded);
+        await addStatuses(target, outcome.statusesAdded);
     }
     if (outcome.statusesRemoved?.length > 0) {
-        await target.system.removeStatuses(outcome.statusesRemoved);
+        await removeStatuses(target, outcome.statusesRemoved);
     }
 }

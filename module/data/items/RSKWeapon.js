@@ -1,4 +1,3 @@
-import { getSpecialEffectHandler } from "../../effects/specialEffect.js";
 import { uiService } from "../../rsk-ui-service.js";
 import { fields } from "../fields.js";
 import RSKEquippableType from "./RSKEquippableType.js";
@@ -134,12 +133,11 @@ export default class RSKWeapon extends RSKEquippableType {
                 effectDescription: this.effectDescription,
                 img: this.parent?.img ?? "",
                 actionType: "melee", // should this maybe be 'attackType' in the damage model?
-                outcome: { ...this.targetOutcome },
                 actorUuid: actor.uuid,
                 //targetUuids: [];
                 targetOutcome: { ...this.targetOutcome },
-                actorOutcome: {},
-                specialEffect: { condition: "success", name: "rejuvenate", marginThreshold: 1 }
+                actorOutcome: { ...this.usageOutcome },
+                specialEffect: { ...this.specialEffect }
                 // specialEffect: { ...this.specialEffect },
             };
         } else {
