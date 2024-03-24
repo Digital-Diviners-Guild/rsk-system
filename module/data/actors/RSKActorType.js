@@ -22,7 +22,9 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
             }]);
         }
         this.parent.update({ "system.lifePoints.value": remainingLifePoints });
-        Hooks.call("actorReceivedDamage", { targetActor: this.parent, damageTaken, remainingLifePoints });
+        if (damageTaken > 0) {
+            Hooks.call("actorReceivedDamage", { targetActor: this.parent, damageTaken, remainingLifePoints });
+        }
     }
 
     calculateDamageTaken(damageEntries, attackType = "melee", puncture = 0, defense = 0) {

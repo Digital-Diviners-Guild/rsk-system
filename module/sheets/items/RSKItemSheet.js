@@ -56,6 +56,32 @@ export default class RSKItemSheet extends ItemSheet {
             this.item.update({ "system.usageCost": updatedUsageCost });
         });
 
+        html.find(".add-special-effect").click(async (ev) => {
+            const name = $("#new-special-effect-name");
+            const x = $("#new-special-effect-x");
+            const y = $("#new-special-effect-y");
+            const nameVal = name.val();
+            const xVal = x.val();
+            const yVal = y.val();
+
+            const specialEffect = this.item.system.specialEffect.filter(sp => sp.name !== nameVal);
+            specialEffect.push({ name: nameVal, x: xVal, y: yVal });
+            await this.item.update({ "system.specialEffect": specialEffect });
+
+            name.value = "";
+            x.value = "";
+            y.value = "";
+        });
+
+        html.find(".remove-special-effect").click((ev) => {
+            const name = $(ev.currentTarget)
+                .parents(".item")
+                .data("name");
+
+            const updatedSpecialEffect = this.item.system.specialEffect.filter(c => c.name !== name);
+            this.item.update({ "system.specialEffect": updatedSpecialEffect });
+        });
+
         html.find('.effect-create').on('click', ev => {
             CONFIG.ActiveEffect.documentClass.create({
                 label: "New Effect",

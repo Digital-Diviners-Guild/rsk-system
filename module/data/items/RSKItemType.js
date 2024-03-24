@@ -44,7 +44,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             // do we need something like this?
             // or should we just have them pre implemented and use a drop down?
             // this would allow for homebrew though
-            specialEffect: new fields.SchemaField({
+            specialEffect: new fields.ArrayField(new fields.SchemaField({
                 name: new fields.StringField(),
                 x: new fields.StringField(),
                 y: new fields.StringField(),
@@ -61,7 +61,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 // key
                 // mode
                 // value
-            }),
+            })),
 
 
             //todo: new target model to help with targetting rules

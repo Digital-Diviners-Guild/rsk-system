@@ -61,23 +61,42 @@
                 <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
                         value="{{system.effectDescription}}"></label>
             </div>
-            <div class="form-group">
+            {{!-- todo this is a list --}}
+            <div>
                 <label>{{localize "RSK.SpecialEffect"}}:
-                    <input type="text" name="system.specialEffect.name" value="{{system.specialEffect.name}}">
-                </label>
-                {{!-- todo: show/hide x y as relevant to spec effect--}}
-                <label>X:
-                    <input type="text" name="system.specialEffect.x" value="{{system.specialEffect.x}}">
-                </label>
-                <label>Y:
-                    <input type="text" name="system.specialEffect.y" value="{{system.specialEffect.y}}">
-                </label>
+                    <div>
+                        <ol class="items-list">
+                            {{#each system.specialEffect as |spfx|}}
+                            <li class="item flexrow" data-name="{{spfx.name}}">
+                                {{spfx.name}} {{spfx.x}} {{spfx.y}}
+                                <div class=" item-controls">
+                                    <a class="item-control remove-special-effect" title="Delete Special Effect"><i
+                                            class="fas fa-trash"></i></a>
+                                </div>
+                            </li>
+                            {{/each}}
+                        </ol>
+                        <div class="form-group">
+                            <label>{{localize "RSK.Name"}}
+                                <select id="new-special-effect-name">
+                                    {{selectOptions config.weaponSpecialEffects localize=true}}
+                                </select>
+                            </label>
+                            <label>{{localize "RSK.X"}}</label>
+                            <input id="new-special-effect-x" type="text">
+
+                            <label>{{localize "RSK.Y"}}</label>
+                            <input id="new-special-effect-y" type="text">
+                            <a class="item-control add-special-effect" title="add special effect">
+                                <i class="fas fa-plus"></i> {{localize "Add Special Effect"}}
+                            </a>
+                        </div>
+                    </div>
             </div>
-        </div>
-        <div>
-            <label>{{localize "RSK.Effects"}}</label>
-            {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
-        </div>
+            <div>
+                <label>{{localize "RSK.Effects"}}</label>
+                {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+            </div>
         </div>
         <div class="tab features" data-group="primary" data-tab="actions">
             <div class="form-group">
