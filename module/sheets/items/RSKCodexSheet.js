@@ -22,7 +22,6 @@ export default class RSKCodexSheet extends ItemSheet {
         return context;
     }
 
-
     activateListeners(html) {
         super.activateListeners(html);
         html.find('.item-delete').click(ev => {

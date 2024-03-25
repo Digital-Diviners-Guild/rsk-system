@@ -1,7 +1,31 @@
 import { canAddItem } from "../../rsk-inventory.js";
 
 export default class RSKItemCollectionSheet extends ItemSheet {
+    static get defaultOptions() {
+        return mergeObject(super.defaultOptions, {
+            classes: ["rsk", "sheet", "item"],
+            width: 600,
+            height: 600,
+            tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }],
+            dragDrop: [{ dropSelector: "[data-can-drop=true]" }],
+        });
+    }
+
+    get template() {
+        return 'systems/rsk/templates/items/itemCollection-sheet.hbs';
+    }
+
     invalidTypes = ["action", "magic", "prayer", "summoning"];
+
+
+    getData() {
+        const context = super.getData();
+        const itemData = context.item;
+        context.system = itemData.system;
+        context.flags = itemData.flags;
+        context.config = CONFIG.RSK;
+        return context;
+    }
 
     activateListeners(html) {
         super.activateListeners(html);
