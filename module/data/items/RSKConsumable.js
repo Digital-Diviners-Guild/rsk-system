@@ -1,4 +1,5 @@
 import RSKItemType from "./RSKItemType.js";
+import { localizeText } from "../../rsk-localize.js";
 
 //todo: add effects
 export default class RSKConsumable extends RSKItemType {
@@ -9,18 +10,28 @@ export default class RSKConsumable extends RSKItemType {
                 name: `${actor.name} ${localizeText("RSK.Uses")} ${this.parent.name}`,
                 hideRollResults: true
             });
+        const outcome = { ...this.targetOutcome };
+        if (outcome.addedEffects) {
+            outcome.addedEffects.push([...addedEffects]);
+        } else {
+            outcome.addedEffects = [...addedEffects];
+        }
         await ChatMessage.create({
             content: content,
             flags: {
                 rsk: {
+                    actorUuid: actor.uuid,
+                    name: this.parent.name,
+                    description: this.description,
+                    effectDescription: this.effectDescription,
                     actionType: "consume",
-                    outcome: {
-                        ...this.targetOutcomes,
-                        effectsAdded: [...addedEffects]
-                    },
+                    img: this.parent.img,
+                    targetOutcome: { ...outcome },
+                    actorOutcome: { ...this.usageOutcome },
+                    specialEffect: [...this.specialEffect]
                 }
             }
         });
-        actor.system.removeItem(this);
+        actor.system.removeItem(this.parent);
     }
 }

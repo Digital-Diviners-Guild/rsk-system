@@ -82,52 +82,8 @@ export default class RSKItemSheet extends ItemSheet {
             this.item.update({ "system.specialEffect": updatedSpecialEffect });
         });
 
-        //todo:refactor
-        html.find(".add-status-usageOutcome").click(async (ev) => {
-            const name = $("#new-status-name-usageOutcome");
-            const duration = $("#new-status-duration-usageOutcome");
-            const nameVal = name.val();
-            const durationVal = Number(duration.val());
-
-            const updates = this.item.system.usageOutcome.statusesAdded.filter(s => s.name && s.name !== nameVal);
-            updates.push({ name: nameVal, duration: durationVal });
-            await this.item.update({ "system.usageOutcome.statusesAdded": updates });
-
-            name.value = "";
-            duration.value = 0;
-        });
-
-        html.find(".remove-special-effect-usageOutcome").click((ev) => {
-            const name = $(ev.currentTarget)
-                .parents(".item")
-                .data("name");
-
-            const updates = this.item.system.usageOutcome.statusesAdded.filter(c => c.name !== name);
-            this.item.update({ "system.usageOutcome.statusesAdded": updates });
-        });
-
-        html.find(".add-status-targetOutcome").click(async (ev) => {
-            const name = $("#new-status-name-targetOutcome");
-            const duration = $("#new-status-duration-targetOutcome");
-            const nameVal = name.val();
-            const durationVal = duration.val();
-
-            const updates = this.item.system.targetOutcome.statusesAdded.filter(s => s.name !== nameVal);
-            updates.push({ name: nameVal, duration: durationVal });
-            await this.item.update({ "system.targetOutcome.statusesAdded": updates });
-
-            name.value = "";
-            duration.value = 0;
-        });
-
-        html.find(".remove-special-effect-targetOutcome").click((ev) => {
-            const name = $(ev.currentTarget)
-                .parents(".item")
-                .data("name");
-
-            const updates = this.item.system.targetOutcome.statusesAdded.filter(c => c.name !== name);
-            this.item.update({ "system.targetOutcome.statusesAdded": updates });
-        });
+        this.registerStatusInputEvents(html, "targetOutcome");
+        this.registerStatusInputEvents(html, "usageOutcome");
 
         html.find('.effect-create').on('click', ev => {
             CONFIG.ActiveEffect.documentClass.create({
@@ -172,5 +128,51 @@ export default class RSKItemSheet extends ItemSheet {
         });
         this.item.createEmbeddedDocuments("ActiveEffect", [...droppedEffects]);
         this.render(true);
+    }
+
+    registerStatusInputEvents(html, outcomeName) {
+        html.find(`.add-status-${outcomeName}`).click(async (ev) => {
+            const name = $(`#new-status-name-${outcomeName}`);
+            const duration = $(`#new-status-duration-${outcomeName}`);
+            const nameVal = name.val();
+            const durationVal = Number(duration.val());
+            const updates = this.item.system[outcomeName].statusesAdded.filter(s => s.name && s.name !== nameVal);
+            updates.push({ name: nameVal, duration: durationVal });
+            await this.item.update({ [`system.${outcomeName}.statusesAdded`]: updates });
+
+            name.value = "";
+            duration.value = 0;
+        });
+
+        html.find(`.remove-status`).click((ev) => {
+            const parent = $(ev.currentTarget)
+                .parents(".item");
+            const name = parent.data("name");
+            const outcome = parent.parents(".items-list").data("outcome");
+
+            const updates = this.item.system[outcome].statusesAdded.filter(c => c.name !== name);
+            this.item.update({ [`system.${outcome}.statusesAdded`]: updates });
+        });
+
+        html.find(`.add-remove-status-${outcomeName}`).click(async (ev) => {
+            const name = $(`#new-status-remove-name-${outcomeName}`);
+            const nameVal = name.val();
+
+            const updates = this.item.system[outcomeName].statusesRemoved.filter(s => s !== nameVal);
+            updates.push(nameVal);
+            await this.item.update({ [`system.${outcomeName}.statusesRemoved`]: updates });
+
+            name.value = "";
+        });
+
+        html.find(`.remove-remove-status`).click((ev) => {
+            const parent = $(ev.currentTarget)
+                .parents(".item");
+            const name = parent.data("name");
+            const outcome = parent.parents(".items-list").data("outcome");
+
+            const updates = this.item.system[outcome].statusesRemoved.filter(c => c !== name);
+            this.item.update({ [`system.${outcome}.statusesRemoved`]: updates });
+        });
     }
 }
