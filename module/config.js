@@ -43,6 +43,11 @@ RSK.itemCategories = {
     material: "RSK.Material"
 };
 
+RSK.consumableCategories = {
+    food: "RSK.Food",
+    potion: "RSK.Potion"
+};
+
 RSK.rawMaterialType = {
     none: "",
     wood: "RSK.Wood",

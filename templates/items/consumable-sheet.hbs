@@ -11,20 +11,11 @@
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
             <div style="display: flex;">
-                <div class="w-50">
-                    <label>{{localize "RSK.Category"}}:
-                        <select name="system.category">
-                            {{selectOptions config.itemCategories selected=system.category localize=true}}
-                        </select>
-                    </label>
-                </div>
-                <div class="w-50">
-                    <label>{{localize "RSK.SubCategory"}}:
-                        <select name="system.subCategory">
-                            {{selectOptions config.itemSubCategories selected=system.subCategory localize=true}}
-                        </select>
-                    </label>
-                </div>
+                <label>{{localize "RSK.Category"}}:
+                    <select name="system.category">
+                        {{selectOptions config.consumableCategories selected=system.category localize=true}}
+                    </select>
+                </label>
             </div>
             <div style="display: flex;">
                 <label>{{localize "RSK.Cost"}}: <input type="number" name="system.cost" value="{{system.cost}}"></label>
