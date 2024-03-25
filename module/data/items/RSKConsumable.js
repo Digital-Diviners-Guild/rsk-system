@@ -1,7 +1,6 @@
 import RSKItemType from "./RSKItemType.js";
 import { localizeText } from "../../rsk-localize.js";
 
-//todo: add effects
 export default class RSKConsumable extends RSKItemType {
     async use(actor) {
         const addedEffects = this.parent.effects.map(e => foundry.utils.deepClone(e.toObject()));

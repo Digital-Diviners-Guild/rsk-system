@@ -38,28 +38,11 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 effectsAdded: new fields.ArrayField(new fields.ObjectField()),
                 statusesRemoved: new fields.ArrayField(new fields.StringField()),
             }),
-            // do we need something like this?
-            // or should we just have them pre implemented and use a drop down?
-            // this would allow for homebrew though
             specialEffect: new fields.ArrayField(new fields.SchemaField({
                 name: new fields.StringField(),
                 x: new fields.StringField(),
                 y: new fields.StringField(),
-                // condition: new fields.StringField(),
-                //marginThreshold: new fields.NumberField({ initial: 1, min: 0 })
-                // type: new fields.StringField(),
-                // marginThreshold: new fields.NumberField({ initial: 1, min: 0 }),
-                // statusesAdded: new fields.ArrayField(fields.SchemaField({
-                //     name: new fields.StringField(),
-                //     duration: new fields.NumberField(),
-                // }), // for things like 'block' we co)uld have a 'blocking' status that uses a flag for the X value?
-                // statusesRemoved: fields.ArrayField(new fields.StringField()),
-                // if we wanted to model effects, this is the props we'd need
-                // key
-                // mode
-                // value
             })),
-
 
             //todo: new target model to help with targetting rules
             // target: new fields.SchemaField({

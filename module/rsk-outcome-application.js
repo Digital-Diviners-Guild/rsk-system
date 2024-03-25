@@ -15,10 +15,6 @@ import { statusToEffect } from "./effects/statuses.js";
 import { getSpecialEffectHandler } from "./effects/specialEffect.js";
 
 
-
-// todo: I think we need to backpeddle on the individual operation configuration
-// and just have a model for outcome, and it is applied as one thing.
-// that will be easier for a lot of things.
 const getDefenseRoll = async (target, actionType) => {
     if (!game?.rsk?.featureFlags?.characterDefenseTests) return 0;
 
