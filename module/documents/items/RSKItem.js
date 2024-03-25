@@ -19,26 +19,23 @@ export default class RSKItem extends Item {
     }
 
     isRangedWeapon() {
-        return this.isWeapon() && (this.system.attackMethods.has("ranged")
-            || this.system.attackMethods.has("thrown"));
+        return this.isWeapon() && ["thrown", "ranged"].includes(this.system.category);
     }
 
     isThrownWeapon() {
-        return this.isWeapon() && this.system.attackMethods.has("thrown");
+        return this.isWeapon() && this.system.category === "thrown";
     }
 
     isMeleeWeapon() {
-        return this.isWeapon() && this.system.attackMethods.has("melee");
+        return this.isWeapon() && this.system.category === "melee";
     }
 
     isOnlyAmmo() {
-        return this.isWeapon()
-            && this.system.attackMethods.has("ammo")
-            && this.system.attackMethods.size === 1;
+        return this.isWeapon() && this.system.category === "ammo";
     }
 
     isAmmo() {
-        return this.system.attackMethods.has("ammo");
+        return ["ammo", "thrown"].includes(this.system.category);
     }
 
     isOrUsesAmmo() {
@@ -46,12 +43,9 @@ export default class RSKItem extends Item {
     }
 
     usesItemAsAmmo(item) {
-        return this.isWeapon()
-            && item.isWeapon()
-            && this.system.attackMethods.has("ranged")
-            && !this.system.attackMethods.has("ammo")
-            && item.system.attackMethods.has("ammo")
-            && this.system.ammoType === item.system.ammoType;
+        return this !== item
+            && ["ammo", "thrown"].includes(this.category)
+            && this.subCategory === item.ammoType;
     }
 
     canWieldWith(item) {

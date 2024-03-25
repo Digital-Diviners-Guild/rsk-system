@@ -1,6 +1,4 @@
 import RSKItemSheet from "./RSKItemSheet.js";
-import { localizeText } from "../../rsk-localize.js";
-import { uiService } from "../../rsk-ui-service.js";
 
 export default class RSKWeaponSheet extends RSKItemSheet {
     static get defaultOptions() {
@@ -13,7 +11,7 @@ export default class RSKWeaponSheet extends RSKItemSheet {
     }
 
     get template() {
-        return `systems/rsk/templates/items/${this.item.type}-sheet.hbs`
+        return `systems/rsk/templates/items/weapon-sheet.hbs`
     }
 
     getData() {
@@ -26,38 +24,11 @@ export default class RSKWeaponSheet extends RSKItemSheet {
         context.range = !this.item.isOnlyAmmo();
         context.showAmmo = this.item.isOrUsesAmmo();
         context.showEffects = this.item.isAmmo() || this.item.isMeleeWeapon();
-        context.attackMethods = this.item.system.attackMethods
-            .reduce((ams, am) => ams !== "" ? `${ams}, ${am}` : am, "");
         return context;
     }
 
     activateListeners(html) {
         super.activateListeners(html);
-        html.find('.attackMethod-checkbox').change(ev => this._onAttackTypeCheckbox(ev));
-    }
-
-    _onAttackTypeCheckbox(ev) {
-        const target = $(ev.currentTarget);
-        const isChecked = target.prop("checked");
-        const attackMethod = target.val();
-        this._updateAttackType(attackMethod, isChecked);
-    }
-
-    _updateAttackType(attackMethod, isChecked) {
-        let updated;
-
-        if (isChecked) {
-            updated = new Set([...this.item.system.attackMethods, attackMethod])
-        } else {
-            updated = new Set(this.item.system.attackMethods.filter(x => x !== attackMethod));
-        }
-
-        if (updated.size > 0) {
-            this.item.update({ [`system.attackMethods`]: [...updated] });
-        } else {
-            uiService.showNotification(localizeText("RSK.NoAttackMethodSelected"));
-            this.item.render(false);
-        }
     }
 
     //todo: toggle options in the sheets with the attack type bools

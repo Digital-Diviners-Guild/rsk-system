@@ -93,15 +93,6 @@ RSK.ammunitionType = {
     dart: "Dart"
 }
 
-//todo: what do we need for these?
-RSK.weaponCategories = {
-    sword: "RSK.Sword",
-    polearm: "RSK.Polearm",
-    bow: "RSK.Bow",
-    thrown: "RSK.Thrown",
-    ...RSK.ammunitionType,
-};
-
 RSK.defaultWeapon = {
     isEquipped: true,
     weaponType: "simple",
@@ -283,7 +274,8 @@ RSK.armourActiveSlotType = {
 RSK.weaponTypes = {
     simple: "RSK.Simple",
     martial: "RSK.Martial",
-    unique: "RSK.Unique"
+    unique: "RSK.Unique",
+    ...RSK.ammunitionType
 }
 
 //todo: keep exploring these - ie try and use it somewhere

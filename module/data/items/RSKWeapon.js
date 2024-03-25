@@ -11,51 +11,27 @@ export default class RSKWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
             ...RSKItemType.defineSchema(),
-            //todo: can we kill these properties?
-            attackMethods: new fields.SetField(new fields.StringField({
-                choices: [...Object.keys(CONFIG.RSK.attackMethods)]
-            }), {
-                required: true,
-                initial: ["melee"],
-                choices: [...Object.keys(CONFIG.RSK.attackMethods)]
-            }),
-            // might be able to use subCategory for this.
-            weaponType: new fields.StringField({
-                required: true,
-                initial: "simple",
-                choices: [...Object.keys(CONFIG.RSK.weaponTypes)]
-            }),
-            // might be able to use category for this.
             ammoType: new fields.StringField({
                 choices: [...Object.keys(CONFIG.RSK.ammunitionType)]
             })
         }
     };
 
-    usesItemAsAmmo(item) {
-        return this !== item
-            && this.attackMethods.has("ranged")
-            && item.attackMethods.has("ammo")
-            && this.ammoType === item.ammoType;
-    }
-
     //todo: refactor canuse/use to better handle melee/thrown/regular ranged
     canUse(actor) {
-        if (this.attackMethods.has("melee")) {
-            //todo: use subCategory instead of weaponType?
-            // this might allow us to remove the weaponType property.
-            if (this.weaponType === "martial" && actor.system.skills["attack"].level < 5) {
+        if (this.category === "melee") {
+            if (this.subCategory === "martial" && actor.system.skills["attack"].level < 5) {
                 uiService.showNotification(localizeText("RSK.AttackLevelTooLow"));
                 return false;// maybe we should return the message as an error?
             }
             return this.isEquipped;
         }
 
-        if (this.weaponType === "martial" && actor.system.skills["ranged"].level < 5) {
+        if (this.subCategory === "martial" && actor.system.skills["ranged"].level < 5) {
             uiService.showNotification(localizeText("RSK.RangedLevelTooLow"));
             return false;// maybe we should return the message as an error?
         }
-        const ammo = this._getAmmo();
+        const ammo = this._getAmmo(actor);
         if (!ammo || ammo.quantity < 1) {
             uiService.showNotification(localizeText("RSK.NoAmmoAvailable"));
             return false;
@@ -67,20 +43,19 @@ export default class RSKWeapon extends RSKEquippableType {
         return {
             ...actor.system.getRollData(),
             targetNumberModifier: this.targetNumberModifier,
-            skill: this.attackMethods.has("melee") ? "attack" : "ranged",
-            //todo: use subCategory === martial?
-            ability: this.weaponType === "martial" ? "agility" : "strength"
+            skill: this.category === "melee" ? "attack" : "ranged",
+            ability: this.subCategory === "martial" ? "agility" : "strength"
         };
     }
 
     _getAmmo(actor) {
-        return this.attackMethods.has("thrown")
+        return this.category === "thrown"
             ? this
-            : actor.system.getActiveItems().find(i => usesItemAsAmmo(i.system));
+            : actor.system.getActiveItems().find(i => this.parent?.usesItemAsAmmo(i.system));
     }
 
     _prepareOutcomeData(actor) {
-        if (this.attackMethods.has("melee")) {
+        if (this.category === "melee") {
             return {
                 name: this.parent?.name ?? "Unarmed",
                 description: this.description,
@@ -117,7 +92,7 @@ export default class RSKWeapon extends RSKEquippableType {
     }
 
     _handleItemUsed(actor, skillResult) {
-        if (!this.attackMethods.has("melee")) {
+        if (!this.category === "melee") {
             const ammo = this._getAmmo(actor);
             actor.system.removeItem(ammo);
         }
