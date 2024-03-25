@@ -3,23 +3,9 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" style="height: 128px; width: 128px" />
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
-    {{#if showRuneTemplate}}
-    {{> "/systems/rsk/templates/items/parts/rune-nav.hbs"}}
-    {{> "/systems/rsk/templates/items/parts/rune.hbs"}}
-    {{else if showMaterialTemplate}}
-    {{> "/systems/rsk/templates/items/parts/material-nav.hbs"}}
-    {{> "/systems/rsk/templates/items/parts/material.hbs"}}
-    {{else if showResourceTemplate}}
-    {{> "/systems/rsk/templates/items/parts/resource-nav.hbs"}}
-    {{> "/systems/rsk/templates/items/parts/resource.hbs"}}
-    {{else if showEquipmentTemplate}}
-    {{> "/systems/rsk/templates/items/parts/equipment-nav.hbs"}}
-    {{> "/systems/rsk/templates/items/parts/equipment.hbs"}}
-    {{else}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
         <a class="item" data-tab="actions">{{localize "RSK.Actions"}}</a>
-        <a class="item" data-tab="crafting">{{localize "RSK.Crafting"}}</a>
     </nav>
     <section class="sheet-body">
         <div class="tab features" data-group="primary" data-tab="description">
@@ -27,14 +13,14 @@
                 <div class="w-50">
                     <label>{{localize "RSK.Category"}}:
                         <select name="system.category">
-                            {{selectOptions config.itemCategories selected=system.category localize=true}}
+                            {{selectOptions config.castableCategories selected=system.category localize=true}}
                         </select>
                     </label>
                 </div>
                 <div class="w-50">
-                    <label>{{localize "RSK.SubCategory"}}:
+                    <label>{{localize "RSK.SpellType"}}:
                         <select name="system.subCategory">
-                            {{selectOptions config.itemSubCategories selected=system.subCategory localize=true}}
+                            {{selectOptions config.spellType selected=system.subCategory localize=true}}
                         </select>
                     </label>
                 </div>
@@ -44,41 +30,20 @@
                         value="{{system.description}}"></label>
             </div>
             <div>
-                <label>{{localize "RSK.AwardedFor"}}: <input type="text" name="system.awardedFor"
-                        value="{{system.awardedFor}}"></label>
-            </div>
-            <div style="display: flex;">
-                <div class="w-50">
-                    <label>{{localize "RSK.Cost"}}: <input type="number" name="system.cost"
-                            value="{{system.cost}}"></label>
-                </div>
-                <div class="w-50">
-                    <label>{{localize "RSK.Material"}}: <input type="text" name="system.material"
-                            value="{{system.material}}"></label>
-                </div>
-            </div>
-            <div style="display: flex;">
-                <label>{{localize "RSK.Bulk"}} <input type="number" name="system.bulk.value"
-                        value="{{system.bulk.value}}"></label>
-                <div>
-                    <label>{{localize "RSK.Quantity"}}: <input type="number" name="system.quantity"
-                            value="{{system.quantity}}"></label>
-                </div>
-                <div>
-                    <label>{{localize "RSK.MaxStackSize"}}: <input type="number" name="system.maxStackSize"
-                            value="{{system.maxStackSize}}"></label>
-                </div>
-            </div>
-            <div>
-                <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.TargetNumberModifier"}}: <input type="number" name="system.targetNumberModifier"
-                        value="{{system.targetNumberModifier}}"></label>
-            </div>
-            <div>
                 <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
                         value="{{system.effectDescription}}"></label>
+            </div>
+            {{!-- todo: usage cost labels --}}
+        </div>
+        <div class="tab features" data-group="primary" data-tab="actions">
+            <div>
+                <div class="form-group">
+                    <label>{{localize "RSK.Range"}}
+                        <select name="system.range">
+                            {{selectOptions config.ranges selected=system.range localize=true}}
+                        </select>
+                    </label>
+                </div>
             </div>
             <div>
                 <label>{{localize "RSK.SpecialEffect"}}:</label>
@@ -115,26 +80,6 @@
                 <label>{{localize "RSK.Effects"}}</label>
                 {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
             </div>
-        </div>
-        <div class="tab features" data-group="primary" data-tab="actions">
-            <div class="form-group">
-                <label>{{localize "RSK.ActiveSlot"}}:
-                    <input type="text" name="system.activeSlot" value="{{system.activeSlot}}">
-                    {{!-- <select name="system.activeSlot">
-                        {{selectOptions config.weaponActiveSlotType.values selected=system.activeSlot
-                        localize=true}}
-                    </select> --}}
-                </label>
-            </div>
-            <div>
-                <div class="form-group">
-                    <label>{{localize "RSK.Range"}}
-                        <select name="system.range">
-                            {{selectOptions config.ranges selected=system.range localize=true}}
-                        </select>
-                    </label>
-                </div>
-            </div>
             <div>
                 <strong>Target Outcomes</strong>
                 {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.targetOutcome
@@ -160,7 +105,7 @@
                     <div class="form-group">
                         <label>{{localize "RSK.Resource"}}
                             <select id="type">
-                                {{selectOptions config.usageCostResources localize=true}}
+                                {{selectOptions config.castableUsageCosts localize=true}}
                             </select>
                         </label>
                     </div>
@@ -177,19 +122,5 @@
                 outcomeName="usageOutcome"}}
             </div>
         </div>
-
-        <div class="tab features" data-group="primary" data-tab="crafting">
-            <label>{{localize "RSK.Location"}}: <input type="text" name="system.location"
-                    value="{{system.location}}"></label>
-            <label>{{localize "RSK.Required Materials"}}: <input type="text" name="system.requiredMaterials"
-                    value="{{system.requiredMaterials}}"></label>
-            <label>{{localize "RSK.EquipmentNeeded"}}: <input type="text" name="system.equipmentNeeded"
-                    value="{{system.equipmentNeeded}}"></label>
-            <div>
-                <strong>{{localize "RSK.Upgrades"}}:</strong>
-                <div>{{system.upgrades}}</div>
-            </div>
-        </div>
     </section>
-    {{/if}}
 </form>

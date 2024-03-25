@@ -21,9 +21,7 @@ const getDefenseRoll = async (target, actionType) => {
     const checks = {
         melee: { skill: "defense", ability: "strength" },
         ranged: { skill: "defense", ability: "agility" }, // is this ranged skill?
-        //todo: which of these do we need?
         magic: { skill: "magic", ability: "intellect" },
-        spell: { skill: "magic", ability: "intellect" }
     }
     let defenseRollMargin = 0;
     const rollData = target.system.getRollData();

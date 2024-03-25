@@ -53,8 +53,9 @@
                             value="{{system.cost}}"></label>
                 </div>
                 <div class="w-50">
-                    <label>{{localize "RSK.Material"}}: <input type="text" name="system.material"
-                            value="{{system.material}}"></label>
+                    <label>{{localize "RSK.Material"}}: <select name="system.material">
+                            {{selectOptions config.itemMaterial selected=system.material localize=true}}
+                        </select></label>
                 </div>
             </div>
             <div style="display: flex;">

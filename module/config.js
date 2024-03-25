@@ -82,7 +82,7 @@ RSK.spellTypes = {
 };
 
 RSK.castableCategories = {
-    spell: "RSK.Spell",
+    magic: "RSK.Magic",
     prayer: "RSK.Prayer",
     summoning: "RSK.Summoning"
 };
@@ -205,6 +205,11 @@ RSK.usageCostResources = {
     ...RSK.runeType
 }
 
+RSK.castableUsageCosts = {
+    ...RSK.pointCostType,
+    ...RSK.runeType
+}
+
 RSK.pointCostType = {
     prayerPoints: "RSK.PrayerPoints",
     summoningPoints: "RSK.SummoningPoints"
@@ -233,7 +238,7 @@ RSK.attackMethods = {
 
 RSK.codexTypes = {
     npcAction: "RSK.NpcAction",
-    spell: "RSK.Spell",
+    magic: "RSK.Magic",
     prayer: "RSK.Prayer",
     summoning: "RSK.SummonFamiliar"
 };
@@ -407,5 +412,12 @@ RSK.armourMaterials = {
     ...RSK.leatherType,
     ...RSK.metalType
 }
+
+RSK.itemMaterial = {
+    ...RSK.woodType,
+    ...RSK.metalType,
+    cloth: "RSK.Cloth",
+    ...RSK.leatherType,
+};
 
 export default RSK;

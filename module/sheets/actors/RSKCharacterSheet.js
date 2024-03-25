@@ -46,7 +46,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        context.spells = this.actor.items.filter(i => i.type === "castable" && i.system.category === "spell");
+        context.spells = this.actor.items.filter(i => i.type === "castable" && i.system.category === "magic");
     }
 
     _preparePrayers(context) {
@@ -226,7 +226,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     async characterCastSpell() {
         debugger;
         const castables = this.actor.items
-            .filter(s => s.type === "castable" && s.system.category === "spell")
+            .filter(s => s.type === "castable" && s.system.category === "magic")
             .filter(s => s.system.canUse(this.actor));
         if (castables.length < 1) {
             uiService.showNotification("RSK.NoCastablesAvailable");

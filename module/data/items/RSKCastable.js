@@ -3,7 +3,7 @@ import RSKItemType from "./RSKItemType.js";
 export default class RSKCastable extends RSKItemType {
     canUse(actor) {
         const canUseHandlers = {
-            spell: () => this.usageCost.every(uc =>
+            magic: () => this.usageCost.every(uc =>
                 actor.items.find(r => r.system.category === "rune"
                     && r.system.subCategory === uc.type
                     && r.system.quantity >= uc.amount)),
@@ -20,7 +20,7 @@ export default class RSKCastable extends RSKItemType {
             ...actor.system.getRollData(),
             targetNumberModifier: this.targetNumberModifier,
             //todo: localization?
-            skill: { "spell": "magic", "prayer": "prayer", "summoning": "summoning" }[this.category],
+            skill: this.category,
             ability: "intellect"
         };
     }
@@ -46,7 +46,7 @@ export default class RSKCastable extends RSKItemType {
             summoning: (success) => success
                 ? actor.system.spendPoints("summoningPoints", this.usageCost[0]?.amount ?? 0)
                 : actor.system.spendPoints("summoningPoints", 1),
-            spell: (success) => success
+            magic: (success) => success
                 ? this.usageCost.forEach(uc => actor.system.spendRunes(uc.type, uc.amount))
                 : []
         }

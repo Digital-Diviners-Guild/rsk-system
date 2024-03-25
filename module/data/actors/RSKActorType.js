@@ -45,8 +45,6 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
     getArmourValue() { return 0; }
 
     getBonusArmourValue(type) {
-        //todo: not need this
-        const fixedType = type === "spell" ? "magic" : type;
-        return this.resistance[fixedType] ?? 0;
+        return this.resistance[type] ?? 0;
     }
 }

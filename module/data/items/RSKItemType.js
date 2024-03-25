@@ -4,9 +4,8 @@ import { uiService } from "../../rsk-ui-service.js";
 export default class RSKItemType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
         return {
-            // is material something more? like magic log, redwood log? skin > green_dragonhide?  like a type and tier values?
-            category: new fields.StringField(), // rune | weapon | spell
-            subCategory: new fields.StringField(), // air | sword | utility
+            category: new fields.StringField(),
+            subCategory: new fields.StringField(),
             material: new fields.StringField(),
             cost: new fields.NumberField({ initial: 0, min: 0 }),
             uses: new fields.StringField(),
