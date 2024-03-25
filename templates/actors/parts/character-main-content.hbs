@@ -59,7 +59,7 @@
                     <div class="item-name">
                         <strong>{{prayer.name}}</strong>
                     </div>
-                    <div class="item-content">{{prayer.system.usageCostLabel}}</div>
+                    <div class="item-content">{{prayer.system.usageCost}}</div>
                     <div class="item-content">{{prayer.system.effectDescription}}</div>
                     <a class="item-control chat-item" data-item-type="prayer" data-item-id="{{prayer._id}}"
                         title="Chat Item">{{localize "RSK.ChatItem"}}</a>
@@ -75,7 +75,8 @@
                         <strong>{{spell.name}}</strong>
                     </div>
                     <div class="item-content">
-                        {{spell.system.usageCostLabel}}
+                        {{!-- todo usage cost label --}}
+                        {{spell.system.usageCost}}
                     </div>
                     <div class="item-content">
                         {{spell.system.description}}
@@ -94,7 +95,7 @@
                         <strong>{{familiar.name}}</strong>
                     </div>
                     <div class="item-content">
-                        {{familiar.system.usageCostLabel}}
+                        {{familiar.system.usageCost}}
                     </div>
                     <div class="item-content">
                         {{familiar.system.description}}

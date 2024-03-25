@@ -1,4 +1,5 @@
 import { fields } from "../fields.js";
+import { uiService } from "../../rsk-ui-service.js";
 
 export default class RSKItemType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -99,5 +100,32 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             isTwoHanded: new fields.BooleanField({ initial: false }),
             isEquipped: new fields.BooleanField({ initial: false }),
         };
+    }
+
+    async use(actor) {
+        if (!this.canUse(actor)) return;
+
+        const rollData = this._prepareRollData(actor);
+        const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
+        if (!confirmRollResult.confirmed) return;
+        const skillResult = await actor.system.useSkill(confirmRollResult);
+
+        const actionOutcome = this._prepareOutcomeData(actor);
+        const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
+            {
+                ...skillResult,
+                ...actionOutcome
+            });
+        await skillResult.toMessage({
+            flavor: flavor,
+            flags: {
+                rsk: {
+                    ...skillResult,
+                    ...actionOutcome,
+                    rollMargin: skillResult.margin
+                }
+            }
+        });
+        this._handleItemUsed(actor, skillResult);
     }
 }

@@ -30,7 +30,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         // when clicked? saying this because I changed this line to do some mapping and it broke buttons
         //todo: it is nice to have things separated out for both filtering and action buttons
         // though its a naive approach that reduces flexibility. need to improve this.
-        context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("maxStackSize"));
+        context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("maxStackSize") && i.type !== "castable"); // this need work
         context.equippables = context.inventoryItems.filter(i => i.type === "weapon" || i.type === "armour");
         context.consumables = context.inventoryItems.filter(i => i.type === "consumable");
         context.miscItems = context.inventoryItems.filter(i => !(i.type === "consumable" || i.type === "weapon" || i.type === "armour"));
@@ -46,15 +46,15 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     }
 
     _prepareSpells(context) {
-        context.spells = this.actor.items.filter(i => i.type === "spell");
+        context.spells = this.actor.items.filter(i => i.type === "castable" && i.system.category === "spell");
     }
 
     _preparePrayers(context) {
-        context.prayers = this.actor.items.filter(i => i.type === "prayer");
+        context.prayers = this.actor.items.filter(i => i.type === "castable" && i.system.category === "prayer");
     }
 
     _prepareSummons(context) {
-        context.familiars = this.actor.items.filter(i => i.type === "summoning");
+        context.familiars = this.actor.items.filter(i => i.type === "castable" && i.system.category === "summoning");
     }
 
     _prepareEquipment(context) {
@@ -224,7 +224,10 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
 
     async characterCastSpell() {
-        const castables = this.actor.items.filter(s => s.system.category === "spell" && s.system.canUse(this.actor));
+        debugger;
+        const castables = this.actor.items
+            .filter(s => s.type === "castable" && s.system.category === "spell")
+            .filter(s => s.system.canUse(this.actor));
         if (castables.length < 1) {
             uiService.showNotification("RSK.NoCastablesAvailable");
             return false;
@@ -236,7 +239,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const castable = this.actor.items.find(x => x._id === selectCastableResult.id);
         if (!castable) return false;
 
-        await castable.use(this.actor);
+        await castable.system.use(this.actor);
     }
 
     async characterCastPrayer() {
@@ -252,7 +255,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const castable = this.actor.items.find(x => x._id === selectCastableResult.id);
         if (!castable) return false;
 
-        await castable.use(this.actor);
+        await castable.system.use(this.actor);
     }
 
     async characterCastSummons() {
@@ -268,7 +271,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         const castable = this.actor.items.find(x => x._id === selectCastableResult.id);
         if (!castable) return false;
 
-        await castable.use(this.actor);
+        await castable.system.use(this.actor);
     }
 
     async characterTravel() {

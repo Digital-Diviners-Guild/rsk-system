@@ -1,5 +1,5 @@
-import { uiService } from "../../rsk-ui-service.js";
 import { fields } from "../fields.js";
+import { uiService } from "../../rsk-ui-service.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 import RSKItemType from "./RSKItemType.js";
 
@@ -63,37 +63,6 @@ export default class RSKWeapon extends RSKEquippableType {
         return this.isEquipped;
     }
 
-    async use(actor) {
-        if (!this.canUse(actor)) return;
-
-        const rollData = this._prepareRollData(actor);
-        const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
-        if (!confirmRollResult.confirmed) return;
-
-        const skillResult = await actor.system.useSkill(confirmRollResult);
-        const actionOutcome = this._prepareOutcomeData(actor);
-        const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
-            {
-                ...skillResult,
-                ...actionOutcome
-            });
-        await skillResult.toMessage({
-            flavor: flavor,
-            flags: {
-                rsk: {
-                    ...skillResult,
-                    ...actionOutcome,
-                    rollMargin: skillResult.margin
-                }
-            }
-        });
-
-        if (!this.attackMethods.has("melee")) {
-            const ammo = this._getAmmo(actor);
-            actor.system.removeItem(ammo);
-        }
-    }
-
     _prepareRollData(actor) {
         return {
             ...actor.system.getRollData(),
@@ -112,21 +81,6 @@ export default class RSKWeapon extends RSKEquippableType {
 
     _prepareOutcomeData(actor) {
         if (this.attackMethods.has("melee")) {
-            //todo: qualities apply when the attack is successful
-            // should we add the qualities outcomes to outcome
-            // here before it is sent?
-            // in that case, quality really is just a names outcome
-            // then on use, we could combine qualities outcomes with base outcome
-            // then send.
-            // we only apply a char outcome on success, and the margin depends on the thing being used
-            /// ie spells can control when they add their outcome.
-            // for npc actions, how would this work? is there value in keeping things more separate?
-            // npc actions qualities apply to a char if they fail a defense check... 
-            // what other types of actions could an npc do to a character? do we need a success outcome
-            // and fail outcome?
-            // as I understand it, npc's -> character, only damage applies (less def margin) when succeeding
-            // maybe that system rule is enough.
-
             return {
                 name: this.parent?.name ?? "Unarmed",
                 description: this.description,
@@ -138,22 +92,34 @@ export default class RSKWeapon extends RSKEquippableType {
                 targetOutcome: { ...this.targetOutcome },
                 actorOutcome: { ...this.usageOutcome },
                 specialEffect: [...this.specialEffect]
-                // specialEffect: { ...this.specialEffect },
             };
         } else {
             const ammo = this._getAmmo(actor);
-            const outcome = this === ammo
+            const targetOutcome = this === ammo
                 ? this.targetOutcome
                 : { ...this.combineOutcomes(this.targetOutcome, ammo.targetOutcome) };
+            const usageOutcome = this === ammo
+                ? this.usageOutcome
+                : { ...this.combineOutcomes(this.usageOutcome, ammo.usageOutcome) };
             return {
-                actor,
-                name: this.parent?.name ?? "Unarmed",
+                name: this.parent?.name,
                 description: `${this.description}\n${ammo.description}`,
                 effectDescription: `${this.effectDescription}\n${ammo.effectDescription}`,
                 img: this.parent?.img ?? "",
-                actionType: "ranged",
-                outcome: { ...outcome }
-            }
+                actionType: "ranged", // should this maybe be 'attackType' in the damage model?
+                actorUuid: actor.uuid,
+                //targetUuids: [];
+                targetOutcome: { ...targetOutcome },
+                actorOutcome: { ...usageOutcome },
+                specialEffect: [...ammo.specialEffect]
+            };
+        }
+    }
+
+    _handleItemUsed(actor, skillResult) {
+        if (!this.attackMethods.has("melee")) {
+            const ammo = this._getAmmo(actor);
+            actor.system.removeItem(ammo);
         }
     }
 
@@ -180,13 +146,4 @@ export default class RSKWeapon extends RSKEquippableType {
         });
         return result;
     }
-}
-
-class ActionCommand {
-    actorUuid = "";
-    targetUuids = [];
-    targetOutcome = {};
-    actorOutcome = {};
-    specialEffect = {};
-    rollMargin = 0;
 }
