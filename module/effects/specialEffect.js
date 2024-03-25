@@ -1,11 +1,3 @@
-// todo: things needed
-/*
-in our outcome messaging, we need to make sure we 
-have the original actor's uuid so we can do things 
-like rejuvenate during normal apply from the message
-we also need to communicate duration and quality of statuses being applied
-*/
-
 import { localizeText } from "../rsk-localize.js";
 
 // then from there we can figure out how to abstract them for custom special effects
