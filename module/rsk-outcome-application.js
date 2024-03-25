@@ -63,8 +63,8 @@ const restoreLifePoints = (actor, amount) => {
     actor.system.restoreLifePoints(amount);
 }
 
-const receiveDamage = async (actor, damageEntries) => {
-    await actor.system.receiveDamage({ damageEntries });
+const receiveDamage = async (actor, damageEntries, attackType) => {
+    await actor.system.receiveDamage(damageEntries, attackType);
 };
 
 const operations = {
@@ -83,32 +83,7 @@ const operations = {
 // - augment outcome with special effects
 // what about usage special effects, like block?
 //types of effects? - on usage, on equip, on success
-
-export const applyOutcome = async (actionData) => {
-    const isGM = game.user?.isGM;
-    const targets = isGM
-        ? [...game.user.targets.map(t => t.actor)]
-        : [game.user.character];
-    for (let target of targets) {
-        if (actionData.outcome.damageEntries) {
-            await receiveDamage(target, actionData.outcome.damageEntries);
-        }
-        if (actionData.outcome.restoresLifePoints) {
-            await restoreLifePoints(target, actionData.outcome.restoresLifePoints);
-        }
-        if (actionData.outcome.effectsAdded?.length > 0) {
-            await addEffects(target, actionData.outcome.effectsAdded);
-        }
-        if (actionData.outcome.statusesAdded?.length > 0) {
-            await addStatuses(target, actionData.outcome.statusesAdded);
-        }
-        if (actionData.outcome.statusesRemoved?.length > 0) {
-            await removeStatuses(target, actionData.outcome.statusesRemoved);
-        }
-    }
-}
-
-export const applyOutcome2 = async (outcomeData) => {
+export const applyOutcome = async (outcomeData) => {
     const rollMargin = outcomeData.rollMargin;
     let outcome = foundry.utils.deepClone(outcomeData);
     if (rollMargin > 0) {
@@ -141,7 +116,7 @@ const apply = async (target, outcome) => {
     if (!target) return;
 
     if (outcome.damageEntries) {
-        await receiveDamage(target, outcome.damageEntries);
+        await receiveDamage(target, outcome.damageEntries, outcome.actionType);
     }
     if (outcome.restoresLifePoints) {
         await restoreLifePoints(target, outcome.restoresLifePoints);

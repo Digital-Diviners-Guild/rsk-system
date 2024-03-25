@@ -180,6 +180,8 @@ export default class RSKActorSheet extends ActorSheet {
         const dialog = RSKApplyDamageDialog.create();
         const result = await dialog();
         if (!result?.confirmed) return;
+
+        //todo: attackType?
         await this.actor.system.receiveDamage({ ...result });
     }
 
