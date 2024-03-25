@@ -17,6 +17,40 @@ RSK.statusEffects = {
     }, {})
 };
 
+RSK.castableCategories = {
+    spell: "RSK.Spell",
+    prayer: "RSK.Prayer",
+    summoning: "RSK.Summoning"
+};
+
+//todo: what do we need for these?
+RSK.weaponCategories = {
+    sword: "RSK.Sword",
+    polearm: "RSK.Polearm",
+    bow: "RSK.Bow",
+    thrown: "RSK.Thrown",
+    ...RSK.ammunitionType,
+};
+
+RSK.weaponSubCategories = {
+    martial: "RSK.Martial",
+    simple: "RSK.Simple",
+};
+
+RSK.itemCategories = {
+    item: "RSK.Item",
+    resource: "RSK.Resource",
+    equipment: "RSK.Equipment",
+    ...RSK.castableCategories,
+    ...RSK.weaponCategories
+};
+
+RSK.itemSubCategories = {
+    ...RSK.weaponSubCategories,
+    ...RSK.runeType,
+    ...RSK.spellTypes
+};
+
 RSK.defaultWeapon = {
     isEquipped: true,
     weaponType: "simple",
@@ -144,8 +178,7 @@ RSK.runeType = {
 }
 
 RSK.usageCostResources = {
-    summoningPoints: "RSK.SummoningPoints",
-    prayerPoints: "RSK.PrayerPoints",
+    ...RSK.pointCostType,
     ...RSK.ammunitionType,
     ...RSK.runeType
 }
