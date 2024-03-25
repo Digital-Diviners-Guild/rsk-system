@@ -27,9 +27,6 @@
                 </p>
             </div>
             {{/if}}
-
-            {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
-            {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
         </div>
         <div class="tab features" data-group="primary" data-tab="edit">
             <div class="form-group">
@@ -46,8 +43,16 @@
                 <label>{{localize "RSK.EffectDescription"}}:</label>
                 <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
             </div>
-            {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
-            {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
+            <div>
+                <strong>Target Outcomes</strong>
+                {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.targetOutcome
+                outcomeName="targetOutcome"}}
+            </div>
+            <div>
+                <strong>Usage Outcomes</strong>
+                {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.usageOutcome
+                outcomeName="usageOutcome"}}
+            </div>
         </div>
     </section>
 </form>

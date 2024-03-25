@@ -116,6 +116,11 @@
                 </div>
             </div>
             <div>
+                <strong>Target Outcomes</strong>
+                {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.targetOutcome
+                outcomeName="targetOutcome"}}
+            </div>
+            <div>
                 <strong>Usage Outcomes</strong>
                 <div>
                     <label>Usage Cost</label>
@@ -150,12 +155,6 @@
                 </div>
                 {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.usageOutcome
                 outcomeName="usageOutcome"}}
-            </div>
-
-            <div>
-                <strong>Target Outcomes</strong>
-                {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.targetOutcome
-                outcomeName="targetOutcome"}}
             </div>
         </div>
 
