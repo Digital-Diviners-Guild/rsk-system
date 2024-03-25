@@ -17,11 +17,74 @@ RSK.statusEffects = {
     }, {})
 };
 
+RSK.runeType = {
+    none: "",
+    air: "RSK.AirRune",
+    water: "RSK.WaterRune",
+    earth: "RSK.EarthRune",
+    fire: "RSK.FireRune",
+    chaos: "RSK.ChaosRune",
+    mind: "RSK.MindRune",
+    body: "RSK.BodyRune",
+    soul: "RSK.SoulRune",
+    death: "RSK.DeathRune",
+    blood: "RSK.BloodRune",
+    cosmic: "RSK.CosmicRune",
+    nature: "RSK.NatureRune",
+    law: "RSK.LawRune",
+    wrath: "RSK.WrathRune",
+};
+
+RSK.itemCategories = {
+    item: "RSK.Item",
+    rune: "RSK.Rune",
+    resource: "RSK.Resource",
+    equipment: "RSK.Equipment",
+    material: "RSK.Material"
+};
+
+RSK.rawMaterialType = {
+    none: "",
+    wood: "RSK.Wood",
+    fish: "RSK.Fish",
+    rawMeat: "RSK.RawMeat",
+    skin: "RSK.Skin",
+    feathers: "RSK.Feathers",
+    mineral: "RSK.Mineral",
+    seed: "RSK.Seed",
+    produce: "RSK.Produce",
+    herb: "RSK.Herb",
+    water: "RSK.Water",
+    blood: "RSK.Blood"
+};
+
+RSK.resourceType = {
+    none: "",
+    metal: "RSK.Metal",
+    glass: "RSK.Glass",
+    mineral: "RSK.Mineral",
+    cloth: "RSK.Cloth",
+    leather: "RSK.Leather"
+};
+
+RSK.itemSubCategories = {
+    none: "",
+    ...RSK.runeType,
+    ...RSK.rawMaterialType,
+    ...RSK.resourceType,
+};
+
+RSK.spellTypes = {
+    none: "",
+    combat: "RSK.Combat",
+    utility: "RSK.Utility",
+    teleport: "RSK.Teleport"
+};
+
 RSK.castableCategories = {
     spell: "RSK.Spell",
     prayer: "RSK.Prayer",
-    summoning: "RSK.Summoning",
-    rune: "RSK.Rune"
+    summoning: "RSK.Summoning"
 };
 
 RSK.ammunitionType = {
@@ -39,49 +102,6 @@ RSK.weaponCategories = {
     ...RSK.ammunitionType,
 };
 
-RSK.weaponSubCategories = {
-    martial: "RSK.Martial",
-    simple: "RSK.Simple",
-};
-
-RSK.itemCategories = {
-    item: "RSK.Item",
-    resource: "RSK.Resource",
-    equipment: "RSK.Equipment",
-    material: "RSK.Material",
-    ...RSK.castableCategories,
-    ...RSK.weaponCategories
-};
-
-RSK.runeType = {
-    air: "RSK.AirRune",
-    water: "RSK.WaterRune",
-    earth: "RSK.EarthRune",
-    fire: "RSK.FireRune",
-    chaos: "RSK.ChaosRune",
-    mind: "RSK.MindRune",
-    body: "RSK.BodyRune",
-    soul: "RSK.SoulRune",
-    death: "RSK.DeathRune",
-    blood: "RSK.BloodRune",
-    cosmic: "RSK.CosmicRune",
-    nature: "RSK.NatureRune",
-    law: "RSK.LawRune",
-    wrath: "RSK.WrathRune",
-};
-
-RSK.spellTypes = {
-    combat: "RSK.Combat",
-    utility: "RSK.Utility",
-    teleport: "RSK.Teleport"
-};
-
-RSK.itemSubCategories = {
-    ...RSK.weaponSubCategories,
-    ...RSK.runeType,
-    ...RSK.spellTypes
-};
-
 RSK.defaultWeapon = {
     isEquipped: true,
     weaponType: "simple",
@@ -91,6 +111,7 @@ RSK.defaultWeapon = {
 };
 
 RSK.weaponSpecialEffects = {
+    none: "",
     rejuvenate: "RSK.Rejuvenate",
     bleed: "RSK.Bleed",
     freeze: "RSK.Freeze",
@@ -152,6 +173,8 @@ RSK.elementalDamageTypes = {
 }
 
 RSK.damageTypes = {
+    typeless: "RSK.Typeless",
+    puncture: "RSK.Puncture",
     ...RSK.physicalDamageTypes,
     ...RSK.elementalDamageTypes,
 }
@@ -317,25 +340,6 @@ RSK.material = {
     }
 }
 
-
-//todo: are these type of lists actually more convinient to work with than the master list?
-// the below lines are the old lists
-// we need to decide if this is the approach we want to go, or move these values
-// into the above 'master' map, that we can create selector funcs for like with activeArmourSlots
-RSK.rawMaterialType = {
-    wood: "RSK.Wood",
-    fish: "RSK.Fish",
-    rawMeat: "RSK.RawMeat",
-    skin: "RSK.Skin",
-    feathers: "RSK.Feathers",
-    mineral: "RSK.Mineral",
-    seed: "RSK.Seed",
-    produce: "RSK.Produce",
-    herb: "RSK.Herb",
-    water: "RSK.Water",
-    blood: "RSK.Blood"
-}
-
 RSK.woodType = {
     wood: "RSK.Wood",
     oak: "RSK.Oak",
@@ -363,24 +367,6 @@ RSK.mineralType = {
 RSK.materialTier = {
     ...RSK.woodType,
     ...RSK.mineralType
-}
-
-RSK.resource = {
-    metal: "RSK.Metal",
-    glass: "RSK.Glass",
-    mineral: "RSK.Mineral",
-    //todo: there is a mix up with 'mats' 'resource', 'consumable'
-    // we need to refactor our item models, ultimately we have 
-    // things that can be used/consumed, things that are used to make/aquire things.
-    // ie raw food  => food  => eat. / ore => bar => weapon. etc.
-    // ie need a fishing pole to catch fish, but the pole doesn't really do anything.
-    // i'm not sure if we need all the types we have, or if it would be better to 
-    // categorize them differently. I think using our 'serialized actions' will help
-    // categorize by purpose a little better, rather than a model for each thing.
-    //food: "RSK.Food",
-    //potion: "RSK.Potion",
-    cloth: "RSK.Cloth",
-    leather: "RSK.Leather"
 }
 
 RSK.leatherType = {
