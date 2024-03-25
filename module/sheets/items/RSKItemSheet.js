@@ -20,6 +20,9 @@ export default class RSKItemSheet extends ItemSheet {
         context.flags = itemData.flags;
         context.config = CONFIG.RSK;
         context.showRuneTemplate = itemData.system.category === "rune";
+        context.showEquipmentTemplate = itemData.system.category === "equipment";
+        context.showMaterialTemplate = itemData.system.category === "material";
+        context.showResourceTemplate = itemData.system.category === "resource";
         return context;
     }
 

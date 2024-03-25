@@ -6,6 +6,15 @@
     {{#if showRuneTemplate}}
     {{> "/systems/rsk/templates/items/parts/rune-nav.hbs"}}
     {{> "/systems/rsk/templates/items/parts/rune.hbs"}}
+    {{else if showMaterialTemplate}}
+    {{> "/systems/rsk/templates/items/parts/material-nav.hbs"}}
+    {{> "/systems/rsk/templates/items/parts/material.hbs"}}
+    {{else if showResourceTemplate}}
+    {{> "/systems/rsk/templates/items/parts/resource-nav.hbs"}}
+    {{> "/systems/rsk/templates/items/parts/resource.hbs"}}
+    {{else if showEquipmentTemplate}}
+    {{> "/systems/rsk/templates/items/parts/equipment-nav.hbs"}}
+    {{> "/systems/rsk/templates/items/parts/equipment.hbs"}}
     {{else}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>

@@ -9,9 +9,9 @@
                 </label>
             </div>
             <div class="w-50">
-                <label>{{localize "RSK.RuneType"}}:
+                <label>{{localize "RSK.MaterialType"}}:
                     <select name="system.subCategory">
-                        {{selectOptions config.runeType selected=system.subCategory localize=true}}
+                        {{selectOptions config.rawMaterialType selected=system.subCategory localize=true}}
                     </select>
                 </label>
             </div>
@@ -19,6 +19,7 @@
         <div>
             <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
                     value="{{system.description}}"></label>
+
             <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
         </div>
         <div style="display: flex;">
