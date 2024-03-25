@@ -28,13 +28,15 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
                 statusesAdded: new fields.ArrayField(new fields.ObjectField()),
-                statusesRemoved: new fields.StringField(),
+                effectsAdded: new fields.ArrayField(new fields.ObjectField()),
+                statusesRemoved: new fields.ArrayField(new fields.StringField()),
             }),
             targetOutcome: new fields.SchemaField({
                 damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
                 statusesAdded: new fields.ArrayField(new fields.ObjectField()),
-                statusesRemoved: new fields.StringField(),
+                effectsAdded: new fields.ArrayField(new fields.ObjectField()),
+                statusesRemoved: new fields.ArrayField(new fields.StringField()),
             }),
             // do we need something like this?
             // or should we just have them pre implemented and use a drop down?
@@ -51,7 +53,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 //     name: new fields.StringField(),
                 //     duration: new fields.NumberField(),
                 // }), // for things like 'block' we co)uld have a 'blocking' status that uses a flag for the X value?
-                // statusesRemoved: new fields.StringField(),
+                // statusesRemoved: fields.ArrayField(new fields.StringField()),
                 // if we wanted to model effects, this is the props we'd need
                 // key
                 // mode

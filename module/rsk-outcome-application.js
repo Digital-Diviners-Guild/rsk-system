@@ -57,6 +57,12 @@ const removeStatuses = async (actor, statuses) => {
     await removeEffects(actor, effectIds);
 };
 
+const removeEffects = async (actor, effectIds) => {
+    if (actor.effects.some(e => effectIds.includes(e.id))) {
+        await actor.deleteEmbeddedDocuments("ActiveEffect", [...effectIds]);
+    }
+};
+
 const restoreLifePoints = (actor, amount) => {
     actor.system.restoreLifePoints(amount);
 }
