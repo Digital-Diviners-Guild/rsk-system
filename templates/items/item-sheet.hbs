@@ -12,12 +12,18 @@
         <div class="tab features" data-group="primary" data-tab="description">
             <div style="display: flex;">
                 <div class="w-50">
-                    <label>{{localize "RSK.Category"}}: <input type="text" name="system.category"
-                            value="{{system.category}}"></label>
+                    <label>{{localize "RSK.Category"}}:
+                        <select name="system.category">
+                            {{selectOptions config.itemCategories selected=system.category localize=true}}
+                        </select>
+                    </label>
                 </div>
                 <div class="w-50">
-                    <label>{{localize "RSK.SubCategory"}}: <input type="text" name="system.subCategory"
-                            value="{{system.subCategory}}"></label>
+                    <label>{{localize "RSK.SubCategory"}}:
+                        <select name="system.subCategory">
+                            {{selectOptions config.itemSubCategories selected=system.subCategory localize=true}}
+                        </select>
+                    </label>
                 </div>
             </div>
             <div>

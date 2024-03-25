@@ -20,8 +20,15 @@ RSK.statusEffects = {
 RSK.castableCategories = {
     spell: "RSK.Spell",
     prayer: "RSK.Prayer",
-    summoning: "RSK.Summoning"
+    summoning: "RSK.Summoning",
+    rune: "RSK.Rune"
 };
+
+RSK.ammunitionType = {
+    arrow: "Arrow",
+    bolt: "Bolt",
+    dart: "Dart"
+}
 
 //todo: what do we need for these?
 RSK.weaponCategories = {
@@ -41,8 +48,32 @@ RSK.itemCategories = {
     item: "RSK.Item",
     resource: "RSK.Resource",
     equipment: "RSK.Equipment",
+    material: "RSK.Material",
     ...RSK.castableCategories,
     ...RSK.weaponCategories
+};
+
+RSK.runeType = {
+    air: "RSK.AirRune",
+    water: "RSK.WaterRune",
+    earth: "RSK.EarthRune",
+    fire: "RSK.FireRune",
+    chaos: "RSK.ChaosRune",
+    mind: "RSK.MindRune",
+    body: "RSK.BodyRune",
+    soul: "RSK.SoulRune",
+    death: "RSK.DeathRune",
+    blood: "RSK.BloodRune",
+    cosmic: "RSK.CosmicRune",
+    nature: "RSK.NatureRune",
+    law: "RSK.LawRune",
+    wrath: "RSK.WrathRune",
+};
+
+RSK.spellTypes = {
+    combat: "RSK.Combat",
+    utility: "RSK.Utility",
+    teleport: "RSK.Teleport"
 };
 
 RSK.itemSubCategories = {
@@ -154,29 +185,6 @@ RSK.size = {
     },
 }
 
-RSK.ammunitionType = {
-    arrow: "Arrow",
-    bolt: "Bolt",
-    dart: "Dart"
-}
-
-RSK.runeType = {
-    air: "RSK.AirRune",
-    water: "RSK.WaterRune",
-    earth: "RSK.EarthRune",
-    fire: "RSK.FireRune",
-    chaos: "RSK.ChaosRune",
-    mind: "RSK.MindRune",
-    body: "RSK.BodyRune",
-    soul: "RSK.SoulRune",
-    death: "RSK.DeathRune",
-    blood: "RSK.BloodRune",
-    cosmic: "RSK.CosmicRune",
-    nature: "RSK.NatureRune",
-    law: "RSK.LawRune",
-    wrath: "RSK.WrathRune",
-}
-
 RSK.usageCostResources = {
     ...RSK.pointCostType,
     ...RSK.ammunitionType,
@@ -193,12 +201,6 @@ RSK.usageCostTypes = {
     ...RSK.runeType,
     ...RSK.pointCostType
 }
-
-RSK.spellTypes = {
-    combat: "RSK.Combat",
-    utility: "RSK.Utility",
-    teleport: "RSK.Teleport"
-};
 
 //todo: we were thinking of having a 'thrown' action type for
 // weapons, but when used, it still needs to actually be of type "Ranged". thrown is "Ranged"
