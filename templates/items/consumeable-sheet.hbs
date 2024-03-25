@@ -1,0 +1,148 @@
+{{!-- todo: hide ammo fields when not ammo --}}
+{{!-- todo: hide melee fields when not melee --}}
+{{!-- todo: hide ranged fields when not ranged --}}
+{{!-- probably could be done better in logic in the sheet in getData --}}
+{{!-- need to not show special effects when ranged, etc. --}}
+
+{{!-- todo: need to get damage out of outcomes --}}
+
+<form class="{{cssClass}}" autocomplete="off" data-can-drop="true">
+    <header class="sheet-header">
+        <img src="{{item.img}}" data-edit="img" title="{{item.name}}" height="64" width="64" />
+        <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
+    </header>
+    <nav class="sheet-tabs tabs" data-group="primary">
+        <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
+        <a class="item" data-tab="edit">{{localize "RSK.Edit"}}</a>
+    </nav>
+    <section class="sheet-body">
+        <div class="tab features" data-group="primary" data-tab="description">
+            <div>
+                <strong>{{localize "RSK.Description"}}</strong>
+                {{system.description}}
+            </div>
+            {{#if system.effectDescription}}
+            <div>
+                <strong>{{localize "RSK.Effects"}}</strong>
+                {{system.effectDescription}}
+            </div>
+            {{/if}}
+            <div style="display: flex;">
+                <div class="w-50">
+                    <strong>{{localize "RSK.Cost"}}</strong>
+                    {{system.cost}}
+                </div>
+                <div class="w-50">
+                    <strong>{{localize "RSK.Material"}}</strong>
+                    {{system.material}}
+                </div>
+            </div>
+            {{#if showRange}}
+            <div>
+                {{> "/systems/rsk/templates/items/parts/view-range.hbs"}}
+            </div>
+            {{/if}}
+            <div>
+                {{> "/systems/rsk/templates/items/parts/view-damage-entries.hbs"}}
+            </div>
+            <div style="display: flex;">
+                <div class="w-50">
+                    <strong>{{localize "RSK.WeaponType"}}</strong>
+                    {{system.weaponType}}
+                </div>
+                <div class="w-50">
+                    <strong>{{localize "RSK.AttackMethods"}}</strong>
+                    {{attackMethods}}
+                </div>
+            </div>
+            {{#if showAmmo}}
+            <div>
+                <strong>{{localize "RSK.AmmoType"}}</strong>
+                {{system.ammoType}}
+            </div>
+            {{/if}}
+            {{#if showEffects}}
+            <div>
+                <div>
+                    <strong>{{localize "RSK.SpecialEffects"}}</strong>
+                    {{system.specialEffects}}
+                </div>
+            </div>
+            {{/if}}
+
+            <div style="display: flex;">
+                <div class="w-50">
+                    <strong>{{localize "RSK.Quantity"}}</strong>
+                    {{system.quantity}}
+                </div>
+                <div class="w-50">
+                    <strong>{{localize "RSK.MaxStackSize"}}</strong>
+                    {{system.maxStackSize}}
+                </div>
+            </div>
+        </div>
+
+        <div class="tab features" data-group="primary" data-tab="edit">
+            <div>
+                <strong>{{localize "RSK.AttackMethods"}}</strong>
+                {{setBoxes system.attackMethods "attackMethod-checkbox" config.attackMethods}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.WeaponType"}}</strong>
+                <select name="system.weaponType">
+                    {{selectOptions config.weaponTypes selected=system.weaponType localize=true}}
+                </select>
+            </div>
+            <div>
+                <strong>{{localize "RSK.IsTwoHanded"}}</strong>
+                <input type="checkbox" data-dtype="Boolean" name="system.isTwoHanded" value="{{system.isTwoHanded}}"
+                    {{checked system.isTwoHanded}}>
+            </div>
+            <div>
+                <strong>{{localize "RSK.Material"}}</strong>
+                <select name="system.material">
+                    {{selectOptions config.weaponMaterials selected=system.material localize=true}}
+                </select>
+            </div>
+            <div>
+                <strong>{{localize "RSK.AmmoType"}}</strong>
+                <select name="system.ammoType">
+                    {{selectOptions config.ammunitionType selected=system.ammoType localize=true}}
+                </select>
+            </div>
+            <div>
+                <strong>{{localize "RSK.Description"}}</strong>
+                <input type="text" name="system.description" value="{{system.description}}">
+            </div>
+            <div>
+                <strong>{{localize "RSK.Effects"}}</strong>
+                <input type="text" name="system.effectDescription" value="{{system.effectDescription}}">
+            </div>
+            <div>
+                <strong>{{localize "RSK.Cost"}}</strong>
+                <input type="number" name="system.cost" value="{{system.cost}}">
+            </div>
+            <div>
+                {{> "/systems/rsk/templates/items/parts/edit-range.hbs"}}
+            </div>
+            <div>
+                {{> "/systems/rsk/templates/items/parts/edit-damage-entries.hbs"}}
+            </div>
+            <div>
+                <strong>{{localize "RSK.SpecialEffects"}}</strong>
+                <input type="text" name="system.specialEffects" value="{{system.specialEffects}}">
+            </div>
+            <div>
+                {{!-- todo: do we really need `label:` in config structure? we can grab the label directly already --}}
+                <strong>{{localize "RSK.ActiveSlot"}}</strong>
+                <select name="system.activeSlot">
+                    {{selectOptions config.weaponActiveSlotType.values selected=system.activeSlot localize=true}}
+                </select>
+            </div>
+            <div>
+                <strong>{{localize "RSK.MaxStackSize"}}</strong>
+                <input type="number" name="system.maxStackSize" value="{{system.maxStackSize}}">
+            </div>
+        </div>
+    </section>
+</form>
