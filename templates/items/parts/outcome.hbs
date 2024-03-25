@@ -5,18 +5,40 @@
                 value="{{outcome.restoresLifePoints}}">
         </label>
     </div>
-    {{!-- todo: we have a statuses input somewhere already we should use --}}
-    {{!-- <div class="form-group">
-        <label>{{localize "RSK.statusesAdded"}}:
-            <input type="text" name="system.{{outcomeName}}.statusesAdded" value="{{outcome.statusesAdded}}">
-        </label>
-    </div> --}}
-    {{!-- todo: we have a statuses input somewhere already we should use --}}
-    {{!-- <div class="form-group">
+    <div>
+        <label>{{localize "RSK.StatusesAdded"}}:</label>
+        <div>
+            <ol class="items-list">
+                {{#each system.statusesAdded as |status|}}
+                <li class="item flexrow" data-name="{{status.name}}">
+                    {{status.name}}
+                    <div class=" item-controls">
+                        <a class="item-control remove-status-{{outcomeName}}" title="Delete Status"><i
+                                class="fas fa-trash"></i></a>
+                    </div>
+                </li>
+                {{/each}}
+            </ol>
+            <div class="form-group">
+                <label>{{localize "RSK.Name"}}
+                    <select id="new-status-name-{{outcomeName}}">
+                        {{selectOptions config.statusEffects localize=true}}
+                    </select>
+                </label>
+                <label>{{localize "RSK.Duration"}}
+                    <input type="number" id="new-status-duration-{{outcomeName}}">
+                </label>
+                <a class="item-control add-status-{{outcomeName}}" title="add status effect">
+                    <i class="fas fa-plus"></i> {{localize "RSK.AddStatusEffect"}}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
         <label>{{localize "RSK.statusesRemoved"}}:
             <input type="text" name="system.{{outcomeName}}.statusesRemoved" value="{{outcome.statusesRemoved}}">
         </label>
-    </div> --}}
+    </div>
 
     {{localize "RSK.Damage"}}
     <div class="form-group">

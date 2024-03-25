@@ -1,4 +1,21 @@
+import { rskMagicStatusEffects, rskPrayerStatusEffects, rskStatusEffects } from "./effects/statuses.js";
+
 const RSK = {};
+
+RSK.statusEffects = {
+    ...rskStatusEffects.reduce((es, e) => {
+        es[e.id] = e.label
+        return es;
+    }, {}),
+    ...rskMagicStatusEffects.reduce((es, e) => {
+        es[e.id] = e.label
+        return es;
+    }, {}),
+    ...rskPrayerStatusEffects.reduce((es, e) => {
+        es[e.id] = e.label
+        return es;
+    }, {})
+};
 
 RSK.defaultWeapon = {
     isEquipped: true,
