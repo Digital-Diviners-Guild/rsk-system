@@ -3,6 +3,10 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" style="height: 128px; width: 128px" />
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
+    {{#if showRuneTemplate}}
+    {{> "/systems/rsk/templates/items/parts/rune-nav.hbs"}}
+    {{> "/systems/rsk/templates/items/parts/rune.hbs"}}
+    {{else}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
         <a class="item" data-tab="actions">{{localize "RSK.Actions"}}</a>
@@ -108,7 +112,8 @@
                 <label>{{localize "RSK.ActiveSlot"}}:
                     <input type="text" name="system.activeSlot" value="{{system.activeSlot}}">
                     {{!-- <select name="system.activeSlot">
-                        {{selectOptions config.weaponActiveSlotType.values selected=system.activeSlot localize=true}}
+                        {{selectOptions config.weaponActiveSlotType.values selected=system.activeSlot
+                        localize=true}}
                     </select> --}}
                 </label>
             </div>
@@ -177,4 +182,5 @@
             </div>
         </div>
     </section>
+    {{/if}}
 </form>

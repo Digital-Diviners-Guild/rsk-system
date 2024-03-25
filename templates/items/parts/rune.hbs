@@ -1,0 +1,50 @@
+<section class="sheet-body">
+    <div class="tab features" data-group="primary" data-tab="description">
+        <div style="display: flex;">
+            <div class="w-50">
+                <label>{{localize "RSK.ItemType"}}:
+                    <select name="system.category">
+                        {{selectOptions config.itemCategories selected=system.category localize=true}}
+                    </select>
+                </label>
+            </div>
+            <div class="w-50">
+                <label>{{localize "RSK.RuneType"}}:
+                    <select name="system.subCategory">
+                        {{selectOptions config.itemSubCategories selected=system.subCategory localize=true}}
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div>
+            <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
+                    value="{{system.description}}"></label>
+            <div class="w-50">
+                <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
+            </div>
+        </div>
+        <div>
+            <label>{{localize "RSK.Cost"}}: <input type="number" name="system.cost" value="{{system.cost}}"></label>
+        </div>
+        <div style="display: flex;">
+            <div class="w-50">
+                <label>{{localize "RSK.Quantity"}}: <input type="number" name="system.quantity"
+                        value="{{system.quantity}}"></label>
+            </div>
+            <div class="w-50">
+                <label>{{localize "RSK.MaxStackSize"}}: <input type="number" name="system.maxStackSize"
+                        value="{{system.maxStackSize}}"></label>
+            </div>
+        </div>
+    </div>
+    <div class="tab features" data-group="primary" data-tab="crafting">
+        <label>{{localize "RSK.Location"}}:
+            <input type="text" name="system.location" value="{{system.location}}"></label>
+        <label>{{localize "RSK.Required Materials"}}:
+            <input type="text" name="system.requiredMaterials" value="{{system.requiredMaterials}}"></label>
+        <label>{{localize "RSK.EquipmentNeeded"}}:
+            <input type="text" name="system.equipmentNeeded" value="{{system.equipmentNeeded}}"></label>
+        <label>{{localize "RSK.TargetNumberModifier"}}:
+            <input type="number" name="system.targetNumberModifier" value="{{system.targetNumberModifier}}"></label>
+    </div>
+</section>

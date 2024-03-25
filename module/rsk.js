@@ -41,6 +41,8 @@ async function preloadHandlebarsTemplates() {
         "/systems/rsk/templates/items/parts/edit-range.hbs",
         "/systems/rsk/templates/items/parts/view-range.hbs",
         "/systems/rsk/templates/items/parts/outcome.hbs",
+        "/systems/rsk/templates/items/parts/rune-nav.hbs",
+        "/systems/rsk/templates/items/parts/rune.hbs",
 
         "/systems/rsk/templates/actors/parts/view-items.hbs",
         "/systems/rsk/templates/actors/parts/view-inventory.hbs",
