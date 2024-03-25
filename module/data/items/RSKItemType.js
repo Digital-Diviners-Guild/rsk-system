@@ -27,19 +27,13 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             usageOutcome: new fields.SchemaField({
                 damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
-                statusesAdded: new fields.ArrayField(new fields.SchemaField({
-                    name: new fields.StringField(),
-                    duration: new fields.NumberField(),
-                })),
+                statusesAdded: new fields.ArrayField(new fields.ObjectField()),
                 statusesRemoved: new fields.StringField(),
             }),
             targetOutcome: new fields.SchemaField({
                 damageEntries: new fields.ObjectField(),
                 restoresLifePoints: new fields.NumberField({ min: 0 }),
-                statusesAdded: new fields.ArrayField(new fields.SchemaField({
-                    name: new fields.StringField(),
-                    duration: new fields.NumberField(),
-                })),
+                statusesAdded: new fields.ArrayField(new fields.ObjectField()),
                 statusesRemoved: new fields.StringField(),
             }),
             // do we need something like this?
