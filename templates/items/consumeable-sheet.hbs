@@ -3,19 +3,6 @@
         <img src="{{item.img}}" data-edit="img" title="{{item.name}}" style="height: 128px; width: 128px" />
         <h1><input type="text" name="name" value="{{item.name}}" placeholder="Name"></h1>
     </header>
-    {{#if showRuneTemplate}}
-    {{> "/systems/rsk/templates/items/parts/rune-nav.hbs"}}
-    {{> "/systems/rsk/templates/items/parts/rune.hbs"}}
-    {{else if showMaterialTemplate}}
-    {{> "/systems/rsk/templates/items/parts/material-nav.hbs"}}
-    {{> "/systems/rsk/templates/items/parts/material.hbs"}}
-    {{else if showResourceTemplate}}
-    {{> "/systems/rsk/templates/items/parts/resource-nav.hbs"}}
-    {{> "/systems/rsk/templates/items/parts/resource.hbs"}}
-    {{else if showEquipmentTemplate}}
-    {{> "/systems/rsk/templates/items/parts/equipment-nav.hbs"}}
-    {{> "/systems/rsk/templates/items/parts/equipment.hbs"}}
-    {{else}}
     <nav class="sheet-tabs tabs" data-group="primary">
         <a class="item" data-tab="description">{{localize "RSK.Details"}}</a>
         <a class="item" data-tab="actions">{{localize "RSK.Actions"}}</a>
@@ -39,23 +26,19 @@
                     </label>
                 </div>
             </div>
+            <div style="display: flex;">
+                <label>{{localize "RSK.Cost"}}: <input type="number" name="system.cost" value="{{system.cost}}"></label>
+            </div>
             <div>
                 <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
                         value="{{system.description}}"></label>
             </div>
             <div>
-                <label>{{localize "RSK.AwardedFor"}}: <input type="text" name="system.awardedFor"
-                        value="{{system.awardedFor}}"></label>
+                <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
             </div>
-            <div style="display: flex;">
-                <div class="w-50">
-                    <label>{{localize "RSK.Cost"}}: <input type="number" name="system.cost"
-                            value="{{system.cost}}"></label>
-                </div>
-                <div class="w-50">
-                    <label>{{localize "RSK.Material"}}: <input type="text" name="system.material"
-                            value="{{system.material}}"></label>
-                </div>
+            <div>
+                <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
+                        value="{{system.effectDescription}}"></label>
             </div>
             <div style="display: flex;">
                 <label>{{localize "RSK.Bulk"}} <input type="number" name="system.bulk.value"
@@ -69,71 +52,11 @@
                             value="{{system.maxStackSize}}"></label>
                 </div>
             </div>
-            <div>
-                <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.TargetNumberModifier"}}: <input type="number" name="system.targetNumberModifier"
-                        value="{{system.targetNumberModifier}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
-                        value="{{system.effectDescription}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.SpecialEffect"}}:</label>
-                <div>
-                    <ol class="items-list">
-                        {{#each system.specialEffect as |spfx|}}
-                        <li class="item flexrow" data-name="{{spfx.name}}">
-                            {{spfx.name}} {{spfx.x}} {{spfx.y}}
-                            <div class=" item-controls">
-                                <a class="item-control remove-special-effect" title="Delete Special Effect"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </li>
-                        {{/each}}
-                    </ol>
-                    <div class="form-group">
-                        <label>{{localize "RSK.Name"}}
-                            <select id="new-special-effect-name">
-                                {{selectOptions config.weaponSpecialEffects localize=true}}
-                            </select>
-                        </label>
-                        <label>{{localize "RSK.X"}}</label>
-                        <input id="new-special-effect-x" type="text">
-
-                        <label>{{localize "RSK.Y"}}</label>
-                        <input id="new-special-effect-y" type="text">
-                        <a class="item-control add-special-effect" title="add special effect">
-                            <i class="fas fa-plus"></i> {{localize "Add Special Effect"}}
-                        </a>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="tab features" data-group="primary" data-tab="actions">
             <div>
                 <label>{{localize "RSK.Effects"}}</label>
                 {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
-            </div>
-        </div>
-        <div class="tab features" data-group="primary" data-tab="actions">
-            <div class="form-group">
-                <label>{{localize "RSK.ActiveSlot"}}:
-                    <input type="text" name="system.activeSlot" value="{{system.activeSlot}}">
-                    {{!-- <select name="system.activeSlot">
-                        {{selectOptions config.weaponActiveSlotType.values selected=system.activeSlot
-                        localize=true}}
-                    </select> --}}
-                </label>
-            </div>
-            <div>
-                <div class="form-group">
-                    <label>{{localize "RSK.Range"}}
-                        <select name="system.range">
-                            {{selectOptions config.ranges selected=system.range localize=true}}
-                        </select>
-                    </label>
-                </div>
             </div>
             <div>
                 <strong>Target Outcomes</strong>
@@ -142,37 +65,6 @@
             </div>
             <div>
                 <strong>Usage Outcomes</strong>
-                <div>
-                    <label>Usage Cost</label>
-                    {{usageCost}}
-                    <ol class="items-list">
-                        {{#each system.usageCost as |cost|}}
-                        <li class="item flexrow" data-type="{{cost.type}}">
-                            {{cost.type}}
-                            {{cost.amount}}
-                            <div class=" item-controls">
-                                <a class="item-control remove-usage-cost" title="Delete cost"><i
-                                        class="fas fa-trash"></i></a>
-                            </div>
-                        </li>
-                        {{/each}}
-                    </ol>
-                    <div class="form-group">
-                        <label>{{localize "RSK.Resource"}}
-                            <select id="type">
-                                {{selectOptions config.usageCostResources localize=true}}
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label>{{localize "RSK.Amount"}}</label>
-                        <input id="amount" type="number">
-                        <a class="item-control add-usage-cost" title="add cost">
-                            <i class="fas fa-plus"></i> {{localize "Add Cost"}}
-                        </a>
-                    </div>
-                </div>
                 {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.usageOutcome
                 outcomeName="usageOutcome"}}
             </div>
@@ -186,10 +78,9 @@
             <label>{{localize "RSK.EquipmentNeeded"}}: <input type="text" name="system.equipmentNeeded"
                     value="{{system.equipmentNeeded}}"></label>
             <div>
-                <strong>{{localize "RSK.Upgrades"}}:</strong>
-                <div>{{system.upgrades}}</div>
+                <label>{{localize "RSK.TargetNumberModifier"}}: <input type="number" name="system.targetNumberModifier"
+                        value="{{system.targetNumberModifier}}"></label>
             </div>
         </div>
     </section>
-    {{/if}}
 </form>
