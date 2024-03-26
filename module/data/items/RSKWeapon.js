@@ -43,8 +43,8 @@ export default class RSKWeapon extends RSKEquippableType {
         return {
             ...actor.system.getRollData(),
             targetNumberModifier: this.targetNumberModifier,
-            skill: this.category === "melee" ? "attack" : "ranged",
-            ability: this.subCategory === "martial" ? "agility" : "strength"
+            defaultSkill: this.category === "melee" ? "attack" : "ranged",
+            defaultAbility: this.subCategory === "martial" ? "agility" : "strength"
         };
     }
 

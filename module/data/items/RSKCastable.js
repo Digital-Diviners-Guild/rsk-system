@@ -20,8 +20,8 @@ export default class RSKCastable extends RSKItemType {
             ...actor.system.getRollData(),
             targetNumberModifier: this.targetNumberModifier,
             //todo: localization?
-            skill: this.category,
-            ability: "intellect"
+            defaultSkill: this.category,
+            defaultAbility: "intellect"
         };
     }
 
