@@ -62,7 +62,11 @@ const restoreLifePoints = (actor, amount) => {
 }
 
 const receiveDamage = async (actor, damageEntries, attackType) => {
-    await actor.system.receiveDamage(damageEntries, attackType);
+    let defense = 0;
+    if (actor.type === "character") {
+        defense = await getDefenseRoll(actor, actionType);
+    }
+    await actor.system.receiveDamage(damageEntries, attackType, defense);
 };
 
 const operations = {
@@ -82,6 +86,8 @@ const operations = {
 // what about usage special effects, like block?
 //types of effects? - on usage, on equip, on success
 export const applyOutcome = async (outcomeData) => {
+    //todo: when its a player outcome that failed, don't allow apply
+
     const rollMargin = outcomeData.rollMargin;
     let outcome = foundry.utils.deepClone(outcomeData);
     if (rollMargin > 0) {
