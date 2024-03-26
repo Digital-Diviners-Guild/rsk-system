@@ -48,18 +48,25 @@
                     <p>{{system.description}}</p>
                     <p>{{system.effectDescription}}</p>
 
+                    {{#if showAwardedFor}}
+                    <div>
+                        <label>{{localize "RSK.AwardedFor"}}:</label>
+                        <input type="text" name="system.awardedFor" value="{{system.awardedFor}}">
+                    </div>
+                    {{/if}}
+
                     {{!-- readonly sepcial effects --}}
                     {{!-- <div>
-                        <strong>{{localize "RSK.SpecialEffects"}}:</strong>
+                        <label>{{localize "RSK.SpecialEffects"}}:</label>
                         <div>{{system.specialEffects}}</div>
                     </div> --}}
                     <div>
-                        <strong>{{localize "RSK.Effects"}}:</strong>
+                        <label>{{localize "RSK.Effects"}}:</label>
                         {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
                     </div>
                     {{#if system.upgrades}}
                     <div>
-                        <strong>{{localize "RSK.Upgrades"}}:</strong>
+                        <label>{{localize "RSK.Upgrades"}}:</label>
                         <div>{{system.upgrades}}</div>
                     </div>
                     {{/if}}

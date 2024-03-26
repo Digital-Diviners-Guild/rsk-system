@@ -13,4 +13,10 @@ export default class RSKArmourSheet extends RSKItemSheet {
     get template() {
         return `systems/rsk/templates/items/armour-sheet.hbs`
     }
+
+    getData() {
+        const context = super.getData();
+        context.showAwardedFor = context.system.activeSlot === "cape";
+        return context;
+    }
 }
