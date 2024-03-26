@@ -1,5 +1,6 @@
 import { fields } from "../fields.js";
 import { uiService } from "../../rsk-ui-service.js";
+import { localizeText } from "../../rsk-localize.js";
 
 export default class RSKItemType extends foundry.abstract.TypeDataModel {
     static defineSchema() {
@@ -18,6 +19,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             equipmentNeeded: new fields.StringField(),
             targetNumberModifier: new fields.NumberField(),
             soakValue: new fields.NumberField(),
+            usageCostLabel: new fields.StringField(),
             usageCost: new fields.ArrayField(
                 new fields.SchemaField({
                     type: new fields.StringField(),
@@ -78,6 +80,16 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             isTwoHanded: new fields.BooleanField({ initial: false }),
             isEquipped: new fields.BooleanField({ initial: false }),
         };
+    }
+
+    prepareBaseData() {
+        this.usageCostLabel = this.getUsageCostLabel();
+    }
+
+    getUsageCostLabel() {
+        return this.usageCost
+            .map(c => `${c.amount} ${localizeText(CONFIG.RSK.usageCostTypes[c.type])}`)
+            .join(", ");
     }
 
     async use(actor) {

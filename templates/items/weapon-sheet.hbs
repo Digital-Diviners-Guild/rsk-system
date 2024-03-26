@@ -37,6 +37,10 @@
                 <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
                         value="{{system.effectDescription}}"></label>
             </div>
+            {{#if showUsageCost}}
+            <label>{{localize "RSK.UsageCost"}}</label>
+            {{usageCost}}
+            {{/if}}
             <div class="form-group">
                 <div class="w-50">
                     <label>{{localize "RSK.ActiveSlot"}}:
@@ -132,7 +136,6 @@
             {{#if showUsageCost}}
             <div class="form-group">
                 <label>{{localize "RSK.UsageCost"}}</label>
-                {{usageCost}}
                 <ol class="items-list">
                     {{#each system.usageCost as |cost|}}
                     <li class="item flexrow" data-type="{{cost.type}}">

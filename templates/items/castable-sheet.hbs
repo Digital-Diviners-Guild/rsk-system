@@ -33,7 +33,8 @@
                 <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
                         value="{{system.effectDescription}}"></label>
             </div>
-            {{!-- todo: usage cost labels --}}
+            <label>{{localize "RSK.UsageCost"}}</label>
+            {{usageCost}}
         </div>
         <div class="tab features" data-group="primary" data-tab="actions">
             <div>
@@ -88,8 +89,7 @@
             <div>
                 <strong>Usage Outcomes</strong>
                 <div class="form-group">
-                    <label>Usage Cost</label>
-                    {{usageCost}}
+                    <label>{{localize "RSK.UsageCost"}}</label>
                     <ol class="items-list">
                         {{#each system.usageCost as |cost|}}
                         <li class="item flexrow" data-type="{{cost.type}}">
