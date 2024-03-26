@@ -87,7 +87,7 @@
             </div>
             <div>
                 <strong>Usage Outcomes</strong>
-                <div>
+                <div class="form-group">
                     <label>Usage Cost</label>
                     {{usageCost}}
                     <ol class="items-list">
@@ -102,21 +102,17 @@
                         </li>
                         {{/each}}
                     </ol>
-                    <div class="form-group">
-                        <label>{{localize "RSK.Resource"}}
-                            <select id="type">
-                                {{selectOptions config.castableUsageCosts localize=true}}
-                            </select>
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label>{{localize "RSK.Amount"}}</label>
+                    <label>{{localize "RSK.Resource"}}
+                        <select id="type">
+                            {{selectOptions config.castableUsageCosts localize=true}}
+                        </select>
+                    </label>
+                    <label>{{localize "RSK.Amount"}}
                         <input id="amount" type="number">
-                        <a class="item-control add-usage-cost" title="add cost">
-                            <i class="fas fa-plus"></i> {{localize "Add Cost"}}
-                        </a>
-                    </div>
+                    </label>
+                    <a class="item-control add-usage-cost" title="add cost">
+                        <i class="fas fa-plus"></i> {{localize "RSK.Add"}}
+                    </a>
                 </div>
                 {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.usageOutcome
                 outcomeName="usageOutcome"}}
