@@ -210,14 +210,15 @@ RSK.usageCostResources = {
     ...RSK.runeType
 }
 
-RSK.castableUsageCosts = {
-    ...RSK.pointCostType,
-    ...RSK.runeType
-}
-
 RSK.pointCostType = {
     prayerPoints: "RSK.PrayerPoints",
     summoningPoints: "RSK.SummoningPoints"
+}
+
+RSK.castableUsageCosts = {
+    none: "",
+    ...RSK.pointCostType,
+    ...RSK.runeType
 }
 
 RSK.usageCostTypes = {
