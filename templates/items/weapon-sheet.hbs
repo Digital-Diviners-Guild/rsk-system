@@ -26,20 +26,9 @@
                     </label>
                 </div>
             </div>
-            <div>
-                <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
-                        value="{{system.description}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
-            </div>
-            <div>
-                <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
-                        value="{{system.effectDescription}}"></label>
-            </div>
             {{#if showUsageCost}}
             <label>{{localize "RSK.UsageCost"}}</label>
-            {{usageCost}}
+            {{system.usageCostLabel}}
             {{/if}}
             <div class="form-group">
                 <div class="w-50">
@@ -67,6 +56,30 @@
                         </select></label>
                 </div>
             </div>
+            <div>
+                <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
+                        value="{{system.description}}"></label>
+            </div>
+            <div>
+                <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
+            </div>
+            {{#if showEffects}}
+            <label>{{localize "RSK.SpecialEffect"}}</label>
+            {{system.specialEffectLabel}}
+            {{/if}}
+            <div>
+                <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
+                        value="{{system.effectDescription}}"></label>
+            </div>
+            <div>
+                <div class="form-group">
+                    <label>{{localize "RSK.Range"}}
+                        <select name="system.range">
+                            {{selectOptions config.ranges selected=system.range localize=true}}
+                        </select>
+                    </label>
+                </div>
+            </div>
             <div style="display: flex;">
                 <label>{{localize "RSK.Bulk"}} <input type="number" name="system.bulk.value"
                         value="{{system.bulk.value}}"></label>
@@ -81,15 +94,6 @@
             </div>
         </div>
         <div class="tab features" data-group="primary" data-tab="actions">
-            <div>
-                <div class="form-group">
-                    <label>{{localize "RSK.Range"}}
-                        <select name="system.range">
-                            {{selectOptions config.ranges selected=system.range localize=true}}
-                        </select>
-                    </label>
-                </div>
-            </div>
             {{#if showEffects}}
             <div>
                 <label>{{localize "RSK.SpecialEffect"}}:</label>
@@ -178,7 +182,7 @@
                         value="{{system.targetNumberModifier}}"></label>
             </div>
             <div>
-                <strong>{{localize "RSK.Upgrades"}}:</strong>
+                <label>{{localize "RSK.Upgrades"}}:</label>
                 <div>{{system.upgrades}}</div>
             </div>
         </div>

@@ -16,19 +16,21 @@
                 </label>
             </div>
         </div>
-        <div>
-            <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
-                    value="{{system.description}}"></label>
-            <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
-        </div>
         <div style="display: flex;">
             <div class="w-50">
                 <label>{{localize "RSK.Cost"}}: <input type="number" name="system.cost" value="{{system.cost}}"></label>
             </div>
             <div class="w-50">
-                <label>{{localize "RSK.Material"}}: <input type="text" name="system.material"
-                        value="{{system.material}}"></label>
+                <label>{{localize "RSK.Material"}}: <select name="system.material">
+                        {{selectOptions config.resourceTier selected=system.material localize=true}}
+                    </select>
+                </label>
             </div>
+        </div>
+        <div>
+            <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
+                    value="{{system.description}}"></label>
+            <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
         </div>
         <div style="display: flex;">
             <div class="w-50">

@@ -39,6 +39,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 effectsAdded: new fields.ArrayField(new fields.ObjectField()),
                 statusesRemoved: new fields.ArrayField(new fields.StringField()),
             }),
+            specialEffectLabel: new fields.StringField(),
             specialEffect: new fields.ArrayField(new fields.SchemaField({
                 name: new fields.StringField(),
                 x: new fields.StringField(),
@@ -84,11 +85,27 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
 
     prepareBaseData() {
         this.usageCostLabel = this.getUsageCostLabel();
+        this.specialEffectLabel = this.getSpecialEffectLabel();
     }
 
     getUsageCostLabel() {
         return this.usageCost
             .map(c => `${c.amount} ${localizeText(CONFIG.RSK.usageCostTypes[c.type])}`)
+            .join(", ");
+    }
+
+    getSpecialEffectLabel() {
+        return this.specialEffect
+            .map(se => {
+                let qualities = "";
+                if (se.x) {
+                    qualities += ` ${se.x}`;
+                }
+                if (se.y) {
+                    qualities += ` ${se.x}`;
+                }
+                return `${localizeText(CONFIG.RSK.specialEffects[se.name])}${qualities}`;
+            })
             .join(", ");
     }
 

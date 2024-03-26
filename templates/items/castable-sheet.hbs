@@ -25,18 +25,25 @@
                     </label>
                 </div>
             </div>
+
+            <label>{{localize "RSK.UsageCost"}}</label>
+            {{system.usageCostLabel}}
+
+            {{#if showDescription}}
             <div>
                 <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
                         value="{{system.description}}"></label>
             </div>
+            {{/if}}
+
+            <label>{{localize "RSK.SpecialEffect"}}</label>
+            {{system.specialEffectLabel}}
+
             <div>
                 <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
                         value="{{system.effectDescription}}"></label>
             </div>
-            <label>{{localize "RSK.UsageCost"}}</label>
-            {{usageCost}}
-        </div>
-        <div class="tab features" data-group="primary" data-tab="actions">
+
             <div>
                 <div class="form-group">
                     <label>{{localize "RSK.Range"}}
@@ -46,6 +53,8 @@
                     </label>
                 </div>
             </div>
+        </div>
+        <div class="tab features" data-group="primary" data-tab="actions">
             <div>
                 <label>{{localize "RSK.SpecialEffect"}}:</label>
                 <div>

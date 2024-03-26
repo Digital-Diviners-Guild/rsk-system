@@ -13,4 +13,10 @@ export default class RSKCastableSheet extends RSKItemSheet {
     get template() {
         return `systems/rsk/templates/items/castable-sheet.hbs`
     }
+
+    getData() {
+        const context = super.getData();
+        context.showDescription = this.item.system.category !== "prayer";
+        return context;
+    }
 }

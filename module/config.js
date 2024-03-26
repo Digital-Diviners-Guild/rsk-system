@@ -126,6 +126,11 @@ RSK.weaponSpecialEffects = {
     reach: "RSK.Reach",
 }
 
+RSK.specialEffects = {
+    none: "",
+    ...RSK.weaponSpecialEffects
+}
+
 RSK.skills = {
     archaeology: "RSK.Archaeology",
     attack: "RSK.Attack",
@@ -371,6 +376,7 @@ RSK.mineralType = {
 }
 
 RSK.materialTier = {
+    none: "",
     ...RSK.woodType,
     ...RSK.mineralType
 }
@@ -393,6 +399,7 @@ RSK.metalType = {
 }
 
 RSK.resourceTier = {
+    none: "",
     ...RSK.leatherType,
     ...RSK.metalType
 }
