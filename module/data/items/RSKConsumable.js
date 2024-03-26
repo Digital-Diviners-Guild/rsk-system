@@ -7,6 +7,8 @@ export default class RSKConsumable extends RSKItemType {
         const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
                 name: `${actor.name} ${localizeText("RSK.Uses")} ${this.parent.name}`,
+                description: this.description,
+                effectDescription: this.effectDescription,
                 hideRollResults: true
             });
         const outcome = { ...this.targetOutcome };
