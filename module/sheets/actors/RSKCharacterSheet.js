@@ -92,8 +92,8 @@ export default class RSKCharacterSheet extends RSKActorSheet {
             const toggleTarget = $(ev.currentTarget).data('toggle');
             $(`[data-toggle-target='${toggleTarget}']`).toggle();
         });
-        html.find(".item").dblclick(ev => {
-            const itemId = $(ev.currentTarget)?.data('item-id');
+        html.find(".item-name").dblclick(ev => {
+            const itemId = $(ev.currentTarget)?.parents(".item")?.data('item-id');
             this.actor.items.find(i => i.id === itemId)?.sheet.render(true);
         });
         html.find("[data-item-id] img").click(ev => {

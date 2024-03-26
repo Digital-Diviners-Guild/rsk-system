@@ -3,17 +3,17 @@ import { localizeText } from "../../rsk-localize.js";
 
 export default class RSKConsumable extends RSKItemType {
     async use(actor) {
-        const addedEffects = this.parent.effects.map(e => foundry.utils.deepClone(e.toObject()));
+        const effectsAdded = this.parent.effects.map(e => foundry.utils.deepClone(e.toObject()));
         const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
                 name: `${actor.name} ${localizeText("RSK.Uses")} ${this.parent.name}`,
                 hideRollResults: true
             });
         const outcome = { ...this.targetOutcome };
-        if (outcome.addedEffects) {
-            outcome.addedEffects.push([...addedEffects]);
+        if (outcome.effectsAdded) {
+            outcome.effectsAdded = [...outcome.effectsAdded, ...effectsAdded];
         } else {
-            outcome.addedEffects = [...addedEffects];
+            outcome.effectsAdded = [...effectsAdded];
         }
         await ChatMessage.create({
             content: content,
