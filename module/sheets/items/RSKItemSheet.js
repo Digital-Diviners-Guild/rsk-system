@@ -39,8 +39,10 @@ export default class RSKItemSheet extends ItemSheet {
 
         html.find(".add-usage-cost").click(async (ev) => {
             const type = $("#type");
-            const amount = $("#amount");
             const typeVal = type.val();
+            if (typeVal === "none") return;
+
+            const amount = $("#amount");
             const amountVal = Number(amount.val());
 
             const usageCost = this.item.system.usageCost.filter(c => c.type !== typeVal);

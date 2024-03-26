@@ -24,6 +24,7 @@ export default class RSKWeaponSheet extends RSKItemSheet {
         context.range = !this.item.isOnlyAmmo();
         context.showAmmo = this.item.isOrUsesAmmo();
         context.showEffects = this.item.isAmmo() || this.item.isMeleeWeapon();
+        context.showUsageCost = this.item.system.category === "ranged";
         return context;
     }
 

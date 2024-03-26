@@ -93,6 +93,7 @@ RSK.castableCategories = {
 };
 
 RSK.ammunitionType = {
+    none: "",
     arrow: "Arrow",
     bolt: "Bolt",
     dart: "Dart"
@@ -205,6 +206,7 @@ RSK.size = {
 }
 
 RSK.usageCostResources = {
+    none: "",
     ...RSK.pointCostType,
     ...RSK.ammunitionType,
     ...RSK.runeType
