@@ -150,6 +150,9 @@ Hooks.once("ready", async function () {
     const d = new Dialog({
         title: "Early Access Disclaimer",
         content: `
+        <em>
+        Breaking Changes 0.20.X: <a href="https://github.com/Digital-Diviners-Guild/rsk-system/releases/tag/0.20.0" target="_blank">Patch Notes</a>
+        </em>
         <h3>Welcome to RSK!</h3>
         <p>
         Thank you for exploring the RSK system. We're currently in the <strong>early stages of development</strong>, which is an exciting time filled with rapid changes and updates. As we work towards a stable release, you might encounter bugs and notice features that are still under construction.
