@@ -13,6 +13,7 @@
 
 import { statusToEffect } from "./effects/statuses.js";
 import { getSpecialEffectHandler } from "./effects/specialEffect.js";
+import { uiService } from "./rsk-ui-service.js";
 
 
 const getDefenseRoll = async (target, actionType) => {
@@ -64,7 +65,7 @@ const restoreLifePoints = (actor, amount) => {
 const receiveDamage = async (actor, damageEntries, attackType) => {
     let defense = 0;
     if (actor.type === "character") {
-        defense = await getDefenseRoll(actor, actionType);
+        defense = await getDefenseRoll(actor, attackType);
     }
     await actor.system.receiveDamage(damageEntries, attackType, defense);
 };
@@ -119,10 +120,10 @@ export const applyOutcome = async (outcomeData) => {
 const apply = async (target, outcome) => {
     if (!target) return;
 
-    if (outcome.damageEntries) {
+    if (Object.keys(outcome.damageEntries).reduce((total, next) => { total += outcome.damageEntries[next] ?? 0; return total }, 0) > 0) {
         await receiveDamage(target, outcome.damageEntries, outcome.actionType);
     }
-    if (outcome.restoresLifePoints) {
+    if (outcome.restoresLifePoints > 0) {
         await restoreLifePoints(target, outcome.restoresLifePoints);
     }
     if (outcome.effectsAdded?.length > 0) {

@@ -45,7 +45,6 @@ export default class RSKCodexSheet extends ItemSheet {
 
     async _onDropItem(event, data) {
         const item = await Item.fromDropData(data);
-        debugger;
         if (item.system.category !== this.item.system.actionType
             || this.item.system.actions.filter(a => a.itemId === item._id).length > 0) return;
 

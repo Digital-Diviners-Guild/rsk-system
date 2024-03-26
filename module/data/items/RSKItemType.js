@@ -72,7 +72,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             //todo: do these really need to be on the base item
             activeSlot: new fields.StringField({
                 required: false,
-                choices: [...Object.keys(CONFIG.RSK.activeSlotType)]
+                choices: ["ammo", ...Object.keys(CONFIG.RSK.activeSlotType)]
             }),
             equippedInSlot: new fields.StringField(),
             isTwoHanded: new fields.BooleanField({ initial: false }),

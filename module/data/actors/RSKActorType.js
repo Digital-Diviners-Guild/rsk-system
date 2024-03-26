@@ -38,7 +38,7 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
             return acc;
         }, { totalDamage: 0, damageResistance: 0 });
         const attackTypeResistance = this.getBonusArmourValue(attackType);
-        const defenseValue = remainingArmourSoak + damageResistance + attackTypeResistance + defense;
+        const defenseValue = remainingArmourSoak + damageResistance + attackTypeResistance + game.rsk.math.clamp_value(defense, { min: 0 });
         return game.rsk.math.clamp_value(totalDamage - defenseValue, { min: 0 });
     }
 

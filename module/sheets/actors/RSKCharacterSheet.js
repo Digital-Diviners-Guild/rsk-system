@@ -224,7 +224,6 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
 
     async characterCastSpell() {
-        debugger;
         const castables = this.actor.items
             .filter(s => s.type === "castable" && s.system.category === "magic")
             .filter(s => s.system.canUse(this.actor));

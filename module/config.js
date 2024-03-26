@@ -267,6 +267,7 @@ RSK.activeSlotType = {
 RSK.weaponActiveSlotType = {
     label: "RSK.WeaponActiveSlotTypes",
     values: {
+        ammo: "RSK.Ammo",
         ...Object.keys(RSK.activeSlotType)
             .filter(k => k === "weapon" || k === "arm")
             .reduce((ks, k) => { ks[k] = RSK.activeSlotType[k]; return ks }, {})

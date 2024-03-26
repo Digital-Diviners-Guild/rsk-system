@@ -48,10 +48,11 @@
                     <p>{{system.description}}</p>
                     <p>{{system.effectDescription}}</p>
 
-                    <div>
+                    {{!-- readonly sepcial effects --}}
+                    {{!-- <div>
                         <strong>{{localize "RSK.SpecialEffects"}}:</strong>
                         <div>{{system.specialEffects}}</div>
-                    </div>
+                    </div> --}}
                     <div>
                         <strong>{{localize "RSK.Effects"}}:</strong>
                         {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
@@ -96,12 +97,41 @@
                     <strong>{{localize "RSK.MaxStackSize"}}: </strong>
                     <input type="number" data-dtype="number" name="system.maxStackSize" value="{{system.maxStackSize}}">
 
-                    <strong>{{localize "RSK.SpecialEffects"}}:</strong>
-                    <input type="text" name="system.specialEffects" value="{{system.specialEffects}}">
+                    <div>
+                        <label>{{localize "RSK.SpecialEffect"}}:</label>
+                        <div>
+                            <ol class="items-list">
+                                {{#each system.specialEffect as |spfx|}}
+                                <li class="item flexrow" data-name="{{spfx.name}}">
+                                    {{spfx.name}} {{spfx.x}} {{spfx.y}}
+                                    <div class=" item-controls">
+                                        <a class="item-control remove-special-effect" title="Delete Special Effect"><i
+                                                class="fas fa-trash"></i></a>
+                                    </div>
+                                </li>
+                                {{/each}}
+                            </ol>
+                            <div class="form-group">
+                                <label>{{localize "RSK.Name"}}
+                                    <select id="new-special-effect-name">
+                                        {{selectOptions config.weaponSpecialEffects localize=true}}
+                                    </select>
+                                </label>
+                                <label>{{localize "RSK.X"}}</label>
+                                <input id="new-special-effect-x" type="text">
 
-                    <strong>{{localize "RSK.Effects"}}:</strong>
-                    {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
-
+                                <label>{{localize "RSK.Y"}}</label>
+                                <input id="new-special-effect-y" type="text">
+                                <a class="item-control add-special-effect" title="add special effect">
+                                    <i class="fas fa-plus"></i> {{localize "Add Special Effect"}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label>{{localize "RSK.Effects"}}</label>
+                        {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
+                    </div>
                 </div>
             </section>
         </div>

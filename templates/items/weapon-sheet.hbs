@@ -41,16 +41,21 @@
                 <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
                         value="{{system.effectDescription}}"></label>
             </div>
-
             <div class="form-group">
-                <label>{{localize "RSK.ActiveSlot"}}:
-                    <select name="system.activeSlot">
-                        {{selectOptions config.weaponActiveSlotType.values selected=system.activeSlot
-                        localize=true}}
-                    </select>
-                </label>
+                <div class="w-50">
+                    <label>{{localize "RSK.ActiveSlot"}}:
+                        <select name="system.activeSlot">
+                            {{selectOptions config.weaponActiveSlotType.values selected=system.activeSlot
+                            localize=true}}
+                        </select>
+                    </label>
+                </div>
+                <div class="w-50">
+                    <strong>{{localize "RSK.IsTwoHanded"}}</strong>
+                    <input type="checkbox" data-dtype="Boolean" name="system.isTwoHanded" value="{{system.isTwoHanded}}"
+                        {{checked system.isTwoHanded}}>
+                </div>
             </div>
-
             <div style="display: flex;">
                 <div class="w-50">
                     <label>{{localize "RSK.Cost"}}: <input type="number" name="system.cost"
@@ -85,11 +90,7 @@
                     </label>
                 </div>
             </div>
-            <div>
-                <strong>{{localize "RSK.IsTwoHanded"}}</strong>
-                <input type="checkbox" data-dtype="Boolean" name="system.isTwoHanded" value="{{system.isTwoHanded}}"
-                    {{checked system.isTwoHanded}}>
-            </div>
+            {{#if showEffects}}
             <div>
                 <label>{{localize "RSK.SpecialEffect"}}:</label>
                 <div>
@@ -125,6 +126,7 @@
                 <label>{{localize "RSK.Effects"}}</label>
                 {{> "/systems/rsk/templates/parts/edit-effects.hbs"}}
             </div>
+            {{/if}}
             <div>
                 <strong>Target Outcomes</strong>
                 {{> "/systems/rsk/templates/items/parts/outcome.hbs" outcome=system.targetOutcome

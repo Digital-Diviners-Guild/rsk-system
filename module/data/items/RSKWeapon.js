@@ -1,5 +1,6 @@
 import { fields } from "../fields.js";
 import { uiService } from "../../rsk-ui-service.js";
+import { localizeText } from "../../rsk-localize.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 import RSKItemType from "./RSKItemType.js";
 
@@ -10,10 +11,7 @@ import RSKItemType from "./RSKItemType.js";
 export default class RSKWeapon extends RSKEquippableType {
     static defineSchema() {
         return {
-            ...RSKItemType.defineSchema(),
-            ammoType: new fields.StringField({
-                choices: [...Object.keys(CONFIG.RSK.ammunitionType)]
-            })
+            ...RSKItemType.defineSchema()
         }
     };
 
@@ -72,21 +70,21 @@ export default class RSKWeapon extends RSKEquippableType {
             const ammo = this._getAmmo(actor);
             const targetOutcome = this === ammo
                 ? this.targetOutcome
-                : { ...this.combineOutcomes(this.targetOutcome, ammo.targetOutcome) };
+                : { ...this.combineOutcomes(this.targetOutcome, ammo.system.targetOutcome) };
             const usageOutcome = this === ammo
                 ? this.usageOutcome
-                : { ...this.combineOutcomes(this.usageOutcome, ammo.usageOutcome) };
+                : { ...this.combineOutcomes(this.usageOutcome, ammo.system.usageOutcome) };
             return {
                 name: this.parent?.name,
-                description: `${this.description}\n${ammo.description}`,
-                effectDescription: `${this.effectDescription}\n${ammo.effectDescription}`,
+                description: `${this.description}\n${ammo.system.description}`,
+                effectDescription: `${this.effectDescription}\n${ammo.system.effectDescription}`,
                 img: this.parent?.img ?? "",
                 actionType: "ranged", // should this maybe be 'attackType' in the damage model?
                 actorUuid: actor.uuid,
                 //targetUuids: [];
                 targetOutcome: { ...targetOutcome },
                 actorOutcome: { ...usageOutcome },
-                specialEffect: [...ammo.specialEffect]
+                specialEffect: [...ammo.system.specialEffect]
             };
         }
     }
@@ -100,7 +98,7 @@ export default class RSKWeapon extends RSKEquippableType {
 
     combineOutcomes(outcome1, outcome2) {
         return {
-            damage: this.combineDamage(outcome1.damageEntries, outcome2.damageEntries),
+            damageEntries: this.combineDamage(outcome1.damageEntries, outcome2.damageEntries),
             restoresLifePoints: outcome1.restoresLifePoints + outcome2.restoresLifePoints,
             statusesAdded: [...outcome1.statusesAdded, ...outcome2.statusesAdded],
             statusesRemoved: [...outcome1.statusesRemoved, ...outcome2.statusesRemoved],
