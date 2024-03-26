@@ -291,6 +291,7 @@ RSK.armourActiveSlotType = {
 };
 
 RSK.weaponTypes = {
+    none: "",
     simple: "RSK.Simple",
     martial: "RSK.Martial",
     unique: "RSK.Unique",
