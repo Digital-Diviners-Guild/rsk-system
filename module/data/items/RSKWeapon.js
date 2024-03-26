@@ -90,7 +90,7 @@ export default class RSKWeapon extends RSKEquippableType {
     }
 
     _handleItemUsed(actor, skillResult) {
-        if (!this.category === "melee") {
+        if (this.category !== "melee") {
             const ammo = this._getAmmo(actor);
             actor.system.removeItem(ammo);
         }
