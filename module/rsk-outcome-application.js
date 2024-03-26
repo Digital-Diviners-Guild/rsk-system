@@ -88,7 +88,6 @@ const operations = {
 //types of effects? - on usage, on equip, on success
 export const applyOutcome = async (outcomeData) => {
     //todo: when its a player outcome that failed, don't allow apply
-    debugger;
     const rollMargin = outcomeData.rollMargin;
     let outcome = foundry.utils.deepClone(outcomeData);
     if (rollMargin > 0) {
