@@ -101,10 +101,9 @@ RSK.ammunitionType = {
 
 RSK.defaultWeapon = {
     isEquipped: true,
-    weaponType: "simple",
-    attackType: "melee",
-    attackMethods: ["melee"],
-    targetOutcome: { damage: { crush: 1 } }
+    category: "melee",
+    subCategory: "simple",
+    targetOutcome: { damageEntries: { crush: 1 } }
 };
 
 RSK.weaponSpecialEffects = {

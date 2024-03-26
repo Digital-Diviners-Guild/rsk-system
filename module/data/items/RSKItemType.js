@@ -116,12 +116,12 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
         const confirmRollResult = await uiService.showDialog("confirm-roll", rollData);
         if (!confirmRollResult.confirmed) return;
         const skillResult = await actor.system.useSkill(confirmRollResult);
-
         const actionOutcome = this._prepareOutcomeData(actor);
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
-                ...skillResult,
-                ...actionOutcome
+                rollResult: { ...skillResult },
+                ...actionOutcome,
+                specialEffectLabel: skillResult.margin > 0 ? this.specialEffectLabel : ""
             });
         await skillResult.toMessage({
             flavor: flavor,
