@@ -16,11 +16,6 @@ export default class RSKWeaponSheet extends RSKItemSheet {
 
     getData() {
         const context = super.getData();
-        const itemData = context.item;
-        context.system = itemData.system;
-        context.flags = itemData.flags;
-        context.config = CONFIG.RSK;
-        context.effects = itemData.effects;
         context.range = !this.item.isOnlyAmmo();
         context.showAmmo = this.item.isOrUsesAmmo();
         context.showEffects = this.item.isAmmo() || this.item.isMeleeWeapon();
