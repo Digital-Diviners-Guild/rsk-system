@@ -40,7 +40,7 @@ export default class RSKWeapon extends RSKEquippableType {
     _prepareRollData(actor) {
         return {
             ...actor.system.getRollData(),
-            targetNumberModifier: this.targetNumberModifier,
+            //targetNumberModifier: this.targetNumberModifier, // this is only for crafting
             defaultSkill: this.category === "melee" ? "attack" : "ranged",
             defaultAbility: this.subCategory === "martial" ? "agility" : "strength"
         };

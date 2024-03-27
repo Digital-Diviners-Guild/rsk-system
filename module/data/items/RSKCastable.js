@@ -18,7 +18,7 @@ export default class RSKCastable extends RSKItemType {
     _prepareRollData(actor) {
         return {
             ...actor.system.getRollData(),
-            targetNumberModifier: this.targetNumberModifier,
+            //targetNumberModifier: this.targetNumberModifier, //this is only for crafting
             //todo: localization?
             defaultSkill: this.category,
             defaultAbility: "intellect"
