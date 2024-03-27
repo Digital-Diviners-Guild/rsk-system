@@ -228,6 +228,7 @@ RSK.castableUsageCosts = {
 }
 
 RSK.usageCostTypes = {
+    none: "",
     ...RSK.ammunitionType,
     ...RSK.runeType,
     ...RSK.pointCostType
@@ -256,6 +257,7 @@ RSK.codexTypes = {
 };
 
 RSK.ranges = {
+    none: "",
     near: "RSK.Near",
     far: "RSK.Far",
     distant: "RSK.Distant",
@@ -352,6 +354,7 @@ RSK.material = {
 }
 
 RSK.woodType = {
+    none: "",
     wood: "RSK.Wood",
     oak: "RSK.Oak",
     willow: "RSK.Willow",
@@ -362,6 +365,7 @@ RSK.woodType = {
 }
 
 RSK.mineralType = {
+    none: "",
     tin: "RSK.TinOre",
     copper: "RSK.CopperOre",
     iron: "RSK.IronOre",
@@ -382,6 +386,7 @@ RSK.materialTier = {
 }
 
 RSK.leatherType = {
+    none: "",
     leather: "RSK.Leather",
     green_dragonhide: "RSK.Green_Dragonhide",
     blue_dragonhide: "RSK.Blue_Dragonhide",
@@ -390,6 +395,7 @@ RSK.leatherType = {
 }
 
 RSK.metalType = {
+    none: "",
     bronze: "RSK.Bronze",
     iron: "RSK.Iron",
     steel: "RSK.Steel",
@@ -400,6 +406,8 @@ RSK.metalType = {
 
 RSK.resourceTier = {
     none: "",
+    glass: "RSK.Glass",
+    cloth: "RSK.Cloth",
     ...RSK.leatherType,
     ...RSK.metalType
 }
@@ -408,6 +416,7 @@ RSK.resourceTier = {
 // dragon? what material is dargon?
 // we need dragon material somewhere!!!
 RSK.ammunitionMaterialType = {
+    none: "",
     ...RSK.metalType
 }
 
@@ -419,17 +428,20 @@ RSK.tierOption = {
 }
 
 RSK.weaponMaterials = {
+    none: "",
     ...RSK.woodType,
     ...RSK.metalType
 }
 
 RSK.armourMaterials = {
+    none: "",
     cloth: "RSK.Cloth",
     ...RSK.leatherType,
     ...RSK.metalType
 }
 
 RSK.itemMaterial = {
+    none: "",
     ...RSK.woodType,
     ...RSK.metalType,
     cloth: "RSK.Cloth",
