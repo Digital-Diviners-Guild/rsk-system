@@ -11,7 +11,7 @@ An Unofficial FoundryVTT system for playing [RuneScape Kingdoms](https://steamfo
 ## What the system provides now
 * sheets to create and manage characters and items
 * statuses that can be applied to characters/npc's
-    * many statuses don't yet affect the actor, and are more for tracking what statuses currently should be applied
+    * some statuses don't yet affect the actor, and are more for tracking what statuses currently should be applied
 * basic inventory tracking
 * dice formulas for rolling skill checks with advantage, disadvantage, and applying modifiers.
 
@@ -25,11 +25,14 @@ Though there are a few things that have automation already:
 - Improving your Character (leveling)
 - Spending 'Ammo' when an action requires it (prayer/summoning points, runes, arrows/bolts/darts)
 - Consumables (potions, food, etc)
+    - can add/remove effects
+    - heal/damage target
 - Applying damage (partial automation)
     - Death status will automatically be applied
+    - Use margin to boost outcome
     - Armour Soak, Attack and Damage Type specific strength/weaknesses will be taken into account when calculating damage taken
     - Button in chat for easy access to damage application from an action
-    - No qualities or effects have automation yet
+    - Most Special Effects have automation some automation
 - Death/Resurrection
     - remove statuses 
     - restore health/prayer/summoning points
@@ -52,6 +55,7 @@ Though there are a few things that have automation already:
         - the consequences themselves currently need to be resolved by the player
     - resurrection will reset stats and effects, the button to do so will appear after rolling the correct amount of consequences
     - I like to put Death in a special scene called "Death's Office" and move players there on death
+    - Make sure your player have access to interact with the Death actor if you chose to utilize this option.
 
     
 ## Roadmap
@@ -59,11 +63,10 @@ Though there are a few things that have automation already:
 * Character Creator
 * Quest Log
 * Automation
-    * Use margin to boost outcome
     * Combat Action automation
-        * enforce valid targetting rules (range, type, etc)
+        * enforce valid targeting rules (range, type, etc)
         * damage over time
-        * qualities/effects
+        * more support for special effects
         * and more...
     * Action Macros for common skill checks:
         * Disarming a trap, Fishing, etc..
