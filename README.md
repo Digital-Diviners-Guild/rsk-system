@@ -32,7 +32,7 @@ Though there are a few things that have automation already:
     - Use margin to boost outcome
     - Armour Soak, Attack and Damage Type specific strength/weaknesses will be taken into account when calculating damage taken
     - Button in chat for easy access to damage application from an action
-    - Most Special Effects have automation some automation
+    - Most Special Effects have some automation
 - Death/Resurrection
     - remove statuses 
     - restore health/prayer/summoning points
