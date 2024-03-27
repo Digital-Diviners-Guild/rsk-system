@@ -1,8 +1,10 @@
-import { fields } from "../fields.js";
 import { uiService } from "../../rsk-ui-service.js";
 import { localizeText } from "../../rsk-localize.js";
 import RSKEquippableType from "./RSKEquippableType.js";
 import RSKItemType from "./RSKItemType.js";
+
+// todo: effects like the whips energy sap. where the targets next successful attack
+// is half damage
 
 //todo: maybe we want to have meleeWeapon and rangedWeapon
 // rangedWeapon is when ammo/throwables matter
@@ -49,7 +51,7 @@ export default class RSKWeapon extends RSKEquippableType {
     _getAmmo(actor) {
         return this.category === "thrown"
             ? this
-            : actor.system.getActiveItems().find(i => this.parent?.usesItemAsAmmo(i.system));
+            : actor.system.getActiveItems().find(i => this.parent?.usesItemAsAmmo(i));
     }
 
     _prepareOutcomeData(actor) {

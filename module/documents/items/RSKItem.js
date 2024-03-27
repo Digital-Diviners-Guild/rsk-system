@@ -33,8 +33,8 @@ export default class RSKItem extends Item {
 
     usesItemAsAmmo(item) {
         return this !== item
-            && ["ammo", "thrown"].includes(item.category)
-            && this.system.usageCost.every(i => i.type === item.subCategory)
+            && ["ammo", "thrown"].includes(item.system.category)
+            && this.system.usageCost.every(i => i.type === item.system.subCategory)
     }
 
     canWieldWith(item) {

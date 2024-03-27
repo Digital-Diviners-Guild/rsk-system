@@ -288,6 +288,8 @@ export default class RSKCharacterType extends RSKActorType {
         const unequipResult = item.system.unequip();
         let updates = {};
         if (unequipResult?.freedSlot) {
+            //todo: think we may have lost the disables slots functionality
+            // need to explore
             updates["flags.rsk.disabledSlots"] = this.parent.flags.rsk.disabledSlots.filter(s => s !== unequipResult.freedSlot) ?? [];
         }
         if (update) {
