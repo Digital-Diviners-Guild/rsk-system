@@ -148,8 +148,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
 
     async handleSkillCheck(dialogOptions = {}) {
         const rollData = this.actor.system.getRollData();
-        const dialog = RSKConfirmRollDialog.create(rollData, dialogOptions);
-        const rollOptions = await dialog();
+        const rollOptions = await uiService.showDialog("confirm-roll", { ...rollData, ...dialogOptions });
         if (!rollOptions.confirmed) return false;
         const result = await this.actor.system.useSkill(rollOptions);
         //todo: could probably be in a template
