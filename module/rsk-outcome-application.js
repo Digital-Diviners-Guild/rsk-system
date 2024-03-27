@@ -86,11 +86,13 @@ const operations = {
 // - augment outcome with special effects
 // what about usage special effects, like block?
 //types of effects? - on usage, on equip, on success
+
 export const applyOutcome = async (outcomeData) => {
     //todo: when its a player outcome that failed, don't allow apply
+    //todo: specifics when player is attacked by npc
     const rollMargin = outcomeData.rollMargin;
     let outcome = foundry.utils.deepClone(outcomeData);
-    if (rollMargin > 0) {
+    if (outcome.triggersSpecialEffect) { // doesn't work for npc since we need a def check first.
         for (let spfx of outcome.specialEffect) {
             const handler = getSpecialEffectHandler(spfx.name);
             outcome = await handler(outcome, spfx.x, spfx.y);

@@ -109,6 +109,10 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             .join(", ");
     }
 
+    dealsDamage(damageEntries) {
+        return Object.keys(damageEntries).some((k) => damageEntries[k] > 0);
+    }
+
     async use(actor) {
         if (!this.canUse(actor)) return;
 
@@ -118,11 +122,15 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
 
         const skillResult = await actor.system.useSkill(confirmRollResult);
         const actionOutcome = this._prepareOutcomeData(actor);
+        const spfxMagin = this.dealsDamage(this.targetOutcome.damageEntries)
+            ? 1
+            : 0;
+        const triggersSpecialEffect = skillResult.margin >= spfxMagin;
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
                 rollResult: { ...skillResult },
                 ...actionOutcome,
-                specialEffectLabel: skillResult.margin > 0 ? this.specialEffectLabel : ""
+                specialEffectLabel: triggersSpecialEffect ? this.specialEffectLabel : ""
             });
         await skillResult.toMessage({
             flavor: flavor,
@@ -130,7 +138,8 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 rsk: {
                     ...skillResult,
                     ...actionOutcome,
-                    rollMargin: skillResult.margin
+                    rollMargin: skillResult.margin,
+                    triggersSpecialEffect
                 }
             }
         });
