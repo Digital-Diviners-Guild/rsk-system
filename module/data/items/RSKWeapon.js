@@ -50,7 +50,7 @@ export default class RSKWeapon extends RSKEquippableType {
 
     _getAmmo(actor) {
         return this.category === "thrown"
-            ? this
+            ? this.parent
             : actor.system.getActiveItems().find(i => this.parent?.usesItemAsAmmo(i));
     }
 
