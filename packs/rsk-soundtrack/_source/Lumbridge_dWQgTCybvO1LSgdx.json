@@ -1,0 +1,128 @@
+{
+  "folder": null,
+  "name": "Lumbridge",
+  "_id": "dWQgTCybvO1LSgdx",
+  "sounds": [
+    {
+      "name": "Autumn Voyage",
+      "path": "https://oldschool.runescape.wiki/images/Autumn_Voyage.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "StxPjtL28MzYIghf",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!dWQgTCybvO1LSgdx.StxPjtL28MzYIghf"
+    },
+    {
+      "name": "Book Of Spells",
+      "path": "https://oldschool.runescape.wiki/images/Book_of_Spells.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "x1ZH0DbjVyCdHfm8",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!dWQgTCybvO1LSgdx.x1ZH0DbjVyCdHfm8"
+    },
+    {
+      "name": "Dream",
+      "path": "https://oldschool.runescape.wiki/images/Dream.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "MjuSS3rRixPnKJqX",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!dWQgTCybvO1LSgdx.MjuSS3rRixPnKJqX"
+    },
+    {
+      "name": "Flute Salad",
+      "path": "https://oldschool.runescape.wiki/images/Flute_Salad.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "3dgOImq9zqLcsdxW",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!dWQgTCybvO1LSgdx.3dgOImq9zqLcsdxW"
+    },
+    {
+      "name": "Yesteryear",
+      "path": "https://oldschool.runescape.wiki/images/Yesteryear.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "YjIoAjw2bhaFyApO",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!dWQgTCybvO1LSgdx.YjIoAjw2bhaFyApO"
+    },
+    {
+      "name": "Harmony",
+      "path": "https://oldschool.runescape.wiki/images/Harmony.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "iXbQuPw1ZPvcLUcD",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!dWQgTCybvO1LSgdx.iXbQuPw1ZPvcLUcD"
+    },
+    {
+      "name": "Harmony 2",
+      "path": "https://oldschool.runescape.wiki/images/Harmony_2.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "COEgfq0sR70TAY3E",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!dWQgTCybvO1LSgdx.COEgfq0sR70TAY3E"
+    }
+  ],
+  "mode": 0,
+  "playing": false,
+  "fade": null,
+  "sorting": "a",
+  "seed": 505,
+  "flags": {
+    "core": {}
+  },
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.21.0",
+    "coreVersion": "11.315",
+    "createdTime": 1711605908998,
+    "modifiedTime": 1711606424460,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "description": "",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!playlists!dWQgTCybvO1LSgdx"
+}

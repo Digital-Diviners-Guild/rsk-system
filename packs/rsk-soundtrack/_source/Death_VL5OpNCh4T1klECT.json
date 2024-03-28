@@ -1,0 +1,41 @@
+{
+  "folder": null,
+  "name": "Death",
+  "_id": "VL5OpNCh4T1klECT",
+  "sounds": [
+    {
+      "name": "Rest In Peace",
+      "path": "https://oldschool.runescape.wiki/images/Rest_in_Peace.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "MH9LfhmcqLJkeqej",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!VL5OpNCh4T1klECT.MH9LfhmcqLJkeqej"
+    }
+  ],
+  "mode": 0,
+  "playing": false,
+  "fade": null,
+  "sorting": "a",
+  "seed": 993,
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.21.0",
+    "coreVersion": "11.315",
+    "createdTime": 1711606090133,
+    "modifiedTime": 1711606424460,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!playlists!VL5OpNCh4T1klECT"
+}

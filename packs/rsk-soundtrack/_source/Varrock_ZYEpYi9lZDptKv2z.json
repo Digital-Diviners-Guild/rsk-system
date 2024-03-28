@@ -1,0 +1,112 @@
+{
+  "folder": null,
+  "name": "Varrock",
+  "_id": "ZYEpYi9lZDptKv2z",
+  "sounds": [
+    {
+      "name": "Adventure",
+      "path": "https://oldschool.runescape.wiki/images/Adventure.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "sHdFgG8M2J0ujPG5",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!ZYEpYi9lZDptKv2z.sHdFgG8M2J0ujPG5"
+    },
+    {
+      "name": "Expanse",
+      "path": "https://oldschool.runescape.wiki/images/Expanse.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "bLVnVK0D4c863oaD",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!ZYEpYi9lZDptKv2z.bLVnVK0D4c863oaD"
+    },
+    {
+      "name": "Garden",
+      "path": "https://oldschool.runescape.wiki/images/Garden.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "QVAY1U6FqTE7J17Y",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!ZYEpYi9lZDptKv2z.QVAY1U6FqTE7J17Y"
+    },
+    {
+      "name": "Greatness",
+      "path": "https://oldschool.runescape.wiki/images/Greatness.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "CerqQweDy5w9A3oP",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!ZYEpYi9lZDptKv2z.CerqQweDy5w9A3oP"
+    },
+    {
+      "name": "Medieval",
+      "path": "https://oldschool.runescape.wiki/images/Medieval.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "WVLIBzVpYNIbF95M",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!ZYEpYi9lZDptKv2z.WVLIBzVpYNIbF95M"
+    },
+    {
+      "name": "Spirit",
+      "path": "https://oldschool.runescape.wiki/images/Spirit.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "BEvsNzSl1XZmnWtE",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!ZYEpYi9lZDptKv2z.BEvsNzSl1XZmnWtE"
+    }
+  ],
+  "mode": 0,
+  "playing": false,
+  "fade": null,
+  "sorting": "a",
+  "seed": 143,
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.21.0",
+    "coreVersion": "11.315",
+    "createdTime": 1711606059131,
+    "modifiedTime": 1711606424460,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "description": "",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!playlists!ZYEpYi9lZDptKv2z"
+}

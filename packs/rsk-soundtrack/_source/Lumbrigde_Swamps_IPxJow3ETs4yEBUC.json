@@ -1,0 +1,42 @@
+{
+  "folder": null,
+  "name": "Lumbrigde Swamps",
+  "_id": "IPxJow3ETs4yEBUC",
+  "sounds": [
+    {
+      "name": "Cave Of The Goblins",
+      "path": "https://oldschool.runescape.wiki/images/Cave_of_the_Goblins.ogg",
+      "repeat": false,
+      "fade": null,
+      "description": "",
+      "volume": 0.52,
+      "_id": "KJvcUSc3IsBme6NB",
+      "playing": false,
+      "pausedTime": null,
+      "sort": 0,
+      "flags": {},
+      "_key": "!playlists.sounds!IPxJow3ETs4yEBUC.KJvcUSc3IsBme6NB"
+    }
+  ],
+  "mode": 0,
+  "playing": false,
+  "fade": null,
+  "sorting": "a",
+  "seed": null,
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.21.0",
+    "coreVersion": "11.315",
+    "createdTime": 1711606364813,
+    "modifiedTime": 1711606424460,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "description": "",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!playlists!IPxJow3ETs4yEBUC"
+}

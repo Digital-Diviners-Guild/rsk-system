@@ -16,6 +16,12 @@
       "label": "RSK Items",
       "path": "./packs/rsk-items.db",
       "type": "Item"
+    },
+    {
+      "name": "rsk-soundtrack",
+      "label": "RSK Soundtrack",
+      "path": "./packs/rsk-soundtrack.db",
+      "type": "Playlist"
     }
   ],
   "languages": [
