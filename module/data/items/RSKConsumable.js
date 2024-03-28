@@ -10,20 +10,24 @@ import { localizeText } from "../../rsk-localize.js";
 
 export default class RSKConsumable extends RSKItemType {
     async use(actor) {
-        const effectsAdded = this.parent.effects.map(e => foundry.utils.deepClone(e.toObject()));
+        const effectsAdded = [];
+        const formula = this.parent.getFlag("rsk", "effectsDuration") || "1d6+1";
+        const durationRoll = (await game.rsk.dice.roll("custom", formula)).result.total;
+        for (let e of this.parent.effects) {
+            const eff = foundry.utils.deepClone(e.toObject());
+            eff.duration = { type: "turns", turns: durationRoll };
+            effectsAdded.push(eff);
+        }
         const content = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
                 name: `${actor.name} ${localizeText("RSK.Uses")} ${this.parent.name}`,
                 description: this.description,
-                effectDescription: this.effectDescription,
+                effectDescription: effectsAdded.length > 0
+                    ? `${this.effectDescription} (${durationRoll} turns)`
+                    : this.effectDescription,
                 hideRollResults: true
             });
-        const outcome = { ...this.targetOutcome };
-        if (outcome.effectsAdded) {
-            outcome.effectsAdded = [...outcome.effectsAdded, ...effectsAdded];
-        } else {
-            outcome.effectsAdded = [...effectsAdded];
-        }
+        this.targetOutcome.effectsAdded = [...effectsAdded];
         await ChatMessage.create({
             content: content,
             flags: {
@@ -34,7 +38,7 @@ export default class RSKConsumable extends RSKItemType {
                     effectDescription: this.effectDescription,
                     actionType: "consume",
                     img: this.parent.img,
-                    targetOutcome: { ...outcome },
+                    targetOutcome: { ...this.targetOutcome },
                     actorOutcome: { ...this.usageOutcome },
                     specialEffect: [...this.specialEffect]
                 }

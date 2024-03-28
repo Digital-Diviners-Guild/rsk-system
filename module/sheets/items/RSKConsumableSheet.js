@@ -13,4 +13,10 @@ export default class RSKConsumableSheet extends RSKItemSheet {
     get template() {
         return `systems/rsk/templates/items/consumable-sheet.hbs`
     }
+
+    getData() {
+        const context = super.getData();
+        context.effectsDuration = this.item.getFlag("rsk", "effectsDuration") || "1d6+1";
+        return context;
+    }
 }
