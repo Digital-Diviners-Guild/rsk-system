@@ -1,7 +1,7 @@
 {
   "name": "Tomato (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Tomatoes%285%29_detail.png/200px-Tomatoes%285%29_detail.png",
   "system": {
     "cost": 10,
     "targetNumberModifier": null,

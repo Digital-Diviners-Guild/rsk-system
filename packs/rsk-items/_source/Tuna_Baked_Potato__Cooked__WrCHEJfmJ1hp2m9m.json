@@ -1,7 +1,7 @@
 {
   "name": "Tuna Baked Potato (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Tuna_potato_detail.png/200px-Tuna_potato_detail.png",
   "system": {
     "cost": 20,
     "targetNumberModifier": null,

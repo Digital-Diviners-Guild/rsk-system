@@ -1,7 +1,7 @@
 {
   "name": "Strawberry (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Strawberries%285%29_detail.png/200px-Strawberries%285%29_detail.png",
   "system": {
     "cost": 12,
     "targetNumberModifier": null,

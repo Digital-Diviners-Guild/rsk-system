@@ -1,7 +1,7 @@
 {
   "name": "Sweetcorn (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Cooked_sweetcorn_detail.png/200px-Cooked_sweetcorn_detail.png",
   "system": {
     "cost": 12,
     "targetNumberModifier": null,

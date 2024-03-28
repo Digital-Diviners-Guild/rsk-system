@@ -1,7 +1,7 @@
 {
   "name": "Potato (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Baked_potato_detail.png/200px-Baked_potato_detail.png",
   "system": {
     "cost": 5,
     "targetNumberModifier": null,

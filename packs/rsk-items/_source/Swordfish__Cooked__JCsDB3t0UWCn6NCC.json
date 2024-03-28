@@ -1,7 +1,7 @@
 {
   "name": "Swordfish (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Swordfish_detail.png/200px-Swordfish_detail.png",
   "system": {
     "cost": 16,
     "targetNumberModifier": null,

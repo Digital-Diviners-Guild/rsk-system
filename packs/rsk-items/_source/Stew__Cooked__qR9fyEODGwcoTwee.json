@@ -1,7 +1,7 @@
 {
   "name": "Stew (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Stew_detail.png/200px-Stew_detail.png",
   "system": {
     "cost": 16,
     "targetNumberModifier": null,

@@ -1,7 +1,7 @@
 {
   "name": "Onion (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Chopped_onion_detail.png/200px-Chopped_onion_detail.png",
   "system": {
     "cost": 5,
     "targetNumberModifier": null,

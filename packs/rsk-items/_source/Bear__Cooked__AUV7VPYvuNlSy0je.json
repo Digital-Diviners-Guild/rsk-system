@@ -1,7 +1,7 @@
 {
   "name": "Bear (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Cooked_meat_detail.png/200px-Cooked_meat_detail.png",
   "system": {
     "cost": 25,
     "targetNumberModifier": null,

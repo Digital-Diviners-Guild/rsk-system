@@ -1,7 +1,7 @@
 {
   "name": "Fish Pie (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Fish_pie_detail.png/200px-Fish_pie_detail.png",
   "system": {
     "cost": 18,
     "targetNumberModifier": null,
