@@ -35,7 +35,7 @@
     "isEquipped": false,
     "category": "equipment",
     "subCategory": "none",
-    "description": "A cup made out of clay",
+    "description": "",
     "uses": "Drinking liquids",
     "material": "Clay",
     "location": "Pottery Oven",
