@@ -1,7 +1,7 @@
 {
   "name": "Salmon (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Salmon_detail.png/200px-Salmon_detail.png",
   "system": {
     "cost": 20,
     "targetNumberModifier": null,

@@ -1,7 +1,7 @@
 {
   "name": "Trout (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Trout_detail.png/200px-Trout_detail.png",
   "system": {
     "cost": 10,
     "targetNumberModifier": null,

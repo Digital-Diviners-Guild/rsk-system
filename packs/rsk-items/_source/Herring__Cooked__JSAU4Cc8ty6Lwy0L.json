@@ -1,7 +1,7 @@
 {
   "name": "Herring (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Herring_detail.png/200px-Herring_detail.png",
   "system": {
     "cost": 10,
     "targetNumberModifier": null,

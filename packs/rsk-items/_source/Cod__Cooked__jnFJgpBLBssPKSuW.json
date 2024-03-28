@@ -1,7 +1,7 @@
 {
   "name": "Cod (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Cod_detail.png/200px-Cod_detail.png",
   "system": {
     "cost": 14,
     "targetNumberModifier": null,

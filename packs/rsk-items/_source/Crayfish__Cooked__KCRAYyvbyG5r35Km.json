@@ -1,7 +1,7 @@
 {
   "name": "Crayfish (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://runescape.wiki/images/thumb/Crayfish_detail.png/200px-Crayfish_detail.png",
   "system": {
     "cost": 6,
     "targetNumberModifier": null,

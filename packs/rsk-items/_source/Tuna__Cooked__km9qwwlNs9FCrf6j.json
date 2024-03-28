@@ -1,7 +1,7 @@
 {
   "name": "Tuna (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Tuna_detail.png/200px-Tuna_detail.png",
   "system": {
     "cost": 12,
     "targetNumberModifier": null,

@@ -1,7 +1,7 @@
 {
   "name": "Shrimp (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Shrimps_detail.png/200px-Shrimps_detail.png",
   "system": {
     "cost": 5,
     "targetNumberModifier": null,

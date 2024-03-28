@@ -2,7 +2,7 @@
   "name": "Anchovy (Cooked)",
   "type": "consumable",
   "_id": "mSgVvUsslRENNzhP",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Anchovies_detail.png/200px-Anchovies_detail.png",
   "system": {
     "cost": 10,
     "targetNumberModifier": null,

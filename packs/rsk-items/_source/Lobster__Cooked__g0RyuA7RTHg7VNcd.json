@@ -1,7 +1,7 @@
 {
   "name": "Lobster (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Lobster_detail.png/200px-Lobster_detail.png",
   "system": {
     "cost": 24,
     "targetNumberModifier": null,

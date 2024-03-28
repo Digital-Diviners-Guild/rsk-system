@@ -1,7 +1,7 @@
 {
   "name": "Snail (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Lean_snail_meat_detail.png/200px-Lean_snail_meat_detail.png",
   "system": {
     "cost": 8,
     "targetNumberModifier": null,

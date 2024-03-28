@@ -1,7 +1,7 @@
 {
   "name": "Rabbit (Cooked)",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Cooked_rabbit_detail.png/200px-Cooked_rabbit_detail.png",
   "system": {
     "cost": 10,
     "targetNumberModifier": null,
