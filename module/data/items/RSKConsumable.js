@@ -8,6 +8,9 @@ import { localizeText } from "../../rsk-localize.js";
 // todo: need to create the effect on the fly so we can input the duration
 // like with statuses.  so we need effect changes and duration in consumable model?
 
+//todo: I think consumables can almost all be implemented via the 'Boost XY' effect.
+// we may need to create our own wrapper around 'effects'
+
 export default class RSKConsumable extends RSKItemType {
     async use(actor) {
         const effectsAdded = [];

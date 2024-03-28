@@ -1,0 +1,112 @@
+{
+  "name": "Hunter Potion",
+  "type": "consumable",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "cost": 24,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 3,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "potion",
+    "description": "",
+    "uses": "",
+    "effectDescription": "",
+    "location": "",
+    "requiredMaterials": "1 Vial of Water, 1 Avantoe",
+    "equipmentNeeded": "1 Vial"
+  },
+  "effects": [
+    {
+      "icon": "icons/svg/aura.svg",
+      "transfer": true,
+      "name": "Hunting Boost 3",
+      "_id": "3a3H3lsqCIhJdEsb",
+      "changes": [
+        {
+          "key": "system.skills.hunting.modifier",
+          "mode": 2,
+          "value": "3",
+          "priority": null
+        }
+      ],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "origin": null,
+      "statuses": [],
+      "flags": {},
+      "tint": null,
+      "_key": "!items.effects!l67690hCCHNJiRd8.3a3H3lsqCIhJdEsb"
+    }
+  ],
+  "folder": "uhHC7IeQKksDFrIG",
+  "flags": {
+    "rsk": {
+      "effectsDuration": "1d6+1"
+    },
+    "core": {}
+  },
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.22.0",
+    "coreVersion": "11.315",
+    "createdTime": 1711638340792,
+    "modifiedTime": 1711664866654,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_id": "l67690hCCHNJiRd8",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!l67690hCCHNJiRd8"
+}
