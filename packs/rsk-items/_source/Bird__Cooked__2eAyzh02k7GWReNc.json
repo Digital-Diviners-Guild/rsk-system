@@ -1,7 +1,7 @@
 {
   "name": "Bird (Cooked)",
   "type": "consumable",
-  "img": "https://oldschool.runescape.wiki/images/thumb/Roast_bird_detail.png/200px-Roast_bird_detail.png",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Roast_bird_meat_detail.png/200px-Roast_bird_meat_detail.png",
   "system": {
     "cost": 10,
     "targetNumberModifier": null,
