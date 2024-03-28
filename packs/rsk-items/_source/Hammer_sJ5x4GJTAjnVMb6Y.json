@@ -1,0 +1,61 @@
+{
+  "folder": "8UyDAfegAYzdhGHW",
+  "name": "Hammer",
+  "type": "item",
+  "_id": "sJ5x4GJTAjnVMb6Y",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Hammer_detail.png/200px-Hammer_detail.png",
+  "system": {
+    "cost": 25,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 3,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "equipment",
+    "subCategory": "none",
+    "description": "",
+    "uses": "Smithing and crafting items",
+    "material": "",
+    "location": "",
+    "requiredMaterials": "1 Wood, 1 Iron Bar",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.20.12",
+    "coreVersion": "11.315",
+    "createdTime": 1711566521107,
+    "modifiedTime": 1711586896664,
+    "lastModifiedBy": "zG4JMbYtrVM07eBO"
+  },
+  "sort": 400000,
+  "ownership": {
+    "default": 0,
+    "zG4JMbYtrVM07eBO": 3
+  },
+  "_key": "!items!sJ5x4GJTAjnVMb6Y"
+}

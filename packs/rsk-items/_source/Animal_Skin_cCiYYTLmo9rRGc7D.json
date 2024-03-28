@@ -1,0 +1,61 @@
+{
+  "folder": "25kFOv98OUJQUALq",
+  "name": "Animal Skin",
+  "type": "item",
+  "_id": "cCiYYTLmo9rRGc7D",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Cowhide_detail.png/200px-Cowhide_detail.png",
+  "system": {
+    "cost": 0,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 3,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "material",
+    "subCategory": "skin",
+    "description": "",
+    "uses": "",
+    "material": "none",
+    "location": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.20.12",
+    "coreVersion": "11.315",
+    "createdTime": 1711574575126,
+    "modifiedTime": 1711582757435,
+    "lastModifiedBy": "zG4JMbYtrVM07eBO"
+  },
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "zG4JMbYtrVM07eBO": 3
+  },
+  "_key": "!items!cCiYYTLmo9rRGc7D"
+}

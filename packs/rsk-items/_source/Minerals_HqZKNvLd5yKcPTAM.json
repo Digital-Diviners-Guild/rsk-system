@@ -1,0 +1,19 @@
+{
+  "name": "Minerals",
+  "sorting": "a",
+  "folder": null,
+  "type": "Item",
+  "_id": "HqZKNvLd5yKcPTAM",
+  "sort": 0,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.20.12",
+    "coreVersion": "11.315",
+    "createdTime": 1711574890163,
+    "modifiedTime": 1711577650417,
+    "lastModifiedBy": "zG4JMbYtrVM07eBO"
+  },
+  "_key": "!folders!HqZKNvLd5yKcPTAM"
+}

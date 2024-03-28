@@ -1,0 +1,61 @@
+{
+  "folder": "lbGZzqVWduo8DKOu",
+  "name": "Guam Leaf",
+  "type": "item",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Guam_leaf_detail.png/200px-Guam_leaf_detail.png",
+  "system": {
+    "cost": 4,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 3,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "material",
+    "subCategory": "herb",
+    "material": "none",
+    "uses": "",
+    "location": "Fields/Forest",
+    "description": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": "Sickle"
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.20.12",
+    "coreVersion": "11.315",
+    "createdTime": 1711575934714,
+    "modifiedTime": 1711577650478,
+    "lastModifiedBy": "zG4JMbYtrVM07eBO"
+  },
+  "_id": "ohT2GTVhLmrDybQ3",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "zG4JMbYtrVM07eBO": 3
+  },
+  "_key": "!items!ohT2GTVhLmrDybQ3"
+}

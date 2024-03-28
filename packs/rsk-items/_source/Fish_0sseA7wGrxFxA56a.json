@@ -1,0 +1,19 @@
+{
+  "name": "Fish",
+  "sorting": "a",
+  "folder": null,
+  "type": "Item",
+  "_id": "0sseA7wGrxFxA56a",
+  "sort": 0,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.20.12",
+    "coreVersion": "11.315",
+    "createdTime": 1711573833192,
+    "modifiedTime": 1711577650417,
+    "lastModifiedBy": "zG4JMbYtrVM07eBO"
+  },
+  "_key": "!folders!0sseA7wGrxFxA56a"
+}

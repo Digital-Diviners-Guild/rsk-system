@@ -1,0 +1,61 @@
+{
+  "folder": "8UyDAfegAYzdhGHW",
+  "name": "Harpoon",
+  "type": "item",
+  "_id": "z3ywAYYRzwMxKNid",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Harpoon_detail.png/200px-Hapoon_detail.png",
+  "system": {
+    "cost": 50,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 3,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "equipment",
+    "subCategory": "none",
+    "description": "",
+    "uses": "Catching fish",
+    "material": "",
+    "location": "",
+    "requiredMaterials": "1 Wood, 1 Iron Bar",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.20.12",
+    "coreVersion": "11.315",
+    "createdTime": 1711566543792,
+    "modifiedTime": 1711586897935,
+    "lastModifiedBy": "zG4JMbYtrVM07eBO"
+  },
+  "sort": 500000,
+  "ownership": {
+    "default": 0,
+    "zG4JMbYtrVM07eBO": 3
+  },
+  "_key": "!items!z3ywAYYRzwMxKNid"
+}

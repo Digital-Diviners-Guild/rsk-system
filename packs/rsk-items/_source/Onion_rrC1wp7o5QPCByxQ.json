@@ -1,0 +1,61 @@
+{
+  "folder": "cRNzz5c7XdXXn518",
+  "name": "Onion",
+  "type": "item",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Onion_detail.png/200px-Onion_detail.png",
+  "system": {
+    "cost": 6,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 3,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "material",
+    "subCategory": "produce",
+    "material": "none",
+    "uses": "",
+    "location": "Farm",
+    "description": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": "Spade"
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.20.12",
+    "coreVersion": "11.315",
+    "createdTime": 1711575731837,
+    "modifiedTime": 1711577650478,
+    "lastModifiedBy": "zG4JMbYtrVM07eBO"
+  },
+  "_id": "rrC1wp7o5QPCByxQ",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "zG4JMbYtrVM07eBO": 3
+  },
+  "_key": "!items!rrC1wp7o5QPCByxQ"
+}

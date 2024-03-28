@@ -1,0 +1,61 @@
+{
+  "folder": "HqZKNvLd5yKcPTAM",
+  "name": "Gold Ore",
+  "type": "item",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Gold_ore_detail.png/200px-Gold_ore_detail.png",
+  "system": {
+    "cost": 30,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 3,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "material",
+    "subCategory": "mineral",
+    "material": "none",
+    "uses": "",
+    "location": "Mine",
+    "description": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": "Pickaxe"
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.20.12",
+    "coreVersion": "11.315",
+    "createdTime": 1711574894585,
+    "modifiedTime": 1711577650478,
+    "lastModifiedBy": "zG4JMbYtrVM07eBO"
+  },
+  "_id": "a60PUmptC8EI1BRB",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "zG4JMbYtrVM07eBO": 3
+  },
+  "_key": "!items!a60PUmptC8EI1BRB"
+}

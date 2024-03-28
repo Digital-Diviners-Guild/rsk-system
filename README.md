@@ -1,8 +1,6 @@
 # rsk (alpha)
 An Unofficial FoundryVTT system for playing [RuneScape Kingdoms](https://steamforged.com/pages/runescape-kingdoms#products).
 
-**Note: This system does not provide any content, you will need to populate the item and actor sheets within your foundry world.**
-
 ## Install
 - Installation Guide: In FoundryVTT, paste the following url into the 'Manifest URL' field.    
 `https://raw.githubusercontent.com/Digital-Diviners-Guild/rsk-system/main/system.json`
@@ -14,6 +12,9 @@ An Unofficial FoundryVTT system for playing [RuneScape Kingdoms](https://steamfo
     * some statuses don't yet affect the actor, and are more for tracking what statuses currently should be applied
 * basic inventory tracking
 * dice formulas for rolling skill checks with advantage, disadvantage, and applying modifiers.
+* starter compendium pack
+
+**Note: Our system now includes a starter compendium pack with basic organizational structure and minimal content, including item names, numerical stats, and URLs to item images hosted on the OSRS Wiki (images not owned by us). Detailed descriptions and additional content creation are up to you, jump starting your world-building while respecting copyright.**
 
 #### Automation:
 In this pre-release state, a lot of game play mechanics will need to be manually tracked.    

@@ -1,0 +1,61 @@
+{
+  "folder": "8UyDAfegAYzdhGHW",
+  "name": "Pot",
+  "type": "item",
+  "_id": "J99QEFbkU5ZDaxUF",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Pot_detail.png/200px-Pot_detail.png",
+  "system": {
+    "cost": 5,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 3,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "equipment",
+    "subCategory": "none",
+    "description": "",
+    "uses": "Cooking raw food",
+    "material": "Clay",
+    "location": "Pottery Oven",
+    "requiredMaterials": "1 Clay",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.20.12",
+    "coreVersion": "11.315",
+    "createdTime": 1711566685709,
+    "modifiedTime": 1711586900697,
+    "lastModifiedBy": "zG4JMbYtrVM07eBO"
+  },
+  "sort": 700000,
+  "ownership": {
+    "default": 0,
+    "zG4JMbYtrVM07eBO": 3
+  },
+  "_key": "!items!J99QEFbkU5ZDaxUF"
+}
