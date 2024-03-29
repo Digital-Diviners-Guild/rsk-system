@@ -1,7 +1,7 @@
 {
   "name": "Magic Essence",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Magic_essence%284%29_detail.png/200px-Magic_essence%284%29_detail.png",
   "system": {
     "cost": 26,
     "targetNumberModifier": null,

@@ -1,7 +1,7 @@
 {
   "name": "Saradomin Brew",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Saradomin_brew%284%29_detail.png/200px-Saradomin_brew%284%29_detail.png",
   "system": {
     "cost": 36,
     "targetNumberModifier": null,

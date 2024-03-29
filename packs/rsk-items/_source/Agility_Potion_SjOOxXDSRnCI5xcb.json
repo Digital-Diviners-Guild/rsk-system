@@ -2,7 +2,7 @@
   "name": "Agility Potion",
   "type": "consumable",
   "_id": "SjOOxXDSRnCI5xcb",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Agility_potion%284%29_detail.png/200px-Agility_potion%284%29_detail.png",
   "system": {
     "cost": 30,
     "targetNumberModifier": null,

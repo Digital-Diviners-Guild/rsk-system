@@ -1,7 +1,7 @@
 {
   "name": "Attack Potion",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Attack_potion%284%29_detail.png/200px-Attack_potion%284%29_detail.png",
   "system": {
     "cost": 20,
     "targetNumberModifier": null,

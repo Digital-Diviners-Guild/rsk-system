@@ -1,7 +1,7 @@
 {
   "name": "Defense Potion",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Defence_potion%284%29_detail.png/200px-Defence_potion%284%29_detail.png",
   "system": {
     "cost": 30,
     "targetNumberModifier": null,

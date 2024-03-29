@@ -1,7 +1,7 @@
 {
   "name": "Guthix Rest Tea",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Guthix_rest%284%29_detail.png/200px-Guthix_rest%284%29_detail.png",
   "system": {
     "cost": 26,
     "targetNumberModifier": null,

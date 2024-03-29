@@ -1,7 +1,7 @@
 {
   "name": "Fishing Potion",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Fishing_potion%284%29_detail.png/200px-Fishing_potion%284%29_detail.png",
   "system": {
     "cost": 24,
     "targetNumberModifier": null,

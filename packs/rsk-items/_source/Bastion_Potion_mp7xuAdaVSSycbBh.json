@@ -1,7 +1,7 @@
 {
   "name": "Bastion Potion",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Bastion_potion%284%29_detail.png/200px-Bastion_potion%284%29_detail.png",
   "system": {
     "cost": 34,
     "targetNumberModifier": null,

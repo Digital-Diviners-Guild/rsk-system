@@ -1,7 +1,7 @@
 {
   "name": "Hunter Potion",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Hunter_potion%284%29_detail.png/200px-Hunter_potion%284%29_detail.png",
   "system": {
     "cost": 24,
     "targetNumberModifier": null,

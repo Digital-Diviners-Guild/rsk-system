@@ -1,7 +1,7 @@
 {
   "name": "Prayer Potion",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Prayer_potion%284%29_detail.png/200px-Prayer_potion%284%29_detail.png",
   "system": {
     "cost": 30,
     "targetNumberModifier": null,

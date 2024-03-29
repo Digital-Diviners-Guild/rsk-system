@@ -1,7 +1,7 @@
 {
   "name": "Weapon Poison",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Weapon_poison_detail.png/200px-Weapon_poison_detail.png",
   "system": {
     "cost": 28,
     "targetNumberModifier": null,

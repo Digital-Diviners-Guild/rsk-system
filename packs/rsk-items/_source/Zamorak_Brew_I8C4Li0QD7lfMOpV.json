@@ -1,7 +1,7 @@
 {
   "name": "Zamorak Brew",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Zamorak_brew%284%29_detail.png/200px-Zamorak_brew%284%29_detail.png",
   "system": {
     "cost": 34,
     "targetNumberModifier": null,

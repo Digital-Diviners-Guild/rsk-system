@@ -1,7 +1,7 @@
 {
   "name": "Antipoison",
   "type": "consumable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Antipoison%284%29_detail.png/200px-Antipoison%284%29_detail.png",
   "system": {
     "cost": 22,
     "targetNumberModifier": null,
