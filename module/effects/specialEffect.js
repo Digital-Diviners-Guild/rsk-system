@@ -96,7 +96,7 @@ ${localizeText("RSK.Confirm")} ${localizeText("RSK.Rejuvenate")}
     },
     puncture: async (outcome, x, y) => {
         const newOutcome = { ...outcome };
-        newOutcome.targetOutcome.damageEntries["puncture"] = Number(x);
+        newOutcome.targetOutcome["puncture"] = Number(x);
         return newOutcome;
     },
     stun: async (outcome, x, y) => {

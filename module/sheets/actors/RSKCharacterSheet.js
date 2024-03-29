@@ -1,4 +1,3 @@
-import RSKConfirmRollDialog from "../../applications/RSKConfirmRollDialog.js";
 import RSKActorSheet from "./RSKActorSheet.js";
 import RSKImproveYourCharacterDialog from "../../applications/RSKImproveYourCharacterDialog.js";
 import { localizeObject, localizeText } from "../../rsk-localize.js";

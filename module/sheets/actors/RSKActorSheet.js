@@ -1,6 +1,6 @@
-import RSKApplyDamageDialog from "../../applications/RSKApplyDamageDialog.js";
 import { chatItem } from "../../applications/RSKChatLog.js";
 import { localizeText } from "../../rsk-localize.js";
+import { uiService } from "../../rsk-ui-service.js";
 
 export default class RSKActorSheet extends ActorSheet {
     static get defaultOptions() {
@@ -177,12 +177,13 @@ export default class RSKActorSheet extends ActorSheet {
     };
 
     async characterDamage() {
-        const dialog = RSKApplyDamageDialog.create();
-        const result = await dialog();
+        const result = await uiService.showDialog("apply-damage");
         if (!result?.confirmed) return;
 
-        //todo: attackType?
-        await this.actor.system.receiveDamage({ ...result });
+        await this.actor.system.receiveDamage(result.damageEntries,
+            result.attackType,
+            result.defenseRollMargin,
+            result.puncture);
     }
 
     async handleChatItem(itemType, itemId) {

@@ -9,8 +9,8 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
 
     //todo: defense roll is only applicable when applying to a character
     // this could be refactored a bit
-    async receiveDamage(damageEntries, attackType = "melee", defense = 0) {
-        const damageTaken = this.calculateDamageTaken(damageEntries, attackType, defense);
+    async receiveDamage(damageEntries, attackType = "melee", defense = 0, puncture = 0) {
+        const damageTaken = this.calculateDamageTaken(damageEntries, attackType, defense, puncture);
         const remainingLifePoints = game.rsk.math.clamp_value(
             this.lifePoints.value - damageTaken,
             { min: 0 });
@@ -26,9 +26,9 @@ export default class RSKActorType extends foundry.abstract.TypeDataModel {
         }
     }
 
-    calculateDamageTaken(damageEntries, attackType = "melee", defense = 0) {
+    calculateDamageTaken(damageEntries, attackType = "melee", defense = 0, puncture = 0) {
         const armour = this.getArmourValue();
-        const applicablePuncture = game.rsk.math.clamp_value(damageEntries.puncture || 0, { min: 0, max: armour });
+        const applicablePuncture = game.rsk.math.clamp_value(puncture || 0, { min: 0, max: armour });
         const remainingArmourSoak = armour - applicablePuncture;
         const { totalDamage, damageResistance } = Object.keys(damageEntries).reduce((acc, type, i) => {
             acc.totalDamage += damageEntries[type];

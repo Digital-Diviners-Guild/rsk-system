@@ -1,6 +1,8 @@
 import { localizeText } from '../rsk-localize.js';
 import RSKDialog from './RSKDialog.js';
 
+// todo: maybe get rid of this for prompt too? but maybe the 'isActive' check
+// is worth while for this situation.
 export default class RSKImproveYourCharacter extends RSKDialog {
     static isActive;
 
@@ -31,19 +33,29 @@ export default class RSKImproveYourCharacter extends RSKDialog {
         this.keypressId = "improveCharacter";
     }
 
-    async close(options) {
-        if (!this.isResolved) this.resolve({ confirmed: false });
-        RSKImproveYourCharacter.isActive = false;
-        super.close(options);
-    }
-
-    async getData() {
+    getData() {
         const data = super.getData();
         data.skills = this.skills;
         data.abilities = this.abilities;
         data.showSkillSelect = this.showSkillSelect;
         data.showAbilitySelect = this.showAbilitySelect;
         return data;
+    }
+
+    activateListeners(html) {
+        super.activateListeners(html);
+        html.find('button.confirm').click(this._onConfirm.bind(this));
+        $(document).on(`keypress.${this.keypressId}`, function (e) {
+            if (e.which == 13) {
+                $('button.confirm').click();
+            }
+        });
+        const skillDropDown = html.find('.skill-dropdown');
+        const abilityDropDown = html.find('.ability-dropdown');
+        this.handleAbilityDropDownVisibility(skillDropDown.val(), abilityDropDown);
+        skillDropDown.change((ev) => {
+            this.handleAbilityDropDownVisibility(ev.target.value, abilityDropDown);
+        });
     }
 
     willGainAbility(selected) {
@@ -61,14 +73,12 @@ export default class RSKImproveYourCharacter extends RSKDialog {
         }
     }
 
-    activateListeners(html) {
-        super.activateListeners(html);
-        const skillDropDown = html.find('.skill-dropdown');
-        const abilityDropDown = html.find('.ability-dropdown');
-        this.handleAbilityDropDownVisibility(skillDropDown.val(), abilityDropDown);
-        skillDropDown.change((ev) => {
-            this.handleAbilityDropDownVisibility(ev.target.value, abilityDropDown);
-        });
+    async close(options) {
+        if (!this.isResolved) this.resolve({ confirmed: false });
+        RSKImproveYourCharacter.isActive = false;
+        $('button.confirm').off(`keypress.${this.keypressId}`);
+        if (!this.isResolved) { this.resolve({ confirmed: false }) };
+        super.close(options);
     }
 
     async _onConfirm(event) {
@@ -81,6 +91,8 @@ export default class RSKImproveYourCharacter extends RSKDialog {
             selectedSkill: selectedSkill,
             selectedAbility: selectedAbility
         });
+        this.isResolved = true;
+        this.close();
         await super._onConfirm(event);
     }
 }

@@ -1,7 +1,7 @@
 <div autocomplete="off" spellcheck="off">
     <div class="form-group">
         <label>{{localize "RSK.Skill"}}</label>
-        <select id="skill-select" name="selectedSkill">
+        <select class="selectedSkill" name="selectedSkill">
             {{#select selectedSkill}}
             {{#each skills as |skill|}}
             <option value="{{skill.index}}">{{skill.label}}</option>
@@ -11,7 +11,7 @@
     </div>
     <div class="form-group">
         <label>{{localize "RSK.Ability"}}</label>
-        <select id="ability-select" name="selectedAbility">
+        <select class="selectedAbility" name="selectedAbility">
             {{#select selectedAbility}}
             {{#each abilities as |ability|}}
             <option value="{{ability.index}}">{{ability.label}}</option>
@@ -21,7 +21,7 @@
     </div>
     <div class="form-group">
         <label>{{localize "RSK.AdvantageDisadvantageLabel"}}</label>
-        <select id="adv-dadv-select" name="advantageDisadvantage">
+        <select class="advantageDisadvantage" name="advantageDisadvantage">
             {{#select advantageDisadvantage}}
             {{#each advantageDisadvantageOptions as |label opt|}}
             <option value="{{opt}}">{{localize label}}</option>
@@ -31,12 +31,12 @@
     </div>
     <div class="form-group">
         <label>{{localize "RSK.TargetNumberModifier"}}</label>
-        <input id="tn-modifier" type="number" name="targetNumberModifier" value="{{targetNumberModifier}}">
+        <input class="targetNumberModifier" type="number" name="targetNumberModifier" value="{{targetNumberModifier}}">
     </div>
     <hr />
     <div class="form-group">
         <label>{{localize "RSK.RollModeLabel"}}</label>
-        <select id="roll-mode-select" name="rollMode">
+        <select class="rollMode" name="rollMode">
             {{#select rollMode}}
             {{#each rollModes as |label mode|}}
             <option value="{{mode}}">{{localize label}}</option>
@@ -44,5 +44,4 @@
             {{/select}}
         </select>
     </div>
-    <button class="confirm" type="button"><i class="fas fa-dice"></i>{{localize "RSK.Roll"}}</button>
 </div>

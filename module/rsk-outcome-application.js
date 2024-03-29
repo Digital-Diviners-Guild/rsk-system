@@ -20,13 +20,13 @@ const getDefenseRoll = async (target, actionType) => {
     if (!game?.rsk?.featureFlags?.characterDefenseTests) return 0;
 
     const checks = {
-        melee: { skill: "defense", ability: "strength" },
-        ranged: { skill: "defense", ability: "agility" }, // is this ranged skill?
-        magic: { skill: "magic", ability: "intellect" },
+        melee: { defaultSkill: "defense", defaultAbility: "strength" },
+        ranged: { defaultSkill: "defense", defaultAbility: "agility" }, // is this ranged skill?
+        magic: { defaultSkill: "magic", defaultAbility: "intellect" },
     }
     let defenseRollMargin = 0;
     const rollData = target.system.getRollData();
-    const confirmRollResult = await uiService.showDialog("confirm-roll", rollData, checks[actionType]);
+    const confirmRollResult = await uiService.showDialog("confirm-roll", { ...rollData, ...checks[actionType] });
     if (confirmRollResult.confirmed) {
         const skillResult = await target.system.useSkill(confirmRollResult);
         defenseRollMargin = skillResult.margin;
@@ -62,12 +62,12 @@ const restoreLifePoints = (actor, amount) => {
     actor.system.restoreLifePoints(amount);
 }
 
-const receiveDamage = async (actor, damageEntries, attackType) => {
+const receiveDamage = async (actor, damageEntries, attackType, puncture) => {
     let defense = 0;
     if (actor.type === "character") {
         defense = await getDefenseRoll(actor, attackType);
     }
-    await actor.system.receiveDamage(damageEntries, attackType, defense);
+    await actor.system.receiveDamage(damageEntries, attackType, defense, puncture);
 };
 
 const operations = {
@@ -122,7 +122,7 @@ const apply = async (target, outcome) => {
     if (!target) return;
 
     if (Object.keys(outcome.damageEntries).reduce((total, next) => { total += outcome.damageEntries[next] ?? 0; return total }, 0) > 0) {
-        await receiveDamage(target, outcome.damageEntries, outcome.actionType);
+        await receiveDamage(target, outcome.damageEntries, outcome.actionType, outcome.puncture);
     }
     if (outcome.restoresLifePoints > 0) {
         await restoreLifePoints(target, outcome.restoresLifePoints);
