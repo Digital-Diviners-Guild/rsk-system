@@ -1,9 +1,8 @@
 import { localizeText } from '../rsk-localize.js';
-import RSKDialog from './RSKDialog.js';
 
 // todo: maybe get rid of this for prompt too? but maybe the 'isActive' check
 // is worth while for this situation.
-export default class RSKImproveYourCharacter extends RSKDialog {
+export default class RSKImproveYourCharacter extends Application {
     static isActive;
 
     static get defaultOptions() {
