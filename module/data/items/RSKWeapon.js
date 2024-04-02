@@ -1,6 +1,5 @@
 import { uiService } from "../../rsk-ui-service.js";
 import { localizeText } from "../../rsk-localize.js";
-import RSKEquippableType from "./RSKEquippableType.js";
 import RSKItemType from "./RSKItemType.js";
 
 // todo: effects like the whips energy sap. where the targets next successful attack
@@ -10,7 +9,7 @@ import RSKItemType from "./RSKItemType.js";
 // rangedWeapon is when ammo/throwables matter
 // meleeWeapons don't need that, and apply their own special effect rather than the ammos
 // this would remove the possibility of having a crossbow shoot a sword... which could have been fun lol
-export default class RSKWeapon extends RSKEquippableType {
+export default class RSKWeapon extends RSKItemType {
     static defineSchema() {
         return {
             ...RSKItemType.defineSchema()

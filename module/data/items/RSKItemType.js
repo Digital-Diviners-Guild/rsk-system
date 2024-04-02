@@ -145,4 +145,43 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
         });
         this._handleItemUsed(actor, skillResult);
     }
+
+    //todo: fix slot disables
+    async equip(slot) {
+        let slotToDisable;
+        if (this.hasOwnProperty("disablesSlot") && this.disablesSlot) {
+            slotToDisable = { id: this.disablesSlot };
+        } else if (this.parent.totalBulk() > 1) {
+            const otherSlots = Object.keys(CONFIG.RSK.activeSlotType)
+                //todo: this may not be totally accurate (darts) as activeSlot would likely say 'weapon' but it could be intended for the ammo slot here
+                // in which case we would not want to show ammo to disable
+                .filter(s => s != this.activeSlot)
+                .map(s => {
+                    return {
+                        _id: s,
+                        name: localizeText(CONFIG.RSK.activeSlotType[s])
+                    };
+                });
+            slotToDisable = await uiService.showDialog("select-item", { items: otherSlots });
+            if (!slotToDisable.confirmed) {
+                return { error: localizeText("RSK.Error.DisableSlotToEquip") }
+            };
+        }
+        this.parent.update({
+            "system.isEquipped": true,
+            "system.equippedInSlot": slot,
+            "flags.rsk.disabledSlot": slotToDisable?.id ?? ""
+        });
+        return { disablesSlot: slotToDisable?.id };
+    }
+
+    unequip() {
+        const freedSlot = this.parent.flags?.rsk?.disabledSlot;
+        this.parent.update({
+            "system.isEquipped": false,
+            "system.equippedInSlot": "",
+            "flags.rsk.disabledSlot": ""
+        });
+        return { freedSlot };
+    }
 }
