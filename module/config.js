@@ -264,6 +264,7 @@ RSK.ranges = {
 };
 
 RSK.activeSlotType = {
+    none: "",
     head: "RSK.Head",
     body: "RSK.Body",
     legs: "RSK.Legs",

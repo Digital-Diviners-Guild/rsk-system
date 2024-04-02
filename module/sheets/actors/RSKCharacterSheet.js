@@ -59,6 +59,7 @@ export default class RSKCharacterSheet extends RSKActorSheet {
     _prepareEquipment(context) {
         const equipped = context.items.filter(i => i.system.isEquipped);
         context.activeSlots = Object.keys(CONFIG.RSK.activeSlotType)
+            .filter(k => k != "none")
             .map((slot) => {
                 const inSlot = equipped.find(e => e.system.equippedInSlot === slot);
                 return {
