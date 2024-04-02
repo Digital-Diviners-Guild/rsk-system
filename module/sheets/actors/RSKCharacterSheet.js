@@ -30,9 +30,9 @@ export default class RSKCharacterSheet extends RSKActorSheet {
         //todo: it is nice to have things separated out for both filtering and action buttons
         // though its a naive approach that reduces flexibility. need to improve this.
         context.inventoryItems = this.actor.items.filter(i => i.system.hasOwnProperty("maxStackSize") && i.type !== "castable"); // this need work
-        context.equippables = context.inventoryItems.filter(i => i.type === "weapon" || i.type === "armour");
+        context.equippables = context.inventoryItems.filter(i => i.system.isEquippable());
         context.consumables = context.inventoryItems.filter(i => i.type === "consumable");
-        context.miscItems = context.inventoryItems.filter(i => !(i.type === "consumable" || i.type === "weapon" || i.type === "armour"));
+        context.miscItems = context.inventoryItems.filter(i => !(i.type === "consumable" || i.system.isEquippable()));
         context.usedSlots = calculateUsedSlots(this.actor.items);
     }
 

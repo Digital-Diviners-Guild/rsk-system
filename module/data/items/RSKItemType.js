@@ -146,6 +146,10 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
         this._handleItemUsed(actor, skillResult);
     }
 
+    isEquippable() {
+        return !["", "none"].includes(this.activeSlot);
+    }
+
     //todo: fix slot disables
     async equip(slot) {
         let slotToDisable;
