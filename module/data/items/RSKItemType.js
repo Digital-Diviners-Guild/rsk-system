@@ -125,7 +125,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
         const spfxMagin = this.dealsDamage(this.targetOutcome.damageEntries)
             ? 1
             : 0;
-        const triggersSpecialEffect = skillResult.margin >= spfxMagin;
+        const triggersSpecialEffect = skillResult.rollMargin >= spfxMagin;
         const flavor = await renderTemplate("systems/rsk/templates/applications/action-message.hbs",
             {
                 rollResult: { ...skillResult },
@@ -138,7 +138,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                 rsk: {
                     ...skillResult,
                     ...actionOutcome,
-                    rollMargin: skillResult.margin,
+                    rollMargin: skillResult.rollMargin,
                     triggersSpecialEffect
                 }
             }

@@ -4,6 +4,10 @@ import RSKActorType from "./RSKActorType.js";
 import { canAddItem } from "../../rsk-inventory.js";
 import { uiService } from "../../rsk-ui-service.js";
 import { localizeText } from "../../rsk-localize.js";
+import { SkillCheck } from "../../rsk-skill-check.js";
+
+//preparedata
+// could we handle the items with special effects on 'equip' and 'passive' during that hook?
 
 export default class RSKCharacterType extends RSKActorType {
     static defineSchema() {
@@ -49,6 +53,8 @@ export default class RSKCharacterType extends RSKActorType {
     abilityAwardedAtLevel = 5;
     maxInventorySlots = 28;
 
+    skillCheck;
+
     prepareBaseData() {
         super.prepareBaseData();
         this.lifePoints.max =
@@ -56,9 +62,16 @@ export default class RSKCharacterType extends RSKActorType {
             + Object.keys(this.skills).map(i => this.skills[i]).reduce((acc, s, i) => acc += Number(s.level), 0);
 
         this.prayerPoints.max = this.skills.prayer.level * 3;
-        this.prayerPoints.value = game.rsk.math.clamp_value(this.prayerPoints.value, this.prayerPoints)
+        this.prayerPoints.value = game.rsk.math.clamp_value(this.prayerPoints.value, this.prayerPoints);
         this.summoningPoints.max = this.skills.summoning.level * 5;
-        this.summoningPoints.value = game.rsk.math.clamp_value(this.summoningPoints.value, this.summoningPoints)
+        this.summoningPoints.value = game.rsk.math.clamp_value(this.summoningPoints.value, this.summoningPoints);
+        //idea: when we summon a familiar we could give it a skillcheck class with the owning players actor bound for making skill checks
+        this.skillCheck = SkillCheck.useActor(this);
+
+        //todo: 
+        // look for items that are equipped that have 
+        // specialEffects that apply when equipped and apply/remove them
+        // look for items that are always applied and apply/remove them
     }
 
     getRollData() {
@@ -68,14 +81,6 @@ export default class RSKCharacterType extends RSKActorType {
             abilities: { ...systemData.abilities },
             armourValue: this.getArmourValue()
         };
-    }
-
-    calculateTargetNumber(selectedSkill, selectedAbility, targetNumberModifier) {
-        const ability = this.abilities[selectedAbility];
-        const skill = this.skills[selectedSkill];
-        return skill.level + (skill.modifier ?? 0)
-            + ability.level + (ability.modifier ?? 0)
-            + targetNumberModifier;
     }
 
     increaseSkillLevel(skill, amount = 1) {
@@ -109,9 +114,7 @@ export default class RSKCharacterType extends RSKActorType {
     async useSkill(options) {
         const { skill, ability, targetNumberModifier, rollType } = { ...options }
         this.parent.update({ [`system.skills.${skill}.used`]: true });
-        const targetNumber = this.calculateTargetNumber(skill, ability, targetNumberModifier);
-        const rollResult = await game.rsk.dice.skillCheck(targetNumber, rollType);
-        return { ...rollResult, targetNumber };
+        return await this.skillCheck(skill, ability).execute(rollType, targetNumberModifier);
     }
 
     rest() {

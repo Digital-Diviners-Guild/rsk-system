@@ -14,7 +14,6 @@
 import { statusToEffect } from "./effects/statuses.js";
 import { getSpecialEffectHandler } from "./effects/specialEffect.js";
 import { uiService } from "./rsk-ui-service.js";
-import RSKDice from "./rsk-dice.js";
 
 
 const getDefenseRoll = async (target, actionType) => {
@@ -30,7 +29,7 @@ const getDefenseRoll = async (target, actionType) => {
     const confirmRollResult = await uiService.showDialog("confirm-roll", { ...rollData, ...checks[actionType] });
     if (confirmRollResult.confirmed) {
         const skillResult = await target.system.useSkill(confirmRollResult);
-        defenseRollMargin = skillResult.margin;
+        defenseRollMargin = skillResult.rollMargin;
         await skillResult.toMessage();
     }
     return defenseRollMargin;
@@ -166,89 +165,30 @@ class CastAction {
     actionType = "summon|prayer|magic"
     skillCheck;
     castable;
+}
 
-    async execute(skillCheckResult) {
-        //could change message on success/castable type too
-        let result = skillCheckResult.isSuccess
-            ? new ActionOutcome()
-            : new ActionOutcome();
+class FailOutcome {
+    name;
+    description;
 
-        const flavor = `<strong>${skillCheckResult.skill} | ${skillCheckResult.ability}</strong> TN: ${skillCheckResult.targetNumber}
-        <p>${skillCheckResult.isCritical ? "<em>critical</em>" : ""} ${skillCheckResult.isSuccess ? "success" : "fail"} (${skillCheckResult.rollMargin})</p>`;
-        //how would this work?
-        //feels like this bit would get duplicated a bunch, but maybe thats ok since the flavor and success handling could vary
-        await skillCheckResult.roll.toMessage({
-            flavor: flavor,
-            flags: {
-                rsk: {
-                    ...skillCheckResult,
-                    ...result
-                }
-            }
-        });
+    constructor(item) {
+
     }
 }
 
-class ActionOutcome {
+class SuccessOutcome {
     name;
     description;
-    attackType; // "magic, ranged, melee"
+    attackType;
     damageEntries;
     specialEffect;
     statusesAdded;
     statusesRemoved;
     effectsAdded;
     effectsRemoved;
-}
-class SkillCheck {
-    /*
-        would something like this ever be useful?
-        
-        const myActorsSkillChecks = SkillCheck.useActor(myActor);
-        await myActorsSkillChecks('attack', 'strength').execute();
-        await myActorsSkillChecks('magic', 'intellect').execute();
-    */
-    static useActor = (actor) => (skill, ability) => new SkillCheck(actor, skill, ability);
 
-    constructor(actor, skill, ability) {
-        this.actor = actor;
-        this.skill = skill;
-        this.ability = ability;
-        this.skillLevel = actor.system.skills[skill].level + actor.system.skills[skill].modifier;
-        this.abilityLevel = actor.system.abilities[ability].level + actor.system.abilities[ability].modifier;
-        this.targetNumber = this.skillLevel + this.abilityLevel;
-    }
+    constructor(item) {
 
-    async execute(advantageDisadvantage = "normal", targetNumberModifier = 0) {
-        const roll = await RSKDice.createRoll(advantageDisadvantage);
-        const rollResult = await roll.evaluate();
-        const rollTotal = rollResult.result;
-        const targetNumber = this.targetNumber + targetNumberModifier;
-        const rollMargin = targetNumber - rollTotal;
-        const isSuccess = rollMargin >= 0;
-        const isCritical = rollResult.results.every(v => v.result === results[0].result);
-        return new SkillCheckResult(
-            this.skill,
-            this.ability,
-            targetNumber,
-            roll,
-            rollTotal,
-            rollMargin,
-            isSuccess,
-            isCritical);
-    }
-}
-
-class SkillCheckResult {
-    constructor(skill, ability, targetNumber, roll, rollTotal, rollMargin, isSuccess, isCritical) {
-        this.skill = skill;
-        this.ability = ability;
-        this.targetNumber = targetNumber;
-        this.roll = roll;
-        this.rollTotal = rollTotal;
-        this.rollMargin = rollMargin;
-        this.isSuccess = isSuccess;
-        this.isCritical = isCritical;
     }
 }
 
@@ -297,7 +237,7 @@ class SpecialEffect {
 // when a special effect can be used as an action
 // - on use, changes are applied for duration
 
-// ITEM EFFECTS - ALWAYS - on item update?
+// ITEM EFFECTS - ALWAYS - prepareData in character? - need to start thinking about life cycle hooks of the character
 // for example 'heavy'
 // the effect should always ensure that the bulk is 2 so it takes an extra slot
 // both on equip and stowed
