@@ -25,7 +25,15 @@ export default class RSKDice {
         await rollResult.toMessage({ flavor });
     }
 
-    static roll = async (rollType = "normal", customFormula = "3d6") => {
+    static roll = async (advantageDisadvantage = "normal", customFormula = "3d6") => {
+        const r = await RSKDice.createRoll(advantageDisadvantage, customFormula);
+        const result = await r.evaluate();
+        const results = result.terms[0].results;
+        const isCritical = results.every(v => v.result === results[0].result);
+        return { isCritical, total: result.result, results, result: result, toMessage: (opt, cfg) => r.toMessage(opt, cfg) }
+    }
+
+    static createRoll = async (advantageDisadvantage = "normal", customFormula = "3d6") => {
         if (!Roll.validate(customFormula)) {
             uiService.showNotification("RSK.InvalidRollFormula");
             return;
@@ -35,12 +43,8 @@ export default class RSKDice {
             normal: "3d6",
             advantage: "4d6dh1",
             disadvantage: "4d6kh3"
-        })[rollType] || customFormula;
+        })[advantageDisadvantage] || customFormula;
 
-        const r = await Roll.create(formula);
-        const result = await r.evaluate();
-        const results = result.terms[0].results;
-        const isCritical = results.every(v => v.result === results[0].result);
-        return { isCritical, total: result.result, results, result: result, toMessage: (opt, cfg) => r.toMessage(opt, cfg) }
+        return await Roll.create(formula);
     }
 }
