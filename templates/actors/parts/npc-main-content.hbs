@@ -44,10 +44,8 @@
                     {{/each}}
                 </ol>
             </div>
-            <div>
-                <strong>{{localize "RSK.Specials"}}: </strong>
-                {{> "/systems/rsk/templates/actors/parts/view-items.hbs" items=specialFeatures }}
-            </div>
+            <strong>{{localize "RSK.Specials"}}</strong>
+            <p>{{system.specialFeatures}}</p>
             <div>
                 <div>
                     <strong>{{localize "RSK.Resistance"}}: </strong>
@@ -74,10 +72,11 @@
             addLabel="Add Action"}}
 
             <label>{{localize "RSK.Specials"}}</label>
-            {{> "/systems/rsk/templates/actors/parts/edit-items.hbs"
-            items=specialFeatures
-            addType="specialFeature"
-            addLabel="Add Special"}}
+            <div class="form-group">
+                {{!-- todo: localize --}}
+                <label>{{type}}</label>
+                <input type="text" name="system.specialFeatures" value="{{system.specialFeatures}}">
+            </div>
 
             <label>{{localize "RSK.Resistance"}}</label>
             {{#each system.resistance as |res type|}}
