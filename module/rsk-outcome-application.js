@@ -228,6 +228,9 @@ class SpecialEffect {
 //    - armour special effects apply
 //      - adds to the outcome
 
+// equip and always can be calculated in the character where active effects
+// are normally calculated.. prepase something data hook.
+
 // ITEM EFFECTS - ON EQUIP - in 'equip'
 // when a special effect can be applied by equipping an item
 // - equipped, changes should apply
