@@ -18,6 +18,12 @@
       "type": "Item"
     },
     {
+      "name": "rsk-npcs",
+      "label": "RSK NPCs",
+      "path": "./packs/rsk-npcs.db",
+      "type": "Actor"
+    },
+    {
       "name": "rsk-soundtrack",
       "label": "RSK Soundtrack",
       "path": "./packs/rsk-soundtrack.db",
