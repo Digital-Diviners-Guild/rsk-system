@@ -1,0 +1,12 @@
+{{!--todo: need to view all outcomes, not just dmg --}}
+{{#if dealsDamage}}
+<div>
+    <strong>{{localize "RSK.Damage"}}: </strong>
+    {{#each system.targetOutcome.damageEntries as |damage type|}}
+    {{!-- todo: how to localize? --}}
+    {{#if damage}}
+    <span>{{damage}} ({{type}}) </span>
+    {{/if}}
+    {{/each}}
+</div>
+{{/if}}

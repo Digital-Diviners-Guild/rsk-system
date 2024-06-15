@@ -41,6 +41,7 @@ async function preloadHandlebarsTemplates() {
     const templatePaths = [
         "/systems/rsk/templates/items/parts/edit-damage-entries.hbs",
         "/systems/rsk/templates/items/parts/view-damage-entries.hbs",
+        "/systems/rsk/templates/items/parts/view-damage-outcomes.hbs",
         "/systems/rsk/templates/items/parts/edit-range.hbs",
         "/systems/rsk/templates/items/parts/view-range.hbs",
         "/systems/rsk/templates/items/parts/outcome.hbs",

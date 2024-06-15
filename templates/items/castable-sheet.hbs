@@ -29,16 +29,17 @@
             <label>{{localize "RSK.UsageCost"}}</label>
             {{system.usageCostLabel}}
 
+            {{> "/systems/rsk/templates/items/parts/view-damage-outcomes.hbs" }}
+
+            <label>{{localize "RSK.SpecialEffect"}}</label>
+            {{system.specialEffectLabel}}
+
             {{#if showDescription}}
             <div>
                 <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
                         value="{{system.description}}"></label>
             </div>
             {{/if}}
-
-            <label>{{localize "RSK.SpecialEffect"}}</label>
-            {{system.specialEffectLabel}}
-
             <div>
                 <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
                         value="{{system.effectDescription}}"></label>
