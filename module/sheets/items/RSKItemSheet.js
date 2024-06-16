@@ -24,6 +24,7 @@ export default class RSKItemSheet extends ItemSheet {
         context.showEquipmentTemplate = itemData.system.category === "equipment";
         context.showMaterialTemplate = itemData.system.category === "material";
         context.showResourceTemplate = itemData.system.category === "resource";
+        context.dealsDamage = this.item.system.dealsDamage(this.item.system.targetOutcome.damageEntries)
         return context;
     }
 

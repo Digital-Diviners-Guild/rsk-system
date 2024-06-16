@@ -17,7 +17,6 @@ export default class RSKCastableSheet extends RSKItemSheet {
     getData() {
         const context = super.getData();
         context.showDescription = this.item.system.category !== "prayer";
-        context.dealsDamage = this.item.system.dealsDamage(this.item.system.targetOutcome.damageEntries)
         return context;
     }
 }
