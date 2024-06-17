@@ -59,6 +59,11 @@
             
             {{> "/systems/rsk/templates/items/parts/view-damage-outcomes.hbs" }}
 
+            {{#if showEffects}}
+            <label>{{localize "RSK.SpecialEffect"}}</label>
+            {{system.specialEffectLabel}}
+            {{/if}}
+
             <div>
                 <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
                         value="{{system.description}}"></label>
@@ -66,10 +71,6 @@
             <div>
                 <label>{{localize "RSK.Uses"}}: <input type="text" name="system.uses" value="{{system.uses}}"></label>
             </div>
-            {{#if showEffects}}
-            <label>{{localize "RSK.SpecialEffect"}}</label>
-            {{system.specialEffectLabel}}
-            {{/if}}
             <div>
                 <label>{{localize "RSK.EffectDescription"}}: <input type="text" name="system.effectDescription"
                         value="{{system.effectDescription}}"></label>
