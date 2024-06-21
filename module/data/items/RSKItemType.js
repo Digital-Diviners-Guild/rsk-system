@@ -157,6 +157,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
             slotToDisable = { id: this.disablesSlot };
         } else if (this.parent.totalBulk() > 1) {
             const otherSlots = Object.keys(CONFIG.RSK.activeSlotType)
+                .filter(s => s != "none")
                 //todo: this may not be totally accurate (darts) as activeSlot would likely say 'weapon' but it could be intended for the ammo slot here
                 // in which case we would not want to show ammo to disable
                 .filter(s => s != this.activeSlot)

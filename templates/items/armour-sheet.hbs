@@ -104,6 +104,8 @@
                     <strong>{{localize "RSK.MaxStackSize"}}: </strong>
                     <input type="number" data-dtype="number" name="system.maxStackSize" value="{{system.maxStackSize}}">
 
+                    <label>{{localize "RSK.Bulk"}} {{#if system.bulk.modifier}} (+{{system.bulk.modifier}}) {{/if}} <input type="number" name="system.bulk.value"
+                        value="{{system.bulk.value}}"></label>
                     <div>
                         <label>{{localize "RSK.SpecialEffect"}}:</label>
                         <div>
@@ -121,7 +123,7 @@
                             <div class="form-group">
                                 <label>{{localize "RSK.Name"}}
                                     <select id="new-special-effect-name">
-                                        {{selectOptions config.weaponSpecialEffects localize=true}}
+                                        {{selectOptions config.armourSpecialEffects localize=true}}
                                     </select>
                                 </label>
                                 <label>{{localize "RSK.X"}}</label>

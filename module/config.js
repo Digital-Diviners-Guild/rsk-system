@@ -125,8 +125,18 @@ RSK.weaponSpecialEffects = {
     reach: "RSK.Reach",
 }
 
+RSK.armourSpecialEffects = {
+    none: "",
+    block: "RSK.Block",
+    heavy: "RSK.Heavy",
+    resilient: "RSK.Resilient",
+    retaliate: "RSK.Retaliate",
+    steadfast: "RSK.Steadfast"
+}
+
 RSK.specialEffects = {
     none: "",
+    ...RSK.armourSpecialEffects,
     ...RSK.weaponSpecialEffects
 }
 
