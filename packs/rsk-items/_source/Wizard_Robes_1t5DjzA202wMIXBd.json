@@ -1,0 +1,57 @@
+{
+  "folder": "fQ9jpLyhEry0tng6",
+  "name": "Wizard Robes",
+  "type": "armour",
+  "_id": "1t5DjzA202wMIXBd",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Blue_wizard_robe_detail.png/200px-Blue_wizard_robe_detail.png",
+  "system": {
+    "cost": 50,
+    "targetNumberModifier": null,
+    "soakValue": 1,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "description": "",
+    "activeSlot": "body",
+    "upgrades": "",
+    "material": "cloth"
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717904860024,
+    "modifiedTime": 1718996623454,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!1t5DjzA202wMIXBd"
+}
