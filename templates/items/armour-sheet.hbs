@@ -56,17 +56,17 @@
                     {{/if}}
 
                     {{!-- readonly sepcial effects --}}
-                    {{!-- <div>
-                        <label>{{localize "RSK.SpecialEffects"}}:</label>
-                        <div>{{system.specialEffects}}</div>
-                    </div> --}}
                     <div>
-                        <label>{{localize "RSK.Effects"}}:</label>
+                        <strong>{{localize "RSK.SpecialEffects"}}:</strong>
+                        <div>{{system.specialEffectLabel}}</div>
+                    </div>
+                    <div>
+                        <strong>{{localize "RSK.Effects"}}:</strong>
                         {{> "/systems/rsk/templates/parts/view-effects.hbs"}}
                     </div>
                     {{#if system.upgrades}}
                     <div>
-                        <label>{{localize "RSK.Upgrades"}}:</label>
+                        <strong>{{localize "RSK.Upgrades"}}:</strong>
                         <div>{{system.upgrades}}</div>
                     </div>
                     {{/if}}

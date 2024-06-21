@@ -102,7 +102,7 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
                     qualities += ` ${se.x}`;
                 }
                 if (se.y) {
-                    qualities += ` ${se.x}`;
+                    qualities += ` ${se.y}`;
                 }
                 return `${localizeText(CONFIG.RSK.specialEffects[se.name])}${qualities}`;
             })
