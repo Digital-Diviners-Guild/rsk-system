@@ -1,0 +1,58 @@
+{
+  "folder": "7v9Uc41tDBHOPjvl",
+  "name": "Black Cape",
+  "type": "armour",
+  "_id": "gWa8f1qqaJougeKY",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Black_cape_detail.png/200px-Black_cape_detail.png",
+  "system": {
+    "cost": 0,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "description": "",
+    "activeSlot": "cape",
+    "upgrades": "",
+    "material": "cloth",
+    "awardedFor": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717882739695,
+    "modifiedTime": 1718996631516,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!gWa8f1qqaJougeKY"
+}
