@@ -1,0 +1,89 @@
+{
+  "folder": "PETqnQUQcMIp1rhf",
+  "name": "Wind Bolt",
+  "type": "castable",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "cost": 0,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [
+      {
+        "type": "air",
+        "amount": 2
+      },
+      {
+        "type": "chaos",
+        "amount": 1
+      }
+    ],
+    "usageOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": 6,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [
+        {
+          "name": "dead",
+          "duration": 0
+        }
+      ],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "far",
+    "maxStackSize": 3,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "magic",
+    "subCategory": "combat",
+    "description": "",
+    "effectDescription": ""
+  },
+  "effects": [],
+  "flags": {
+    "core": {}
+  },
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1718491915560,
+    "modifiedTime": 1718996658042,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_id": "84p7BScquWsEtRng",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!84p7BScquWsEtRng"
+}

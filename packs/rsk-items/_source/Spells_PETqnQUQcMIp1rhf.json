@@ -1,0 +1,19 @@
+{
+  "name": "Spells",
+  "sorting": "a",
+  "folder": null,
+  "type": "Item",
+  "_id": "PETqnQUQcMIp1rhf",
+  "sort": 0,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1718996417127,
+    "modifiedTime": 1718996417127,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_key": "!folders!PETqnQUQcMIp1rhf"
+}

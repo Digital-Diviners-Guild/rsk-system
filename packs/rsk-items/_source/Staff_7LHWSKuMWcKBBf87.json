@@ -1,0 +1,85 @@
+{
+  "folder": "YSa9tzBeSJgLAWwR",
+  "name": "Staff",
+  "type": "weapon",
+  "_id": "7LHWSKuMWcKBBf87",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "cost": 45,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": 5,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [
+      {
+        "name": "stun",
+        "x": "",
+        "y": ""
+      }
+    ],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "melee",
+    "subCategory": "simple",
+    "activeSlot": "weapon",
+    "material": "willow",
+    "description": "",
+    "uses": "",
+    "effectDescription": "",
+    "location": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717904888460,
+    "modifiedTime": 1718996674342,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!7LHWSKuMWcKBBf87"
+}

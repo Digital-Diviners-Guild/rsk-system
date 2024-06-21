@@ -1,0 +1,80 @@
+{
+  "folder": "PETqnQUQcMIp1rhf",
+  "name": "Standard Spellbook",
+  "type": "codex",
+  "_id": "kY1u0E1iAjaYw6Yc",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "actionType": "magic",
+    "actions": [
+      {
+        "itemId": "iJ0LF6MxBzoGeczJ",
+        "name": "Bind"
+      },
+      {
+        "itemId": "NkCJg8rQY4aRZLYf",
+        "name": "Confuse"
+      },
+      {
+        "itemId": "gJCfj6AP1AS0PefI",
+        "name": "Curse"
+      },
+      {
+        "itemId": "dT8xVeLeSJ5Y9fNT",
+        "name": "Earth Bolt"
+      },
+      {
+        "itemId": "7cvxdEWgjWuKuWEk",
+        "name": "Eath Strike"
+      },
+      {
+        "itemId": "4NSCG4Sdz6C8G2gD",
+        "name": "Entangle"
+      },
+      {
+        "itemId": "ook1PFm0ndY6Ndum",
+        "name": "Fire Bolt"
+      },
+      {
+        "itemId": "6KytEWdwAJ7psXJD",
+        "name": "Fire Strike"
+      },
+      {
+        "itemId": "bLEe70D7sEi2nwWT",
+        "name": "Water Bolt"
+      },
+      {
+        "itemId": "ycGUCArCSvFNbxjB",
+        "name": "Water Strike"
+      },
+      {
+        "itemId": "F13ncXRwWiwQJJbJ",
+        "name": "Weaken"
+      },
+      {
+        "itemId": "84p7BScquWsEtRng",
+        "name": "Wind Bolt"
+      },
+      {
+        "itemId": "DZIARrH83cLCtolf",
+        "name": "Wind Strike"
+      }
+    ]
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1718996495165,
+    "modifiedTime": 1718996658042,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!kY1u0E1iAjaYw6Yc"
+}

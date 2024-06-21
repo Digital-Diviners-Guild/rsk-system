@@ -1,0 +1,85 @@
+{
+  "folder": "AoIv7CRO0aarogBB",
+  "name": "Eagle Eye",
+  "type": "castable",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "cost": 0,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [
+      {
+        "type": "prayerPoints",
+        "amount": 8
+      }
+    ],
+    "usageOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [
+        {
+          "name": "eagle_eye",
+          "duration": 0
+        }
+      ],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 3,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "prayer",
+    "subCategory": "none",
+    "description": "",
+    "effectDescription": ""
+  },
+  "effects": [],
+  "flags": {
+    "core": {}
+  },
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1718493975839,
+    "modifiedTime": 1718996642269,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_id": "6bDkRH2W0gvYhF7C",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!6bDkRH2W0gvYhF7C"
+}
