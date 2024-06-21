@@ -1,0 +1,85 @@
+{
+  "folder": "YSa9tzBeSJgLAWwR",
+  "name": "Steel Longsword",
+  "type": "weapon",
+  "_id": "oeRNuNicqinsIpWW",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Steel_longsword_detail.png/200px-Steel_longsword_detail.png",
+  "system": {
+    "cost": 150,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": 9,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [
+      {
+        "name": "bleed",
+        "x": "1",
+        "y": ""
+      }
+    ],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "melee",
+    "subCategory": "martial",
+    "activeSlot": "weapon",
+    "material": "steel",
+    "description": "",
+    "uses": "",
+    "effectDescription": "",
+    "location": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717883339365,
+    "modifiedTime": 1718996674342,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!oeRNuNicqinsIpWW"
+}

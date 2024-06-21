@@ -1,0 +1,79 @@
+{
+  "folder": "YSa9tzBeSJgLAWwR",
+  "name": "Steel Mace",
+  "type": "weapon",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Steel_mace_detail.png/200px-Steel_mace_detail.png",
+  "system": {
+    "cost": 100,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": 6,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "melee",
+    "subCategory": "simple",
+    "activeSlot": "weapon",
+    "material": "steel",
+    "description": "",
+    "uses": "",
+    "effectDescription": "",
+    "location": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717883356336,
+    "modifiedTime": 1718996674342,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_id": "5tP3FGhrvnWcnDtU",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!5tP3FGhrvnWcnDtU"
+}

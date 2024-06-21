@@ -1,0 +1,85 @@
+{
+  "folder": "YSa9tzBeSJgLAWwR",
+  "name": "Steel Scimitar",
+  "type": "weapon",
+  "_id": "G7naW9FgyUIarckD",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Steel_scimitar_detail.png/200px-Steel_scimitar_detail.png",
+  "system": {
+    "cost": 120,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": 5,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [
+      {
+        "name": "parry",
+        "x": "1",
+        "y": ""
+      }
+    ],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "melee",
+    "subCategory": "martial",
+    "activeSlot": "weapon",
+    "material": "steel",
+    "description": "",
+    "uses": "",
+    "effectDescription": "",
+    "location": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717882952859,
+    "modifiedTime": 1718996674342,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!G7naW9FgyUIarckD"
+}
