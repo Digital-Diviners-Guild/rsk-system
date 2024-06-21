@@ -1,0 +1,19 @@
+{
+  "name": "Armour",
+  "sorting": "a",
+  "folder": null,
+  "type": "Item",
+  "_id": "fQ9jpLyhEry0tng6",
+  "sort": 0,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1718996386490,
+    "modifiedTime": 1718996386490,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_key": "!folders!fQ9jpLyhEry0tng6"
+}

@@ -1,0 +1,57 @@
+{
+  "folder": "fQ9jpLyhEry0tng6",
+  "name": "Studded Chaps (steel)",
+  "type": "armour",
+  "_id": "aVtMRjR8At2qS33H",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Studded_chaps_detail.png/200px-Studded_chaps_detail.png",
+  "system": {
+    "cost": 40,
+    "targetNumberModifier": null,
+    "soakValue": 1,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "description": "",
+    "activeSlot": "legs",
+    "upgrades": "",
+    "material": "steel"
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717883074599,
+    "modifiedTime": 1718996623454,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!aVtMRjR8At2qS33H"
+}

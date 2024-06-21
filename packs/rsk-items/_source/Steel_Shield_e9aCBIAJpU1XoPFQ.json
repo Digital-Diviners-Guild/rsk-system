@@ -1,0 +1,63 @@
+{
+  "folder": "fQ9jpLyhEry0tng6",
+  "name": "Steel Shield",
+  "type": "armour",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Wooden_shield_detail.png/200px-Wooden_shield_detail.png",
+  "system": {
+    "cost": 110,
+    "targetNumberModifier": null,
+    "soakValue": 2,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [
+      {
+        "name": "block",
+        "x": "2",
+        "y": ""
+      }
+    ],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "description": "",
+    "activeSlot": "arm",
+    "upgrades": "",
+    "material": "steel"
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717882813445,
+    "modifiedTime": 1718996623454,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_id": "e9aCBIAJpU1XoPFQ",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!e9aCBIAJpU1XoPFQ"
+}

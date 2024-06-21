@@ -1,0 +1,57 @@
+{
+  "folder": "fQ9jpLyhEry0tng6",
+  "name": "Armoured Shirt (steel)",
+  "type": "armour",
+  "_id": "YryFIkaVyS07FzOL",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Black_desert_shirt_detail.png/200px-Black_desert_shirt_detail.png",
+  "system": {
+    "cost": 90,
+    "targetNumberModifier": null,
+    "soakValue": 2,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "description": "",
+    "activeSlot": "body",
+    "upgrades": "",
+    "material": "steel"
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717882934408,
+    "modifiedTime": 1718996623454,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!YryFIkaVyS07FzOL"
+}

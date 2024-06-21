@@ -1,0 +1,57 @@
+{
+  "folder": "fQ9jpLyhEry0tng6",
+  "name": "Steel Kiteshield",
+  "type": "armour",
+  "_id": "4jVFxuyJDw63xGYG",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Steel_kiteshield_detail.png/200px-Steel_kiteshield_detail.png",
+  "system": {
+    "cost": 140,
+    "targetNumberModifier": null,
+    "soakValue": 4,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "description": "",
+    "activeSlot": "arm",
+    "upgrades": "",
+    "material": "steel"
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717882813445,
+    "modifiedTime": 1718996623454,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!4jVFxuyJDw63xGYG"
+}

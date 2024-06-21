@@ -1,0 +1,63 @@
+{
+  "folder": "fQ9jpLyhEry0tng6",
+  "name": "Steel Platebody",
+  "type": "armour",
+  "_id": "NKXuTD1ZcweBqEho",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Steel_platebody_detail.png/200px-Steel_platebody_detail.png",
+  "system": {
+    "cost": 220,
+    "targetNumberModifier": null,
+    "soakValue": 6,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [
+      {
+        "name": "heavy",
+        "x": "",
+        "y": ""
+      }
+    ],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 2,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "description": "",
+    "activeSlot": "body",
+    "upgrades": "",
+    "material": "steel"
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717882798531,
+    "modifiedTime": 1718996623454,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!NKXuTD1ZcweBqEho"
+}
