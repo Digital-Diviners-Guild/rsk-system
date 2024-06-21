@@ -1,0 +1,235 @@
+{
+  "folder": "k1dqLsLXfyphBAxY",
+  "name": "Spirit Wolf",
+  "type": "npc",
+  "_id": "J0NLDmJwpTJDwCmM",
+  "img": "https://runescape.wiki/images/thumb/Spirit_wolf.png/275px-Spirit_wolf.png",
+  "system": {
+    "movement": 3,
+    "size": "medium",
+    "lifePoints": {
+      "min": 0,
+      "value": 6,
+      "max": 6
+    },
+    "resistance": {
+      "typeless": 0,
+      "puncture": 0,
+      "stab": 0,
+      "slash": 0,
+      "crush": 0,
+      "air": 0,
+      "water": 0,
+      "earth": 0,
+      "fire": 0,
+      "magic": 0,
+      "melee": 0,
+      "ranged": 0
+    },
+    "description": "",
+    "actions": [],
+    "armourValue": 0,
+    "specialFeatures": ""
+  },
+  "prototypeToken": {
+    "name": "Spirit Wolf",
+    "displayName": 0,
+    "actorLink": false,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "texture": {
+      "src": "icons/svg/mystery-man.svg",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "lifePoints"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false
+  },
+  "items": [
+    {
+      "name": "Bite!",
+      "type": "npcAction",
+      "system": {
+        "type": "melee",
+        "usageOutcome": {
+          "damageEntries": {
+            "stab": null,
+            "slash": null,
+            "crush": null,
+            "air": null,
+            "water": null,
+            "earth": null,
+            "fire": null
+          },
+          "restoresLifePoints": null,
+          "statusesAdded": [],
+          "effectsAdded": [],
+          "statusesRemoved": []
+        },
+        "targetOutcome": {
+          "damageEntries": {
+            "stab": 4,
+            "slash": null,
+            "crush": null,
+            "air": null,
+            "water": null,
+            "earth": null,
+            "fire": null
+          },
+          "restoresLifePoints": null,
+          "statusesAdded": [],
+          "effectsAdded": [],
+          "statusesRemoved": []
+        },
+        "specialEffect": [],
+        "range": "near",
+        "description": "",
+        "effectDescription": ""
+      },
+      "_id": "j6W4qr8Zrs3oxwqu",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "1rN8MeToqTCueZHZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "rsk",
+        "systemVersion": "0.23.4",
+        "coreVersion": "11.315",
+        "createdTime": 1718994605695,
+        "modifiedTime": 1718994630460,
+        "lastModifiedBy": "1rN8MeToqTCueZHZ"
+      },
+      "_key": "!actors.items!J0NLDmJwpTJDwCmM.j6W4qr8Zrs3oxwqu"
+    },
+    {
+      "name": "Howl!",
+      "type": "npcAction",
+      "system": {
+        "type": "magic",
+        "usageOutcome": {
+          "damageEntries": {
+            "stab": null,
+            "slash": null,
+            "crush": null,
+            "air": null,
+            "water": null,
+            "earth": null,
+            "fire": null
+          },
+          "restoresLifePoints": null,
+          "statusesAdded": [],
+          "effectsAdded": [],
+          "statusesRemoved": []
+        },
+        "targetOutcome": {
+          "damageEntries": {
+            "stab": null,
+            "slash": null,
+            "crush": null,
+            "air": null,
+            "water": null,
+            "earth": null,
+            "fire": null
+          },
+          "restoresLifePoints": null,
+          "statusesAdded": [],
+          "effectsAdded": [],
+          "statusesRemoved": []
+        },
+        "specialEffect": [],
+        "range": "near",
+        "description": "",
+        "effectDescription": ""
+      },
+      "_id": "gvoJWOJO25ur1nGv",
+      "img": "icons/svg/item-bag.svg",
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "ownership": {
+        "default": 0,
+        "1rN8MeToqTCueZHZ": 3
+      },
+      "flags": {},
+      "_stats": {
+        "systemId": "rsk",
+        "systemVersion": "0.23.4",
+        "coreVersion": "11.315",
+        "createdTime": 1718994669370,
+        "modifiedTime": 1718994683651,
+        "lastModifiedBy": "1rN8MeToqTCueZHZ"
+      },
+      "_key": "!actors.items!J0NLDmJwpTJDwCmM.gvoJWOJO25ur1nGv"
+    }
+  ],
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.4",
+    "coreVersion": "11.315",
+    "createdTime": 1718488418718,
+    "modifiedTime": 1718994683651,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 150000,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!actors!J0NLDmJwpTJDwCmM"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Familiars",
+  "sorting": "a",
+  "folder": null,
+  "type": "Actor",
+  "_id": "k1dqLsLXfyphBAxY",
+  "sort": 0,
+  "color": null,
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.4",
+    "coreVersion": "11.315",
+    "createdTime": 1718994260833,
+    "modifiedTime": 1718994260833,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_key": "!folders!k1dqLsLXfyphBAxY"
+}
