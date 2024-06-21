@@ -64,13 +64,13 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.7",
     "coreVersion": "11.315",
     "createdTime": 1717883356336,
-    "modifiedTime": 1718996674342,
+    "modifiedTime": 1719001850946,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
-  "sort": 0,
+  "sort": 400000,
   "ownership": {
     "default": 0,
     "1rN8MeToqTCueZHZ": 3

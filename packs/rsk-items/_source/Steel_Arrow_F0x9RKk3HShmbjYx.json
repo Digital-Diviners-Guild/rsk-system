@@ -3,7 +3,7 @@
   "name": "Steel Arrow",
   "type": "weapon",
   "_id": "F0x9RKk3HShmbjYx",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Steel_arrow_detail.png/200px-Steel_arrow_detail.png",
   "system": {
     "cost": 25,
     "targetNumberModifier": null,
@@ -64,13 +64,13 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.7",
     "coreVersion": "11.315",
     "createdTime": 1717904929928,
-    "modifiedTime": 1718996674342,
+    "modifiedTime": 1719002034703,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
-  "sort": 0,
+  "sort": 800000,
   "ownership": {
     "default": 0,
     "1rN8MeToqTCueZHZ": 3

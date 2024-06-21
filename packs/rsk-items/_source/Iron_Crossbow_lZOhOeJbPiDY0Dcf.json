@@ -2,7 +2,7 @@
   "folder": "YSa9tzBeSJgLAWwR",
   "name": "Iron Crossbow",
   "type": "weapon",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Iron_crossbow_detail.png/200px-Iron_crossbow_detail.png",
   "system": {
     "cost": 80,
     "targetNumberModifier": null,
@@ -68,14 +68,14 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.7",
     "coreVersion": "11.315",
     "createdTime": 1717883274907,
-    "modifiedTime": 1718996674342,
+    "modifiedTime": 1719002148689,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "_id": "lZOhOeJbPiDY0Dcf",
-  "sort": 0,
+  "sort": 1500000,
   "ownership": {
     "default": 0,
     "1rN8MeToqTCueZHZ": 3

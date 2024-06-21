@@ -1,10 +1,10 @@
 {
   "folder": "YSa9tzBeSJgLAWwR",
-  "name": "Steel Bolt",
+  "name": "Steel Hasta",
   "type": "weapon",
-  "img": "https://oldschool.runescape.wiki/images/thumb/Steel_bolts_detail.png/200px-Steel_bolts_detail.png",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Steel_hasta_detail.png/200px-Steel_hasta_detail.png",
   "system": {
-    "cost": 35,
+    "cost": 80,
     "targetNumberModifier": null,
     "soakValue": null,
     "usageCost": [],
@@ -25,7 +25,7 @@
     },
     "targetOutcome": {
       "damageEntries": {
-        "stab": 7,
+        "stab": 5,
         "slash": null,
         "crush": null,
         "air": null,
@@ -40,7 +40,7 @@
     },
     "specialEffect": [],
     "range": "near",
-    "maxStackSize": 99999,
+    "maxStackSize": 3,
     "quantity": 1,
     "bulk": {
       "value": 1,
@@ -48,32 +48,34 @@
     },
     "isTwoHanded": false,
     "isEquipped": false,
-    "category": "ammo",
-    "subCategory": "bolt",
-    "activeSlot": "ammo",
+    "category": "melee",
+    "subCategory": "simple",
     "material": "steel",
-    "description": "",
     "uses": "",
-    "effectDescription": "",
     "location": "",
+    "description": "",
+    "effectDescription": "",
     "requiredMaterials": "",
-    "equipmentNeeded": ""
+    "equipmentNeeded": "",
+    "activeSlot": "weapon"
   },
   "effects": [],
-  "flags": {},
-  "_stats": {
-    "systemId": "rsk",
-    "systemVersion": "0.23.7",
-    "coreVersion": "11.315",
-    "createdTime": 1717904929928,
-    "modifiedTime": 1719002072857,
-    "lastModifiedBy": "1rN8MeToqTCueZHZ"
-  },
-  "_id": "Ny9DWuzpvBYsWDqe",
-  "sort": 1200000,
   "ownership": {
     "default": 0,
     "1rN8MeToqTCueZHZ": 3
   },
-  "_key": "!items!Ny9DWuzpvBYsWDqe"
+  "flags": {
+    "core": {}
+  },
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.7",
+    "coreVersion": "11.315",
+    "createdTime": 1719001745359,
+    "modifiedTime": 1719001850946,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_id": "Ho34IIBO9VURFxHx",
+  "sort": 700000,
+  "_key": "!items!Ho34IIBO9VURFxHx"
 }

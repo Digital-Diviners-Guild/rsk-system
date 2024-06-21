@@ -3,7 +3,7 @@
   "name": "Oak Longbow",
   "type": "weapon",
   "_id": "51sWOMp9YdYuVYOd",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Oak_longbow_detail.png/200px-Oak_longbow_detail.png",
   "system": {
     "cost": 60,
     "targetNumberModifier": null,
@@ -69,13 +69,13 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.7",
     "coreVersion": "11.315",
     "createdTime": 1717883249850,
-    "modifiedTime": 1718996674342,
+    "modifiedTime": 1719002119262,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
-  "sort": 0,
+  "sort": 100000,
   "ownership": {
     "default": 0,
     "1rN8MeToqTCueZHZ": 3
