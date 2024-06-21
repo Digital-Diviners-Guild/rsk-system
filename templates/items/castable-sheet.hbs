@@ -26,17 +26,27 @@
                 </div>
             </div>
 
-            <label>{{localize "RSK.UsageCost"}}</label>
-            {{system.usageCostLabel}}
+            <div style="display: flex;">
+                <div class="w-50">
+                    <label>{{localize "RSK.UsageCost"}}</label>
+                    {{system.usageCostLabel}}
+                </div>
+                <div class="w-50">
+                    <div class="form-group">
+                        <label>{{localize "RSK.TargetNumberModifier"}}:</label>
+                        <input type="number" name="system.targetNumberModifier" value="{{system.targetNumberModifier}}">
+                    </div>
+                </div>
+            </div>
 
             {{> "/systems/rsk/templates/items/parts/view-damage-outcomes.hbs" }}
 
             <div>
-                        <label>{{localize "RSK.SpecialEffect"}}</label>
-                        {{system.specialEffectLabel}}
+                <label>{{localize "RSK.SpecialEffect"}}</label>
+                {{system.specialEffectLabel}}
             </div>
 
-            {{#if showDescription}}
+            {{#if showDescriptiotn}}
             <div>
                 <label>{{localize "RSK.Description"}}: <input type="text" name="system.description"
                         value="{{system.description}}"></label>
