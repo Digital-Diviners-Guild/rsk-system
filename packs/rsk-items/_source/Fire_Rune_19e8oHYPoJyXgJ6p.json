@@ -1,0 +1,61 @@
+{
+  "folder": "ZpfGPW7SNkvvogpy",
+  "name": "Fire Rune",
+  "type": "item",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Fire_rune_detail.png/200px-Fire_rune_detail.png",
+  "system": {
+    "cost": 30,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 99999,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "rune",
+    "subCategory": "fire",
+    "material": "none",
+    "uses": "",
+    "location": "",
+    "description": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717905298151,
+    "modifiedTime": 1718996650293,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_id": "19e8oHYPoJyXgJ6p",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!19e8oHYPoJyXgJ6p"
+}

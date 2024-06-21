@@ -1,0 +1,61 @@
+{
+  "folder": "ZpfGPW7SNkvvogpy",
+  "name": "Water Rune",
+  "type": "item",
+  "_id": "m5h64LVdcImsz2KH",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Water_rune_detail.png/200px-Water_rune_detail.png",
+  "system": {
+    "cost": 20,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {},
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [],
+    "range": "near",
+    "maxStackSize": 99999,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "rune",
+    "subCategory": "water",
+    "description": "",
+    "uses": "",
+    "material": "none",
+    "location": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1717905298151,
+    "modifiedTime": 1718996650293,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!m5h64LVdcImsz2KH"
+}
