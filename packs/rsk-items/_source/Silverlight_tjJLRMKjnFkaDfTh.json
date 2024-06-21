@@ -1,0 +1,90 @@
+{
+  "name": "Silverlight",
+  "type": "weapon",
+  "_id": "tjJLRMKjnFkaDfTh",
+  "img": "https://oldschool.runescape.wiki/images/thumb/Silverlight_detail.png/188px-Silverlight_detail.png",
+  "system": {
+    "cost": 160,
+    "targetNumberModifier": null,
+    "soakValue": null,
+    "usageCost": [],
+    "usageOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": null,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "targetOutcome": {
+      "damageEntries": {
+        "stab": null,
+        "slash": 8,
+        "crush": null,
+        "air": null,
+        "water": null,
+        "earth": null,
+        "fire": null
+      },
+      "restoresLifePoints": null,
+      "statusesAdded": [],
+      "effectsAdded": [],
+      "statusesRemoved": []
+    },
+    "specialEffect": [
+      {
+        "name": "specialTarget",
+        "x": "Demon",
+        "y": ""
+      },
+      {
+        "name": "parry",
+        "x": "2",
+        "y": ""
+      }
+    ],
+    "range": "near",
+    "maxStackSize": 1,
+    "quantity": 1,
+    "bulk": {
+      "value": 1,
+      "modifier": null
+    },
+    "isTwoHanded": false,
+    "isEquipped": false,
+    "category": "melee",
+    "subCategory": "unique",
+    "activeSlot": "weapon",
+    "material": "steel",
+    "description": "",
+    "uses": "",
+    "effectDescription": "",
+    "location": "",
+    "requiredMaterials": "",
+    "equipmentNeeded": ""
+  },
+  "effects": [],
+  "folder": "YSa9tzBeSJgLAWwR",
+  "flags": {},
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.6",
+    "coreVersion": "11.315",
+    "createdTime": 1716396177889,
+    "modifiedTime": 1718996674342,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "_key": "!items!tjJLRMKjnFkaDfTh"
+}
