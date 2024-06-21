@@ -2,7 +2,7 @@
   "id": "rsk",
   "title": "RSK System",
   "description": "a system for rsk",
-  "version": "0.23.6",
+  "version": "0.23.7",
   "url": "https://github.com/Digital-Diviners-Guild/rsk-system",
   "esmodules": [
     "module/rsk.js"
@@ -44,5 +44,5 @@
   "gridDistance": 5,
   "gridUnits": "ft",
   "manifest": "https://raw.githubusercontent.com/Digital-Diviners-Guild/rsk-system/main/system.json",
-  "download": "https://github.com/Digital-Diviners-Guild/rsk-system/releases/download/0.23.6/rsk-system.zip"
+  "download": "https://github.com/Digital-Diviners-Guild/rsk-system/releases/download/0.23.7/rsk-system.zip"
 }
