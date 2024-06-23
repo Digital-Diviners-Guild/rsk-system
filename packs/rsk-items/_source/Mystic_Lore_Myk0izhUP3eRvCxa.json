@@ -2,7 +2,7 @@
   "folder": "AoIv7CRO0aarogBB",
   "name": "Mystic Lore",
   "type": "castable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/Mystic_Lore.png",
   "system": {
     "cost": 0,
     "targetNumberModifier": null,

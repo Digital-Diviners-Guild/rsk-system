@@ -3,7 +3,7 @@
   "name": "Mystic Will",
   "type": "castable",
   "_id": "zIUVTd4BFJ2V86uX",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/Mystic_Will.png",
   "system": {
     "cost": 0,
     "targetNumberModifier": null,

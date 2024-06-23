@@ -2,7 +2,7 @@
   "folder": "AoIv7CRO0aarogBB",
   "name": "Ultimate Strength",
   "type": "castable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/Ultimate_Strength.png",
   "system": {
     "cost": 0,
     "targetNumberModifier": null,

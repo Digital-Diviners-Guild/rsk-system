@@ -3,7 +3,7 @@
   "name": "Incredible Reflexes",
   "type": "castable",
   "_id": "dQmuKJploKCkF6Pb",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/Incredible_Reflexes.png",
   "system": {
     "cost": 0,
     "targetNumberModifier": null,

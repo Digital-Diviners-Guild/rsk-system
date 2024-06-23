@@ -2,7 +2,7 @@
   "folder": "AoIv7CRO0aarogBB",
   "name": "Steel Skin",
   "type": "castable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/Steel_Skin.png",
   "system": {
     "cost": 0,
     "targetNumberModifier": null,

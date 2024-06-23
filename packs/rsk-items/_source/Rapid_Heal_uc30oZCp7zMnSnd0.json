@@ -3,7 +3,7 @@
   "name": "Rapid Heal",
   "type": "castable",
   "_id": "uc30oZCp7zMnSnd0",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/Rapid_Heal.png",
   "system": {
     "cost": 0,
     "targetNumberModifier": null,

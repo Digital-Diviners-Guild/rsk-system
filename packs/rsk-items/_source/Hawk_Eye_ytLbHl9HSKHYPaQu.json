@@ -2,7 +2,7 @@
   "folder": "AoIv7CRO0aarogBB",
   "name": "Hawk Eye",
   "type": "castable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/Hawk_Eye.png",
   "system": {
     "cost": 0,
     "targetNumberModifier": null,

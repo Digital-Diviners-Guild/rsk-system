@@ -1,9 +1,9 @@
 {
   "folder": "AoIv7CRO0aarogBB",
-  "name": "Burst Of Strength",
+  "name": "Burst of Strength",
   "type": "castable",
   "_id": "eF2pg9X1qDePkGyK",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/Burst_of_Strength.png",
   "system": {
     "cost": 0,
     "targetNumberModifier": null,
