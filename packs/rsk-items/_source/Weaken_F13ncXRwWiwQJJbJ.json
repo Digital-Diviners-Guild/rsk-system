@@ -2,7 +2,7 @@
   "folder": "PETqnQUQcMIp1rhf",
   "name": "Weaken",
   "type": "castable",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/Weaken_icon_%28mobile%29.png",
   "system": {
     "cost": 0,
     "targetNumberModifier": null,

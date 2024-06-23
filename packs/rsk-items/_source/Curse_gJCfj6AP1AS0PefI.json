@@ -3,7 +3,7 @@
   "name": "Curse",
   "type": "castable",
   "_id": "gJCfj6AP1AS0PefI",
-  "img": "icons/svg/item-bag.svg",
+  "img": "https://oldschool.runescape.wiki/images/Curse_icon_%28mobile%29.png",
   "system": {
     "cost": 0,
     "targetNumberModifier": null,
