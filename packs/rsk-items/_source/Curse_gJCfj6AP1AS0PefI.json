@@ -8,7 +8,20 @@
     "cost": 0,
     "targetNumberModifier": null,
     "soakValue": null,
-    "usageCost": [],
+    "usageCost": [
+      {
+        "type": "earth",
+        "amount": 3
+      },
+      {
+        "type": "water",
+        "amount": 2
+      },
+      {
+        "type": "body",
+        "amount": 1
+      }
+    ],
     "usageOutcome": {
       "damageEntries": {
         "stab": null,
@@ -60,10 +73,10 @@
   },
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.10",
     "coreVersion": "11.315",
     "createdTime": 1718491766644,
-    "modifiedTime": 1718996658042,
+    "modifiedTime": 1719767001561,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "sort": 0,
