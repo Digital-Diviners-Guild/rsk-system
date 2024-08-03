@@ -18,17 +18,17 @@
       "slash": 0,
       "crush": 0,
       "air": 0,
-      "water": 0,
+      "water": -1,
       "earth": 0,
-      "fire": 0,
+      "fire": 2,
       "magic": 0,
       "melee": 0,
       "ranged": 0
     },
-    "description": "",
+    "description": "<p>A very powerful Demon. Often summoned by followers of Zamorak</p>",
     "actions": [],
     "armourValue": 3,
-    "specialFeatures": ""
+    "specialFeatures": "Starts combat surrounded by 1d6+2 Dark Wizards. Takes double damage from Silverlight"
   },
   "prototypeToken": {
     "name": "Delrith",
@@ -38,14 +38,15 @@
     "prependAdjective": false,
     "texture": {
       "src": "https://oldschool.runescape.wiki/images/thumb/Delrith.png/288px-Delrith.png",
-      "scaleX": 2,
-      "scaleY": 2,
+      "scaleX": 1,
+      "scaleY": 1,
       "offsetX": 0,
       "offsetY": 0,
-      "rotation": 0
+      "rotation": 0,
+      "tint": null
     },
     "width": 1,
-    "height": 1,
+    "height": 2,
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
@@ -77,7 +78,8 @@
       "darkness": {
         "min": 0,
         "max": 1
-      }
+      },
+      "color": null
     },
     "sight": {
       "enabled": false,
@@ -87,7 +89,8 @@
       "attenuation": 0.1,
       "brightness": 0,
       "saturation": 0,
-      "contrast": 0
+      "contrast": 0,
+      "color": null
     },
     "detectionModes": [],
     "flags": {},
@@ -131,8 +134,8 @@
         },
         "specialEffect": [],
         "range": "near",
-        "description": "",
-        "effectDescription": ""
+        "description": "melee attack against a single nearby target",
+        "effectDescription": "5 stabbing damage"
       },
       "_id": "vZXF9aB6RcAQCrAZ",
       "img": "icons/svg/item-bag.svg",
@@ -146,10 +149,10 @@
       "flags": {},
       "_stats": {
         "systemId": "rsk",
-        "systemVersion": "0.23.2",
+        "systemVersion": "0.23.11",
         "coreVersion": "11.315",
         "createdTime": 1716397343313,
-        "modifiedTime": 1716398217385,
+        "modifiedTime": 1722718888051,
         "lastModifiedBy": "1rN8MeToqTCueZHZ"
       },
       "_key": "!actors.items!97ZrXyNO2FQ7CrdQ.vZXF9aB6RcAQCrAZ"
@@ -196,8 +199,8 @@
         },
         "specialEffect": [],
         "range": "near",
-        "description": "",
-        "effectDescription": ""
+        "description": "melee attack against a two nearby targets",
+        "effectDescription": "6 stabbing damage, Pin 2 on a failed Defense test"
       },
       "_id": "ciQ8z7iBLsSbuezT",
       "img": "icons/svg/item-bag.svg",
@@ -211,10 +214,10 @@
       "flags": {},
       "_stats": {
         "systemId": "rsk",
-        "systemVersion": "0.23.2",
+        "systemVersion": "0.23.11",
         "coreVersion": "11.315",
         "createdTime": 1716397364262,
-        "modifiedTime": 1716398281691,
+        "modifiedTime": 1722718965970,
         "lastModifiedBy": "1rN8MeToqTCueZHZ"
       },
       "_key": "!actors.items!97ZrXyNO2FQ7CrdQ.ciQ8z7iBLsSbuezT"
@@ -256,8 +259,8 @@
         },
         "specialEffect": [],
         "range": "near",
-        "description": "",
-        "effectDescription": ""
+        "description": "magic attack against a single target at far range",
+        "effectDescription": "8 fire damage, target moves to near range on failed Magic test"
       },
       "_id": "UJAIoFKvLdahOyl4",
       "img": "icons/svg/item-bag.svg",
@@ -271,10 +274,10 @@
       "flags": {},
       "_stats": {
         "systemId": "rsk",
-        "systemVersion": "0.23.2",
+        "systemVersion": "0.23.11",
         "coreVersion": "11.315",
         "createdTime": 1716397364903,
-        "modifiedTime": 1716398500718,
+        "modifiedTime": 1722719050786,
         "lastModifiedBy": "1rN8MeToqTCueZHZ"
       },
       "_key": "!actors.items!97ZrXyNO2FQ7CrdQ.UJAIoFKvLdahOyl4"
@@ -316,8 +319,8 @@
         },
         "specialEffect": [],
         "range": "near",
-        "description": "",
-        "effectDescription": ""
+        "description": "magic attack against a single nearby target",
+        "effectDescription": "0 damage, all dark wizards in far range make a concentrated attack on a failed Magic test"
       },
       "_id": "vWx9wQQJ7DA9nBiJ",
       "img": "icons/svg/item-bag.svg",
@@ -331,10 +334,10 @@
       "flags": {},
       "_stats": {
         "systemId": "rsk",
-        "systemVersion": "0.23.2",
+        "systemVersion": "0.23.11",
         "coreVersion": "11.315",
         "createdTime": 1716397365530,
-        "modifiedTime": 1716398513781,
+        "modifiedTime": 1722719130924,
         "lastModifiedBy": "1rN8MeToqTCueZHZ"
       },
       "_key": "!actors.items!97ZrXyNO2FQ7CrdQ.vWx9wQQJ7DA9nBiJ"
@@ -345,13 +348,13 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.2",
+    "systemVersion": "0.23.11",
     "coreVersion": "11.315",
     "createdTime": 1716397066600,
-    "modifiedTime": 1716399639211,
+    "modifiedTime": 1722721056098,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
-  "sort": 0,
+  "sort": 100000,
   "ownership": {
     "default": 0,
     "1rN8MeToqTCueZHZ": 3

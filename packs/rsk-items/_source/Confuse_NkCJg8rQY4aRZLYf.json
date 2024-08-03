@@ -47,12 +47,17 @@
         "fire": null
       },
       "restoresLifePoints": null,
-      "statusesAdded": [],
+      "statusesAdded": [
+        {
+          "name": "confuse",
+          "duration": 2
+        }
+      ],
       "effectsAdded": [],
       "statusesRemoved": []
     },
     "specialEffect": [],
-    "range": "far",
+    "range": "near",
     "maxStackSize": 3,
     "quantity": 1,
     "bulk": {
@@ -64,7 +69,7 @@
     "category": "magic",
     "subCategory": "utility",
     "description": "",
-    "effectDescription": ""
+    "effectDescription": "purples stars baffle and disorient. damage inflicted by the target is reduced by 5 for 2 (or 1d4) turns"
   },
   "effects": [],
   "flags": {
@@ -72,10 +77,10 @@
   },
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.10",
+    "systemVersion": "0.23.11",
     "coreVersion": "11.315",
     "createdTime": 1718489828570,
-    "modifiedTime": 1719767049933,
+    "modifiedTime": 1722720469371,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "_id": "NkCJg8rQY4aRZLYf",

@@ -34,12 +34,17 @@
         "fire": null
       },
       "restoresLifePoints": null,
-      "statusesAdded": [],
+      "statusesAdded": [
+        {
+          "name": "weaken",
+          "duration": 2
+        }
+      ],
       "effectsAdded": [],
       "statusesRemoved": []
     },
     "specialEffect": [],
-    "range": "far",
+    "range": "near",
     "maxStackSize": 3,
     "quantity": 1,
     "bulk": {
@@ -51,7 +56,7 @@
     "category": "magic",
     "subCategory": "utility",
     "description": "",
-    "effectDescription": ""
+    "effectDescription": "white stars surround the target, draining their strength. all attacks made against the target for the next 2 (or 1d4) turns inflict +2 damage."
   },
   "effects": [],
   "flags": {
@@ -59,10 +64,10 @@
   },
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.11",
     "coreVersion": "11.315",
     "createdTime": 1718489828570,
-    "modifiedTime": 1718996658042,
+    "modifiedTime": 1722720406920,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "_id": "F13ncXRwWiwQJJbJ",

@@ -64,7 +64,7 @@
     "category": "magic",
     "subCategory": "combat",
     "description": "",
-    "effectDescription": ""
+    "effectDescription": "an orb of water hurled at one target within far range. Deals 7 water damage."
   },
   "effects": [],
   "flags": {
@@ -72,10 +72,10 @@
   },
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.11",
     "coreVersion": "11.315",
     "createdTime": 1718491915560,
-    "modifiedTime": 1718996658042,
+    "modifiedTime": 1722719964731,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "_id": "bLEe70D7sEi2nwWT",

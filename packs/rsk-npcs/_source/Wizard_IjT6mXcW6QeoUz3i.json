@@ -1,0 +1,116 @@
+{
+  "name": "Wizard",
+  "type": "npc",
+  "img": "https://oldschool.runescape.wiki/images/Wizard_chathead.png",
+  "system": {
+    "movement": 1,
+    "size": "medium",
+    "lifePoints": {
+      "min": 0,
+      "value": 1,
+      "max": 1
+    },
+    "resistance": {
+      "typeless": 0,
+      "puncture": 0,
+      "stab": 0,
+      "slash": 0,
+      "crush": 0,
+      "air": 0,
+      "water": 0,
+      "earth": 0,
+      "fire": 0,
+      "magic": 0,
+      "melee": 0,
+      "ranged": 0
+    },
+    "description": "<p>A student of the mystical mysteries powering Gielinor.</p>",
+    "actions": [],
+    "armourValue": 0,
+    "specialFeatures": ""
+  },
+  "prototypeToken": {
+    "name": "Wizard",
+    "displayName": 0,
+    "actorLink": false,
+    "appendNumber": false,
+    "prependAdjective": false,
+    "texture": {
+      "src": "https://oldschool.runescape.wiki/images/Wizard_chathead.png",
+      "scaleX": 1,
+      "scaleY": 1,
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0
+    },
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "lifePoints"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": [],
+    "flags": {},
+    "randomImg": false
+  },
+  "items": [],
+  "effects": [],
+  "folder": "lUYv3aikiwCTl23C",
+  "ownership": {
+    "default": 0,
+    "1rN8MeToqTCueZHZ": 3
+  },
+  "flags": {
+    "core": {}
+  },
+  "_stats": {
+    "systemId": "rsk",
+    "systemVersion": "0.23.11",
+    "coreVersion": "11.315",
+    "createdTime": 1722708690677,
+    "modifiedTime": 1722721380511,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
+  },
+  "_id": "IjT6mXcW6QeoUz3i",
+  "sort": 50000,
+  "_key": "!actors!IjT6mXcW6QeoUz3i"
+}
