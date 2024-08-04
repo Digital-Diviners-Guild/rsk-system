@@ -33,20 +33,44 @@
     },
     "isTwoHanded": false,
     "isEquipped": false,
-    "description": "",
+    "description": "A black cape. Reduces slashing damage taken",
     "activeSlot": "cape",
     "upgrades": "",
     "material": "cloth",
-    "awardedFor": ""
+    "awardedFor": "Killing the highwayman"
   },
-  "effects": [],
+  "effects": [
+    {
+      "icon": "icons/svg/aura.svg",
+      "transfer": true,
+      "name": "Slash protection",
+      "_id": "AyCvVAbp2TCZAHLv",
+      "changes": [],
+      "disabled": false,
+      "duration": {
+        "startTime": null,
+        "seconds": null,
+        "combat": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "description": "",
+      "origin": null,
+      "statuses": [],
+      "flags": {},
+      "tint": null,
+      "_key": "!items.effects!gWa8f1qqaJougeKY.AyCvVAbp2TCZAHLv"
+    }
+  ],
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.12",
     "coreVersion": "11.315",
     "createdTime": 1717882739695,
-    "modifiedTime": 1718996631516,
+    "modifiedTime": 1722747955596,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "sort": 0,

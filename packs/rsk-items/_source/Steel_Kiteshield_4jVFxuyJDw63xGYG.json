@@ -33,7 +33,7 @@
     },
     "isTwoHanded": false,
     "isEquipped": false,
-    "description": "",
+    "description": "A very large shield offering great protection from incoming attacks",
     "activeSlot": "arm",
     "upgrades": "",
     "material": "steel"
@@ -42,10 +42,10 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.12",
     "coreVersion": "11.315",
     "createdTime": 1717882813445,
-    "modifiedTime": 1718996623454,
+    "modifiedTime": 1722747383055,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "sort": 0,

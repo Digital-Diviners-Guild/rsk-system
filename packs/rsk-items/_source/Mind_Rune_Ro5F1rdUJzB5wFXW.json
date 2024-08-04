@@ -35,8 +35,8 @@
     "isEquipped": false,
     "category": "rune",
     "subCategory": "mind",
-    "description": "",
-    "uses": "",
+    "description": "A rune imbued with magical essence",
+    "uses": "casting spells",
     "material": "none",
     "location": "",
     "requiredMaterials": "",
@@ -46,10 +46,10 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.12",
     "coreVersion": "11.315",
     "createdTime": 1717905395046,
-    "modifiedTime": 1718996650293,
+    "modifiedTime": 1722748173633,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "sort": 0,

@@ -46,11 +46,11 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.20.12",
+    "systemVersion": "0.23.12",
     "coreVersion": "11.315",
     "createdTime": 1711572734747,
-    "modifiedTime": 1711577650478,
-    "lastModifiedBy": "zG4JMbYtrVM07eBO"
+    "modifiedTime": 1722748050103,
+    "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "sort": 0,
   "ownership": {

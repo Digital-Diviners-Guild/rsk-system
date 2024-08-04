@@ -33,7 +33,7 @@
     },
     "isTwoHanded": false,
     "isEquipped": false,
-    "description": "",
+    "description": "A blue hat worn by those who study magic.",
     "activeSlot": "head",
     "upgrades": "",
     "material": "cloth"
@@ -42,10 +42,10 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.12",
     "coreVersion": "11.315",
     "createdTime": 1717904872441,
-    "modifiedTime": 1718996623454,
+    "modifiedTime": 1722747794606,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "sort": 0,

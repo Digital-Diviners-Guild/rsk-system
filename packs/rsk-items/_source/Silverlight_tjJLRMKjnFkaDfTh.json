@@ -63,9 +63,9 @@
     "subCategory": "unique",
     "activeSlot": "weapon",
     "material": "steel",
-    "description": "",
-    "uses": "",
-    "effectDescription": "",
+    "description": "A powerful magic weapon",
+    "uses": "killing demons",
+    "effectDescription": "8 slashing damage, Double Damage to Demons, On hit convert up to 2 damage to armour soak next turn",
     "location": "",
     "requiredMaterials": "",
     "equipmentNeeded": ""
@@ -75,10 +75,10 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.7",
+    "systemVersion": "0.23.12",
     "coreVersion": "11.315",
     "createdTime": 1716396177889,
-    "modifiedTime": 1719001850946,
+    "modifiedTime": 1722748388926,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "sort": 1800000,

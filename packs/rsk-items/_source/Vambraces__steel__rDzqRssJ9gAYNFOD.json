@@ -39,7 +39,7 @@
     },
     "isTwoHanded": false,
     "isEquipped": false,
-    "description": "",
+    "description": "Wrist protection, with metal reinforcement.",
     "activeSlot": "arm",
     "upgrades": "",
     "material": "steel"
@@ -48,10 +48,10 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.12",
     "coreVersion": "11.315",
     "createdTime": 1717883021305,
-    "modifiedTime": 1718996623454,
+    "modifiedTime": 1722747743561,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "sort": 0,

@@ -32,7 +32,7 @@
     },
     "isTwoHanded": false,
     "isEquipped": false,
-    "description": "",
+    "description": "Gloves reinforced with metal",
     "activeSlot": "arm",
     "upgrades": "",
     "material": "steel"
@@ -41,10 +41,10 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.12",
     "coreVersion": "11.315",
     "createdTime": 1717883021305,
-    "modifiedTime": 1718996623454,
+    "modifiedTime": 1722747321526,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "_id": "P0xNg86jHv7zUNLE",

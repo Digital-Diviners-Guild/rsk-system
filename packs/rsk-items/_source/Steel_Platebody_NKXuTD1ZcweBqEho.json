@@ -39,7 +39,7 @@
     },
     "isTwoHanded": false,
     "isEquipped": false,
-    "description": "",
+    "description": "Body protection made of steel. Very heavy duty, for the toughest of fights.",
     "activeSlot": "body",
     "upgrades": "",
     "material": "steel"
@@ -48,10 +48,10 @@
   "flags": {},
   "_stats": {
     "systemId": "rsk",
-    "systemVersion": "0.23.6",
+    "systemVersion": "0.23.12",
     "coreVersion": "11.315",
     "createdTime": 1717882798531,
-    "modifiedTime": 1718996623454,
+    "modifiedTime": 1722747457716,
     "lastModifiedBy": "1rN8MeToqTCueZHZ"
   },
   "sort": 0,
