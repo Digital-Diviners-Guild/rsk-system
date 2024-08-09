@@ -48,7 +48,7 @@ const manageGoldDialog = async (context, options) => {
         callback: dialog => {
             return {
                 confirmed: true,
-                amount: Number(dialog.find("input.amount")[0].value)
+                amount: Number(dialog.find("input#amount")[0].value)
             }
         }
     });
