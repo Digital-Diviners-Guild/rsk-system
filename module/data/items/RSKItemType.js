@@ -147,7 +147,8 @@ export default class RSKItemType extends foundry.abstract.TypeDataModel {
     }
 
     isEquippable() {
-        return !["", "none"].includes(this.activeSlot);
+        return !["", "none"].includes(this.activeSlot)
+            && this.category !== "rune";
     }
 
     //todo: fix slot disables
