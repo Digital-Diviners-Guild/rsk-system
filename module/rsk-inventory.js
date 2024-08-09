@@ -8,7 +8,7 @@ export const calculateStackSize = (item) =>
 
 export const calculateUsedSlots = (items) =>
     items
-        .filter(item => item.system.hasOwnProperty("maxStackSize"))
+        .filter(item => item.system.hasOwnProperty("maxStackSize") && item.type !== "castable")
         .filter(item => !item.system.isEquipped)
         .reduce((acc, item) => {
             acc += Math.ceil(calculateStackSize(item) / item.system.maxStackSize);
